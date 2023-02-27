@@ -1,2 +1,2 @@
-# mkt-fin-log
-Repositório para o grupo Marketing &amp; Finanças &amp; Logística 
+# Marketing & Finanças & Logística 
+Repositório para o grupo Marketing & Finanças & Logística 
