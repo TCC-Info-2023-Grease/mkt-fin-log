@@ -45,6 +45,8 @@ class View {
                 }, 
                 $contentView
             );
+
+            
         }
 
         return $contentFinal;
