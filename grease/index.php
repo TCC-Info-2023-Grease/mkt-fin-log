@@ -1,11 +1,10 @@
 <?php
 require __DIR__ . '/config.php';
 
-render_component('header');
+require __DIR__ . '/resources/views/components/header.php';
 
 
 
-
-render_component('footer');
+require __DIR__ . '/resources/views/components/footer.php';
 
 ?>
