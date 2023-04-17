@@ -1,10 +1,14 @@
 <?php
 require __DIR__ . '/config.php';
+global $_VARIAVEIS;
 
-require __DIR__ . '/resources/views/components/header.php';
+switch ($variable) {
+    case 'value':
+        // code...
+        break;
+    
+    default:
+        // code...
+        break;
+}
 
-
-
-require __DIR__ . '/resources/views/components/footer.php';
-
-?>
