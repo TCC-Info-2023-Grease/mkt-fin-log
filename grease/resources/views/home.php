@@ -15,7 +15,7 @@ require $_VARIAVEIS['PASTA_VIEWS'] . '/components/head.php';
     require $_VARIAVEIS['PASTA_VIEWS'] . '/components/header.php';
     ?>
 
-        <a href="/Cadastrar">
+        <a href="<?php echo $_VARIAVEIS['URL_ROUTE'] ?>cadastrar">
             Cadastrar
         </a>
 

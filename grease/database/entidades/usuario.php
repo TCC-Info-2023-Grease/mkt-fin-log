@@ -76,11 +76,11 @@ class UsuarioRepository {
         }
     }
 
-    public function cadastrar(array $dados) {
+    public function cadastrar_visitante(array $dados) {
         $stmt = $this->mysqli->prepare("
             INSERT INTO 
                 " . $this->tabela . " 
-                (nome, email, senha) 
+                (nome, email, senha, idade, genero, telefone) 
             VALUES 
                 (?, ?, ?)");
                 
@@ -88,7 +88,10 @@ class UsuarioRepository {
             "sss", 
             $dados['nome'], 
             $dados['email'], 
-            $dados['senha']
+            $dados['senha'], 
+            $dados['idade'], 
+            $dados['genero'], 
+            $dados['telefone']
         );
         
         $stmt->execute();

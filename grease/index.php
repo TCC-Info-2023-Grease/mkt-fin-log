@@ -4,14 +4,14 @@ global $_VARIAVEIS;
 
 $pagina = "";
 
-if ($_GET['pagina']) {
+if (isset($_GET['pagina'])) {
     $pagina = $_GET['pagina'];
 } else {
     $pagina = 'home';
 }
 
 $url = $_VARIAVEIS['URL_VIEWS'];
-switch ($variable) {
+switch ($pagina) {
     case 'home':
         $url .= "/home";
         break;
