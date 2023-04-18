@@ -1,5 +1,5 @@
 <?php
-function valida_campos($campo) {
+function valida_campo($campo) {
     if (isset($campo) && !empty($campo)) {
         return true;
     } else {

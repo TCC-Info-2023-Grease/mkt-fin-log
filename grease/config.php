@@ -9,13 +9,12 @@ $_VARIAVEIS = [
   "PASTA_CONTROLADOR" => __DIR__ . '/controlador',
   "PASTA_UTILS" => __DIR__ . '/utils',
   
-  
+
   # URLs
   "URL_BASE" => "http://localhost:8080/mkt-fin-log/grease",
   "URL_ROUTE" => "http://localhost:8080/mkt-fin-log/grease/index.php?pagina=",
   "URL_VIEWS" => 'http://localhost:8080/mkt-fin-log/grease/resources/views',
   "URL_CONTROLADOR" => 'http://localhost:8080/controlador',
-  
   
   
   # BANCO DE DADOS
@@ -41,5 +40,4 @@ function import_utils($utils) {
   foreach ($utils as $key => $util) {
     require $_VARIAVEIS['PASTA_UTILS'] . '/' . $util . '.php';
   }
-  
 }
