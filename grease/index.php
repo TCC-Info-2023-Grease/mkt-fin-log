@@ -2,13 +2,32 @@
 require __DIR__ . '/config.php';
 global $_VARIAVEIS;
 
+$pagina = "";
+
+if ($_GET['pagina']) {
+    $pagina = $_GET['pagina'];
+} else {
+    $pagina = 'home';
+}
+
+$url = $_VARIAVEIS['URL_VIEWS'];
 switch ($variable) {
-    case 'value':
-        // code...
+    case 'home':
+        $url .= "/home";
+        break;
+    
+    case 'cadastrar':
+        $url .= "/cadastrar";
+        break;
+        
+    case 'home':
+        $url .= "/home";
         break;
     
     default:
-        // code...
+        throw new Exception("houve um erro...", 2);
         break;
 }
 
+header("Location: " . $url . ".php");
+exit();
