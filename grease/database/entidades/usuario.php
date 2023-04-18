@@ -85,7 +85,7 @@ class UsuarioRepository {
                 (?, ?, ?)");
                 
         $stmt->bind_param(
-            "sss", 
+            "ssssss", 
             $dados['nome'], 
             $dados['email'], 
             $dados['senha'], 
