@@ -2,7 +2,7 @@
 
 session_start();
 
-$_VARIAVEIS = [
+$_ENV = [
   # CAMINHOS DE PASTAS 
   "PASTA_RAIZ"  => __DIR__,
   "PASTA_VIEWS" => __DIR__ . '/resources/views',
@@ -14,7 +14,7 @@ $_VARIAVEIS = [
   "URL_BASE" => "http://localhost:8080/mkt-fin-log/grease",
   "URL_ROUTE" => "http://localhost:8080/mkt-fin-log/grease/index.php?pagina=",
   "URL_VIEWS" => 'http://localhost:8080/mkt-fin-log/grease/resources/views',
-  "URL_CONTROLADOR" => 'http://localhost:8080/controlador',
+  "URL_CONTROLADOR" => 'http://localhost:8080/mkt-fin-log/grease/controlador',
   
   
   # BANCO DE DADOS
@@ -32,12 +32,17 @@ function autocarregamento($class_name) {
         require_once $path;
     }
 }
-
-// registrar a função de carregamento automático
 spl_autoload_register('autocarregamento');
 
+
+// importar os utilitarios
 function import_utils($utils) {
   foreach ($utils as $key => $util) {
-    require $_VARIAVEIS['PASTA_UTILS'] . '/' . $util . '.php';
+    require $_ENV['PASTA_UTILS'] . '/' . $util . '.php';
   }
 }
+
+// importar o arquivo de configurações do banco de dados
+require __DIR__ . '/database/db.php'; 
+
+import_utils([ 'assets' ]);
