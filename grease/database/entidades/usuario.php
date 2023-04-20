@@ -89,13 +89,13 @@ class Usuario {
                 (?, ?, ?)");
                 
         $stmt->bind_param(
-            "ssssss", 
-            $dados['nome'], 
+            "ssssis", 
+            $dados['username'], 
             $dados['email'], 
-            $dados['senha'], 
-            $dados['idade'], 
-            $dados['genero'], 
-            $dados['telefone']
+            $dados['password'], 
+            $dados['phone'], 
+            $dados['age'],
+            $dados['genrer'], 
         );
         
         $stmt->execute();
