@@ -31,6 +31,7 @@ if ($usuario->unico('email', $_POST['email']))
 }
 
 $usuario->cadastrar_visitante([
+    'tipo_usuario_id' => 1,
     'username' => $_POST['username'],
     'email'    => $_POST['email'],
     'password' => $_POST['password'],
