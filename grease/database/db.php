@@ -1,15 +1,13 @@
 <?php
-require '../../config.php';
+global $_ENV;
 
-global $_VARIAVEIS;
-
-$conn = mysqli_connect (
-  $_VARIAVEIS["DB_SERVIDOR"],
-  $_VARIAVEIS["DB_USUARIO"],
-  $_VARIAVEIS["DB_SENHA"],
-  $_VARIAVEIS["DB_NOME"]
+$mysqli = mysqli_connect (
+  $_ENV["DB_SERVIDOR"],
+  $_ENV["DB_USUARIO"],
+  $_ENV["DB_SENHA"],
+  $_ENV["DB_NOME"]
 );
 
-if (!$conn) {
+if (!$mysqli) {
   throw new Exception('Erro na conexão com o BD', 1);
 }
