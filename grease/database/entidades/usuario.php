@@ -10,7 +10,6 @@ class Usuario {
     public function __construct(mysqli $mysqli) {
         $this->mysqli = $mysqli;
     }
-
     
     public function buscarPorId($id) {
         $stmt = $this->mysqli->prepare("

@@ -6,6 +6,7 @@ global $_ENV;
 import_utils(['extend_styles', 'render_component']);
 ?>
 
+
 <!------- HEAD --------->
 <?php
 render_component('head');
@@ -19,7 +20,6 @@ extend_styles(['styles']);
 
 
 <!------- BODY --------->
-
 <body>
     <a href="<?php echo $_ENV['URL_BASE']; ?>" class="btn-voltar">
         Voltar
@@ -36,7 +36,7 @@ extend_styles(['styles']);
                 })
             </script>
         <?php endif; ?>
-        <?php if (isset($_GET['erro']) == 'usuario_inexistente'): ?>
+        <?php if (isset($_GET['erro']) == 'usuario'): ?>
             <script>
                 Swal.fire({
                     title: 'Erro!',

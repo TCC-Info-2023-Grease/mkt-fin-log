@@ -14,7 +14,7 @@ $campos_validos =  (
 );
 if (!$campos_validos) 
 {
-    navegate($_ENV['URL_VIEWS'] . '/cadastrar.php?erro=campos_invalidos');
+    navegate($_ENV['URL_VIEWS'] . '/login.php?erro=campos_invalidos');
 } 
 
 
@@ -28,7 +28,7 @@ $dados = [
 
 if (!$usuario->login($dados['email'], $dados['password']))
 {
-    navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=erro_usuario');
+    navegate($_ENV['URL_VIEWS']. '/login.php?erro=usuario');
 }
 
 navegate($_ENV['URL_VIEWS']. '/.php');

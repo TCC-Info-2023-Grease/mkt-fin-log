@@ -6,10 +6,11 @@ global $_ENV;
 import_utils(['extend_styles', 'render_component']);
 ?>
 
+
 <!------- HEAD --------->
 <?php
 render_component('head');
-extend_styles(['styles']);
+extend_styles([ 'styles' ]);
 ?>
 
 <title>
@@ -24,7 +25,6 @@ extend_styles(['styles']);
 
 
 <!------- BODY --------->
-
 <body>
     <a href="<?php echo $_ENV['URL_BASE']; ?>" class="btn-voltar">
         Voltar
