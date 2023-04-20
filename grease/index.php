@@ -19,6 +19,10 @@ switch ($pagina) {
     case 'cadastrar':
         $url .= "/cadastrar";
         break;
+
+    case 'login':
+        $url .= "/login";
+        break;
         
     case 'home':
         $url .= "/home";
