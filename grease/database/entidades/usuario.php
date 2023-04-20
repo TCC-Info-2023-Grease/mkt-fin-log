@@ -1,6 +1,9 @@
 <?php
 
-class UsuarioRepository {
+/**
+ * Usuario
+ */
+class Usuario {
     private $mysqli;
     private $tabela = "usuarios";
 
@@ -8,6 +11,7 @@ class UsuarioRepository {
         $this->mysqli = $mysqli;
     }
 
+    
     public function buscarPorId($id) {
         $stmt = $this->mysqli->prepare("
             SELECT 
@@ -40,7 +44,7 @@ class UsuarioRepository {
         ";
         $params = [$valor];
         
-        $stmt = $this->connection->prepare($query);
+        $stmt = $this->mysqli->prepare($query);
         $stmt->bind_param(str_repeat('s', count($params)), ...$params);
         $stmt->execute();
         
@@ -56,7 +60,7 @@ class UsuarioRepository {
             WHERE email = ? LIMIT 0,1
         ";
 
-        $stmt = $this->conexao->prepare($query);
+        $stmt = $this->mysqli->prepare($query);
 
         $stmt->bind_param('s', $email);
         $stmt->execute();
@@ -76,7 +80,7 @@ class UsuarioRepository {
         }
     }
 
-    public function cadastrar_visitante(array $dados) {
+    public function cadastrar_visitante(array $dados = []) {
         $stmt = $this->mysqli->prepare("
             INSERT INTO 
                 " . $this->tabela . " 
