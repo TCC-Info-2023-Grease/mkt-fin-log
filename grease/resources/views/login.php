@@ -48,10 +48,17 @@ extend_styles(['styles']);
         <?php endif; ?>
 
         <a href="<?php echo $_ENV['URL_ROUTE'] . 'login'; ?>">
-            <h2 class="nactive" id="my-button">Login</h2>
+            <h2 class="active" id="my-button" style="color:gray">
+                Login
+            </h2>
         </a>
 
-        <h2 class="noactive">Criar conta</h2>
+        <a href="<?php echo $_ENV['URL_ROUTE'] . 'cadastrar'; ?>">
+            <h2 class="noactive" style="color:aliceblue">
+                Criar conta
+            </h2>
+        </a>
+        
 
         <form 
             method="POST" 

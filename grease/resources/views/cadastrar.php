@@ -42,11 +42,16 @@ extend_styles([ 'styles' ]);
             </script>
         <?php endif; ?>
 
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'login'; ?>">
-            <h2 class="nonactive" id="my-button">Login</h2>
+        <a href="<?php echo $_ENV['URL_ROUTE'] . 'cadastrar'; ?>">
+            <h2 class="active" style="color:aliceblue">
+                Criar conta
+            </h2>
         </a>
-
-        <h2 class="active">Criar conta</h2>
+        <a href="<?php echo $_ENV['URL_ROUTE'] . 'login'; ?>">
+            <h2 class="nonactive" id="my-button" style="color:gray">
+                Login
+            </h2>
+        </a>
 
         <form 
             method="POST" 
@@ -82,16 +87,16 @@ extend_styles([ 'styles' ]);
 
             <label for="genrer">Gênero</label>
             <select name="genrer" id="genrer-select">
-                <option value="masculino">
+                <option value="m">
                     Masculino
                 </option>
-                <option value="feminino">
+                <option value="f">
                     Feminino
                 </option>
-                <option value="outro">
+                <option value="o">
                     Outro
                 </option>
-                <option value="nao_informado">
+                <option value="n">
                     Prefiro não informar
                 </option>
             </select>

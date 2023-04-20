@@ -3,15 +3,18 @@
 /**
  * Usuario
  */
-class Usuario {
+class Usuario
+{
     private $mysqli;
     private $tabela = "usuarios";
 
-    public function __construct(mysqli $mysqli) {
+    public function __construct(mysqli $mysqli)
+    {
         $this->mysqli = $mysqli;
     }
-    
-    public function buscarPorId($id) {
+
+    public function buscarPorId($id)
+    {
         $stmt = $this->mysqli->prepare("
             SELECT 
                 * 
@@ -32,8 +35,9 @@ class Usuario {
 
         return $usuario;
     }
-    
-    public function unico($campo, $valor) {
+
+    public function unico($campo, $valor)
+    {
         $query = "
             SELECT 
                 id 
@@ -42,15 +46,22 @@ class Usuario {
             WHERE {$campo} = ?
         ";
         $params = [$valor];
-        
+
         $stmt = $this->mysqli->prepare($query);
+
+        if (!$stmt) {
+            error_log("Erro ao preparar a consulta: " . $this->mysqli->error);
+            return false;
+        }
+
         $stmt->bind_param(str_repeat('s', count($params)), ...$params);
         $stmt->execute();
-        
+
         return !$stmt->fetch();
     }
-    
-    public function login($email, $senha) {
+
+    public function login($email, $senha)
+    {
         $query = "
             SELECT 
                 * 
@@ -79,24 +90,26 @@ class Usuario {
         }
     }
 
-    public function cadastrar_visitante(array $dados = []) {
+    public function cadastrar_visitante(array $dados = [])
+    {
         $stmt = $this->mysqli->prepare("
             INSERT INTO 
                 " . $this->tabela . " 
-                (nome, email, senha, idade, genero, telefone) 
+                (tipo_usuario_id, nome, email, senha, idade, genero, telefone) 
             VALUES 
-                (?, ?, ?)");
-                
+                (?, ?, ?, ?, ?, ?, ?)");
+
         $stmt->bind_param(
-            "ssssis", 
-            $dados['username'], 
-            $dados['email'], 
-            $dados['password'], 
-            $dados['phone'], 
+            "issssis",
+            $dados['tipo_usuario_id'],
+            $dados['username'],
+            $dados['email'],
+            $dados['password'],
             $dados['age'],
-            $dados['genrer'], 
+            $dados['genrer'],
+            $dados['cell'],
         );
-        
+
         $stmt->execute();
         $stmt->close();
     }

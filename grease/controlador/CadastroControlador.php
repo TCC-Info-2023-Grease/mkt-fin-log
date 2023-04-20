@@ -25,7 +25,7 @@ if (!$campos_validos)
 
 $usuario = new Usuario($mysqli);
 
-if (!$usuario->unico('email', $_POST['email'])) 
+if ($usuario->unico('email', $_POST['email'])) 
 {
     navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=erro_usuario');
 }

@@ -18,9 +18,9 @@ $_ENV = [
   
   
   # BANCO DE DADOS
-  "DB_SERVIDOR" => "192.168.0.105",
+  "DB_SERVIDOR" => "localhost",
   "DB_USUARIO"  => "root",
-  "DB_SENHA"    => "root",
+  "DB_SENHA"    => "",
   "DB_NOME"     => "db_tcc"
 ];
 
