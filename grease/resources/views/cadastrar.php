@@ -31,7 +31,7 @@ extend_styles(['styles']);
     </a>
     <div class="login">
 
-        <?php if ($_GET['erro'] == 'campos_invalidos'): ?>
+        <?php if (isset($_GET['erro']) == 'campos_invalidos'): ?>
             <script>
                 Swal.fire({
                     title: 'Erro!',
