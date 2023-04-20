@@ -15,11 +15,6 @@ extend_styles(['styles']);
 <title>
     Login 🚪 Grease
 </title>
-<script>
-    $(document).ready(function () {
-        $('.phone').inputmask('(99) - 99999-9999');
-    });  
-</script>
 <!-------/ HEAD --------->
 
 
@@ -36,6 +31,16 @@ extend_styles(['styles']);
                 Swal.fire({
                     title: 'Erro!',
                     text: 'Campos invalidos!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+            </script>
+        <?php endif; ?>
+        <?php if (isset($_GET['erro']) == 'usuario_inexistente'): ?>
+            <script>
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Email e/ou senha incorretos!',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 })
