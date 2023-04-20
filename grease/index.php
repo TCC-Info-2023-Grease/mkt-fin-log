@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/config.php';
-global $_VARIAVEIS;
+global $_ENV;
 
 $pagina = "";
 
@@ -10,7 +10,7 @@ if (isset($_GET['pagina'])) {
     $pagina = 'home';
 }
 
-$url = $_VARIAVEIS['URL_VIEWS'];
+$url = $_ENV['URL_VIEWS'];
 switch ($pagina) {
     case 'home':
         $url .= "/home";
