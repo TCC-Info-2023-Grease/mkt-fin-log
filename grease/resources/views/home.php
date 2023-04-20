@@ -18,6 +18,10 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
         <a href="<?php echo $_ENV['URL_ROUTE'] ?>cadastrar">
             Cadastrar
         </a>
+|   
+        <a href="<?php echo $_ENV['URL_ROUTE'] ?>login">
+            Login
+        </a>
 
     <?php
     require $_ENV['PASTA_VIEWS'] . '/components/footer.php';
