@@ -2,7 +2,7 @@ body,
 .signin {
 	background-color: darkgray;
 	font-family: 'Montserrat', sans-serif;
-	color: #000;
+	color: #fff;
 	font-size: 14px;
 	letter-spacing: 1px;
 }
@@ -13,7 +13,8 @@ body,
 	width: 405px;
 	margin: auto;
 	padding: 60px 60px;
-	background: url('https://picsum.photos/200/300') no-repeat center center rgba(0, 0, 0, 0);
+	/* ARRUMAR IMAGEM */
+	background: url('https://picsum.photos') no-repeat center center rgba(0, 0, 0, 4);
 	background-size: cover;
 	box-shadow: 0px 30px 60px -5px #000;
 }
@@ -146,6 +147,10 @@ label {
 	text-transform: uppercase;
 }
 
+.login {
+	margin-top: 2px;
+}
+
 .signin:hover {
 	background: #4082f5;
 	box-shadow: 0px 4px 35px -5px #4082f5;
@@ -173,7 +178,7 @@ hr {
 
 .btn-voltar {
 	padding: 12px 15px;
-	color: #000;
+	color: #fff;
 	border-radius: 5px;
 	text-decoration: none;
 	position: fixed;
