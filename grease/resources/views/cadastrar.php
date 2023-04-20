@@ -1,40 +1,113 @@
 <?php
-require dirname(dirname(__DIR__)). '/config.php';
-global $_VARIAVEIS;
+# ------ Configurações Básicas
+require dirname(dirname(__DIR__)) . '/config.php';
+global $_ENV;
+
+import_utils(['extend_styles', 'render_component']);
 ?>
 
+<!------- HEAD --------->
 <?php
-require $_VARIAVEIS['PASTA_VIEWS'] . '/components/head.php';
+render_component('head');
+extend_styles(['styles']);
 ?>
+
 <title>
     Cadastrar 🤗 Grease
 </title>
+<script>
+    $(document).ready(function () {
+        $('.phone').inputmask('(99) - 99999-9999');
+    });  
+</script>
+<!-------/ HEAD --------->
+
+
+<!------- BODY --------->
 
 <body>
-    <?php
-    require $_VARIAVEIS['PASTA_VIEWS'] . '/components/header.php';
-    ?>
+    <a href="<?php echo $_ENV['URL_BASE']; ?>" class="btn-voltar">
+        Voltar
+    </a>
+    <div class="login">
+
+        <?php if ($_GET['erro'] == 'campos_invalidos'): ?>
+            <script>
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Campos invalidos!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+            </script>
+        <?php endif; ?>
+
+        <a href="<?php echo $_ENV['URL_ROUTE'] . 'login'; ?>">
+            <h2 class="nonactive" id="my-button">Login</h2>
+        </a>
+
+        <h2 class="active">Criar conta</h2>
 
         <form 
             method="POST" 
-            action="<?php echo $_VARIAVEIS['URL_CONTROLADOR']; ?>/CadastrarControlador.php"
+            action="<?php echo $_ENV['URL_CONTROLADOR']; ?>/CadastroControlador.php"
         >
-            <label for="email">Nome:</label>
-            <input type="text" name="nome" required>
+            <input type="text" class="text" name="username">
+            <label for="username">Nome</label>
+            <br>
             <br>
 
-            <label for="email">Email:</label>
-            <input type="email" name="email" required>
+            <input type="password" class="text" name="password">
+            <label for="password">Senha</label>
             <br>
 
-            <label for="senha">Senha:</label>
-            <input type="password" name="senha" required>
+            <input type="email" class="text" name="email">
+            <label for="email">Email</label>
+            <br>
             <br>
 
-            <button type="submit">Entrar</button>
+            <input 
+                type="text" 
+                class="text phone" 
+                name="phone"
+                placeholder="(11) - 90235-9078"
+            />
+            <label for="phone">Celular</label>
+            <br>
+            <br>
+
+            <input type="number" class="text" name="age">
+            <label for="age">Idade</label>
+            <br>
+
+            <label for="genrer">Gênero</label>
+            <select name="genrer" id="genrer-select">
+                <option value="masculino">
+                    Masculino
+                </option>
+                <option value="feminino">
+                    Feminino
+                </option>
+                <option value="outro">
+                    Outro
+                </option>
+                <option value="nao_informado">
+                    Prefiro não informar
+                </option>
+            </select>
+            <br>
+            <br>
+
+            <label for="checkbox-1-1">Ao se cadastrar você concorda com os termos de uso.</label>
+
+            <button class="signin">
+                Criar Conta
+            </button>
+
+            <hr>
+            <a class="teste" href="#">Termos de uso</a>
         </form>
 
-    <?php
-    require $_VARIAVEIS['PASTA_VIEWS'] . '/components/footer.php';
-    ?>
+    </div>
 </body>
+<!------- /BODY --------->
