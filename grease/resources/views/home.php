@@ -1,10 +1,10 @@
 <?php
 require dirname(dirname(__DIR__)). '/config.php';
-global $_VARIAVEIS;
+global $_ENV;
 ?>
 
 <?php
-require $_VARIAVEIS['PASTA_VIEWS'] . '/components/head.php';
+require $_ENV['PASTA_VIEWS'] . '/components/head.php';
 ?>
 <title>
     Welcome 🕺 Grease
@@ -12,14 +12,14 @@ require $_VARIAVEIS['PASTA_VIEWS'] . '/components/head.php';
 
 <body>
     <?php
-    require $_VARIAVEIS['PASTA_VIEWS'] . '/components/header.php';
+    require $_ENV['PASTA_VIEWS'] . '/components/header.php';
     ?>
 
-        <a href="<?php echo $_VARIAVEIS['URL_ROUTE'] ?>cadastrar">
+        <a href="<?php echo $_ENV['URL_ROUTE'] ?>cadastrar">
             Cadastrar
         </a>
 
     <?php
-    require $_VARIAVEIS['PASTA_VIEWS'] . '/components/footer.php';
+    require $_ENV['PASTA_VIEWS'] . '/components/footer.php';
     ?>
 </body>
