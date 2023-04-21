@@ -55,7 +55,7 @@ extend_styles([ 'styles' ]);
 
         <form 
             method="POST" 
-            action="<?php echo $_ENV['URL_CONTROLADOR']; ?>/CadastroControlador.php"
+            action="<?php echo $_ENV['URL_CONTROLLER']; ?>/CadastroControlador.php"
         >
             <input type="text" class="text" name="username">
             <label for="username">Nome</label>

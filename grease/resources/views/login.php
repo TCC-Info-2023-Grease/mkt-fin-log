@@ -62,7 +62,7 @@ extend_styles(['styles']);
 
         <form 
             method="POST" 
-            action="<?php echo $_ENV['URL_CONTROLADOR']; ?>/LoginControlador.php"
+            action="<?php echo $_ENV['URL_CONTROLLER']; ?>/LoginControlador.php"
         >
             <input type="password" class="text" name="password">
             <label for="password">Senha</label>

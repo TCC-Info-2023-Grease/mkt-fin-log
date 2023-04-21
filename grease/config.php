@@ -6,7 +6,7 @@ $_ENV = [
   # CAMINHOS DE PASTAS 
   "PASTA_RAIZ"  => __DIR__,
   "PASTA_VIEWS" => __DIR__ . '/resources/views',
-  "PASTA_CONTROLADOR" => __DIR__ . '/controlador',
+  "PASTA_CONTROLLER" => __DIR__ . '/controllers',
   "PASTA_UTILS" => __DIR__ . '/utils',
   
 
@@ -14,7 +14,7 @@ $_ENV = [
   "URL_BASE" => "http://localhost:8080/mkt-fin-log/grease",
   "URL_ROUTE" => "http://localhost:8080/mkt-fin-log/grease/index.php?pagina=",
   "URL_VIEWS" => 'http://localhost:8080/mkt-fin-log/grease/resources/views',
-  "URL_CONTROLADOR" => 'http://localhost:8080/mkt-fin-log/grease/controlador',
+  "URL_CONTROLLER" => 'http://localhost:8080/mkt-fin-log/grease/controller',
   
   
   # BANCO DE DADOS
