@@ -1,36 +1,52 @@
 <?php
 require __DIR__ . '/config.php';
-global $_ENV;
+require __DIR__ . '/routes/web.php';
 
-$pagina = "";
+import_utils([ 'validateParam' ]);
+function router_run(array $routes, array $env): void {
+    $method = $_SERVER['REQUEST_METHOD'];
+    $params = ($method == 'GET') ? $_GET : $_POST;
 
-if (isset($_GET['pagina'])) {
-    $pagina = $_GET['pagina'];
-} else {
-    $pagina = 'welcome';
-}
+    // verifica se $params['pagina'] existe e define $pagina como uma string vazia caso contrário
+    $pagina = $params['pagina'] ?? ''; 
 
-$url = $_ENV['URL_VIEWS'];
-switch ($pagina) {
-    case 'welcome':
-        $url .= "/welcome";
-        break;
-    
-    case 'cadastrar':
-        $url .= "/cadastrar";
-        break;
-
-    case 'login':
-        $url .= "/login";
-        break;
+    // verifica se $pagina existe como chave em $routes
+    if (array_key_exists($pagina, $routes)) { 
+        $route = $routes[$pagina];
         
-    case 'visitante-home':
-        $url .= "/visitante/home";
-        break;
-    
-    default:
-        throw new Exception("houve um erro...", 2);
+        $url = $method == 'GET' ? $env['URL_VIEWS'] : $env['URL_CONTROLLERS'];
+        $url .= '/' . $route['file'] . '.php';
+
+        $paramsArray = [];
+        // itera sobre cada parâmetro definido em $route
+        foreach ($route['params'] as $param => $rules) { 
+            $options = [];
+            if (isset($rules['pattern'])) { 
+                // verifica se há uma expressão regular definida em $rules
+                $options['pattern'] = $rules['pattern'];
+                $options['message'] = $rules['message'];
+            }
+
+            // define o valor do parâmetro a partir de $_GET ou $_POST
+            $value = isset($params[$param]) ? $params[$param] : null; 
+
+            // aplica validação e adiciona o parâmetro ao array $paramsArray
+            $paramsArray[] = validateParam($param, $value, $options); 
+        }
+
+        if (!empty($paramsArray)) {
+            $separator = ($method == 'GET') ? '?' : '';
+            $url .= $separator . implode('&', $paramsArray);
+        }
+
+        // redireciona o usuário para a URL final
+        header("Location: $url"); 
+    } else {
+        // redireciona o usuário para a página 404
+        header("Location: " . $env['URL_ROUTE'] . "welcome"); 
+    }
+
+    exit(); 
 }
 
-header("Location: " . $url . ".php");
-exit();
+router_run($routes, $_ENV);

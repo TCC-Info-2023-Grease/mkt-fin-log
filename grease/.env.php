@@ -11,7 +11,7 @@ $_ENV = [
   "URL_BASE"       => "http://localhost:8080/mkt-fin-log/grease",
   "URL_ROUTE"      => "http://localhost:8080/mkt-fin-log/grease/index.php?pagina=",
   "URL_VIEWS"      => 'http://localhost:8080/mkt-fin-log/grease/resources/views',
-  "URL_CONTROLLER" => 'http://localhost:8080/mkt-fin-log/grease/controller',
+  "URL_CONTROLLERS" => 'http://localhost:8080/mkt-fin-log/grease/controllers',
 
   # BANCO DE DADOS
   "DB_SERVIDOR" => "localhost",
