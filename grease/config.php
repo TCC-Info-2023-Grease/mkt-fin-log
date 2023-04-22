@@ -1,48 +1,34 @@
 <?php
-
-session_start();
-
-$_ENV = [
-  # CAMINHOS DE PASTAS 
-  "PASTA_RAIZ"  => __DIR__,
-  "PASTA_VIEWS" => __DIR__ . '/resources/views',
-  "PASTA_CONTROLLER" => __DIR__ . '/controllers',
-  "PASTA_UTILS" => __DIR__ . '/utils',
-  
-
-  # URLs
-  "URL_BASE" => "http://localhost:8080/mkt-fin-log/grease",
-  "URL_ROUTE" => "http://localhost:8080/mkt-fin-log/grease/index.php?pagina=",
-  "URL_VIEWS" => 'http://localhost:8080/mkt-fin-log/grease/resources/views',
-  "URL_CONTROLLER" => 'http://localhost:8080/mkt-fin-log/grease/controller',
-  
-  
-  # BANCO DE DADOS
-  "DB_SERVIDOR" => "localhost",
-  "DB_USUARIO"  => "root",
-  "DB_SENHA"    => "",
-  "DB_NOME"     => "db_tcc"
-];
-
-
-// definir uma função para carregar as classes
+#------- Funçoes de config iniciais 
+/**
+ * Função para carregar classes
+ *
+ * @param  string  $class_name Nome da classe
+ * @return void
+ */
 function autocarregamento($class_name) {
-    $path = __DIR__ . '/database/entidades/' . $class_name . '.php';
-    if (file_exists($path)) {
-        require_once $path;
-    }
+  $path = __DIR__ . '/models/' . $class_name . '.php';
+  if (file_exists($path)) {
+    require_once $path;
+  }
 }
-spl_autoload_register('autocarregamento');
-
-
-// importar os utilitarios
+/**
+ * Função para importar os utilitarios
+ *
+ * @param  array $utils Lista de utilitarios a ser carregado
+ * @return void
+ */
 function import_utils($utils) {
+
   foreach ($utils as $key => $util) {
     require $_ENV['PASTA_UTILS'] . '/' . $util . '.php';
   }
 }
 
-// importar o arquivo de configurações do banco de dados
+#------- Configuraçoes Iniciais
+session_start();
+require __DIR__ . '.env.php'; 
 require __DIR__ . '/database/db.php'; 
 
 import_utils([ 'assets' ]);
+spl_autoload_register('autocarregamento');
