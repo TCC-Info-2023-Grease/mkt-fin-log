@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Undocumented function
+ * Função responsavel para buscar arquivos  
  *
  * @param  string  $asset Pasta do arquivo de procura 
  * @param  string  $file  Nome do arquivo de procura
