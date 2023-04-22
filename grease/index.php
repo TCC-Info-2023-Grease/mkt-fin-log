@@ -7,13 +7,13 @@ $pagina = "";
 if (isset($_GET['pagina'])) {
     $pagina = $_GET['pagina'];
 } else {
-    $pagina = 'home';
+    $pagina = 'welcome';
 }
 
 $url = $_ENV['URL_VIEWS'];
 switch ($pagina) {
-    case 'home':
-        $url .= "/home";
+    case 'welcome':
+        $url .= "/welcome";
         break;
     
     case 'cadastrar':
@@ -24,13 +24,12 @@ switch ($pagina) {
         $url .= "/login";
         break;
         
-    case 'home':
-        $url .= "/home";
+    case 'visitante-home':
+        $url .= "/visitante/home";
         break;
     
     default:
         throw new Exception("houve um erro...", 2);
-        break;
 }
 
 header("Location: " . $url . ".php");
