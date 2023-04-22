@@ -8,21 +8,34 @@ class Usuario
     private $mysqli;
     private $tabela = "usuarios";
 
+    /**
+     * Método construtor da classe
+     *
+     * @param  mysqli $mysqli É a conexão com o banco de dados
+     * @return void
+     */
     public function __construct(mysqli $mysqli)
     {
         $this->mysqli = $mysqli;
     }
 
-    public function buscarPorId($id)
+
+    /**
+     * Método para buscar um usuario por um ID 
+     *
+     * @param int $ID ID do usuario
+     * @return mixed 
+     */
+    public function buscarPorID($ID)
     {
         $stmt = $this->mysqli->prepare("
             SELECT 
                 * 
             FROM 
                 " . $this->tabela . " 
-            WHERE id = ?"
-        );
-        $stmt->bind_param("i", $id);
+            WHERE usuario_id = ?
+        ");
+        $stmt->bind_param("i", $ID);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -36,6 +49,14 @@ class Usuario
         return $usuario;
     }
 
+
+    /**
+     * Método para verificar se determinado valor de um campo é único
+     *
+     * @param int $campo Nome do campo
+     * @param int $valor É o valor do campo
+     * @return bool|null
+     */
     public function unico($campo, $valor)
     {
         $query = "
@@ -60,6 +81,14 @@ class Usuario
         return !$stmt->fetch();
     }
 
+
+    /**
+     * Método para realizar o login do usuario
+     *
+     * @param  string $email É o email a ser usada no login
+     * @param  string $senha É a senha a ser usada no login
+     * @return bool|array
+     */
     public function login($email, $senha)
     {
         $query = "
@@ -90,6 +119,13 @@ class Usuario
         }
     }
 
+
+    /**
+     * Método para realizar o cadastro do visitante
+     *
+     * @param  string $email Dados a serem cadastrados
+     * @return void
+     */
     public function cadastrar_visitante(array $dados = [])
     {
         $stmt = $this->mysqli->prepare("
@@ -97,11 +133,12 @@ class Usuario
                 " . $this->tabela . " 
                 (tipo_usuario_id, nome, email, senha, idade, genero, telefone) 
             VALUES 
-                (?, ?, ?, ?, ?, ?, ?)");
+                (?, ?, ?, ?, ?, ?, ?)
+        ");
 
         $stmt->bind_param(
-            "issssis",
-            $dados['tipo_usuario_id'],
+            "isssiss",
+            $dados['tipo_usuario'],
             $dados['username'],
             $dados['email'],
             $dados['password'],
