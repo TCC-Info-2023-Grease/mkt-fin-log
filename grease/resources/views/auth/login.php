@@ -47,13 +47,13 @@ extend_styles(['styles']);
             </script>
         <?php endif; ?>
 
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'login'; ?>">
+        <a href="<?php echo $_ENV['URL_ROUTE'] . 'auth.login'; ?>">
             <h2 class="active" id="my-button" style="color:gray">
                 Login
             </h2>
         </a>
 
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'cadastrar'; ?>">
+        <a href="<?php echo $_ENV['URL_ROUTE'] . 'auth.cadastrar'; ?>">
             <h2 class="noactive" style="color:aliceblue">
                 Criar conta
             </h2>
@@ -62,7 +62,7 @@ extend_styles(['styles']);
 
         <form 
             method="POST" 
-            action="<?php echo $_ENV['URL_CONTROLLER']; ?>/Auth/LoginController.php"
+            action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Auth/LoginController.php"
         >
             <input type="password" class="text" name="password">
             <label for="password">Senha</label>

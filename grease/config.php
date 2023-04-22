@@ -27,7 +27,7 @@ function import_utils($utils) {
 
 #------- Configuraçoes Iniciais
 session_start();
-require __DIR__ . '.env.php'; 
+require __DIR__ . '/.env.php'; 
 require __DIR__ . '/database/db.php'; 
 
 import_utils([ 'assets' ]);

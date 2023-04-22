@@ -38,12 +38,12 @@ use_js_scripts([ 'inputmask', 'masksForInputs' ], $_ENV['LIST_SCRIPTS']);
             </script>
         <?php endif; ?>
 
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'cadastrar'; ?>">
+        <a href="<?php echo $_ENV['URL_ROUTE'] . 'auth.cadastrar'; ?>">
             <h2 class="active" style="color:aliceblue">
                 Criar conta
             </h2>
         </a>
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'login'; ?>">
+        <a href="<?php echo $_ENV['URL_ROUTE'] . 'auth.login'; ?>">
             <h2 class="nonactive" id="my-button" style="color:gray">
                 Login
             </h2>
@@ -51,7 +51,7 @@ use_js_scripts([ 'inputmask', 'masksForInputs' ], $_ENV['LIST_SCRIPTS']);
 
         <form 
             method="POST" 
-            action="<?php echo $_ENV['URL_CONTROLLER']; ?>/Auth/CadastroController.php"
+            action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Auth/CadastroController.php"
         >
             <input type="text" class="text" name="username">
             <label for="username">Nome</label>

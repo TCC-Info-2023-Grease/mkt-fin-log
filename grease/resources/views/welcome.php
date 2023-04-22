@@ -17,11 +17,11 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
 
         Welcome to the Grease
 
-        <a href="<?php echo $_ENV['URL_ROUTE'] ?>cadastrar">
+        <a href="<?php echo $_ENV['URL_ROUTE'] ?>auth.cadastrar">
             Cadastrar
         </a>
         |   
-        <a href="<?php echo $_ENV['URL_ROUTE'] ?>login">
+        <a href="<?php echo $_ENV['URL_ROUTE'] ?>auth.login">
             Login
         </a>
 
