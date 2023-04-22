@@ -3,7 +3,7 @@
 /**
  * Função para renderizar um componente
  *
- * @param  string  $componente Nome do componente
+ * @param  string  $componente Nome do componente a ser renderizado
  * @return void
  */
 function render_component( $componente ) {
