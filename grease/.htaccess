@@ -1,5 +1,4 @@
-Options -MultiViews
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.php [L]
+﻿RewriteEngine On
+RewriteBase /mkt-fin-log/grease/
+RewriteRule ^grease/(.*)$ $1 [L,QSA]
+RewriteRule ^grease/resurces(.*)$ $1 [L,QSA]
