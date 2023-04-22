@@ -48,6 +48,7 @@ $routes['cadastrar-usuario'] = [
     'password' => [
       'required',
       'min_length:8,max_length:20',
+      //  padrão da senha: letras minuscula e maiscula, 8 - 20 caracteres
       'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/',
     ],
   ],
