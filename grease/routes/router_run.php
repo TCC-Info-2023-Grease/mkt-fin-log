@@ -1,6 +1,16 @@
 <?php
 import_utils([ 'validateParam' ]);
 
+
+
+/**
+ * Function router_run executa o roteamento das rotas
+ *
+ * @param array $routes Rotas da aplicação
+ * @param array $env Variavel de Ambiente
+ *
+ * @return void
+ */
 function router_run(array $routes, array $env): void {
     $method = $_SERVER['REQUEST_METHOD'];
     $params = ($method == 'GET') ? $_GET : $_POST;

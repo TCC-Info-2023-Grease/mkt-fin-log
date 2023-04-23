@@ -11,7 +11,7 @@ import_utils([ 'use_js_scripts', 'extend_styles', 'render_component' ]);
 <?php
 render_component('head');
 extend_styles([ 'styles' ]);
-use_js_scripts([ 'inputmask', 'masksForInputs' ], $_ENV['LIST_SCRIPTS']);
+use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar' ], $_ENV['LIST_SCRIPTS']);
 ?>
 
 <title>
@@ -80,9 +80,10 @@ use_js_scripts([ 'inputmask', 'masksForInputs' ], $_ENV['LIST_SCRIPTS']);
             <input type="number" class="text" name="age">
             <label for="age">Idade</label>
             <br>
+            <br>
 
-            <label for="genrer">Gênero</label>
-            <select name="genrer" id="genrer-select">
+            <label for="genrer-select">Gênero</label>
+            <select name="genrer" name="genrer-select" id="genrer-select">
                 <option value="m">
                     Masculino
                 </option>
@@ -96,10 +97,44 @@ use_js_scripts([ 'inputmask', 'masksForInputs' ], $_ENV['LIST_SCRIPTS']);
                     Prefiro não informar
                 </option>
             </select>
+                
+            <br>
+            <br>
+
+            <label for="tipo-usuario-select">Usuario</label>
+            <select name="genrer" id="tipo-usuario-select">
+                <option value="vis">
+                    Visitante
+                </option>
+                <option value="adm">
+                    Admin
+                </option>
+                <option value="fig">
+                    Figurino   
+                </option>
+                <option value="cen">
+                    Cénario
+                </option>
+                <option value="enc">
+                    Encenação
+                </option>
+            </select> 
+
             <br>
             <br>
 
             <label for="checkbox-1-1">Ao se cadastrar você concorda com os termos de uso.</label>
+
+            <input type="text" class="text" name="cpf" style="display: none;" />
+            <label for="cpf" style="display: none;">CPF</label>
+            <br>
+            <br>    
+
+            <input type="file" class="text" name="profile_picture" style="display: none;" />
+            <label for="profile_picture" style="display: none;">Foto Perfil</label>
+            <br>
+            <br>
+
 
             <button class="signin">
                 Criar Conta
