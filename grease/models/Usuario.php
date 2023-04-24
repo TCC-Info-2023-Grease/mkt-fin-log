@@ -126,14 +126,14 @@ class Usuario
      * @param  string $email Dados a serem cadastrados
      * @return void
      */
-    public function cadastrar_visitante(array $dados = [])
+    public function cadastrar(array $dados = [])
     {
         $stmt = $this->mysqli->prepare("
             INSERT INTO 
                 " . $this->tabela . " 
-                (tipo_usuario_id, nome, email, senha, idade, genero, telefone) 
+                (tipo_usuario_id, nome, email, senha, idade, genero, telefone, cpf, foto_perfil) 
             VALUES 
-                (?, ?, ?, ?, ?, ?, ?)
+                (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
 
         $stmt->bind_param(
@@ -145,6 +145,8 @@ class Usuario
             $dados['age'],
             $dados['genrer'],
             $dados['cell'],
+            $dados['cpf'],
+            $dados['foto_perfil']
         );
 
         $stmt->execute();
