@@ -25,7 +25,7 @@ $usuario = new Usuario($mysqli);
 
 if ($usuario->unico('email', $_POST['email'])) 
 {
-    navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=erro_usuario');
+    navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=usuario_existente');
 }
 
 $dados = [
@@ -35,14 +35,16 @@ $dados = [
     'password'     => $_POST['password'],
     'phone'        => $_POST['phone'],
     'age'          => $_POST['age'],
-    'genrer'       => $_POST['genrer']
+    'genrer'       => $_POST['genrer'],
+    'cpf'          => null,
+    'foto_perfil'  => null
 ];
 
-$usuario->cadastrar_visitante($dados);
+$usuario->cadastrar($dados);
 
 if (!$usuario->login($dados['email'], $dados['password']))
 {
-    navegate($_ENV['URL_VIEWS']. '/login.php?erro=usuario');
+    navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=nao_cadastro');
 }
 
 navegate($_ENV['URL_VIEWS']. '/visitante/home.php');
