@@ -121,9 +121,9 @@ class Usuario
 
 
     /**
-     * Método para realizar o cadastro do visitante
+     * Método para realizar o cadastro de um Úsuario
      *
-     * @param  string $email Dados a serem cadastrados
+     * @param  array $dados Dados a serem cadastrados
      * @return void
      */
     public function cadastrar(array $dados = [])
