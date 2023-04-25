@@ -41,6 +41,7 @@ class Material extends Model {
         ";
 
         $stmt = $this->mysqli->prepare($query);
+        $tipo_dados = "ssiiidiidssss";
         
         $stmt->bind_param(
             $tipos_dados,

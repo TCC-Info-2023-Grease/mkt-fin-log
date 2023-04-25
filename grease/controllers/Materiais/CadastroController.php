@@ -9,23 +9,22 @@ import_utils([ 'valida_campo', 'navegate' ]);
 # ----- Cadastro Visitante
 $material = new Material($mysqli);
 
-$tipo_dados = "ssiiidiidssss";
 $dados = [
-    $_POST['nome'],
-    $_POST['descricao'],
-    $_POST['qtde_estimada'],
-    $_POST['valor_estimado'],
-    $_POST['valor_gasto'],
-    $_POST['unidade_medida'],
-    $_POST['estoque_minimo'],
-    $_POST['estoque_atual'],
-    $_POST['valor_unitario'],
-    date("Y-m-d H:i:s"),
-    $_POST['data_validade'],
-    $_POST['foto_material'],
-    $_POST['status_material']
+    'nome' => $_POST['nome'],
+    'descricao' => $_POST['descricao'],
+    'qtde_estimada' => $_POST['qtde_estimada'],
+    'valor_estimado' => $_POST['valor_estimado'],
+    'valor_gasto' => $_POST['valor_gasto'],
+    'unidade_medida' => $_POST['unidade_medida'],
+    'estoque_minimo' => $_POST['estoque_minimo'],
+    'estoque_atual' => $_POST['estoque_atual'],
+    'valor_unitario'=> $_POST['valor_unitario'],
+    'datahora_cadastro' => date("Y-m-d H:i:s"),
+    'data_validade' => $_POST['data_validade'],
+    'foto_material' => $_POST['foto_material'],
+    'status_material' => $_POST['status_material']
 ];
 
-$material->cadastrar($tipo_dados, $dados);
+$material->cadastrar($dados);
 
 ?>
