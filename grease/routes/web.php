@@ -32,6 +32,7 @@ $routes['auth.cadastrar'] = [
 ];
 
 
+
 // --- Routes: Actions
 $routes['cadastrar-usuario'] = [
   'method' => 'POST',
