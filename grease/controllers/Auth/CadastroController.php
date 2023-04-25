@@ -1,6 +1,6 @@
 <?php
 # ------ Dados Iniciais
-require '../config.php';
+require '../../config.php';
 
 global $mysqli;
 import_utils([ 'valida_campo', 'navegate' ]);

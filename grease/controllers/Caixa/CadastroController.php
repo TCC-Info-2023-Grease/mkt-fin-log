@@ -26,10 +26,10 @@ $tel = '96666-66666';
 $email = 'margarida@gmail.com';
 */
 
-$nome = $_POST['fnome'];
-$form = $_POST['fform'];
-$valor = $_POST['fvalor'];
-$tp = $_POST['ftp'];
+    $nome = $_POST['fnome'];
+    $form = $_POST['fform'];
+    $valor = $_POST['fvalor'];
+    $tp = $_POST['ftp'];
 
 
 
