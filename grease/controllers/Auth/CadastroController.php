@@ -20,7 +20,7 @@ if (!$campos_validos)
 } 
 
 
-# ----- Cadastro Visitante
+# ----- Cadastros 
 $usuario = new Usuario($mysqli);
 
 if ($usuario->unico('email', $_POST['email'])) 
@@ -28,16 +28,17 @@ if ($usuario->unico('email', $_POST['email']))
     navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=usuario_existente');
 }
 
+# ----- Cadastro Visitante
 $dados = [
-    'tipo_usuario' => 1,
-    'username'     => $_POST['username'],
-    'email'        => $_POST['email'],
-    'password'     => $_POST['password'],
-    'phone'        => $_POST['phone'],
-    'age'          => $_POST['age'],
-    'genrer'       => $_POST['genrer'],
-    'cpf'          => null,
-    'foto_perfil'  => null
+    1,
+    $_POST['username'],
+    $_POST['email'],
+    $_POST['password'],
+    $_POST['phone'],
+    $_POST['age'],
+    $_POST['genrer'],
+    "",
+    ""
 ];
 
 $usuario->cadastrar($dados);

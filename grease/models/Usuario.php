@@ -105,18 +105,8 @@ class Usuario extends Model
                 (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
 
-        $stmt->bind_param(
-            "isssiss",
-            $dados['tipo_usuario'],
-            $dados['username'],
-            $dados['email'],
-            $dados['password'],
-            $dados['age'],
-            $dados['genrer'],
-            $dados['cell'],
-            $dados['cpf'],
-            $dados['foto_perfil']
-        );
+        list($tipos, $valores) = $this->bind_params($dados);
+        $stmt->bind_param($tipos, ...$valores);
 
         $stmt->execute();
         $stmt->close();
