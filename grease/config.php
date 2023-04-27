@@ -7,7 +7,7 @@
  * @return void
  */
 function autocarregamento($class_name) {
-  $path = __DIR__ . '/models/' . $class_name . '.php';
+  $path = __DIR__ . '//models//' . $class_name . '.php';
   if (file_exists($path)) {
     require_once $path;
   }

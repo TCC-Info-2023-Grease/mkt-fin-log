@@ -1,6 +1,6 @@
 <?php
 # ------ Dados Iniciais
-require '../config.php';
+require '../../config.php';
 
 global $mysqli;
 import_utils([ 'valida_campo', 'navegate' ]);
@@ -20,29 +20,32 @@ if (!$campos_validos)
 } 
 
 
-# ----- Cadastro Visitante
+# ----- Cadastros 
 $usuario = new Usuario($mysqli);
 
 if ($usuario->unico('email', $_POST['email'])) 
 {
-    navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=erro_usuario');
+    navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=usuario_existente');
 }
 
+# ----- Cadastro Visitante
 $dados = [
-    'tipo_usuario' => 1,
-    'username'     => $_POST['username'],
-    'email'        => $_POST['email'],
-    'password'     => $_POST['password'],
-    'phone'        => $_POST['phone'],
-    'age'          => $_POST['age'],
-    'genrer'       => $_POST['genrer']
+    1,
+    $_POST['username'],
+    $_POST['email'],
+    $_POST['password'],
+    $_POST['phone'],
+    $_POST['age'],
+    $_POST['genrer'],
+    "",
+    ""
 ];
 
-$usuario->cadastrar_visitante($dados);
+$usuario->cadastrar($dados);
 
 if (!$usuario->login($dados['email'], $dados['password']))
 {
-    navegate($_ENV['URL_VIEWS']. '/login.php?erro=usuario');
+    navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=nao_cadastro');
 }
 
 navegate($_ENV['URL_VIEWS']. '/visitante/home.php');

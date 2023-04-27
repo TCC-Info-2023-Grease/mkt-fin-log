@@ -1,9 +1,11 @@
 <?php
 
+
+
 /**
  * Usuario
  */
-class Usuario
+class Usuario extends Model
 {
     private $mysqli;
     private $tabela = "usuarios";
@@ -49,39 +51,6 @@ class Usuario
         return $usuario;
     }
 
-
-    /**
-     * Método para verificar se determinado valor de um campo é único
-     *
-     * @param int $campo Nome do campo
-     * @param int $valor É o valor do campo
-     * @return bool|null
-     */
-    public function unico($campo, $valor)
-    {
-        $query = "
-            SELECT 
-                id 
-            FROM 
-                " . $this->tabela . " 
-            WHERE {$campo} = ?
-        ";
-        $params = [$valor];
-
-        $stmt = $this->mysqli->prepare($query);
-
-        if (!$stmt) {
-            error_log("Erro ao preparar a consulta: " . $this->mysqli->error);
-            return false;
-        }
-
-        $stmt->bind_param(str_repeat('s', count($params)), ...$params);
-        $stmt->execute();
-
-        return !$stmt->fetch();
-    }
-
-
     /**
      * Método para realizar o login do usuario
      *
@@ -121,31 +90,23 @@ class Usuario
 
 
     /**
-     * Método para realizar o cadastro do visitante
+     * Método para realizar o cadastro de um Úsuario
      *
-     * @param  string $email Dados a serem cadastrados
+     * @param  array $dados Dados a serem cadastrados
      * @return void
      */
-    public function cadastrar_visitante(array $dados = [])
+    public function cadastrar(array $dados = [])
     {
         $stmt = $this->mysqli->prepare("
             INSERT INTO 
                 " . $this->tabela . " 
-                (tipo_usuario_id, nome, email, senha, idade, genero, telefone) 
+                (tipo_usuario_id, nome, email, senha, idade, genero, telefone, cpf, foto_perfil) 
             VALUES 
-                (?, ?, ?, ?, ?, ?, ?)
+                (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
 
-        $stmt->bind_param(
-            "isssiss",
-            $dados['tipo_usuario'],
-            $dados['username'],
-            $dados['email'],
-            $dados['password'],
-            $dados['age'],
-            $dados['genrer'],
-            $dados['cell'],
-        );
+        list($tipos, $valores) = $this->bind_params($dados);
+        $stmt->bind_param($tipos, ...$valores);
 
         $stmt->execute();
         $stmt->close();
