@@ -11,105 +11,49 @@ $(document).ready(() => {
       console.log('====================================');
     });
   }
+  function esconderCampos(campos) {
+    mudarCampo(campos.map(campo => [campo, 'none']))
+  }
   function alternarCamposDo(usuario) {
+    const USER_TYPES = {
+      VISITANTE: 'vis',
+      FIGURINO: 'fig',
+      CENARIO: 'cen',
+      ENCENACAO: 'enc',
+      ADMIN: 'adm'
+    }
+
     switch (usuario) {
-      // VISITANTE
-      case "vis":
+      case USER_TYPES.VISITANTE:
         mudarCampo([
           ["input[name=age]", "block"],
           ["input[name=genrer-select]", "block"],
-          ["input[name=cpf]", "none"],
-          ["input[name=profile_picture]", "none"],
         ]);
-
-        mudarCampo([
-          ["label[for=age]", "block"],
-          ["label[for=genrer-select]", "block"],
-          ["label[for=cpf]", "none"],
-          ["label[for=profile_picture]", "none"],
-        ]);
+        esconderCampos(["cpf", "profile_picture"])
         break;
 
-      // FIGURINO  
-      case "fig":
+      case USER_TYPES.FIGURINO:
+      case USER_TYPES.CENARIO:
+      case USER_TYPES.ENCENACAO:
         mudarCampo([
-          ["input[name=age]", "none" ],
-          ["input[name=genrer-select]", "block" ],
-          ["input[name=cpf]", "none" ],
-          ["input[name=profile_picture]", "none" ],
+          ["input[name=genrer-select]", "block"],
         ]);
-
-        mudarCampo([
-          ["label[for=age]", "none" ],
-          ["label[for=genrer-select]", "none" ],
-          ["label[for=cpf]", "none" ],
-          ["label[for=profile_picture]", "none" ],
-        ]);
+        esconderCampos(["age", "cpf", "profile_picture"])
         break;
 
-      // CENARIO  
-      case "cen":
+      case USER_TYPES.ADMIN:
         mudarCampo([
-          ["input[name=age]", "none" ],
-          ["input[name=genrer-select]", "block" ],
-          ["input[name=cpf]", "none" ],
-          ["input[name=profile_picture]", "none" ],
-        ]);
-
-        mudarCampo([
-          ["label[for=age]", "none" ],
-          ["label[for=genrer-select]", "none" ],
-          ["label[for=cpf]", "none" ],
-          ["label[for=profile_picture]", "none" ],
-        ]);
-        break;
-
-      // ENCENAÇÃO  
-      case "enc":
-        mudarCampo([
-          ["input[name=age]", "none" ],
-          ["input[name=genrer-select]", "block" ],
-          ["input[name=cpf]", "none" ],
-          ["input[name=profile_picture]", "none" ],
-        ]);
-
-        mudarCampo([
-          ["label[for=age]", "none" ],
-          ["label[for=genrer-select]", "none" ],
-          ["label[for=cpf]", "none" ],
-          ["label[for=profile_picture]", "none" ],
-        ]);
-        break;
-
-      // ADMIN
-      case "adm":
-        mudarCampo([
-          ["input[name=age]", "block" ],
-          ["input[name=genrer-select]", "block" ],
-          ["input[name=cpf]", "block" ],
-          ["input[name=profile_picture]", "block" ],
-        ]);
-
-        mudarCampo([
-          ["label[for=age]", "block" ],
-          ["label[for=genrer-select]", "block" ],
-          ["label[for=cpf]", "block" ],
-          ["label[for=profile_picture]", "block" ],
+          ["input[name=age]", "block"],
+          ["input[name=genrer-select]", "block"],
+          ["input[name=cpf]", "block"],
+          ["input[name=profile_picture]", "block"],
         ]);
         break;
 
       default:
-        console.log("DEU RUIM AQUI EM ENVIO ERRADO");
-        break;
-      }
+        console.log("Tipo de usuário inválido");
     }
-  function manipularTipoUsuarioSelect(e) {
-    let usuario = e.currentTarget.value;
-
-    alternarCamposDo(usuario);
   }
 
-  
   $("#tipo-usuario-select").on("change", manipularTipoUsuarioSelect);
-
 });
