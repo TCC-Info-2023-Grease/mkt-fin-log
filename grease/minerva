@@ -1,0 +1,100 @@
+#!/usr/bin/env php
+<?php 
+require_once __DIR__.'/vendor/autoload.php';
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Console\Helper\QuestionHelper;
+
+class DatabaseInitCommand extends Command
+{
+  protected static $defaultName = 'database:init';
+
+  protected function configure()
+  {
+    $this->setDescription('Cria a estrutura do banco de dados a partir de um arquivo SQL');
+    $this->addOption('host', null, InputOption::VALUE_OPTIONAL, 'Host do banco de dados', 'localhost');
+    $this->addOption('user', null, InputOption::VALUE_OPTIONAL, 'Usuário do banco de dados', 'root');
+    $this->addOption('password', null, InputOption::VALUE_OPTIONAL, 'Senha do usuário do banco de dados', '');
+    $this->addOption('database', null, InputOption::VALUE_OPTIONAL, 'Nome do banco de dados', '');
+    $this->addOption('force', null, InputOption::VALUE_NONE, 'Deleta o banco de dados existente, se houver');
+  }
+
+  protected function execute(InputInterface $input, OutputInterface $output)
+  {
+    require_once __DIR__ . '/' . '.env.php';
+    // Define o caminho do arquivo SQL
+    $file = __DIR__ . '/database/estrutura_db.sql';
+
+    // Recupera os argumentos e opções
+    $host = $_ENV['DB_SERVIDOR'];
+    $user = $_ENV['DB_USUARIO'];
+    $password = $_ENV['DB_SENHA'];
+    $database = $_ENV['DB_NOME'];
+    $force = $input->getOption('force');
+
+    // Lê o arquivo SQL
+    $sql = file_get_contents($file);
+
+    // Conecta ao banco de dados
+    $conn = new mysqli($host, $user, $password);
+
+    // Verifica se houve erro na conexão
+    if ($conn->connect_error) {
+      die("Falha ao conectar ao banco de dados: " . $conn->connect_error);
+    }
+
+    // Verifica se o banco de dados já existe
+    $sqlCheckDb = "SELECT COUNT(*) as count FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='$database'";
+    $result = $conn->query($sqlCheckDb);
+    $row = $result->fetch_assoc();
+    $dbExists = $row['count'] > 0;
+
+    // Pergunta ao usuário se deseja deletar o banco de dados existente
+    if ($dbExists && !$force) {
+      $question = new ConfirmationQuestion("O banco de dados '$database' já existe. Deseja deletá-lo e criar um novo? [y/N]");
+      $helper = new QuestionHelper();
+      $confirm = $helper->ask($input, $output, $question);
+
+      if (!$confirm) {
+        $output->writeln("Operação cancelada pelo usuário.");
+        return Command::SUCCESS;
+      }
+
+      // Deleta o banco de dados existente
+      $sqlDropDb = "DROP DATABASE `$database`";
+      if (!$conn->query($sqlDropDb)) {
+        die("Erro ao deletar o banco de dados existente: " . $conn->error);
+      }
+      $output->writeln("Banco de dados '$database' deletado com sucesso.");
+    }
+
+    // Cria o banco de dados
+    $sqlCreateDb = "CREATE DATABASE IF NOT EXISTS `$database`";
+    if (!$conn->query($sqlCreateDb)) {
+      die("Erro ao criar o banco de dados: " . $conn->error);
+    }
+
+    $output->writeln("Banco de dados '$database' criado com sucesso.");
+
+    // Seleciona o banco de dados
+    if (!$conn->select_db($database)) {
+      die("Erro ao selecionar o banco de dados: " . $conn->error);
+    }
+
+    // Executa o arquivo SQL para criar as tabelas e inserir os dados
+    if (!$conn->multi_query($sql)) {
+      die("Erro ao criar a estrutura do banco de dados: " . $conn->error);
+    }
+
+    $output->writeln("Estrutura do banco de dados criada com sucesso.");
+
+    // Fecha a conexão com o banco de dados
+    $conn->close();
+
+    return Command::SUCCESS;
+  }
+}
