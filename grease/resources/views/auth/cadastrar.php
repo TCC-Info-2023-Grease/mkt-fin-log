@@ -3,7 +3,7 @@
 require dirname(dirname(dirname(__DIR__))) . '/config.php';
 global $_ENV;
 
-import_utils([ 'use_js_scripts', 'extend_styles', 'render_component' ]);
+import_utils([ 'use_js_scripts', 'extend_styles', 'render_component', 'navegate' ]);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
@@ -14,6 +14,10 @@ if(isset($_SESSION['ultimo_acesso'])) {
     unset($_SESSION['fed_cadastro_usuario']);
   }
 } 
+
+if (isset($_SESSION['usuario'])) {
+    navegate($_ENV['URL_VIEWS']. '/visitante/home.php');
+}
 ?>
 
 

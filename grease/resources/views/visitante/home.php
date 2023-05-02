@@ -3,7 +3,7 @@
 require dirname(dirname(dirname(__DIR__))) . '/config.php';
 global $_ENV;
 
-import_utils(['extend_styles', 'render_component']);
+import_utils(['extend_styles', 'render_component']);    
 ?>
 
 <!------- HEAD --------->
@@ -13,13 +13,8 @@ extend_styles(['styles']);
 ?>
 
 <title>
-    
+    Hello Visitante
 </title>
-<script>
-    $(document).ready(function () {
-        $('.phone').inputmask('(99) - 99999-9999');
-    });  
-</script>
 <!-------/ HEAD --------->
 
 

@@ -45,7 +45,7 @@ $dados = [
     'tipo_usuario' => $_POST['tipo_usuario'],
     'username' => $_POST['username'],
     'email' => $_POST['email'],
-    'password' => $_POST['password'], # password_hash($_POST['password'], PASSWORD_DEFAULT),
+    'password' =>  password_hash($_POST['password'], PASSWORD_DEFAULT),
     'age' => intval($_POST['age']),
     'genrer' => $_POST['genrer'],
     'cell' => $_POST['phone'],
@@ -66,4 +66,11 @@ if (!$usuario->login($dados['email'], $dados['password']))
 }
 
 $_SESSION['usuario'] = $usuario->buscar($dados['email']);
-navegate($_ENV['URL_VIEWS']. '/visitante/home.php');
+if ($dados['tipo_usuario'] == 'adm') {
+    navegate($_ENV['URL_VIEWS']. '/admin/home.php');
+} else if ($dados['tipo_usuario'] == 'vis') {
+    navegate($_ENV['URL_VIEWS']. '/visitante/home.php');
+} else {
+    navegate($_ENV['URL_VIEWS']. '/servico/home.php');
+}
+
