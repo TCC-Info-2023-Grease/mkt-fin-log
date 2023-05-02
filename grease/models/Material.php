@@ -14,7 +14,38 @@ class Material extends Model {
         $this->mysqli = $mysqli;
     }
 
-    public function cadastrar($dados = [], $tipos_dados) {
+       /**
+     * Método para verificar se determinado valor de um campo é único
+     *
+     * @param int $campo Nome do campo
+     * @param int $valor É o valor do campo
+     * @return bool|null
+     */
+    public function unico($campo, $valor)
+    {
+        $query = "
+            SELECT 
+                id 
+            FROM 
+                " . $this->tabela . " 
+            WHERE {$campo} = ?
+        ";
+        $params = [$valor];
+
+        $stmt = $this->mysqli->prepare($query);
+
+        if (!$stmt) {
+            error_log("Erro ao preparar a consulta: " . $this->mysqli->error);
+            return false;
+        }
+
+        $stmt->bind_param(str_repeat('s', count($params)), ...$params);
+        $stmt->execute();
+
+        return !$stmt->fetch();
+    }
+
+    public function cadastrar($dados = []) {
         $query = "
         INSERT INTO 
         ".$this->tabela."
@@ -36,15 +67,14 @@ class Material extends Model {
         VALUES 
             (
                 ?, ?, ?, ?, ?, ?, ?, 
-                ?, ?, ?, ?, ?, ?
+                ?, ?, ?, ?, ?, ?, ?
             );
         ";
 
         $stmt = $this->mysqli->prepare($query);
-        $tipo_dados = "ssiiidiidssss";
         
         $stmt->bind_param(
-            $tipos_dados,
+            "ssiiidiidssss",
             $dados['nome'],
             $dados['descricao'],
             $dados['qtde_estimada'],

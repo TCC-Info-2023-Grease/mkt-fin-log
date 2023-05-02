@@ -64,12 +64,12 @@ extend_styles(['styles']);
             method="POST" 
             action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Auth/LoginController.php"
         >
-            <input type="password" class="text" name="password">
-            <label for="password">Senha</label>
-            <br>
-
             <input type="email" class="text" name="email">
             <label for="email">Email</label>
+            <br>
+
+            <input type="password" class="text" name="password">
+            <label for="password">Senha</label>
             <br>
 
             <label for="rememberme" style="margin-top: 90px">

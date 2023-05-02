@@ -1,17 +1,6 @@
 CREATE DATABASE db_tcc;
 USE db_tcc;
 
-
-CREATE TABLE TipoUsuario (
-	-- PK
-    tipo_usuario_id INT AUTO_INCREMENT PRIMARY KEY,
-    
-    -- Atibutos
-    -- 'admin', 'comun', 'cenario', 'figurino'
-    titulo VARCHAR(15) NOT NULL
-);
-
-
 CREATE TABLE CategoriasMaterial (
 	-- PK
 	categoria_id INT PRIMARY KEY,
@@ -25,20 +14,17 @@ CREATE TABLE CategoriasMaterial (
 CREATE TABLE Usuarios (
 	-- PK & FK
     usuario_id INT AUTO_INCREMENT PRIMARY KEY,
-    tipo_usuario_id INT,
-    FOREIGN KEY (tipo_usuario_id)
-        REFERENCES tipoUsuario (tipo_usuario_id),
-    
+    tipo_usuario CHAR(3),
+
     -- Atibutos
-    nome CHAR(100) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     cpf VARCHAR(13) UNIQUE, 
-    senha CHAR(32) NOT NULL,
+    senha VARCHAR(200) NOT NULL,
     idade INT(3) NOT NULL,
-    -- 'M', 'F', 'O'
+    -- 'M', 'F', 'O', 'N'
     genero CHAR(1),
-    telefone VARCHAR(20),
-    celular VARCHAR(20),
+    celular VARCHAR(25),
     foto_perfil VARCHAR(200) 
 );
 
@@ -126,12 +112,12 @@ CREATE TABLE Materiais (
         REFERENCES CategoriasMaterial (categoria_id),
 
 	-- Atibutos
-	nome CHAR (100) NOT NULL,
+	nome VARCHAR (100) NOT NULL,
 	descricao VARCHAR (100) NOT NULL,
 	qtde_estimada INT(4) NOT NULL,
-	valor_estimado INT(7) NOT NULL,
-	valor_gasto INT(7) NOT NULL,
-	unidade_medida DECIMAL(10, 2) NOT NULL,
+	valor_estimado DECIMAL(5, 2) NOT NULL,
+	valor_gasto DECIMAL(5, 2) NOT NULL,
+	unidade_medida DECIMAL(2, 2) NOT NULL,
 	estoque_minimo INT(4) NOT NULL,
 	estoque_atual INT(4) NOT NULL,
 	valor_unitario DECIMAL(10, 2),
