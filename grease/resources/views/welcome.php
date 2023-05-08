@@ -25,7 +25,13 @@ Welcome 🕺 Grease
     require $_ENV['PASTA_VIEWS'] . '/components/header.php';
     ?>
 
-        Welcome to the Grease
+    <a href="<?php echo $_ENV['URL_ROUTE'] ?>adm.categoria_material.create">
+		Cadastrar Categoria Material
+	</a>
+	<a href="<?php echo $_ENV['URL_ROUTE'] ?>adm.material.create">
+		Cadastar Material
+	</a>
+
 
     <?php
     require $_ENV['PASTA_VIEWS'] . '/components/footer.php';

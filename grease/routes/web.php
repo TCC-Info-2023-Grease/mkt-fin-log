@@ -19,7 +19,6 @@ $routes['contact'] = [
 ];
 
 
-
 // --- Routes: Auth
 $routes['auth.login'] = [
   'method' => 'GET',
@@ -39,27 +38,17 @@ $routes['auth.sair'] = [
 
 
 
-// --- Routes: Usuario
-$routes['usuario.perfil'] = [
-  'method' => 'GET',
-  'file' => 'perfil',
-  'params' => []
-];
-
-
-
 // --- Routes: Admin
 $routes['admin.categoria_material'] = [
   'method' => 'GET',
   'file' => 'admin/categoria_material',
   'params' => []
 ];
-$routes['admin.categoria_material.save'] = [
+$routes['admin.categoria_material.create'] = [
   'method' => 'GET',
   'file' => 'admin/categoria_material',
   'params' => []
 ];
-
 
 
 // --- Routes: Actions
