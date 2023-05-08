@@ -8,7 +8,7 @@
  * @return string
  */
 function assets( $asset, $file ) {
-    $path = 'http://localhost:8080/mkt-fin-log/grease/resources/'. $asset . $file;
-    
+    $path = 'http://localhost:8080/grease/resources/'. $asset . $file;
+   
     return $path;
 }
