@@ -39,8 +39,10 @@ extend_styles(['styles']);
     ?>
 
         Welcome to the Grease
+
+
 		
-		
+	
 
     <?php
     render_component('footer');

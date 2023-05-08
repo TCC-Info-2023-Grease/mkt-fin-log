@@ -24,7 +24,7 @@ Welcome 🕺 Grease
     <?php
     require $_ENV['PASTA_VIEWS'] . '/components/header.php';
     ?>
-
+  
     <a href="<?php echo $_ENV['URL_ROUTE'] ?>adm.categoria_material.create">
 		Cadastrar Categoria Material
 	</a>

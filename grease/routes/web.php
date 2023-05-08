@@ -44,6 +44,7 @@ $routes['admin.categoria_material'] = [
   'file' => 'admin/categoria_material',
   'params' => []
 ];
+
 $routes['admin.categoria_material.create'] = [
   'method' => 'GET',
   'file' => 'admin/categoria_material',
