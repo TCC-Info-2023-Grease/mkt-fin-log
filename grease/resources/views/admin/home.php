@@ -3,8 +3,8 @@
 require dirname(dirname(dirname(__DIR__))) . '/config.php';
 global $_ENV;
 
-import_utils(['extend_styles', 'render_component', 'Auth']);
-
+import_utils(['navegate', 'extend_styles', 'render_component']);
+/*
 if (!isset($session['usuario'])) 
 {
     navegate($_ENV['URL_VIEWS']. '/auth/login.php');
@@ -18,6 +18,7 @@ if (!isset($session['usuario']))
 {
     navegate($_ENV['URL_VIEWS']. '/servicos/home.php');
 }
+*/
 ?>
 
 <!------- HEAD --------->
@@ -38,6 +39,10 @@ extend_styles(['styles']);
     ?>
 
         Welcome to the Grease
+
+
+		
+	
 
     <?php
     render_component('footer');
