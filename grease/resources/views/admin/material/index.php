@@ -1,4 +1,3 @@
-
 <?php
 
 require dirname(dirname(dirname(__DIR__))) . '\config.php';
@@ -77,3 +76,5 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
         require $_ENV['PASTA_VIEWS'] . '/components/footer.php';
         ?>
 </body>
+
+
