@@ -13,8 +13,4 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
     Admin 🕺 Grease
 </title>
 
-
-|   
-<a href="<?php echo $_ENV['URL_ROUTE'] ?>adm.categoria_material.create">
-    Cadastrar Categoria Material
-</a>
+ Categoria dos Materiais

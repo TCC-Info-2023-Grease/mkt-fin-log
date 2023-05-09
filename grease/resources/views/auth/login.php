@@ -48,13 +48,13 @@ extend_styles(['styles']);
             </script>
         <?php endif; ?>
 
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'auth.login'; ?>">
+        <a href="<?php echo $_ENV['ROUTE'] . 'auth.login'; ?>">
             <h2 class="active" id="my-button" style="color:gray">
                 Login
             </h2>
         </a>
 
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'auth.cadastrar'; ?>">
+        <a href="<?php echo $_ENV['ROUTE'] . 'auth.cadastrar'; ?>">
             <h2 class="noactive" style="color:aliceblue">
                 Criar conta
             </h2>
@@ -141,13 +141,13 @@ extend_styles(['styles']);
             </script>
         <?php endif; ?>
 
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'auth.login'; ?>">
+        <a href="<?php echo $_ENV['ROUTE'] . 'auth.login'; ?>">
             <h2 class="active" id="my-button" style="color:gray">
                 Login
             </h2>
         </a>
 
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'auth.cadastrar'; ?>">
+        <a href="<?php echo $_ENV['ROUTE'] . 'auth.cadastrar'; ?>">
             <h2 class="noactive" style="color:aliceblue">
                 Criar conta
             </h2>

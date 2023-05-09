@@ -1,8 +1,6 @@
 <?php
 import_utils([ 'validateParam' ]);
 
-
-
 /**
  * Function router_run executa o roteamento das rotas
  *
@@ -51,7 +49,7 @@ function router_run(array $routes, array $env): void {
         header("Location: $url"); 
     } else {
         // redireciona o usuário para a página 404
-        header("Location: " . $env['URL_ROUTE'] . "welcome"); 
+        header("Location: " . $env['ROUTE'] . "welcome"); 
     }
 
     exit(); 
