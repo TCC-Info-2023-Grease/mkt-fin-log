@@ -1,0 +1,17 @@
+{
+    "name": "etec/grease",
+    "description": "TCC do MTEC 3\u0000 INFO TARDE",
+    "autoload": {
+        "psr-4": {
+            "Etec\\Grease\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gustavo Henrique"
+        }
+    ],
+    "require": {
+        "symfony/console": "^6.0"
+    }
+}
