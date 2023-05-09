@@ -96,4 +96,3 @@ class Material extends Model {
 
     
 }
->>>>>>> 286a4901e05e7d84006a15f932d5b2227f5e0c7a
