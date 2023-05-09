@@ -1,3 +1,3 @@
 $(document).ready(() => {
-  $('.phone').inputmask('(99) - 99999-9999');
+  $('.phone').inputmask('(99) 99999-9999');
 });  

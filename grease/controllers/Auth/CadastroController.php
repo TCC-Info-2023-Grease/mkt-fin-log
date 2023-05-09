@@ -5,18 +5,27 @@ require '../../config.php';
 global $mysqli;
 import_utils([ 'valida_campo', 'navegate' ]);
 
+if(isset($_SESSION['ultimo_acesso'])) {
+  $ultimo_acesso = $_SESSION['ultimo_acesso'];
+} else {
+  $ultimo_acesso = null;
+}
+
+// Atualiza a variável de sessão com a data e hora do último acesso
+$_SESSION['ultimo_acesso'] = time();
 
 # ------ Validar Envio de Dados
 $campos_validos =  (
     valida_campo($_POST['username'])  && 
     valida_campo($_POST['password']) && 
-    valida_campo($_POST['phone'])    &&
-    valida_campo($_POST['age'])      &&
-    valida_campo($_POST['genrer'])
+    valida_campo($_POST['phone'])    
 );
 if (!$campos_validos) 
 {
-    navegate($_ENV['URL_VIEWS'] . '/cadastrar.php?erro=campos_invalidos');
+    $_SESSION['fed_cadastro_usuario'] = [ 
+        'title' => 'Erro!', 'msg' => 'Campos Invalidos' 
+    ];
+    navegate($_ENV['URL_VIEWS'] . '/auth/cadastrar.php');
 } 
 
 
@@ -25,27 +34,36 @@ $usuario = new Usuario($mysqli);
 
 if ($usuario->unico('email', $_POST['email'])) 
 {
-    navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=usuario_existente');
+    $_SESSION['fed_cadastro_usuario'] = [ 
+        'title' => 'Erro!', 'msg' => 'Usuario Existente' 
+    ];
+    navegate($_ENV['URL_VIEWS']. '/auth/cadastrar.php');
 }
 
 # ----- Cadastro Visitante
 $dados = [
-    1,
-    $_POST['username'],
-    $_POST['email'],
-    $_POST['password'],
-    $_POST['phone'],
-    $_POST['age'],
-    $_POST['genrer'],
-    "",
-    ""
+    'tipo_usuario' => $_POST['tipo_usuario'],
+    'username' => $_POST['username'],
+    'email' => $_POST['email'],
+    'password' => $_POST['password'], # password_hash($_POST['password'], PASSWORD_DEFAULT),
+    'age' => intval($_POST['age']),
+    'genrer' => $_POST['genrer'],
+    'cell' => $_POST['phone'],
+    'cpf' => $_POST['cpf'],
+    'profile_picture' => $_POST['profile_picture']
 ];
 
+print_r($dados);
 $usuario->cadastrar($dados);
+
 
 if (!$usuario->login($dados['email'], $dados['password']))
 {
-    navegate($_ENV['URL_VIEWS']. '/cadastrar.php?erro=nao_cadastro');
+    $_SESSION['fed_cadastro_usuario'] = [ 
+        'title' => 'Erro!', 'msg' => 'Usuario não cadastrado' 
+    ];
+    navegate($_ENV['URL_VIEWS']. '/auth/cadastrar.php');
 }
 
+$_SESSION['usuario'] = $usuario->buscar($dados['email']);
 navegate($_ENV['URL_VIEWS']. '/visitante/home.php');

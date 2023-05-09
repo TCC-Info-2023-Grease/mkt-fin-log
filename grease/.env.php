@@ -24,7 +24,7 @@ $_ENV = [
     "jquery"  => "http://localhost:8080/mkt-fin-log/grease/resources/js/lib/jquery.js",
     "inputmask"       => "https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js",
     "masksForInputs"  => "http://localhost:8080/mkt-fin-log/grease/resources/js/masksForInputs.js",
-    "vw_cadastrar"  => "http://localhost:8080/mkt-fin-log/grease/resources/js/vw_cadastrar.js",
+    "vw_cadastrar_usuario"  => "http://localhost:8080/mkt-fin-log/grease/resources/js/views/vw_cadastrar_usuario.js"
   ]
 ];
 ?>
