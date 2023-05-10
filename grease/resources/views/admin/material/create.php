@@ -1,8 +1,12 @@
 <?php
-
-require dirname(dirname(dirname(__DIR__))) . '\config.php';
+# ------ Configurações Básicas
+require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 global $_ENV;   
 
+$categoria_material = new CategoriaMaterial($mysqli);
+$categorias = $categoria_material->buscarTodos();
+
+import_utils(['extend_styles', 'render_component']);
 ?>
 
 <?php
@@ -18,9 +22,22 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
     require $_ENV['PASTA_VIEWS'] . '/components/header.php';
     ?>
     
-        <form method="POST" action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Materiais/CadastroController.php">
+        <form method="POST" action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/CadastroController.php">
         <input type="text" class="text" name="nome" placeholder="Corda de arame...">
         <label for="nome">Nome</label>
+        <br>
+
+        <label for="categoria">Categoria</label>
+        <select name="categoria">
+            <option>
+                - Selecione a Categoria -
+            </option>
+            <?php foreach ($categorias as $categoria): ?>
+            <option value="<?php echo $categoria['categoria_id']; ?>">
+                <?php echo $categoria['nome']; ?>
+            </option>
+            <?php endforeach; ?>
+        </select>
         <br>
 
         <input type="text" class="text" name="descricao" placeholder="Uma corda de arame preta...">
@@ -68,7 +85,7 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
         <br>
 
         <button class="signin login">
-            Entrar
+            Cadastrar
         </button>
         </form>
 

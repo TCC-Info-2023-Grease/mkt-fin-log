@@ -3,7 +3,7 @@ USE db_tcc;
 
 CREATE TABLE CategoriasMaterial (
 	-- PK
-	categoria_id INT PRIMARY KEY,
+	categoria_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     
 	-- Atibutos
     nome VARCHAR(30) UNIQUE NOT NULL
@@ -13,7 +13,7 @@ CREATE TABLE CategoriasMaterial (
 
 CREATE TABLE Usuarios (
 	-- PK & FK
-    usuario_id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     tipo_usuario CHAR(3),
 
     -- Atibutos
@@ -52,12 +52,12 @@ CREATE TABLE Caixa (
 
 CREATE TABLE Personagens (
 	-- PK & FK
-	personagem_id INT PRIMARY KEY AUTO_INCREMENT,
+	personagem_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     
 	-- Atibutos
 	nome VARCHAR(100) NOT NULL,
 	ator VARCHAR(100) NOT NULL,
-  -- 'M', 'F'
+    -- 'M', 'F'
 	sexo CHAR(1) NOT NULL,
 	idade INT(3) NOT NULL, 
 	descricao TEXT NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE Personagens (
 
 CREATE TABLE Cenarios (
 	-- PK & FK
-	cenario_id INT PRIMARY KEY AUTO_INCREMENT,
+	cenario_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     personagem_id INT NOT NULL,
     FOREIGN KEY (personagem_id)
         REFERENCES Personagens (personagem_id),
@@ -91,7 +91,7 @@ CREATE TABLE Cenarios (
 
 CREATE TABLE Fornecedores (
 	-- PK & FK
-    fornecedor_id INT AUTO_INCREMENT PRIMARY KEY,
+    fornecedor_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     
     -- Atibutos
     ender TEXT NOT NULL,
@@ -106,9 +106,9 @@ CREATE TABLE Fornecedores (
 
 CREATE TABLE Materiais (
 	-- PK & FK
-	material_id INT auto_increment primary key,
+	material_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	categoria_id INT NOT NULL,
-  FOREIGN KEY (categoria_id)
+    FOREIGN KEY (categoria_id)
         REFERENCES CategoriasMaterial (categoria_id),
 
 	-- Atibutos
@@ -130,7 +130,7 @@ CREATE TABLE Materiais (
 
 CREATE TABLE SaidasMaterial (
 	-- PK & FK
-    saida_id INT AUTO_INCREMENT PRIMARY KEY,
+    saida_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     material_id INT,
     caixa_id INT,
     usuario_id INT,
@@ -150,7 +150,7 @@ CREATE TABLE SaidasMaterial (
 
 CREATE TABLE EntradasMaterial (
 	-- PK & FK
-    entrada_id INT AUTO_INCREMENT PRIMARY KEY,
+    entrada_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     material_id INT,
     caixa_id INT,
     usuario_id INT,
@@ -170,27 +170,27 @@ CREATE TABLE EntradasMaterial (
 
 CREATE TABLE PedidosMateriais (
 	-- PK & FK
-    pedido_id INT PRIMARY KEY AUTO_INCREMENT,
+    pedido_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    material_id INT NOT NULL,
+    usuario_id INT NOT NULL,
 	FOREIGN KEY (material_id)
         REFERENCES Materiais (material_id),
     FOREIGN KEY (usuario_id)
         REFERENCES Usuarios (usuario_id),
     
     -- Atibutos
-    material_id INT NOT NULL,
     dada_pedido DATE NOT NULL,
     data_entrega DATE NOT NULL,
     qtde_material INT NOT NULL,
     -- 'em aberto', 'fechado', 'cancelado'
     status_pedido VARCHAR(16) NOT NULL,
-    usuario_id INT NOT NULL,
     descricao VARCHAR(200) NOT NULL
 );
 
 
 CREATE TABLE Figurinos (
 	-- PK & FK
-	figurino_id INT PRIMARY KEY AUTO_INCREMENT,
+	figurino_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	personagem_id INT NOT NULL,
     FOREIGN KEY (personagem_id)
         REFERENCES Personagens (personagem_id),

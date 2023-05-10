@@ -9,5 +9,5 @@ $mysqli = mysqli_connect (
 );
 
 if (!$mysqli) {
-  throw new Exception('Erro na conexão com o BD', 1);
+  echo 'Erro na conexão com o BD';
 }
