@@ -1,11 +1,11 @@
 <?php
 /**
- * Usuario
+ * Categoria Material
  */
-class Usuario 
+class CategoriaMaterial
 {
     private $mysqli;
-    private $tabela = "usuarios";
+    private $tabela = "categoriasmaterial";
 
 
     /**
@@ -81,44 +81,26 @@ class Usuario
         return $usuario;
     }
 
-
-    /**
-     * Método para realizar o login do usuario
-     *
-     * @param  string $email É o email a ser usada no login
-     * @param  string $senha É a senha a ser usada no login
-     * @return bool|array
-     */
-    public function login($email, $senha)
+    public function buscarTodos()
     {
-        $query = "
+        $stmt = $this->mysqli->query("
             SELECT 
                 * 
             FROM 
-                " . $this->tabela . " 
-            WHERE email = ? LIMIT 0,1
-        ";
+                " . $this->tabela ."
+            ORDER BY nome ASC"    
+        );
 
-        $stmt = $this->mysqli->prepare($query);
-
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-
-        $result = $stmt->get_result();
-
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
-
-            if ($senha == $row['senha']) {
-                return $row;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+        if ($stmt->num_rows === 0) {
+            return null;
         }
-    }
 
+        while ($linha = mysqli_fetch_array($stmt, MYSQLI_ASSOC)) {
+            $categoria[] = $linha;
+        }
+
+        return $categoria;
+    }
 
     /**
      * Método para realizar o cadastro de um Úsuario
@@ -131,26 +113,36 @@ class Usuario
         $stmt = $this->mysqli->prepare("
             INSERT INTO 
                 " . $this->tabela . " 
-                (tipo_usuario, nome, email, senha, celular, idade, genero, cpf, foto_perfil) 
+                (nome) 
             VALUES 
-                (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (?)
         ");
 
-         $stmt->bind_param(
-            "ssssissss",
-            $dados['tipo_usuario'],
-            $dados['username'],
-            $dados['email'],
-            $dados['password'],
-            $dados['cell'],
-            $dados['age'],
-            $dados['genrer'],
-            $dados['cpf'],
-            $dados['foto_perfil']
-        );
+        $stmt->bind_param("s", $dados['nome']);
 
+        // Verificar se o nome já existe na tabela
+        $verificarStmt = $this->mysqli->prepare("
+            SELECT 
+                nome 
+            FROM 
+                " . $this->tabela . " 
+            WHERE 
+                nome = ?
+        ");
 
-        $stmt->execute();
-        $stmt->close();
+        $verificarStmt->bind_param("s", $dados['nome']);
+        $verificarStmt->execute();
+        $verificarStmt->store_result();
+
+        if ($verificarStmt->num_rows > 0) {
+            // Se o nome já existe na tabela, exibir uma mensagem de erro ou redirecionar o usuário para uma página de erro
+            echo "O nome já existe na tabela.";
+        } else {
+            // Se o nome não existe na tabela, inserir o novo registro
+            $stmt->execute();
+            $stmt->close();
+        }
+        
+        $verificarStmt->close();
     }
 }

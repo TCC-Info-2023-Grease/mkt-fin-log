@@ -1,6 +1,6 @@
 <?php
 # ------ Configurações Básicas
-import_utils([ 'navegate' ]);
+//import_utils([ 'navegate' ]);
 ?>
 
 <a href="<?php echo $_ENV['ROUTE'] ?>auth.cadastrar">
@@ -15,8 +15,8 @@ import_utils([ 'navegate' ]);
     Categoria Material
 </a>
 |   
-<a href="<?php echo $_ENV['ROUTE'] ?>auth.login">
-    Login
+<a href="<?php echo $_ENV['ROUTE'] ?>admin.material.index">
+    Material
 </a>
 |   
 <a href="<?php echo $_ENV['ROUTE'] ?>auth.sair">
