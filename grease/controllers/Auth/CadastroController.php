@@ -40,7 +40,6 @@ if ($usuario->unico('email', $_POST['email']))
     navegate($_ENV['URL_VIEWS']. '/auth/cadastrar.php');
 }
 
-# ----- Cadastro Visitante
 $dados = [
     'tipo_usuario' => $_POST['tipo_usuario'],
     'username' => $_POST['username'],
@@ -73,4 +72,3 @@ if ($dados['tipo_usuario'] == 'adm') {
 } else {
     navegate($_ENV['URL_VIEWS']. '/servico/home.php');
 }
-

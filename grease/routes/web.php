@@ -39,15 +39,25 @@ $routes['auth.sair'] = [
 
 
 // --- Routes: Admin
-$routes['admin.categoria_material'] = [
+$routes['admin.material.index'] = [
   'method' => 'GET',
-  'file' => 'admin/categoria_material',
+  'file' => 'admin/material/index',
+  'params' => []
+];
+$routes['admin.material.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/material/create',
   'params' => []
 ];
 
+$routes['admin.categoria_material.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/categoria-material/index',
+  'params' => []
+];
 $routes['admin.categoria_material.create'] = [
   'method' => 'GET',
-  'file' => 'admin/categoria_material',
+  'file' => 'admin/categoria-material/create',
   'params' => []
 ];
 

@@ -56,12 +56,12 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
             </script>   
         <?php endif; ?>
         
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'auth.cadastrar'; ?>">
+        <a href="<?php echo $_ENV['ROUTE'] . 'auth.cadastrar'; ?>">
             <h2 class="active" style="color:aliceblue">
                 Criar conta
             </h2>
         </a>
-        <a href="<?php echo $_ENV['URL_ROUTE'] . 'auth.login'; ?>">
+        <a href="<?php echo $_ENV['ROUTE'] . 'auth.login'; ?>">
             <h2 class="nonactive" id="my-button" style="color:gray">
                 Login
             </h2>

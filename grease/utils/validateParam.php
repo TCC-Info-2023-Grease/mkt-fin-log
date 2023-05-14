@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Função para validar parâmetros da rota
+ *
+ * @param [type] $param
+ * @param [type] $value
+ * @param array $options
+ * @return void
+ */
 function validateParam($param, $value, $options = []) {
   // Verifica se o parâmetro é obrigatório e não foi fornecido
   if ($options['required'] ?? false && $value === null) {

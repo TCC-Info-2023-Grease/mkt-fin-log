@@ -1,11 +1,11 @@
 <?php
 
-class Material extends Model {
+class Material {
     private $mysqli;
     private $tabela = "materiais";
 
     /**
-     * Método construtor da classe
+     * Método construtor da coolasse
      *
      * @param  mysqli $mysqli É a conexão com o banco de dados
      * @return void
@@ -45,54 +45,73 @@ class Material extends Model {
         return !$stmt->fetch();
     }
 
-    public function cadastrar($dados = []) {
-        $query = "
-        INSERT INTO 
-        ".$this->tabela."
-            (
-                nome, 
-                descricao, 
-                qtde_estimada, 
-                valor_estimado, 
-                valor_gasto, 
-                unidade_medida, 
-                estoque_minimo, 
-                estoque_atual,
-                valor_unitario, 
-                datahora_cadastro, 
-                data_validade, 
-                foto_material, 
-                status_material
-            ) 
-        VALUES 
-            (
-                ?, ?, ?, ?, ?, ?, ?, 
-                ?, ?, ?, ?, ?, ?, ?
-            );
-        ";
+    public function buscarTodos()
+    {
+        $stmt = $this->mysqli->query("
+            SELECT 
+                 m.*, c.nome AS nome_categoria
+            FROM 
+                " . $this->tabela ." as m
+            JOIN 
+                categoriasmaterial AS c ON m.categoria_id = c.categoria_id
+            ORDER BY 
+                m.nome ASC
+        ");
 
-        $stmt = $this->mysqli->prepare($query);
-        
-        $stmt->bind_param(
-            "ssiiidiidssss",
-            $dados['nome'],
-            $dados['descricao'],
-            $dados['qtde_estimada'],
-            $dados['valor_estimado'],
-            $dados['valor_gasto'],
-            $dados['unidade_medida'],
-            $dados['estoque_minimo'],
-            $dados['estoque_atual'],
-            $dados['valor_unitario'],
-            $dados['datahora_cadastro'],
-            $dados['data_validade'],
-            $dados['foto_material'],
-            $dados['status_material']
-        );
+        if ($stmt->num_rows === 0) {
+            return null;
+        }
 
-        $stmt->execute();
-        $stmt->close();
+        while ($linha = mysqli_fetch_array($stmt, MYSQLI_ASSOC)) {
+            $categoria[] = $linha;
+        }
+
+        return $categoria;
     }
 
-    
+    public function cadastrar($dados = []) {
+        $query = "
+            INSERT INTO 
+            ". $this->tabela ."
+                (
+                    nome, 
+                    categoria_id,
+                    descricao, 
+                    qtde_estimada, 
+                    valor_estimado, 
+                    valor_gasto, 
+                    unidade_medida, 
+                    estoque_minimo, 
+                    estoque_atual,
+                    valor_unitario, 
+                    datahora_cadastro, 
+                    data_validade, 
+                    foto_material, 
+                    status_material
+                ) 
+            VALUES 
+                (
+                    '". $dados['nome'] ."',
+                    '". $dados['categoria_id'] ."',
+                    '". $dados['descricao'] ."',
+                    '". $dados['qtde_estimada'] ."',
+                    '". $dados['valor_estimado'] ."',
+                    '". $dados['valor_gasto'] ."',
+                    '". $dados['unidade_medida'] ."',
+                    '". $dados['estoque_minimo'] ."',
+                    '". $dados['estoque_atual'] ."',
+                    '". $dados['valor_unitario'] ."',
+                    '". $dados['datahora_cadastro'] ."',
+                    '". $dados['data_validade'] ."',
+                    '". $dados['foto_material'] ."',
+                    '". $dados['status_material'] ."'
+                );
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result === false) {
+            die("Erro ao executar a consulta: " . $this->mysqli->error);
+        }
+    }
 }

@@ -26,5 +26,4 @@ $dados = [
 ];
 
 $material->cadastrar($dados);
-
 ?>
