@@ -49,11 +49,14 @@ class Material {
     {
         $stmt = $this->mysqli->query("
             SELECT 
-                * 
+                 m.*, c.nome AS nome_categoria
             FROM 
-                " . $this->tabela ."
-            ORDER BY nome ASC"    
-        );
+                " . $this->tabela ." as m
+            JOIN 
+                categoriasmaterial AS c ON m.categoria_id = c.categoria_id
+            ORDER BY 
+                m.nome ASC
+        ");
 
         if ($stmt->num_rows === 0) {
             return null;
