@@ -19,6 +19,10 @@
     Material
 </a>
 |   
+<a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.entrada.create">
+    Entrada - Caixa
+</a>
+|   
 <a href="<?php echo $_ENV['ROUTE'] ?>auth.sair">
     Sair
 </a>

@@ -61,6 +61,17 @@ $routes['admin.categoria_material.create'] = [
   'params' => []
 ];
 
+$routes['admin.caixa.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/categoria-material/index',
+  'params' => []
+];
+$routes['admin.caixa.entrada.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/caixa/create.entrada',
+  'params' => []
+];
+
 
 // --- Routes: Actions
 $routes['cadastrar-usuario'] = [

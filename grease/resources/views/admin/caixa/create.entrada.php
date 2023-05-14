@@ -1,5 +1,5 @@
 <?php
-require dirname(dirname(dirname(__DIR__))). '/config.php';
+require dirname(dirname(dirname(dirname(__DIR__)))). '/config.php';
 global $_ENV;
 ?>
 
@@ -70,6 +70,37 @@ font-size: 10px;
 
 		<form action="<?php echo $_ENV["URL_CONTROLLERS"]?>CaixaController.php" method="post">
 
+  <label for="lname">Categoria:</label><br>
+  <input type="number" id="Ctgr" name="Ctgr"><br>
+<br>
+  <label for="lname">Descrição:</label><br>
+  <input type="text" id="Dcc" name="Dcc"><br>
+<br>
+  <label for="lname">Valor:</label><br>
+  <input type="number" id="Vl" name="Vl"><br>
+<br>
+   <label for="lname">Tipo movimentação:</label><br>
+  <input type="text" id="TM" name="TM"><br>
+<br>
+   <label for="lname">Forma pagamento:</label><br>
+  <input type="text" id="CS" name="CS"><br>
+<br>
+   <label for="lname">Saldo anterior:</label><br>
+  <input type="number" id="SAnterior" name="SAnterior"><br>
+<br>
+   <label for="lname">Saldo atual:</label><br>
+  <input type="number" id="SAtual" name="SAtual"><br>
+<br>
+   <label for="lname">Status caixa:</label><br>
+  <input type="radio" id="SC" name="SC" value="Ativo">Ativo<br>
+  <input type="radio" id="SC" name="SC" value="Inativo">Inativo<br>
+<br>
+    <label for="lname">Observação:</label><br>
+  <input type="text" id="Obs" name="Obs"><br>
+<br>
+  
+
+  <input type="submit" value="salvar">
        
         </form>
 </body>
