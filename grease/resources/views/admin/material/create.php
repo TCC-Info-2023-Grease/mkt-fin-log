@@ -1,6 +1,7 @@
+
 <?php
-# ------ Configurações Básicas
-require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
+
+
 global $_ENV;   
 
 $categoria_material = new CategoriaMaterial($mysqli);
@@ -16,6 +17,7 @@ if(isset($_SESSION['ultimo_acesso'])) {
   if(time() - $ultimo_acesso > 100) {
     unset($_SESSION['fed_cadastro_usuario']);
   }
+
 } 
 ?>
 
@@ -57,6 +59,7 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
             <option value="">
                 - Selecione a Categoria -
             </option>
+            
             <?php foreach ($categorias as $categoria): ?>
             <option value="<?php echo $categoria['categoria_id']; ?>">
                 <?php echo $categoria['nome']; ?>
