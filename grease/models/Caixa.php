@@ -74,45 +74,56 @@ class Caixa
   public function cadastrarEntrada($dados = [])
   {
     $query = "
-            INSERT INTO 
-            " . $this->tabela . "
-                (
-                    caixa_id,
-                    usuario_id, 
-                    categoria,
-                    descricao, 
-                    data_movimentacao, 
-                    valor, 
-                    tipo_movimentacao, 
-                    forma_pagamento, 
-                    obs
-                ) 
-            VALUES 
-                (
-                    NULL,
-
-                    '" . $dados['usuario_id'] . "',
-                    '" . $dados['categoria'] . "',
-                    '" . $dados['descricao'] . "',
-                    '" . $dados['data_movimentacao'] . "',
-                    '" . $dados['valor'] . "',
-                    '" . $dados['tipo_movimentacao'] . "',
-                    '" . $dados['forma_pagamento'] . "',
-                    '" . $dados['obs'] . "'
-                );
-        ";
+      INSERT INTO 
+      " . $this->tabela . "
+        (
+          caixa_id,
+          usuario_id, 
+          categoria,
+          descricao, 
+          data_movimentacao, 
+          valor, 
+          tipo_movimentacao, 
+          forma_pagamento, 
+          obs
+        ) 
+      VALUES 
+        (
+          NULL,
+          '" . $dados['usuario_id'] . "',
+          '" . $dados['categoria'] . "',
+          '" . $dados['descricao'] . "',
+          '" . $dados['data_movimentacao'] . "',
+          '" . $dados['valor'] . "',
+          '" . $dados['tipo_movimentacao'] . "',
+          '" . $dados['forma_pagamento'] . "',
+          '" . $dados['obs'] . "'
+        );
+    ";
 
     $result = $this->mysqli->query($query);
 
     if ($result === false) {
       die('Erro ao executar a consulta: ' . $this->mysqli->error);
-    } 
+    } else {
+      $caixa_ID = $this->mysqli->insert_id;
 
-    $caixa_id = $this->buscarEntrada([ $dados['usuario_id'], $dados['data_movimentacao'] ]);
-    $this->atualizarEntradaCaixa([ 'valor' => $dados['valor'], 'caixa_id' => $caixa_id]); 
+      $query = "
+        UPDATE Caixa
+        SET valor = valor + " . $dados['valor'] . "
+        WHERE caixa_id = " . $caixa_ID . ";
+      ";
+
+      $result = $this->mysqli->query($query);
+
+      if ($result === false) {
+        die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
+      }
+    }
   }
 
-  public function buscarEntrada($dados = []) {
+  public function buscarEntrada($dados = [])
+  {
     $stmt = $this->mysqli->query("
         SELECT 
               c.id
@@ -130,27 +141,13 @@ class Caixa
     if ($stmt->num_rows === 0) {
       return null;
     }
-  
+
     $row = $stmt->fetch_assoc();
     $id = $row['id'];
   }
 
-
   public function atualizarEntradaCaixa($dados = [])
   {
-    $query = "
-      UPDATE
-      " . $this->tabela . "
-      SET 
-        valor = '" . $dados['valor'] . "'
-      WHERE caixa_id = '" . $dados['caixa_id'] . "',
-    ";
-
-    $result = $this->mysqli->query($query);
-
-    if ($result === false) {
-      die('Erro ao executar a consulta: ' . $this->mysqli->error);
-    }
   }
 
   public function deletar($id)

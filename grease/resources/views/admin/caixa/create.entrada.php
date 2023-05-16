@@ -131,8 +131,7 @@ render_component('head');
       name="obs" 
       id="" 
       cols="30" 
-      rows="10" 
-      required
+      rows="10"   
       placeholder="Observações adicionais sobre a movimentação.">
     </textarea>
     <br>
