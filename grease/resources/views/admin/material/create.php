@@ -1,7 +1,4 @@
-
 <?php
-
-
 global $_ENV;   
 
 $categoria_material = new CategoriaMaterial($mysqli);
@@ -17,7 +14,6 @@ if(isset($_SESSION['ultimo_acesso'])) {
   if(time() - $ultimo_acesso > 100) {
     unset($_SESSION['fed_cadastro_usuario']);
   }
-
 } 
 ?>
 

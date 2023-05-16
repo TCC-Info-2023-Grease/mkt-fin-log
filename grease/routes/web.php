@@ -63,7 +63,7 @@ $routes['admin.categoria_material.create'] = [
 
 $routes['admin.caixa.index'] = [
   'method' => 'GET',
-  'file' => 'admin/categoria-material/index',
+  'file' => 'admin/caixa/index',
   'params' => []
 ];
 $routes['admin.caixa.entrada.create'] = [

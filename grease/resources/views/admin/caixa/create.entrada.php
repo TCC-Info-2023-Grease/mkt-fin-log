@@ -3,9 +3,17 @@
 require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 global $_ENV;
 
-
 import_utils(['extend_styles', 'render_component']);
 
+// Verifica se a variável de sessão 'ultimo_acesso' já existe
+if(isset($_SESSION['ultimo_acesso'])) {
+  $ultimo_acesso = $_SESSION['ultimo_acesso'];
+  
+  // Verifica se já passaram 5 minutos desde o último acesso
+  if(time() - $ultimo_acesso > 100) {
+    unset($_SESSION['fed_cadastro_usuario']);
+  }
+} 
 ?>
 
 
@@ -15,7 +23,6 @@ render_component('head');
 //extend_styles(['styles']);
 ?>
 <title>Caixa da sala</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js"
   type="text/javascript"></script>
 <!------- /HEAD --------->
@@ -25,25 +32,42 @@ render_component('head');
   require $_ENV['PASTA_VIEWS'] . '/components/header.php';
   ?>
 
-  <?php if (isset($_SESSION['fed_material']) && !empty($_SESSION['fed_material'])): ?>
+  <?php if (isset($_SESSION['fed_caixa']) && !empty($_SESSION['fed_caixa'])): ?>
   <script>
     Swal.fire({
-      title: '<?php echo $_SESSION['fed_material']['title']; ?>',
-      text: '<?php echo $_SESSION['fed_material']['msg']; ?>',
+      title: '<?php echo $_SESSION['fed_caixa']['title']; ?>',
+      text: '<?php echo $_SESSION['fed_caixa']['msg']; ?>',
       icon: 'error',
       confirmButtonText: 'OK'
+
     })
   </script>
   <?php endif; ?>
 
-  <form action="<?php echo $_ENV["URL_CONTROLLERS"] ?>CaixaController.php" method="post">
+
+  <form 
+    action="<?php echo $_ENV["URL_CONTROLLERS"]; ?>/Caixa/EntradaController.php" 
+    method="POST"
+    id="frm-entrada"
+  >
+    <input 
+      type="hidden" 
+      name="usuario_id" 
+      value="<?php echo 1; ?>" 
+    />
+    <input 
+      type="hidden" 
+      name="tipo_movimentacao" 
+      value="Entrada" 
+    />
 
     <label for="categoria_escolhida">
       Categoria:
     </label>
-    <br>
-
-    <select name="categoria_escolhida" id="">
+    <select 
+      name="categoria_escolhida" 
+      id=""
+    >
       <option value="">
         - Selecione uma opção -
       </option>
@@ -56,32 +80,39 @@ render_component('head');
     <br>
 
     <label for="descricao">Descrição:</label><br>
-    <textarea name="descricao" id="" cols="30" rows="10">
+    <textarea 
+      name="descricao" 
+      id="" 
+      cols="30" 
+      rows="10" 
+      required
+    >
     </textarea>
     <br>
 
     <label for="price">Valor:</label><br>
-    <input type="text" id="money" name="price"><br>
+    <input 
+      type="text" 
+      id="money" 
+      name="valor" 
+      placeholder="R$ 0,99"
+      required
+    />
+    <br>
     <br>
 
-    <label for="lname">Tipo movimentação:</label><br>
-    <input type="text" id="TM" name="TM"><br>
-    <br>
-
-    <label for="lname">Forma pagamento:</label><br>
-    <input type="text" id="CS" name="CS"><br>
-    <br>
-
-    <label for="lname">Saldo anterior:</label><br>
-    <input type="number" id="SAnterior" name="SAnterior"><br>
-    <br>
-
-    <label for="lname">Saldo atual:</label><br>
-    <input type="number" id="SAtual" name="SAtual"><br>
+    <label for="forma_pagamento">Forma pagamento:</label><br>
+    <select name="forma_pagamento" id="" required>
+      <option value="">
+        - Selecione uma opção -
+      </option>
+      <option value="Físico">Físico</option>
+      <option value="Pix">Pix</option>
+    </select>
     <br>
 
     <label for="status_caixa">Status caixa:</label><br>
-    <select name="status_caixa" id="">
+    <select name="status_caixa" id="" required>
       <option value="">
         - Selecione uma opção -
       </option>
@@ -91,16 +122,22 @@ render_component('head');
       <option value="Concluída">Concluída</option>
       <option value="Cancelada">Cancelada</option>
     </select>
+
+
     <br>
 
-    <label for="lname">Observação:</label><br>
-    <textarea name="obs" id="" cols="30" rows="10">
+    <label for="obs">Observação:</label><br>
+    <textarea 
+      name="obs" 
+      id="" 
+      cols="30" 
+      rows="10" 
+      required
+      placeholder="Observações adicionais sobre a movimentação.">
     </textarea>
     <br>
-
-
+    
     <input type="submit" value="salvar">
-
   </form>
 
   <?php
@@ -113,6 +150,10 @@ render_component('head');
         allowNegative: false,
         thousands: '.', decimal: ',',
         affixesStay: true
+      });
+
+      $('#frm-entrada').submit(function(event) {
+        $('input[name=valor]').val($('input[name=valor]').maskMoney('unmasked')[0]);
       });
     });
   </script>

@@ -53,13 +53,11 @@ class Caixa
   {
     $stmt = $this->mysqli->query("
             SELECT 
-                 m.*, c.nome AS nome_categoria
+                 c.*, u.*
             FROM 
-                " . $this->tabela . " as m
+                " . $this->tabela . " as c
             JOIN 
-                categoriasmaterial AS c ON m.categoria_id = c.categoria_id
-            ORDER BY 
-                m.nome ASC
+                usuarios AS u ON u.usuario_id = c.usuario_id
         ");
 
     if ($stmt->num_rows === 0) {
@@ -73,43 +71,34 @@ class Caixa
     return $categoria;
   }
 
-  public function cadastrar($dados = [])
+  public function cadastrarEntrada($dados = [])
   {
     $query = "
             INSERT INTO 
             " . $this->tabela . "
                 (
-                    nome, 
-                    categoria_id,
+                    caixa_id,
+                    usuario_id, 
+                    categoria,
                     descricao, 
-                    qtde_estimada, 
-                    valor_estimado, 
-                    valor_gasto, 
-                    unidade_medida, 
-                    estoque_minimo, 
-                    estoque_atual,
-                    valor_unitario, 
-                    datahora_cadastro, 
-                    data_validade, 
-                    foto_material, 
-                    status_material
+                    data_movimentacao, 
+                    valor, 
+                    tipo_movimentacao, 
+                    forma_pagamento, 
+                    obs
                 ) 
             VALUES 
                 (
-                    '" . $dados['nome'] . "',
-                    '" . $dados['categoria_id'] . "',
+                    NULL,
+
+                    '" . $dados['usuario_id'] . "',
+                    '" . $dados['categoria'] . "',
                     '" . $dados['descricao'] . "',
-                    '" . $dados['qtde_estimada'] . "',
-                    '" . $dados['valor_estimado'] . "',
-                    '" . $dados['valor_gasto'] . "',
-                    '" . $dados['unidade_medida'] . "',
-                    '" . $dados['estoque_minimo'] . "',
-                    '" . $dados['estoque_atual'] . "',
-                    '" . $dados['valor_unitario'] . "',
-                    '" . $dados['datahora_cadastro'] . "',
-                    '" . $dados['data_validade'] . "',
-                    '" . $dados['foto_material'] . "',
-                    '" . $dados['status_material'] . "'
+                    '" . $dados['data_movimentacao'] . "',
+                    '" . $dados['valor'] . "',
+                    '" . $dados['tipo_movimentacao'] . "',
+                    '" . $dados['forma_pagamento'] . "',
+                    '" . $dados['obs'] . "'
                 );
         ";
 
@@ -117,31 +106,45 @@ class Caixa
 
     if ($result === false) {
       die('Erro ao executar a consulta: ' . $this->mysqli->error);
-    }
+    } 
+
+    $caixa_id = $this->buscarEntrada([ $dados['usuario_id'], $dados['data_movimentacao'] ]);
+    $this->atualizarEntradaCaixa([ 'valor' => $dados['valor'], 'caixa_id' => $caixa_id]); 
   }
 
-  public function atualizar($id, $dados = [])
+  public function buscarEntrada($dados = []) {
+    $stmt = $this->mysqli->query("
+        SELECT 
+              c.id
+        FROM 
+            " . $this->tabela . " as c
+        WHERE 
+        '" . $dados[0] . "',
+        '" . $dados[1] . "',
+    ");
+
+    if ($stmt->num_rows === 0) {
+      return null;
+    }
+
+    if ($stmt->num_rows === 0) {
+      return null;
+    }
+  
+    $row = $stmt->fetch_assoc();
+    $id = $row['id'];
+  }
+
+
+  public function atualizarEntradaCaixa($dados = [])
   {
     $query = "
-            UPDATE
-            " . $this->tabela . "
-            SET 
-                nome = '" . $dados['nome'] . "', 
-                categoria_id      = '" . $dados['categoria_id'] . "',
-                descricao         = '" . $dados['descricao'] . "', 
-                qtde_estimada     = '" . $dados['qtde_estimada'] . "', 
-                valor_estimado    = '" . $dados['valor_estimado'] . "',
-                valor_gasto       = '" . $dados['valor_gasto'] . "',
-                unidade_medida    = '" . $dados['unidade_medida'] . "',
-                estoque_minimo    = '" . $dados['estoque_minimo'] . "',
-                estoque_atual     = '" . $dados['estoque_atual'] . "',
-                valor_unitario    = '" . $dados['valor_unitario'] . "',
-                datahora_cadastro = '" . $dados['datahora_cadastro'] . "',
-                data_validade     = '" . $dados['data_validade'] . "',
-                foto_material     = '" . $dados['foto_material'] . "',
-                status_material   = '" . $dados['status_material'] . "'
-            WHERE caixa_id = '" . $id . "',    
-        ";
+      UPDATE
+      " . $this->tabela . "
+      SET 
+        valor = '" . $dados['valor'] . "'
+      WHERE caixa_id = '" . $dados['caixa_id'] . "',
+    ";
 
     $result = $this->mysqli->query($query);
 
