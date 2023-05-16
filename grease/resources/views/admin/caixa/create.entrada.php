@@ -22,7 +22,9 @@ if(isset($_SESSION['ultimo_acesso'])) {
 render_component('head');
 //extend_styles(['styles']);
 ?>
-<title>Caixa da sala</title>
+<title>
+    Admin 🕺 Grease
+</title>
 <script src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js"
   type="text/javascript"></script>
 <!------- /HEAD --------->

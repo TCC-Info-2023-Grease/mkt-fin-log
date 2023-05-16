@@ -28,12 +28,12 @@ class Caixa
   public function unico($campo, $valor)
   {
     $query = "
-            SELECT 
-                caixa_id 
-            FROM 
-                " . $this->tabela . " 
-            WHERE {$campo} = ?
-        ";
+      SELECT 
+          caixa_id 
+      FROM 
+          " . $this->tabela . " 
+      WHERE {$campo} = ?
+    ";
     $params = [$valor];
 
     $stmt = $this->mysqli->prepare($query);
@@ -109,9 +109,22 @@ class Caixa
       $caixa_ID = $this->mysqli->insert_id;
 
       $query = "
-        UPDATE Caixa
-        SET valor = valor + " . $dados['valor'] . "
-        WHERE caixa_id = " . $caixa_ID . ";
+        UPDATE caixa
+          SET saldo_atual = (
+            SELECT 
+              SUM(valor) 
+            FROM 
+              CAIXA
+            WHERE caixa_id <= ". $caixa_ID ."
+          ),
+          saldo_anterior = (
+            SELECT 
+              SUM(valor)
+            FROM 
+              CAIXA
+            WHERE caixa_id < ". $caixa_ID ."
+          )
+        WHERE caixa_id = ". $caixa_ID .";
       ";
 
       $result = $this->mysqli->query($query);
@@ -122,7 +135,71 @@ class Caixa
     }
   }
 
-  public function buscarEntrada($dados = [])
+  public function cadastrarSaida($dados = [])
+  {
+    $query = "
+      INSERT INTO 
+      " . $this->tabela . "
+        (
+          caixa_id,
+          usuario_id, 
+          categoria,
+          descricao, 
+          data_movimentacao, 
+          valor, 
+          tipo_movimentacao, 
+          forma_pagamento, 
+          obs
+        ) 
+      VALUES 
+        (
+          NULL,
+          '" . $dados['usuario_id'] . "',
+          '" . $dados['categoria'] . "',
+          '" . $dados['descricao'] . "',
+          '" . $dados['data_movimentacao'] . "',
+          '" . $dados['valor'] . "',
+          '" . $dados['tipo_movimentacao'] . "',
+          '" . $dados['forma_pagamento'] . "',
+          '" . $dados['obs'] . "'
+        );
+    ";
+
+    $result = $this->mysqli->query($query);
+
+    if ($result === false) {
+      die('Erro ao executar a consulta: ' . $this->mysqli->error);
+    } else {
+      $caixa_ID = $this->mysqli->insert_id;
+
+      $query = "
+        UPDATE caixa
+          SET saldo_atual = (
+            SELECT 
+              SUM(valor) 
+            FROM 
+              CAIXA
+            WHERE caixa_id < ". $caixa_ID ."
+          ),
+          saldo_anterior = (
+            SELECT 
+              SUM(valor)
+            FROM 
+              CAIXA
+            WHERE caixa_id < ". $caixa_ID ."
+          )
+        WHERE caixa_id = ". $caixa_ID .";
+      ";
+
+      $result = $this->mysqli->query($query);
+
+      if ($result === false) {
+        die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
+      }
+    }
+  }
+
+  public function buscar($dados = [])
   {
     $stmt = $this->mysqli->query("
         SELECT 
@@ -146,10 +223,7 @@ class Caixa
     $id = $row['id'];
   }
 
-  public function atualizarEntradaCaixa($dados = [])
-  {
-  }
-
+  
   public function deletar($id)
   {
     $sql = "

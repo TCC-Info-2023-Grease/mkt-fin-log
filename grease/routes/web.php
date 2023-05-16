@@ -71,6 +71,11 @@ $routes['admin.caixa.entrada.create'] = [
   'file' => 'admin/caixa/create.entrada',
   'params' => []
 ];
+$routes['admin.caixa.saida.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/caixa/create.saida',
+  'params' => []
+];
 
 
 // --- Routes: Actions

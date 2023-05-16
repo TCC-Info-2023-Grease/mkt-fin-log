@@ -22,7 +22,7 @@ Welcome 🕺 Grease
 <!------- BODY --------->
 <body>
     <?php
-    require $_ENV['PASTA_VIEWS'] . '/components/header.php';
+    render_component('header');
     ?>
 
     <!--─────────────────Começo Home────────────────-->
@@ -49,7 +49,7 @@ Welcome 🕺 Grease
       <!--─────────────────fim Home────────────────-->
 
     <?php
-    require $_ENV['PASTA_VIEWS'] . '/components/footer.php';
+    render_component('footer');
     ?>
 </body>
 <!------- /BODY --------->

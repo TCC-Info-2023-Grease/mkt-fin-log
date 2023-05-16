@@ -39,9 +39,9 @@ CREATE TABLE Caixa (
 		-- Atibutos
     categoria VARCHAR(20),
     descricao VARCHAR(100),
-    data_movimentacao DATE,
+    data_movimentacao DATETIME,
     valor DECIMAL(10, 2),
-    tipo_movimentacao INT,
+    tipo_movimentacao VARCHAR,
     forma_pagamento VARCHAR(20),
     saldo_anterior DECIMAL(10, 2),
     saldo_atual DECIMAL(10, 2) ,

@@ -1,6 +1,6 @@
 <?php
 # ------ Configurações Básicas
-//import_utils([ 'navegate' ]);
+// require dirname(dirname(dirname('auth.php')));
 ?>
 
 <a href="<?php echo $_ENV['ROUTE'] ?>auth.cadastrar">
@@ -21,6 +21,10 @@
 |   
 <a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.entrada.create">
     Entrada - Caixa
+</a>
+|   
+<a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.saida.create">
+    Saida - Caixa
 </a>
 |   
 <a href="<?php echo $_ENV['ROUTE'] ?>auth.sair">
