@@ -114,4 +114,63 @@ class Material {
             die("Erro ao executar a consulta: " . $this->mysqli->error);
         }
     }
+
+    public function atualizar($id, $dados = []) {
+        $query = "
+            UPDATE
+            ". $this->tabela ."
+            SET 
+                nome = '". $dados['nome'] ."', 
+                categoria_id      = '". $dados['categoria_id'] ."',
+                descricao         = '". $dados['descricao'] ."', 
+                qtde_estimada     = '". $dados['qtde_estimada'] ."', 
+                valor_estimado    = '". $dados['valor_estimado'] ."',
+                valor_gasto       = '". $dados['valor_gasto'] ."',
+                unidade_medida    = '". $dados['unidade_medida'] ."',
+                estoque_minimo    = '". $dados['estoque_minimo'] ."',
+                estoque_atual     = '". $dados['estoque_atual'] ."',
+                valor_unitario    = '". $dados['valor_unitario'] ."',
+                datahora_cadastro = '". $dados['datahora_cadastro'] ."',
+                data_validade     = '". $dados['data_validade'] ."',
+                foto_material     = '". $dados['foto_material'] ."',
+                status_material   = '". $dados['status_material'] ."'
+            WHERE material_id = '". $id ."',    
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result === false) {
+            die("Erro ao executar a consulta: " . $this->mysqli->error);
+        }
+    }
+
+    public function deletar($id) {     
+        $sql = "
+            DELETE FROM 
+                " . $this->tabela . "  
+            WHERE material_id = ?
+        ";
+        $stmt = $this->mysqli->prepare($sql);
+
+        if (!$stmt) {
+            die('Erro na preparação da query: ' . $this->mysqli->error);
+        }
+
+        $stmt->bind_param('i', $id);
+
+        if ($stmt->execute()) {
+            if ($stmt->affected_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            die('Erro na execução da query: ' . $this->mysqli->error);
+        }
+
+        $stmt->close();
+        $conexao->close();
+    }
+
+
 }

@@ -45,9 +45,12 @@
   title="RSS Feed do Grease" />
 <link 
   rel="icon" 
-  type="image/png" 
-  sizes="32x32" 
-  href="/favicon-32x32.png" />
+  href="<?php echo assets('images/web/', 'icon.ico') ?>" 
+  type="image/x-icon" />
+<link 
+  href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" 
+  rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- # /Link # -->
 
 

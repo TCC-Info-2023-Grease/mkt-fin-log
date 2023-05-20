@@ -1,6 +1,4 @@
 <?php
-# ------ Configurações Básicas
-require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 global $_ENV;   
 
 $categoria_material = new CategoriaMaterial($mysqli);
@@ -57,6 +55,7 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
             <option value="">
                 - Selecione a Categoria -
             </option>
+            
             <?php foreach ($categorias as $categoria): ?>
             <option value="<?php echo $categoria['categoria_id']; ?>">
                 <?php echo $categoria['nome']; ?>

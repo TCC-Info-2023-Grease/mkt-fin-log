@@ -1,79 +1,161 @@
 <?php
-require dirname(dirname(dirname(__DIR__))). '/config.php';
+# ------ Configurações Básicas
+require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 global $_ENV;
+
+import_utils(['extend_styles', 'render_component']);
+
+// Verifica se a variável de sessão 'ultimo_acesso' já existe
+if(isset($_SESSION['ultimo_acesso'])) {
+  $ultimo_acesso = $_SESSION['ultimo_acesso'];
+  
+  // Verifica se já passaram 5 minutos desde o último acesso
+  if(time() - $ultimo_acesso > 100) {
+    unset($_SESSION['fed_cadastro_usuario']);
+  }
+} 
 ?>
 
 
-<title>Caixa da sala</title>
-    <style type="text/css">
-  body {
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            font-size: 24px;
-        }
-        form {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin: 50px auto;
-            max-width: 500px;
-            padding: 20px;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        select,
-        input[type="text"] {
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            display: block;
-            font-size: 16px;
-            margin-bottom: 20px;
-            padding: 10px;
-            width: 100%;
-        }
-        input[type="radio"] {
-            display: inline-block;
-            margin-right: 10px;
-        }
-        button {
-            background-color: #008CBA;
-            border: none;
-            border-radius: 4px;
-            color: #ffffff;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 10px 20px;
-        }
-        button:hover {
-            background-color: #005e79;
-        }
+<!------- HEAD --------->
+<?php
+render_component('head');
+//extend_styles(['styles']);
+?>
+<title>
+    Admin 🕺 Grease
+</title>
+<script src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js"
+  type="text/javascript"></script>
+<!------- /HEAD --------->
 
-        #tp{
- font-size: 20px;
-        }
-  
-  #mn{
-font-size: 10px;
+<body>
+  <?php
+  require $_ENV['PASTA_VIEWS'] . '/components/header.php';
+  ?>
 
-  }
-    </style>
+  <?php if (isset($_SESSION['fed_caixa']) && !empty($_SESSION['fed_caixa'])): ?>
+  <script>
+    Swal.fire({
+      title: '<?php echo $_SESSION['fed_caixa']['title']; ?>',
+      text: '<?php echo $_SESSION['fed_caixa']['msg']; ?>',
+      icon: 'error',
+      confirmButtonText: 'OK'
+
+    })
+  </script>
+  <?php endif; ?>
 
 
-		<form action="<?php echo $_ENV["URL_CONTROLLERS"]?>CaixaController.php" method="post">
+  <form 
+    action="<?php echo $_ENV["URL_CONTROLLERS"]; ?>/Caixa/EntradaController.php" 
+    method="POST"
+    id="frm-entrada"
+  >
+    <input 
+      type="hidden" 
+      name="usuario_id" 
+      value="<?php echo 1; ?>" 
+    />
+    <input 
+      type="hidden" 
+      name="tipo_movimentacao" 
+      value="Entrada" 
+    />
 
-       
-        </form>
+    <label for="categoria_escolhida">
+      Categoria:
+    </label>
+    <select 
+      name="categoria_escolhida" 
+      id=""
+    >
+      <option value="">
+        - Selecione uma opção -
+      </option>
+      <option value="Aberta">Aberta</option>
+      <option value="Despesas">Despesas</option>
+      <option value="Pagamentos">Pagamentos</option>
+      <option value="Transferências">Transferências</option>
+      <option value="Reservas">Reservas</option>
+    </select>
+    <br>
+
+    <label for="descricao">Descrição:</label><br>
+    <textarea 
+      name="descricao" 
+      id="" 
+      cols="30" 
+      rows="10" 
+      required
+    >
+    </textarea>
+    <br>
+
+    <label for="price">Valor:</label><br>
+    <input 
+      type="text" 
+      id="money" 
+      name="valor" 
+      placeholder="R$ 0,99"
+      required
+    />
+    <br>
+    <br>
+
+    <label for="forma_pagamento">Forma pagamento:</label><br>
+    <select name="forma_pagamento" id="" required>
+      <option value="">
+        - Selecione uma opção -
+      </option>
+      <option value="Físico">Físico</option>
+      <option value="Pix">Pix</option>
+    </select>
+    <br>
+
+    <label for="status_caixa">Status caixa:</label><br>
+    <select name="status_caixa" id="" required>
+      <option value="">
+        - Selecione uma opção -
+      </option>
+      <option value="Receitas">Aberta</option>
+      <option value="Fechada">Fechada</option>
+      <option value="Em andamento">Em andamento</option>
+      <option value="Concluída">Concluída</option>
+      <option value="Cancelada">Cancelada</option>
+    </select>
+
+
+    <br>
+
+    <label for="obs">Observação:</label><br>
+    <textarea 
+      name="obs" 
+      id="" 
+      cols="30" 
+      rows="10"   
+      placeholder="Observações adicionais sobre a movimentação.">
+    </textarea>
+    <br>
+    
+    <input type="submit" value="salvar">
+  </form>
+
+  <?php
+  require $_ENV['PASTA_VIEWS'] . '/components/footer.php';
+  ?>
+  <script>
+    $(document).ready(() => {
+      $('#money').maskMoney({
+        prefix: 'R$ ',
+        allowNegative: false,
+        thousands: '.', decimal: ',',
+        affixesStay: true
+      });
+
+      $('#frm-entrada').submit(function(event) {
+        $('input[name=valor]').val($('input[name=valor]').maskMoney('unmasked')[0]);
+      });
+    });
+  </script>
 </body>
-</html>
-
-
-

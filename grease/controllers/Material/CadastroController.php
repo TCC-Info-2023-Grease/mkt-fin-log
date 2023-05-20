@@ -11,7 +11,6 @@ if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = null;
 }
 
-// Atualiza a variável de sessão com a data e hora do último acesso
 $_SESSION['ultimo_acesso'] = time();
 
 
