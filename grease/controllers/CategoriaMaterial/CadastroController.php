@@ -5,7 +5,7 @@ require dirname(dirname(__DIR__)) . '\config.php';
 global $mysqli;
 import_utils([ 'valida_campo', 'navegate' ]);
 
-echo "NOME: " . $_POST['nome'];
+// echo "NOME: " . $_POST['nome'];
 
 
 # ------ Validar Envio de Dados

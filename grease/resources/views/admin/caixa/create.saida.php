@@ -22,13 +22,12 @@ if(isset($_SESSION['ultimo_acesso'])) {
 render_component('head');
 //extend_styles(['styles']);
 ?>
+
 <title>
     Admin 🕺 Grease
 </title>
-<script 
-  src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js"
-  type="text/javascript">
-</script>
+<script src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js"
+  type="text/javascript"></script>
 <!------- /HEAD --------->
 
 <body>
@@ -50,7 +49,7 @@ render_component('head');
 
 
   <form 
-    action="<?php echo $_ENV["URL_CONTROLLERS"]; ?>/Caixa/EntradaController.php" 
+    action="<?php echo $_ENV["URL_CONTROLLERS"]; ?>/Caixa/SaidaController.php" 
     method="POST"
     id="frm-entrada"
   >
@@ -62,7 +61,7 @@ render_component('head');
     <input 
       type="hidden" 
       name="tipo_movimentacao" 
-      value="Entrada" 
+      value="Saída" 
     />
 
     <label for="categoria_escolhida">

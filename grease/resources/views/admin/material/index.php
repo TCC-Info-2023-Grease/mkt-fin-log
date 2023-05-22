@@ -73,11 +73,13 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
                     <?php echo $material['status_material']; ?>
                 </td>
                 <td>
-                    <a href="">
+                    <a href="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/EditController.php?id=<?php echo $material['material_id']; ?>">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </a>
+
                     <br><br>    
-                    <a href="">
+                    
+                    <a href="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/DeletarController.php?id=<?php echo $material['material_id']; ?>">
                         <i class="fa-solid fa-trash"></i>
                     </a>
                 </td>
