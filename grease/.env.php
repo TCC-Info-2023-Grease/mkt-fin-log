@@ -12,6 +12,7 @@ $_ENV = [
   "ROUTE"           => "http://localhost:8080/grease/index.php?pagina=",
   "URL_VIEWS"       => 'http://localhost:8080/grease/resources/views',
   "URL_CONTROLLERS" => 'http://localhost:8080/grease/controllers',
+  "STORAGE"         => 'http://localhost:8080/grease/storage',
 
   # BANCO DE DADOS
   "DB_SERVIDOR" => "localhost",
@@ -21,9 +22,9 @@ $_ENV = [
 
   # LISTA DE JS SCRIPTS
   "LIST_SCRIPTS" => [
-    "jquery"     => "http://localhost:8080/grease/resources/js/lib/jquery.js",
-    "inputmask"  => "https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js",
-    "masksForInputs"  => "http://localhost:8080/grease/resources/js/services/masksForInputs.js",
+    "jquery"                => "http://localhost:8080/grease/resources/js/lib/jquery.js",
+    "inputmask"             => "https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js",
+    "masksForInputs"        => "http://localhost:8080/grease/resources/js/services/masksForInputs.js",
     "vw_cadastrar_usuario"  => "http://localhost:8080/grease/resources/js/views/vw_cadastrar_usuario.js",
   ]
 ];

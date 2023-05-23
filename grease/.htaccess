@@ -1,4 +1,2 @@
 ﻿RewriteEngine On
-RewriteBase /mkt-fin-log/grease/
-RewriteRule ^grease/(.*)$ $1 [L,QSA]
-RewriteRule ^grease/resurces(.*)$ $1 [L,QSA]
+RewriteRule ^grease/admin/material$ /grease/resources/views/admin/material/index.php [L]
