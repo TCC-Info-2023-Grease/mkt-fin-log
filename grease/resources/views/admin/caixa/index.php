@@ -4,7 +4,8 @@ require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 import_utils(['extend_styles', 'render_component']);
 
 include $_ENV['PASTA_CONTROLLER'] . '/Caixa/ConsultaController.php';
-print_r($caixa);
+print_r($data);
+
 global $_ENV;   
 ?>
 
@@ -37,28 +38,66 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
         Nova Entrada
     </a>
     |   
-    <a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.saída.create">
+    <a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.saida.create">
         Nova Saída
     </a>
     <br><br><br>
 
+    <?php if(isset($data['caixa']) && !empty($data['caixa'])) { ?>          
     <table id="myTable" class="display">
         <thead>
           <tr>
-            <th># ID</th> 
+            <th></th> 
+            <th>Usuario</th> 
+            <th>Valor</th> 
+            <th>Data</th> 
+            <th>Categoria</th> 
           </tr>
         </thead>
 
         <tbody>
-          <?php foreach ($caixa as $item): ?>
-          <tr>
-            <td>
-              <?php echo $item['caixa_id']; ?>
-            </td>
-          </tr>
+          <?php foreach ($data['caixa'] as $item): ?>
+            <tr>
+              <td>
+                <a 
+                  href="<?php echo $_ENV['URL_VIEWS']. '/admin/caixa/show.php?id=' .$item['caixa_id']; ?>"
+                >
+                  <center>
+                    <i class="fa-solid fa-scroll" style="color: #24c28d; font-size: 26px;" title="Ver mais">
+                    </i>                  
+                  </center>
+                </a>  
+              </td>
+              <td>
+                <?php echo $item['nome']; ?>
+              </td>
+              <td>
+                <?php echo $item['valor']; ?>
+              </td>
+              <td>
+                <?php 
+                  $data_movimentacao = new DateTimeImmutable($item['data_movimentacao']);
+                  echo $data_movimentacao->format('d/m/Y'); 
+                ?>
+              </td>
+              <td>
+                <?php echo $item['categoria']; ?>
+              </td>
+            </tr>
           <?php endforeach; ?>
         </tbody>
-    </table>    
+      </table>    
+
+      <h3>
+        Saldo Atual: <?php echo $data['saldo_atual']; ?>
+      </h3>
+        -
+      <h3>
+        Saldo Anterior: <?php echo $data['saldo_anterior']; ?>
+      </h3>          
+    <?php } else { ?>
+      <h3>Sem inserções no caixa</h3>
+    <?php } ?>  
 
     <?php
     render_component('footer');
@@ -66,7 +105,7 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
 
     <script type="text/javascript">
         $(document).ready( function () {
-            $('#myTable').DataTable();
+          $('#myTable').DataTable();
         });
     </script>
 </body>

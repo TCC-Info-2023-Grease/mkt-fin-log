@@ -66,6 +66,16 @@ $routes['admin.caixa.index'] = [
   'file' => 'admin/caixa/index',
   'params' => []
 ];
+$routes['admin.caixa.show'] = [
+  'method' => 'GET',
+  'file' => 'admin/caixa/show',
+  'params' => [
+    'password' => [
+      'required',
+      'integer'
+    ]
+  ]
+];
 $routes['admin.caixa.entrada.create'] = [
   'method' => 'GET',
   'file' => 'admin/caixa/create.entrada',

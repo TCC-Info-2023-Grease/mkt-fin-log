@@ -48,5 +48,5 @@ $dados = [
   'obs'               => $_POST['obs']
 ];
 
-$caixa->cadastrarEntrada($dados);
+$caixa->cadastrarSaida($dados);
 navegate($_ENV['ROUTE'] . 'admin.caixa.index');

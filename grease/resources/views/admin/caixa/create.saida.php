@@ -49,7 +49,7 @@ render_component('head');
 
 
   <form 
-    action="<?php echo $_ENV["URL_CONTROLLERS"]; ?>/Caixa/EntradaController.php" 
+    action="<?php echo $_ENV["URL_CONTROLLERS"]; ?>/Caixa/SaidaController.php" 
     method="POST"
     id="frm-entrada"
   >
@@ -61,7 +61,7 @@ render_component('head');
     <input 
       type="hidden" 
       name="tipo_movimentacao" 
-      value="Entrada" 
+      value="Saída" 
     />
 
     <label for="categoria_escolhida">
