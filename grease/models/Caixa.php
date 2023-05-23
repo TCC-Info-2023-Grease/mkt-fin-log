@@ -52,13 +52,13 @@ class Caixa
   public function buscarTodos()
   {
     $stmt = $this->mysqli->query("
-            SELECT 
-                 c.*, u.*
-            FROM 
-                " . $this->tabela . " as c
-            JOIN 
-                usuarios AS u ON u.usuario_id = c.usuario_id
-        ");
+      SELECT 
+        c.*, u.*
+      FROM 
+        " . $this->tabela . " as c
+      JOIN 
+        usuarios AS u ON u.usuario_id = c.usuario_id
+    ");
 
     if ($stmt->num_rows === 0) {
       return null;
@@ -102,36 +102,8 @@ class Caixa
     ";
 
     $result = $this->mysqli->query($query);
-
     if ($result === false) {
-      die('Erro ao executar a consulta: ' . $this->mysqli->error);
-    } else {
-      $caixa_ID = $this->mysqli->insert_id;
-
-      $query = "
-        UPDATE caixa
-          SET saldo_atual = (
-            SELECT 
-              SUM(valor) 
-            FROM 
-              CAIXA
-            WHERE caixa_id <= ". $caixa_ID ."
-          ),
-          saldo_anterior = (
-            SELECT 
-              SUM(valor)
-            FROM 
-              CAIXA
-            WHERE caixa_id < ". $caixa_ID ."
-          )
-        WHERE caixa_id = ". $caixa_ID .";
-      ";
-
-      $result = $this->mysqli->query($query);
-
-      if ($result === false) {
-        die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
-      }
+      die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
     }
   }
 
@@ -166,70 +138,104 @@ class Caixa
     ";
 
     $result = $this->mysqli->query($query);
-
-    if ($result === false) {
-      die('Erro ao executar a consulta: ' . $this->mysqli->error);
-    } else {
-      $caixa_ID = $this->mysqli->insert_id;
-
-      $query = "
-        UPDATE caixa
-          SET saldo_atual = (
-            SELECT 
-              SUM(valor) 
-            FROM 
-              CAIXA
-            WHERE caixa_id < ". $caixa_ID ."
-          ),
-          saldo_anterior = (
-            SELECT 
-              SUM(valor)
-            FROM 
-              CAIXA
-            WHERE caixa_id < ". $caixa_ID ."
-          )
-        WHERE caixa_id = ". $caixa_ID .";
-      ";
-
-      $result = $this->mysqli->query($query);
-
-      if ($result === false) {
-        die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
-      }
+    if ($result === false) 
+    {
+      die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
     }
   }
 
-  public function buscar($dados = [])
+  public function obterSaldoAtual()
   {
-    $stmt = $this->mysqli->query("
-        SELECT 
-              c.id
-        FROM 
-            " . $this->tabela . " as c
-        WHERE 
-        '" . $dados[0] . "',
-        '" . $dados[1] . "',
+    $saldo_atual    = null;
+    $result_entrada = null;
+    $result_saida   = null;
+
+    $query_entrada = "
+      SELECT 
+        SUM(valor) as 'valor_entrada'  
+      FROM 
+        CAIXA
+      WHERE 
+        tipo_movimentacao = 'Entrada'
+    ";
+    $query_saida = "
+      SELECT 
+        SUM(valor) as 'valor_saida'
+      FROM 
+        CAIXA
+      WHERE 
+        tipo_movimentacao = 'Saida'
+    ";
+
+    $result_entrada = $this->mysqli->query($query_entrada);  
+    $result_saida = $this->mysqli->query($query_saida);
+
+    if ($result_entrada->num_rows === 0 && $result_saida->num_rows === 0) 
+    {
+      return null;
+    }
+
+    $result_entrada = mysqli_fetch_array($result_entrada, MYSQLI_ASSOC);
+    $result_entrada = $result_entrada['valor_entrada'];
+    $result_saida = mysqli_fetch_array($result_saida, MYSQLI_ASSOC);
+    $result_saida = $result_saida['valor_saida'];
+
+    $saldo_atual = $result_entrada - $result_saida;
+    return $saldo_atual;
+  }
+
+  public function obterSaldoAnterior() {
+    $saldo_anterior = 0;
+
+    $query = "
+      SELECT 
+        valor
+      FROM 
+        " . $this->tabela . "
+      ORDER BY 
+        caixa_id 
+      DESC LIMIT 1
+    ";
+    $result = $this->mysqli->query($query);
+    
+    if ($result->num_rows === 0) 
+    {
+      return null;
+    }
+
+    $saldo_anterior = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    return $saldo_anterior['valor'];
+  }
+
+  public function buscar($id)
+  {
+    $sql = $this->mysqli->query("
+      SELECT 
+        c.*, u.*
+      FROM 
+        " . $this->tabela . " as c
+      JOIN 
+        usuarios AS u ON u.usuario_id = c.usuario_id
+      WHERE 
+        caixa_id = '" . $id ."'
     ");
 
-    if ($stmt->num_rows === 0) {
+    if ($sql->num_rows === 0) {
       return null;
     }
 
-    if ($stmt->num_rows === 0) {
-      return null;
-    }
-
-    $row = $stmt->fetch_assoc();
-    $id = $row['id'];
+    $row = $sql->fetch_assoc();
+    
+    return $row;
   }
 
   
   public function deletar($id)
   {
     $sql = "
-        DELETE FROM 
-            " . $this->tabela . "  
-        WHERE caixa_id = ?
+      DELETE FROM 
+        " . $this->tabela . "  
+      WHERE caixa_id = ?
     ";
     $stmt = $this->mysqli->prepare($sql);
 

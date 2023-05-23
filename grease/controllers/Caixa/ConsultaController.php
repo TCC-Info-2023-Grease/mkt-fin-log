@@ -6,7 +6,11 @@ import_utils([ 'valida_campo', 'navegate' ]);
 
 
 # ----- Consulta Caixa
-$c = new Caixa($mysqli);
+$caixa = new Caixa($mysqli);
  
-return $caixa = $c->buscarTodos();
+return $data = [
+  'caixa'          => $caixa->buscarTodos(),
+  'saldo_atual'    => $caixa->obterSaldoAtual(),
+  'saldo_anterior' => $caixa->obterSaldoAnterior()
+];
 ?>

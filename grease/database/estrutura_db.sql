@@ -41,10 +41,8 @@ CREATE TABLE Caixa (
     descricao VARCHAR(100),
     data_movimentacao DATETIME,
     valor DECIMAL(10, 2),
-    tipo_movimentacao VARCHAR,
+    tipo_movimentacao VARCHAR(20),
     forma_pagamento VARCHAR(20),
-    saldo_anterior DECIMAL(10, 2),
-    saldo_atual DECIMAL(10, 2) ,
     status_caixa VARCHAR(15),
     obs TEXT
 );

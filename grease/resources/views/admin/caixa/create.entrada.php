@@ -25,8 +25,10 @@ render_component('head');
 <title>
     Admin 🕺 Grease
 </title>
-<script src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js"
-  type="text/javascript"></script>
+<script 
+  src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js"
+  type="text/javascript">
+</script>
 <!------- /HEAD --------->
 
 <body>

@@ -39,11 +39,14 @@ if (!$campos_validos)
 # ----- Cadastro Material
 $material = new Material($mysqli);
 
- if (isset($_FILES['foto_material']) && !empty($_FILES['foto_material'])) {
+if (isset($_FILES['foto_material']) && !empty($_FILES['foto_material'])) {
   if (count($_FILES['foto_material']['tmp_name']) > 0) {
     for ($q = 0; $q < count($_FILES['foto_material']['tmp_name']); $q++) {
       $nomeDoArquivo = $_FILES['foto_material']['name'][$q];
-      move_uploaded_file($_FILES['foto_material']['tmp_name'][$q], '../../storage/'.$nomeDoArquivo);
+      move_uploaded_file(
+        $_FILES['foto_material']['tmp_name'][$q], 
+        '../../storage/image/user/'.$nomeDoArquivo
+      );
     }
   }
 }
