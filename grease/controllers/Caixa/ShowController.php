@@ -1,1 +1,0 @@
-Vai vir poara ca assim que clicar num link para um unico caixa e depois ir para a view Show

@@ -3,7 +3,7 @@
 require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 
 include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
-//print_r($materiais);
+// print_r($materiais);
 global $_ENV;   
 ?>
 
@@ -37,55 +37,64 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
     <br><br><br>
 
     <table id="myTable" class="display">
-        <thead>
+      <thead>
+        <tr>
+          <th># ID</th>
+          <th>Nome</th>
+          <th>Foto Material</th>
+          <th>Descrição</th>
+          <th>Categoria</th>   
+          <th>Status</th> 
+          <th>Actions</th> 
+        </tr>
+      </thead>
+      
+      <tbody>
+        <?php if ($materiais): ?>
+          <?php foreach ($materiais as $material): ?>
             <tr>
-                <th># ID</th>
-                <th>Nome</th>
-                <th>Foto Material</th>
-                <th>Descrição</th>
-                <th>Categoria</th>   
-                <th>Status</th> 
-                <th>Actions</th> 
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($materiais as $material): ?>
-            <tr>
-                <td>
-                    <?php echo $material['material_id']; ?>
-                </td>
-                <td>
-                    <?php echo $material['nome']; ?>
-                </td>
-                <td>
-                    <img 
-                        width="100px"
-                        src="<?php echo $_ENV['STORAGE'].  '/' .$material['foto_material']; ?>" 
-                        alt="<?php echo $material['nome']; ?>" />
-                </td>
-                <td>
-                    <?php echo $material['descricao']; ?>
-                </td>   
-                <td>
-                    <?php echo $material['nome_categoria']; ?>
-                </td>
-                <td>
-                    <?php echo $material['status_material']; ?>
-                </td>
-                <td>
-                    <a href="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/EditController.php?id=<?php echo $material['material_id']; ?>">
-                        <i class="fa-regular fa-pen-to-square"></i>
-                    </a>
+              <td>
+                <?php echo $material['material_id']; ?>
+              </td>
+              <td>
+                <?php echo $material['nome']; ?>
+              </td>
+              <td>
+                <img 
+                  width="100px"
+                  src="<?php echo $_ENV['STORAGE'].  '/' .$material['foto_material']; ?>" 
+                  alt="<?php echo $material['nome']; ?>" />
+              </td>
+              <td>
+                <?php echo $material['descricao']; ?>
+              </td>   
+              <td>
+                  <?php echo $material['nome_categoria']; ?>
+              </td>
+              <td>
+                  <?php echo $material['status_material']; ?>
+              </td>
+              <td>
+                <a href="<?php echo $_ENV['URL_VIEWS']; ?>/admin/material/show.php?id=<?php echo $material['material_id']; ?>">
+                  <i class="fa-regular fa-eye"></i>
+                </a>
 
-                    <br><br>    
-                    
-                    <a href="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/DeletarController.php?id=<?php echo $material['material_id']; ?>">
-                        <i class="fa-solid fa-trash"></i>
-                    </a>
-                </td>
+                <br><br>    
+
+                <a href="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/EditController.php?id=<?php echo $material['material_id']; ?>">
+                  <i class="fa-regular fa-pen-to-square"></i>
+                </a>
+
+                <br><br>    
+                
+                <a href="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/DeletarController.php?id=<?php echo $material['material_id']; ?>">
+                  <i class="fa-solid fa-trash"></i>
+                </a>
+              </td>
             </tr>
             <?php endforeach; ?>
-        </tbody>
+        <?php endif; ?>
+      </tbody>
     </table>    
 
     <?php

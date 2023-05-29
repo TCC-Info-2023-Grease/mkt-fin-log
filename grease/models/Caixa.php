@@ -53,7 +53,7 @@ class Caixa
   {
     $stmt = $this->mysqli->query("
       SELECT 
-        c.*, u.*
+        c.*, u.*, u.nome as nome_usario
       FROM 
         " . $this->tabela . " as c
       JOIN 
@@ -211,7 +211,7 @@ class Caixa
   {
     $sql = $this->mysqli->query("
       SELECT 
-        c.*, u.*
+        c.*, u.*, u.nome as nome_usuario
       FROM 
         " . $this->tabela . " as c
       JOIN 
