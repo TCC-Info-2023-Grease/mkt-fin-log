@@ -63,10 +63,11 @@ class Material {
         }
 
         while ($linha = mysqli_fetch_array($stmt, MYSQLI_ASSOC)) {
-            $categoria[] = $linha;
+            $materiais[] = $linha;
         }
 
-        return $categoria;
+        // print_r($materiais);
+        return $materiais;
     }
 
     public function cadastrar($dados = []) {
