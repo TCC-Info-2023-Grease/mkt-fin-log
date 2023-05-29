@@ -4,29 +4,25 @@
 ?>
 
 <a href="<?php echo $_ENV['ROUTE'] ?>auth.cadastrar">
-    Cadastrar
+  Cadastrar
 </a>
-|   
+|
 <a href="<?php echo $_ENV['ROUTE'] ?>auth.login">
-    Login
+  Login
 </a>
-|   
+|
 <a href="<?php echo $_ENV['ROUTE'] ?>admin.categoria_material.index">
-    Categoria Material
+  Categoria Material
 </a>
-|   
+|
 <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.index">
-    Material
+  Material
 </a>
-|   
-<a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.entrada.create">
-    Entrada - Caixa
+|
+<a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.index">
+  Caixa
 </a>
-|   
-<a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.saida.create">
-    Saida - Caixa
-</a>
-|   
+|
 <a href="<?php echo $_ENV['ROUTE'] ?>auth.sair">
-    Sair
+  Sair
 </a>

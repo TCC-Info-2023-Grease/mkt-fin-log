@@ -41,7 +41,7 @@ CREATE TABLE Caixa (
     descricao VARCHAR(100),
     data_movimentacao DATETIME,
     valor DECIMAL(10, 2),
-    tipo_movimentacao VARCHAR(20),
+    tipo_movimentacao VARCHAR,
     forma_pagamento VARCHAR(20),
     status_caixa VARCHAR(15),
     obs TEXT
