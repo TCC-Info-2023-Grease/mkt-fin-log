@@ -70,6 +70,26 @@ class Material {
         return $materiais;
     }
 
+    public function buscar($id)
+    {
+        $sql = $this->mysqli->query("
+        SELECT 
+            m.*
+        FROM 
+            " . $this->tabela . " as m
+        WHERE 
+            material_id = '" . $id ."'
+        ");
+
+        if ($sql->num_rows === 0) {
+            return null;
+        }
+
+        $row = $sql->fetch_assoc();
+        
+        return $row;
+    }
+
     public function cadastrar($dados = []) {
         $query = "
             INSERT INTO 

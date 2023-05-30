@@ -1,4 +1,7 @@
 <?php
+# ------ Configurações Básicas
+require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
+
 global $_ENV;   
 
 $categoria_material = new CategoriaMaterial($mysqli);
