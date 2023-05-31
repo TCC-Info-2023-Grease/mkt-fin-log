@@ -60,6 +60,11 @@ $routes['admin.categoria_material.create'] = [
   'file' => 'admin/categoria-material/create',
   'params' => []
 ];
+$routes['admin.categoria_material.edit'] = [
+  'method' => 'GET',
+  'file' => 'admin/categoria-material/edit',
+  'params' => []
+];
 
 $routes['admin.caixa.index'] = [
   'method' => 'GET',

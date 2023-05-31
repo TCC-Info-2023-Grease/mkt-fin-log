@@ -3,39 +3,36 @@
 require dirname(dirname(__DIR__)) . '\config.php';
 
 global $mysqli;
-import_utils([ 'valida_campo', 'navegate' ]);
-
+import_utils(['valida_campo', 'navegate']);
 
 # ------ Validar Envio de Dados
-$campos_validos = (
-    $_GET['id'] ? true : false
-);	
-if (!$campos_validos)
-{ 
+$campos_validos = ($_GET['id'] ? true : false);
+if (!$campos_validos) { 
   navegate($_ENV['ROUTE'] . 'admin.material.index');
 } 
 
-
-# ----- Deletar Material
+# ----- Editar Material
 $material = new Material($mysqli);
-print_r($material->buscar($_GET['id']));
-$material = $material->buscar($_GET['id']);
+$materialData = $material->buscar($_GET['id']);
+//print_r($materialData);
 
-// Requisição 
-$dados_query = http_build_query($dados);
+$url = $_ENV['URL_VIEWS'] . '/admin/material/edit.php';
 
-$url_destino = 'outra_pagina.php';
+# Criar um formulário oculto com os dados do material
+$form = '<form id="materialForm" action="' . $url . '" method="POST">';
+foreach ($materialData as $key => $value) {
+  $form .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
+}
+$form .= '</form>'; 
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $dados_query);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLexec($ch));
+# Script JavaScript para submeter o formulário automaticamente
+$script = '
+<script>
+  window.onload = function() {
+    document.getElementById("materialForm").submit();
+  }
+</script>';
 
-$resposta = curl_exec($ch);
-
-echo $resposta;
-
-curl_close($ch);
-
+# Exibir o formulário e o script
+echo $form . $script;
 ?>
