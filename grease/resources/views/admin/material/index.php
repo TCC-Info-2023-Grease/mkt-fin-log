@@ -62,7 +62,7 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
               <td>
                 <img 
                   width="100px"
-                  src="<?php echo $_ENV['STORAGE'].  '/' .$material['foto_material']; ?>" 
+                  src="<?php echo $_ENV['STORAGE'].  '/image/material/' .$material['foto_material']; ?>" 
                   alt="<?php echo $material['nome']; ?>" />
               </td>
               <td>
@@ -84,7 +84,6 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
                 <a href="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/EditController.php?id=<?php echo $material['material_id']; ?>">
                   <i class="fa-regular fa-pen-to-square"></i>
                 </a>
-
                 <br><br>    
                 
                 <a href="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/DeletarController.php?id=<?php echo $material['material_id']; ?>">

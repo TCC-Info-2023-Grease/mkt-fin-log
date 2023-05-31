@@ -142,20 +142,20 @@ class Material {
             ". $this->tabela ."
             SET 
                 nome = '". $dados['nome'] ."', 
-                categoria_id      = '". $dados['categoria_id'] ."',
-                descricao         = '". $dados['descricao'] ."', 
-                qtde_estimada     = '". $dados['qtde_estimada'] ."', 
-                valor_estimado    = '". $dados['valor_estimado'] ."',
-                valor_gasto       = '". $dados['valor_gasto'] ."',
-                unidade_medida    = '". $dados['unidade_medida'] ."',
-                estoque_minimo    = '". $dados['estoque_minimo'] ."',
-                estoque_atual     = '". $dados['estoque_atual'] ."',
-                valor_unitario    = '". $dados['valor_unitario'] ."',
+                categoria_id      = '". $dados['categoria_id']      ."',
+                descricao         = '". $dados['descricao']         ."', 
+                qtde_estimada     = '". $dados['qtde_estimada']     ."', 
+                valor_estimado    = '". $dados['valor_estimado']    ."',
+                valor_gasto       = '". $dados['valor_gasto']       ."',
+                unidade_medida    = '". $dados['unidade_medida']    ."',
+                estoque_minimo    = '". $dados['estoque_minimo']    ."',
+                estoque_atual     = '". $dados['estoque_atual']     ."',
+                valor_unitario    = '". $dados['valor_unitario']    ."',
                 datahora_cadastro = '". $dados['datahora_cadastro'] ."',
-                data_validade     = '". $dados['data_validade'] ."',
-                foto_material     = '". $dados['foto_material'] ."',
-                status_material   = '". $dados['status_material'] ."'
-            WHERE material_id = '". $id ."',    
+                data_validade     = '". $dados['data_validade']     ."',
+                foto_material     = '". $dados['foto_material']     ."',
+                status_material   = '". $dados['status_material']   ."'
+            WHERE material_id = '". $dados['id'] ."'    
         ";
 
         $result = $this->mysqli->query($query);
