@@ -3,7 +3,12 @@
 class Caixa
 {
   private $mysqli;
+  private $id;
   private $tabela = 'caixa';
+
+  public function getID() {
+    return $this->id;
+  }
 
   /**
    * Método construtor da coolasse
@@ -11,7 +16,6 @@ class Caixa
    * @param  mysqli $mysqli É a conexão com o banco de dados
    * @return void
    */
-
   public function __construct(mysqli $mysqli)
   {
     $this->mysqli = $mysqli;
@@ -101,7 +105,9 @@ class Caixa
         );
     ";
 
-    $result = $this->mysqli->query($query);
+    $result   = $this->mysqli->query($query);
+    $this->id = $this->mysqli->insert_id;
+
     if ($result === false) {
       die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
     }

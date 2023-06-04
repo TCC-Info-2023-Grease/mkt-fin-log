@@ -3,24 +3,26 @@
 require dirname(dirname(__DIR__)) . '\config.php';
 
 global $mysqli;
-import_utils(['valida_campo', 'navegate']);
+import_utils([ 'valida_campo', 'navegate' ]);
+
 
 # ------ Validar Envio de Dados
 $campos_validos = ($_GET['id'] ? true : false);
 if (!$campos_validos) { 
-  navegate($_ENV['ROUTE'] . 'admin.material.index');
+  navegate($_ENV['ROUTE'] . 'admin.material.entrada.index');
 } 
 
-# ----- Editar Material
-$material = new Material($mysqli); 
-$materialData = $material->buscar($_GET['id']);
-//print_r($materialData);
 
-$url = $_ENV['URL_VIEWS'] . '/admin/material/edit.php';
+# ----- Show  
+$usuario = new Usuario($mysqli);
+$usuarioData = $usuario->buscarPorID($_GET['id']);
+//print_r($usuarioData);
+
+$url = $_ENV['URL_VIEWS'] . '/admin/usuarios/show.php';
 
 # Criar um formulário oculto com os dados do material
 $form = '<form id="materialForm" action="' . $url . '" method="POST">';
-foreach ($materialData as $key => $value) {
+foreach ($usuarioData as $key => $value) {
   $form .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
 }
 $form .= '</form>'; 
@@ -33,6 +35,6 @@ $script = '
   }
 </script>';
 
-# Exibir o formulário e o script
+# Exibir o formulário e o script 
 echo $form . $script;
 ?>
