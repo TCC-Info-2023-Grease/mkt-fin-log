@@ -40,6 +40,15 @@ if ($usuario->unico('email', $_POST['email']))
     navegate($_ENV['URL_VIEWS']. '/auth/cadastrar.php');
 }
 
+if (isset($_FILES['profile_picture']) && !empty($_FILES['profile_picture'])) {
+  if (count($_FILES['profile_picture']['tmp_name']) > 0) {
+    for ($q = 0; $q < count($_FILES['foto_material']['tmp_name']); $q++) {
+      $nomeDoArquivo = $_FILES['profile_picture']['name'][$q];
+      move_uploaded_file($_FILES['profile_picture']['tmp_name'][$q], '../../storage/image/usuario/'.$nomeDoArquivo);
+    }
+  }
+}
+
 $dados = [
     'tipo_usuario' => $_POST['tipo_usuario'],
     'username' => $_POST['username'],
@@ -49,7 +58,7 @@ $dados = [
     'genrer' => $_POST['genrer'],
     'cell' => $_POST['phone'],
     'cpf' => $_POST['cpf'],
-    'profile_picture' => $_POST['profile_picture']
+    'profile_picture' => $nomeDoArquivo
 ];
 
 print_r($dados);

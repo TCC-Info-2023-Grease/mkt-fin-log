@@ -19,9 +19,7 @@ $campos_validos = (
   $_POST['categoria_escolhida'] &&
   $_POST['descricao']           &&
   $_POST['valor']               &&
-  $_POST['forma_pagamento']     &&
-  $_POST['status_caixa']        &&
-  $_POST['obs']
+  $_POST['forma_pagamento']     
 );
 if (!$campos_validos) 
 {

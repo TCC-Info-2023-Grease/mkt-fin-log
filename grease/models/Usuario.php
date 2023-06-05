@@ -31,7 +31,7 @@ class Usuario
     {
         $query = "
             SELECT 
-                id 
+                usuario_id 
             FROM 
                 " . $this->tabela . " 
             WHERE {$campo} = ?
@@ -48,9 +48,8 @@ class Usuario
         $stmt->bind_param(str_repeat('s', count($params)), ...$params);
         $stmt->execute();
 
-        return !$stmt->fetch();
+        return $stmt->fetch();
     }
-
 
     /**
      * Método para buscar um usuario por um ID 
@@ -81,6 +80,34 @@ class Usuario
         return $usuario;
     }
 
+    /**
+     * Método para buscar um usuario por um ID 
+     *
+     * @param int $ID ID do usuario
+     * @return mixed 
+     */
+    public function buscarPorID($id)
+    {
+      $stmt = $this->mysqli->prepare("
+          SELECT 
+              * 
+          FROM 
+              " . $this->tabela . " 
+          WHERE usuario_id = ?
+      ");
+      $stmt->bind_param("i", $id);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      if ($result->num_rows === 0) {
+          return null;
+      }
+
+      $usuario = $result->fetch_assoc();
+      $stmt->close();
+
+      return $usuario;
+    }
 
     /**
      * Método para realizar o login do usuario
