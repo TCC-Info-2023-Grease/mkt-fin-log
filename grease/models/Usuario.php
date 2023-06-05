@@ -31,7 +31,7 @@ class Usuario
     {
         $query = "
             SELECT 
-                id 
+                usuario_id 
             FROM 
                 " . $this->tabela . " 
             WHERE {$campo} = ?
@@ -48,7 +48,7 @@ class Usuario
         $stmt->bind_param(str_repeat('s', count($params)), ...$params);
         $stmt->execute();
 
-        return !$stmt->fetch();
+        return $stmt->fetch();
     }
 
     /**

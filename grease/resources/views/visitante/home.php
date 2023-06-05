@@ -20,6 +20,10 @@ extend_styles(['styles']);
 
 <!------- BODY --------->
 <body>
+    <?php
+    render_component('header');
+    ?>
+    
     <div>
         Olá
     </div>

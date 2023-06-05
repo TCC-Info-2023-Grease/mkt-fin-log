@@ -69,7 +69,9 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
 
         <form 
             method="POST" 
-            action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Auth/CadastroController.php">
+            action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Auth/CadastroController.php"
+            enctype="multipart/form-data"
+        >
 
             <label for="tipo-usuario">Usuario</label>
             <select name="tipo_usuario" id="tipo-usuario-select">
@@ -176,7 +178,7 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
             <br>    
 
             <label for="profile_picture" style="display: none;">Foto Perfil</label>
-            <input type="file" class="text" name="profile_picture" style="display: none;" />
+            <input type="file" class="text" name="profile_picture[]" style="display: none;" />
             <br>
             <br>
 

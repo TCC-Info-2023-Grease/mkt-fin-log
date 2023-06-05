@@ -72,15 +72,6 @@ extend_styles(['styles']);
             <label for="password">Senha</label>
             <br>
 
-            <label for="rememberme" style="margin-top: 90px">
-                <input 
-                    style="color: #fff;"
-                    type="checkbox" 
-                    name="rememberme" 
-                />
-                Lembrar de mim
-            </label>
-
 
             <button class="signin login">
                 Entrar

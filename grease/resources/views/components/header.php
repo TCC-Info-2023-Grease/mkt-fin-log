@@ -30,3 +30,5 @@
 <a href="<?php echo $_ENV['ROUTE'] ?>auth.sair">
   Sair
 </a>
+
+<?php print_r($_SESSION); ?>
