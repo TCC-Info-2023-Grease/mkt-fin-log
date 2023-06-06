@@ -26,6 +26,7 @@ CREATE TABLE Usuarios (
     genero CHAR(1),
     celular VARCHAR(25),
     foto_perfil VARCHAR(200) 
+        DEFAULT 'profile_default.png';
 );
 
 
