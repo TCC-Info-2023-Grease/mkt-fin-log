@@ -32,42 +32,75 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
   <?php
   require $_ENV['PASTA_VIEWS'] . '/components/header.php';
   ?>
-  <br><br>
+  <br><br><br>
 
   <?php if ($usuarioData): ?>
     <?php foreach ($usuarioData as $usuario): ?>
       <?= $usuario['nome']; ?>
+      <br>
 
       <?= $usuario['tipo_usuario']; ?>
 
-      <img width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>"
-        alt="<?= $usuario['nome']; ?>" />
+      <img 
+        width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>"
+        alt="<?= $usuario['nome']; ?>" 
+      />
+      <br>
 
-      <?= $usuario['email']; ?>
+      <input 
+        type="email" 
+        class="input"
+        value="<?= $usuario['email']; ?>"
+        disabled
+      />
+      <br>
 
       <?= $usuario['idade']; ?>
+      <br>
 
       <?php if ($usuario['genero'] == 'm') { ?>
-      Masculino
+        Masculino
       <?php } else if ($usuario['genero'] == 'f') { ?>
-      Feminino
+        Feminino
       <?php } else { ?>
-      Outro
+        Outro
       <?php } ?>
+      <br>
 
       <?= $usuario['celular']; ?>
+      <br>
 
       <?= $usuario['cpf']; ?>
+      <br><br>
+
+      <button class="btnEdit">
+        Editar
+      </button>
     <?php endforeach; ?>
   <?php endif; ?>
+
+  <br>
+  <br>
 
   <?php
   require $_ENV['PASTA_VIEWS'] . '/components/footer.php';
   ?>
 
   <script type="text/javascript">
-    $(document).ready(function () {
-      $('#myTable').DataTable();
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnEdit = document.querySelector('.btnEdit');
+      const inputs = document.querySelectorAll('.input');
+
+      btnEdit.addEventListener('click', function() {
+        const input = inputs[this.id];
+        input.focus();
+      });
+    });
+
+    inputs.forEach(function(input) {
+      input.addEventListener('click', function() {
+        this.disabled = !this.disabled;
+      });
     });
   </script>
 </body>
