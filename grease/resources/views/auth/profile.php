@@ -32,67 +32,34 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
   <?php
   require $_ENV['PASTA_VIEWS'] . '/components/header.php';
   ?>
- <br><br>
+  <br><br>
 
+  <?php if ($usuarioData): ?>
+    <?php foreach ($usuarioData as $usuario): ?>
+      <?= $usuario['nome']; ?>
 
-  <table id="myTable" class="display">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Tipo</th>
-        <th>Foto</th>
-        <th>Email</th>
-        <th>Idade</th>
-        <th>Genero</th>
-        <th>Celular</th>
-        <th>CPF</th>
-      </tr>
-    </thead>
+      <?= $usuario['tipo_usuario']; ?>
 
-    <tbody>
-      <?php if ($usuarioData): ?>
-        <?php foreach ($usuarioData as $usuario): ?>
-        <tr>
-          <td>
-            <?= $usuario['nome']; ?>            
-          </td>
-          <td>
-            <?= $usuario['tipo_usuario']; ?>
-          </td>
-          <td>
-            <img 
-              width="300px" 
-              src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>"
-              alt="<?= $usuario['nome']; ?>" 
-            />
-          </td>
-          <td>
-            <?= $usuario['email']; ?>
-          </td>
-          <td>
-            <?= $usuario['idade']; ?>
-          </td>
-          <td>
-            <?php if ($usuario['genero'] == 'm') { ?> 
-              Masculino
-            <?php } else if ($usuario['genero'] == 'f') { ?> 
-              Feminino
-            <?php } else { ?> 
-              Outro
-            <?php } ?> 
-          </td>
-          <td>
-            <?= $usuario['celular']; ?>
-          </td>
-          <td>
-            <?= $usuario['cpf']; ?>
-          </td>
-        </tr>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </tbody>
-  </table>
+      <img width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>"
+        alt="<?= $usuario['nome']; ?>" />
 
+      <?= $usuario['email']; ?>
+
+      <?= $usuario['idade']; ?>
+
+      <?php if ($usuario['genero'] == 'm') { ?>
+      Masculino
+      <?php } else if ($usuario['genero'] == 'f') { ?>
+      Feminino
+      <?php } else { ?>
+      Outro
+      <?php } ?>
+
+      <?= $usuario['celular']; ?>
+
+      <?= $usuario['cpf']; ?>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
   <?php
   require $_ENV['PASTA_VIEWS'] . '/components/footer.php';
