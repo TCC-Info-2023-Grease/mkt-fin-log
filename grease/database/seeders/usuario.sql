@@ -12,7 +12,7 @@ VALUES
   (
     1, 'adm', 
     'Master Potato', 'master.potato@gmail.com', 
-    '31276826893', '$2y$10$yk4mu8FVH7Ptj/9Q94MLb.h2pZz.pybRGCflNNWb0zbKlSs65y6Fq', 
+    '31276826893', MD5('Pa$$w0rd!'), 
     10000, 'm', 
     '0', NULL
   );

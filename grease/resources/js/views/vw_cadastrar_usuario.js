@@ -19,7 +19,7 @@ $(document).ready(() => {
           ["input[name=age]", "block"],
           ["input[name=genrer-select]", "block"],
           ["input[name=cpf]", "none"],
-          ["input[name=profile_picture]", "none"],
+          ["#profile_picture", "none"],
         ]);
 
         mudarCampo([
@@ -37,7 +37,7 @@ $(document).ready(() => {
           ["input[name=age]", "none" ],
           ["input[name=genrer-select]", "block" ],
           ["input[name=cpf]", "none" ],
-          ["input[name=profile_picture]", "none" ],
+          ["#profile_picture", "none" ],
         ]);
 
         mudarCampo([
@@ -54,9 +54,9 @@ $(document).ready(() => {
           ["input[name=age]", "block" ],
           ["input[name=genrer-select]", "block" ],
           ["input[name=cpf]", "block" ],
-          ["input[name=profile_picture]", "block" ],
+          ["#profile_picture", "block" ],
         ]);
-
+        
         mudarCampo([
           ["label[for=age]", "block" ],
           ["label[for=genrer-select]", "block" ],

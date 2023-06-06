@@ -164,7 +164,7 @@ class Usuario
         ");
 
          $stmt->bind_param(
-            "ssssissss",
+            "sssssisss",
             $dados['tipo_usuario'],
             $dados['username'],
             $dados['email'],

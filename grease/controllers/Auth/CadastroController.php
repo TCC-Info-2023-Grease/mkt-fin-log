@@ -42,7 +42,7 @@ if ($usuario->unico('email', $_POST['email']))
 
 if (isset($_FILES['profile_picture']) && !empty($_FILES['profile_picture'])) {
   if (count($_FILES['profile_picture']['tmp_name']) > 0) {
-    for ($q = 0; $q < count($_FILES['foto_material']['tmp_name']); $q++) {
+    for ($q = 0; $q < count($_FILES['profile_picture']['tmp_name']); $q++) {
       $nomeDoArquivo = $_FILES['profile_picture']['name'][$q];
       move_uploaded_file($_FILES['profile_picture']['tmp_name'][$q], '../../storage/image/usuario/'.$nomeDoArquivo);
     }
@@ -53,12 +53,12 @@ $dados = [
     'tipo_usuario' => $_POST['tipo_usuario'],
     'username' => $_POST['username'],
     'email' => $_POST['email'],
-    'password' =>  password_hash($_POST['password'], PASSWORD_DEFAULT),
+    'password' =>  md5($_POST['password']),
     'age' => intval($_POST['age']),
     'genrer' => $_POST['genrer'],
     'cell' => $_POST['phone'],
     'cpf' => $_POST['cpf'],
-    'profile_picture' => $nomeDoArquivo
+    'foto_perfil' => $nomeDoArquivo
 ];
 
 print_r($dados);
