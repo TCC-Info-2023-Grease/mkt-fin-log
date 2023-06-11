@@ -4,6 +4,8 @@ require dirname(dirname(dirname(__DIR__))) . '/config.php';
 global $_ENV;
 
 import_utils(['extend_styles', 'render_component']);
+
+//print_r($_SESSION['usuario']);
 ?>
 
 

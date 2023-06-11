@@ -73,7 +73,7 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
             enctype="multipart/form-data"
         >
 
-            <label for="tipo-usuario">Usuario</label>
+            <label for="tipo-usuario">Tipo Usuario</label>
             <select name="tipo_usuario" id="tipo-usuario-select">
                 <option value="vis">
                     Visitante
