@@ -37,7 +37,7 @@
 <!-- ALGUM USUARIO LOGADO -->
 <?php if (isset($_SESSION['usuario']) && !empty($_SESSION['usuario'])) { ?>
 |
-<a href="<?= $_ENV['URL_CONTROLLERS'] ?>/Auth/ProfileController.php?id=<?= $_SESSION['usuario']['usuario_id'] ?>">
+<a href="<?= $_ENV['URL_VIEWS'] ?>/auth/profile.php">
   Perfil
 </a>
 |
