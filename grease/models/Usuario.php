@@ -146,7 +146,6 @@ class Usuario
         }
     }
 
-
     /**
      * Método para realizar o cadastro de um Úsuario
      *
@@ -158,9 +157,29 @@ class Usuario
         $stmt = $this->mysqli->prepare("
             INSERT INTO 
                 " . $this->tabela . " 
-                (tipo_usuario, nome, email, senha, celular, idade, genero, cpf, foto_perfil) 
-            VALUES 
-                (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (
+                tipo_usuario, 
+                nome, 
+                email, 
+                senha, 
+                celular, 
+                idade, 
+                genero, 
+                cpf, 
+                foto_perfil
+            ) 
+                VALUES 
+            (
+                ?, 
+                ?, 
+                ?, 
+                ?, 
+                ?, 
+                ?, 
+                ?, 
+                ?, 
+                ?
+            )
         ");
 
          $stmt->bind_param(
@@ -176,8 +195,37 @@ class Usuario
             $dados['foto_perfil']
         );
 
-
         $stmt->execute();
         $stmt->close();
+    }
+
+    
+    public function atualizar($dados = [])
+    {
+      $stmt = $this->mysqli->prepare("
+          UPDATE 
+              " . $this->tabela . " 
+          SET 
+              nome    = ?,  
+              email   = ?,  
+              celular = ?,  
+              idade   = ?, 
+              cpf     = ? 
+          WHERE 
+            usuario_id = ? 
+      ");
+
+        $stmt->bind_param(
+          "sssisi",
+          $dados['nome'],
+          $dados['email'],
+          $dados['celular'],
+          $dados['idade'],
+          $dados['cpf'],
+          $dados['usuario_id']
+      );
+      
+      $stmt->execute();
+      $stmt->close();
     }
 }
