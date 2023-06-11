@@ -23,18 +23,22 @@ $dados = [
   'password' => md5($_POST['password']) 
 ];
 
-if (!$usuario->login($dados['email'], $dados['password']))
+if (!$usuarioData = $usuario->login($dados['email'], $dados['password']))
 {
   navegate($_ENV['URL_VIEWS']. '/auth/login.php?erro=usuario');
 }
 
-if ($_SESSION['usuario']['tipo_usuario'] == 'adm') 
+$_SESSION['usuario'] = $usuarioData;
+
+  if ($_SESSION['usuario']['tipo_usuario'] == 'adm') 
 {
   navegate($_ENV['URL_VIEWS']. '/admin/home.php');
-} else if ($_SESSION['usuario']['tipo_usuario'] == 'vis') 
+} 
+  else if ($_SESSION['usuario']['tipo_usuario'] == 'vis') 
 {
   navegate($_ENV['URL_VIEWS']. '/visitante/home.php');
-} else 
+} 
+  else 
 {
   navegate($_ENV['URL_VIEWS']. '/servico/home.php');
 }

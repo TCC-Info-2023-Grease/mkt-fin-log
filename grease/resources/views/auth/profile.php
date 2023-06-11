@@ -3,16 +3,26 @@
 require dirname(dirname(dirname(__DIR__))) . '\config.php';
 global $_ENV;
 
-//print_r($_POST);
-$usuarioData = [$_POST];
+$usuarioData = [$_SESSION['usuario']];
 
-import_utils(['extend_styles', 'render_component']);
+import_utils([ 'use_js_scripts', 'extend_styles', 'render_component', 'navegate' ]);
+
+// Verifica se a variável de sessão 'ultimo_acesso' já existe
+if(isset($_SESSION['ultimo_acesso'])) {
+  $ultimo_acesso = $_SESSION['ultimo_acesso'];
+  
+  if(time() - $ultimo_acesso > 100) {
+    unset($_SESSION['fed_cadastro_usuario']);
+  }
+} 
 ?>
 
 
 <!------- HEAD --------->
 <?php
-require $_ENV['PASTA_VIEWS'] . '/components/head.php';
+render_component('head');
+//extend_styles([ 'styles' ]);
+use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV['LIST_SCRIPTS']);
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -29,35 +39,70 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
 <!-------/ BODY --------->
 
 <body>
-  <?php
-  require $_ENV['PASTA_VIEWS'] . '/components/header.php';
-  ?>
+  <?php render_component('header'); ?>
   <br><br><br>
 
+  <?php if (isset($_SESSION['fed_profile']) && !empty($_SESSION['fed_profile'])): ?>
+    <script>
+      Swal.fire({
+        title: '<?= $_SESSION['fed_profile']['title']; ?>',
+        text: '<?= $_SESSION['fed_profile']['msg']; ?>',
+        icon: '<?= $_SESSION['fed_profile']['icon']; ?>',
+        confirmButtonText: 'OK'
+      })
+    </script>   
+  <?php endif; ?>
+
   <?php if ($usuarioData): ?>
+  <form method="POST" action="<?= $_ENV["URL_CONTROLLERS"] ?>/Profile/EditController.php">      
     <?php foreach ($usuarioData as $usuario): ?>
-      <?= $usuario['nome']; ?>
+      <input
+        type="hidden"
+        name="usuario_id"
+        value="<?= $usuario['usuario_id']; ?>"
+      />
+
+      <label>Nome</label>
+      <input  
+        type="text" 
+        class="input"
+        name="nome"
+        value="<?= $usuario['nome']; ?>"
+        disabled
+      />      
       <br>
 
+      <label for="tipo-usuario">Tipo Usuario</label>
       <?= $usuario['tipo_usuario']; ?>
 
+      <br/>
       <img 
         width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>"
         alt="<?= $usuario['nome']; ?>" 
       />
       <br>
 
+      <label for="email">Email</label>
       <input 
         type="email" 
         class="input"
+        name="email"
         value="<?= $usuario['email']; ?>"
         disabled
       />
       <br>
 
-      <?= $usuario['idade']; ?>
+      <label for="age">Idade</label>
+      <input 
+        type="number" 
+        class="input"
+        name="idade"
+        value="<?= $usuario['idade']; ?>"
+        disabled
+      />      
       <br>
 
+      <label for="genrer">Gênero</label>
       <?php if ($usuario['genero'] == 'm') { ?>
         Masculino
       <?php } else if ($usuario['genero'] == 'f') { ?>
@@ -67,16 +112,33 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
       <?php } ?>
       <br>
 
-      <?= $usuario['celular']; ?>
+      <label for="phone">
+        Celular
+      </label>
+      <input 
+        type="text" 
+        class="text phone input" 
+        name="celular"
+        value="<?= $usuario['celular']; ?>"
+        disabled
+      />
       <br>
 
-      <?= $usuario['cpf']; ?>
+      <label for="cpf">CPF</label>
+      <input 
+        type="text" 
+        name="cpf"
+        class="input"
+        value="<?= $usuario['cpf']; ?>"
+        disabled
+      />
       <br><br>
 
       <button class="btnEdit">
         Editar
       </button>
     <?php endforeach; ?>
+  </form>
   <?php endif; ?>
 
   <br>
@@ -88,20 +150,28 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
 
   <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector("form");
       const btnEdit = document.querySelector('.btnEdit');
-      const inputs = document.querySelectorAll('.input');
+      const inputs = document.querySelectorAll('.input'); 
+      
+      btnEdit.addEventListener('click', ( e ) => {
+        e.preventDefault();
 
-      btnEdit.addEventListener('click', function() {
-        const input = inputs[this.id];
-        input.focus();
-      });
-    });
+        if (btnEdit.textContent === "Salvar") {
+          form.submit();
+        }
+        
+        inputs.forEach(( input ) => { 
+          console.log('====================================');
+          console.log(input);
+          console.log('===================================='); 
 
-    inputs.forEach(function(input) {
-      input.addEventListener('click', function() {
-        this.disabled = !this.disabled;
+          input.disabled = !input.disabled;
+          btnEdit.textContent = input.disabled? "Editar" : "Salvar";
+        });
       });
-    });
+
+    });    
   </script>
 </body>
 <!-------/ BODY --------->
