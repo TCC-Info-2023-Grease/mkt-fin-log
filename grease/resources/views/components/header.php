@@ -20,16 +20,24 @@
 
 <!-- USUARIO ADM LOGADO -->
 <?php if (isset($_SESSION['usuario']) && !empty($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] == 'adm') { ?>
+<a href="<?= $_ENV['ROUTE'] ?>admin.home">
+  Home
+</a>
+|
 <a href="<?= $_ENV['ROUTE'] ?>admin.categoria_material.index">
   Categoria Material
 </a>
-|
+| 
 <a href="<?= $_ENV['ROUTE'] ?>admin.material.index">
   Material
 </a>
 |
 <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.index">
   Caixa
+</a>
+|
+<a href="<?= $_ENV['ROUTE'] ?>admin.makeof.index">
+  Make Of
 </a>
 <?php } ?>
 

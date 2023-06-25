@@ -40,6 +40,14 @@ $routes['auth.sair'] = [
 
 // --- Routes: Admin
 #-- 
+$routes['admin.home'] = [
+  'method' => 'GET',
+  'file' => 'admin/home',
+  'params' => []
+];
+ 
+
+#-- 
 $routes['admin.material.index'] = [
   'method' => 'GET',
   'file' => 'admin/material/index',
@@ -88,6 +96,19 @@ $routes['admin.categoria_material.create'] = [
 $routes['admin.categoria_material.edit'] = [
   'method' => 'GET',
   'file' => 'admin/categoria-material/edit',
+  'params' => []
+];
+
+
+#--
+$routes['admin.makeof.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/make-of/index',
+  'params' => []
+];
+$routes['admin.makeof.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/make-of/create',
   'params' => []
 ];
 
