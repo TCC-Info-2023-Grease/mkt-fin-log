@@ -10,6 +10,15 @@ CREATE TABLE CategoriasMaterial (
 );
 
 
+CREATE TABLE MakeOf (
+    -- PK & FK
+    makeof_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    user_id INT,
+    uri TEXT,
+    titulo VARCHAR(100),
+    descricao TEXT
+);
+
 
 CREATE TABLE Usuarios (
 	-- PK & FK
