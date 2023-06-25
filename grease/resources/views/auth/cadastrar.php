@@ -14,10 +14,6 @@ if(isset($_SESSION['ultimo_acesso'])) {
     unset($_SESSION['fed_cadastro_usuario']);
   }
 } 
-
-if (isset($_SESSION['usuario'])) {
-    navegate($_ENV['URL_VIEWS']. '/visitante/home.php');
-}
 ?>
 
 
