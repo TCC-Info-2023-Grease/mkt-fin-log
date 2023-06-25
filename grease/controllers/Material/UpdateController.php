@@ -1,4 +1,4 @@
-<?php
+<?php 
 # ------ Dados Iniciais
 require dirname(dirname(__DIR__)) . '\config.php';
 
@@ -67,7 +67,7 @@ $dados = [
 ];
 
 // print_r($dados);
-$material->atualizar($dados['id'], $dados);
+$material->atualizar($dados);
 navegate($_ENV['ROUTE'] . 'admin.material.index');
 
 ?>
