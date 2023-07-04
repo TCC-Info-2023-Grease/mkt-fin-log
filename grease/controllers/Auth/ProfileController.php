@@ -19,7 +19,7 @@ $usuario = new Usuario($mysqli);
 $usuarioData = $usuario->buscarPorID($_GET['id']);
 //print_r($usuarioData);
 
-$url = $_ENV['URL_VIEWS'] . '/auth/profile.php';   
+$url = $_ENV['VIEWS'] . '/auth/profile.php';   
 
 # Criar um formulário oculto com os dados do material
 $form = '<form id="materialForm" action="' . $url . '" method="POST">';

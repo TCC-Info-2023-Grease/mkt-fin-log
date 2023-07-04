@@ -50,12 +50,12 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
         <?php foreach ($entradas as $entrada): ?>
         <tr>
           <td>
-            <a href="<?= $_ENV['URL_VIEWS']; ?>/admin/usuario/show.php?id=<?= $saida['usuario_id']; ?>">
+            <a href="<?= $_ENV['VIEWS']; ?>/admin/usuario/show.php?id=<?= $saida['usuario_id']; ?>">
               <?= $saida['nome_usuario']; ?>
             </a>
           </td>
           <td>
-            <a href="<?= $_ENV['URL_VIEWS']; ?>/admin/material/show.php?id=<?= $entrada['material_id']; ?>">
+            <a href="<?= $_ENV['VIEWS']; ?>/admin/material/show.php?id=<?= $entrada['material_id']; ?>">
               <?= $entrada['nome']; ?>
             </a>
           </td>
@@ -77,7 +77,7 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
           </td>
           <!-- 
           <td>
-            <a href="<?= $_ENV['URL_VIEWS']; ?>/admin/material/show.php?id=<?php echo $material['material_id']; ?>">
+            <a href="<?= $_ENV['VIEWS']; ?>/admin/material/show.php?id=<?php echo $material['material_id']; ?>">
               <i class="fa-regular fa-eye"></i>
             </a>
 

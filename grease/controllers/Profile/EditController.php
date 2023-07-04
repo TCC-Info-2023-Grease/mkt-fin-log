@@ -28,7 +28,7 @@ $campos_validos =  (
     'msg'   => 'Campos Invalidos', 
     'icon'  => 'error'
   ];
-  navegate($_ENV['URL_VIEWS'] . '/auth/profile.php');
+  navegate($_ENV['VIEWS'] . '/auth/profile.php');
 } 
 
 
@@ -55,4 +55,4 @@ $_SESSION['fed_profile'] = [
   'msg'   => 'Perfil atualizado com sucesso!', 
   'icon'  => 'success'
 ];
-navegate($_ENV['URL_VIEWS'] . '/auth/profile.php');
+navegate($_ENV['VIEWS'] . '/auth/profile.php');

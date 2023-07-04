@@ -1,5 +1,5 @@
 <?php 
-# ------ Configurações Básicas
+
 ?>
 
 <!-- USUARIO NÃO LOGADO -->
@@ -45,7 +45,7 @@
 <!-- ALGUM USUARIO LOGADO -->
 <?php if (isset($_SESSION['usuario']) && !empty($_SESSION['usuario'])) { ?>
 |
-<a href="<?= $_ENV['URL_VIEWS'] ?>/auth/profile.php">
+<a href="<?= $_ENV['VIEWS'] ?>/auth/profile.php">
   Perfil
 </a>
 |

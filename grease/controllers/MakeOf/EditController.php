@@ -16,7 +16,7 @@ $makeOf = new MakeOf($mysqli);
 $materialData = $makeOf->buscar($_GET['id']);
 //print_r($materialData);
 
-$url = $_ENV['URL_VIEWS'] . '/admin/make-of/edit.php';
+$url = $_ENV['VIEWS'] . '/admin/make-of/edit.php';
  
 # Criar um formulário oculto com os dados
 $form = '<form id="materialForm" action="' . $url . '" method="POST">';

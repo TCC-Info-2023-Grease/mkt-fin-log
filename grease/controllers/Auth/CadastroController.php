@@ -25,7 +25,7 @@ if (!$campos_validos) {
     'title' => 'Erro!',
     'msg' => 'Campos Invalidos'
   ];
-  navegate($_ENV['URL_VIEWS'] . '/auth/cadastrar.php');
+  navegate($_ENV['VIEWS'] . '/auth/cadastrar.php');
 }
 
 
@@ -37,7 +37,7 @@ if ($usuario->unico('email', $_POST['email'])) {
     'title' => 'Erro!',
     'msg' => 'Usuario Existente'
   ];
-  navegate($_ENV['URL_VIEWS'] . '/auth/cadastrar.php');
+  navegate($_ENV['VIEWS'] . '/auth/cadastrar.php');
 }
 
 if (isset($_FILES['profile_picture']) && !empty($_FILES['profile_picture'])) {
@@ -70,14 +70,14 @@ if (!$usuario->login($dados['email'], $dados['password'])) {
     'title' => 'Erro!',
     'msg' => 'Usuario não cadastrado'
   ];
-  navegate($_ENV['URL_VIEWS'] . '/auth/cadastrar.php');
+  navegate($_ENV['VIEWS'] . '/auth/cadastrar.php');
 }
 
 $_SESSION['usuario'] = $usuario->buscar($dados['email']);
 if ($dados['tipo_usuario'] == 'adm') {
-  navegate($_ENV['URL_VIEWS'] . '/admin/home.php');
+  navegate($_ENV['VIEWS'] . '/admin/home.php');
 } else if ($dados['tipo_usuario'] == 'vis') {
-  navegate($_ENV['URL_VIEWS'] . '/visitante/home.php');
+  navegate($_ENV['VIEWS'] . '/visitante/home.php');
 } else {
-  navegate($_ENV['URL_VIEWS'] . '/servico/home.php');
+  navegate($_ENV['VIEWS'] . '/servico/home.php');
 }
