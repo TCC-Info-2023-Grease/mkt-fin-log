@@ -39,6 +39,15 @@ $routes['auth.sair'] = [
 
 
 // --- Routes: Admin
+#-- 
+$routes['admin.home'] = [
+  'method' => 'GET',
+  'file' => 'admin/home',
+  'params' => []
+];
+ 
+
+#-- 
 $routes['admin.material.index'] = [
   'method' => 'GET',
   'file' => 'admin/material/index',
@@ -50,6 +59,30 @@ $routes['admin.material.create'] = [
   'params' => []
 ];
 
+$routes['admin.material.entrada.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/material/entrada.create',
+  'params' => []
+];
+$routes['admin.material.entrada.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/material/entrada.index',
+  'params' => []
+];
+
+$routes['admin.material.saida.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/material/saida.create',
+  'params' => []
+];
+$routes['admin.material.saida.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/material/saida.index',
+  'params' => []
+];
+
+
+# --
 $routes['admin.categoria_material.index'] = [
   'method' => 'GET',
   'file' => 'admin/categoria-material/index',
@@ -66,6 +99,21 @@ $routes['admin.categoria_material.edit'] = [
   'params' => []
 ];
 
+
+#--
+$routes['admin.makeof.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/make-of/index',
+  'params' => []
+];
+$routes['admin.makeof.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/make-of/create',
+  'params' => []
+];
+
+
+#--
 $routes['admin.caixa.index'] = [
   'method' => 'GET',
   'file' => 'admin/caixa/index',

@@ -35,6 +35,16 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
         Novo Material
     </a>
     <br><br><br>
+    |   
+    <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.entrada.index">
+        Entradas
+    </a>
+    <br><br><br>
+    |   
+    <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.saida.index">
+        Saidas
+    </a>
+    <br><br><br>
 
     <table id="myTable" class="display">
       <thead>
@@ -42,7 +52,6 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
           <th># ID</th>
           <th>Nome</th>
           <th>Foto Material</th>
-          <th>Descrição</th>
           <th>Categoria</th>   
           <th>Status</th> 
           <th>Actions</th> 
@@ -54,39 +63,48 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
           <?php foreach ($materiais as $material): ?>
             <tr>
               <td>
-                <?php echo $material['material_id']; ?>
+                <?= $material['material_id']; ?>
               </td>
               <td>
-                <?php echo $material['nome']; ?>
+                <?= $material['nome']; ?>
               </td>
               <td>
-                <img 
+                <img  
                   width="100px"
-                  src="<?php echo $_ENV['STORAGE'].  '/image/material/' .$material['foto_material']; ?>" 
-                  alt="<?php echo $material['nome']; ?>" />
+                  src="<?= $_ENV['STORAGE'].  '/image/material/' .$material['foto_material']; ?>" 
+                  alt="<?= $material['nome']; ?>" 
+                />
+              </td>  
+              <td>
+                <?php echo $material['nome_categoria']; ?>
               </td>
               <td>
-                <?php echo $material['descricao']; ?>
-              </td>   
-              <td>
-                  <?php echo $material['nome_categoria']; ?>
+                <?php echo $material['status_material']; ?>
               </td>
               <td>
-                  <?php echo $material['status_material']; ?>
-              </td>
-              <td>
-                <a href="<?php echo $_ENV['URL_VIEWS']; ?>/admin/material/show.php?id=<?php echo $material['material_id']; ?>">
+                <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.entrada.create"> 
+                  <i class="fa-solid fa-plus"></i>
+                </a>
+                <br><br>    
+
+                <?php if($material['estoque_atual'] >= 0): ?>
+                <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.saida.create">
+                  <i class="fa-solid fa-minus"></i>
+                </a>
+                <br><br>    
+                <?php endif; ?>
+
+                <a href="<?= $_ENV['VIEWS']; ?>/admin/material/show.php?id=<?php echo $material['material_id']; ?>">
                   <i class="fa-regular fa-eye"></i>
                 </a>
 
                 <br><br>    
-
-                <a href="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/EditController.php?id=<?php echo $material['material_id']; ?>">
+                <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Material/EditController.php?id=<?= $material['material_id']; ?>">
                   <i class="fa-regular fa-pen-to-square"></i>
                 </a>
                 <br><br>    
                 
-                <a href="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/DeletarController.php?id=<?php echo $material['material_id']; ?>">
+                <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Material/DeletarController.php?id=<?= $material['material_id']; ?>">
                   <i class="fa-solid fa-trash"></i>
                 </a>
               </td>

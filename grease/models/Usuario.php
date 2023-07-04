@@ -31,7 +31,7 @@ class Usuario
     {
         $query = "
             SELECT 
-                id 
+                usuario_id 
             FROM 
                 " . $this->tabela . " 
             WHERE {$campo} = ?
@@ -48,9 +48,8 @@ class Usuario
         $stmt->bind_param(str_repeat('s', count($params)), ...$params);
         $stmt->execute();
 
-        return !$stmt->fetch();
+        return $stmt->fetch();
     }
-
 
     /**
      * Método para buscar um usuario por um ID 
@@ -81,6 +80,34 @@ class Usuario
         return $usuario;
     }
 
+    /**
+     * Método para buscar um usuario por um ID 
+     *
+     * @param int $ID ID do usuario
+     * @return mixed 
+     */
+    public function buscarPorID($id)
+    {
+      $stmt = $this->mysqli->prepare("
+          SELECT 
+              * 
+          FROM 
+              " . $this->tabela . " 
+          WHERE usuario_id = ?
+      ");
+      $stmt->bind_param("i", $id);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      if ($result->num_rows === 0) {
+          return null;
+      }
+
+      $usuario = $result->fetch_assoc();
+      $stmt->close();
+
+      return $usuario;
+    }
 
     /**
      * Método para realizar o login do usuario
@@ -119,7 +146,6 @@ class Usuario
         }
     }
 
-
     /**
      * Método para realizar o cadastro de um Úsuario
      *
@@ -131,13 +157,33 @@ class Usuario
         $stmt = $this->mysqli->prepare("
             INSERT INTO 
                 " . $this->tabela . " 
-                (tipo_usuario, nome, email, senha, celular, idade, genero, cpf, foto_perfil) 
-            VALUES 
-                (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (
+                tipo_usuario, 
+                nome, 
+                email, 
+                senha, 
+                celular, 
+                idade, 
+                genero, 
+                cpf, 
+                foto_perfil
+            ) 
+                VALUES 
+            (
+                ?, 
+                ?, 
+                ?, 
+                ?, 
+                ?, 
+                ?, 
+                ?, 
+                ?, 
+                ?
+            )
         ");
 
          $stmt->bind_param(
-            "ssssissss",
+            "sssssisss",
             $dados['tipo_usuario'],
             $dados['username'],
             $dados['email'],
@@ -149,8 +195,37 @@ class Usuario
             $dados['foto_perfil']
         );
 
-
         $stmt->execute();
         $stmt->close();
+    }
+
+    
+    public function atualizar($dados = [])
+    {
+      $stmt = $this->mysqli->prepare("
+          UPDATE 
+              " . $this->tabela . " 
+          SET 
+              nome    = ?,  
+              email   = ?,  
+              celular = ?,  
+              idade   = ?, 
+              cpf     = ? 
+          WHERE 
+            usuario_id = ? 
+      ");
+
+        $stmt->bind_param(
+          "sssisi",
+          $dados['nome'],
+          $dados['email'],
+          $dados['celular'],
+          $dados['idade'],
+          $dados['cpf'],
+          $dados['usuario_id']
+      );
+      
+      $stmt->execute();
+      $stmt->close();
     }
 }

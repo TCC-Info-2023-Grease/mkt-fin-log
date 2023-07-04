@@ -14,17 +14,13 @@ if(isset($_SESSION['ultimo_acesso'])) {
     unset($_SESSION['fed_cadastro_usuario']);
   }
 } 
-
-if (isset($_SESSION['usuario'])) {
-    navegate($_ENV['URL_VIEWS']. '/visitante/home.php');
-}
 ?>
 
 
 <!------- HEAD --------->
 <?php
 render_component('head');
-extend_styles([ 'styles' ]);
+//extend_styles([ 'styles' ]);
 use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV['LIST_SCRIPTS']);
 ?>
 <title>
@@ -33,14 +29,14 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
 
 <script 
     type="module"
-    src="<?php echo assets('js/', 'forms/FormCadastroUsuario.js'); ?>">
+    src="<?= assets('js/', 'forms/FormCadastroUsuario.js'); ?>">
 </script>
 <!-------/ HEAD --------->
 
 
 <!------- BODY --------->
 <body>
-    <a href="<?php echo $_ENV['URL_BASE']; ?>" class="btn-voltar">
+    <a href="<?= $_ENV['URL_BASE']; ?>" class="btn-voltar">
         Voltar
     </a>
     <div class="login">
@@ -48,20 +44,20 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
         <?php if (isset($_SESSION['fed_cadastro_usuario']) && !empty($_SESSION['fed_cadastro_usuario'])): ?>
             <script>
                 Swal.fire({
-                    title: '<?php echo $_SESSION['fed_cadastro_usuario']['title']; ?>',
-                    text: '<?php echo $_SESSION['fed_cadastro_usuario']['msg']; ?>',
+                    title: '<?= $_SESSION['fed_cadastro_usuario']['title']; ?>',
+                    text: '<?= $_SESSION['fed_cadastro_usuario']['msg']; ?>',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 })
             </script>   
         <?php endif; ?>
         
-        <a href="<?php echo $_ENV['ROUTE'] . 'auth.cadastrar'; ?>">
+        <a href="<?= $_ENV['ROUTE'] . 'auth.cadastrar'; ?>">
             <h2 class="active" style="color:aliceblue">
                 Criar conta
             </h2>
         </a>
-        <a href="<?php echo $_ENV['ROUTE'] . 'auth.login'; ?>">
+        <a href="<?= $_ENV['ROUTE'] . 'auth.login'; ?>">
             <h2 class="nonactive" id="my-button" style="color:gray">
                 Login
             </h2>
@@ -69,9 +65,11 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
 
         <form 
             method="POST" 
-            action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Auth/CadastroController.php">
+            action="<?= $_ENV['URL_CONTROLLERS']; ?>/Auth/CadastroController.php"
+            enctype="multipart/form-data"
+        >
 
-            <label for="tipo-usuario">Usuario</label>
+            <label for="tipo-usuario">Tipo Usuario</label>
             <select name="tipo_usuario" id="tipo-usuario-select">
                 <option value="vis">
                     Visitante
@@ -176,7 +174,7 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
             <br>    
 
             <label for="profile_picture" style="display: none;">Foto Perfil</label>
-            <input type="file" class="text" name="profile_picture" style="display: none;" />
+            <input type="file" id="profile_picture" class="text" name="profile_picture[]" style="display: none;" />
             <br>
             <br>
 

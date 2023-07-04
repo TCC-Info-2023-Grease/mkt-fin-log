@@ -4,6 +4,8 @@ require dirname(dirname(dirname(__DIR__))) . '/config.php';
 global $_ENV;
 
 import_utils(['extend_styles', 'render_component']);
+
+//print_r($_SESSION['usuario']);
 ?>
 
 
@@ -71,15 +73,6 @@ extend_styles(['styles']);
             <input type="password" class="text" name="password">
             <label for="password">Senha</label>
             <br>
-
-            <label for="rememberme" style="margin-top: 90px">
-                <input 
-                    style="color: #fff;"
-                    type="checkbox" 
-                    name="rememberme" 
-                />
-                Lembrar de mim
-            </label>
 
 
             <button class="signin login">

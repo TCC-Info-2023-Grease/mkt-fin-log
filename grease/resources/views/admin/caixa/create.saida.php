@@ -103,7 +103,7 @@ render_component('head');
     />
     <br>
     <br>
-
+    
     <label for="forma_pagamento">Forma pagamento:</label><br>
     <select name="forma_pagamento" id="" required>
       <option value="">
