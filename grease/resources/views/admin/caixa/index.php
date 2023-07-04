@@ -10,7 +10,7 @@ global $_ENV;
 
 <!------- HEAD --------->
 <?php
-require $_ENV['PASTA_VIEWS'] . '/components/head.php';
+render_component('head');
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -60,7 +60,7 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
       <?php foreach ($data['caixa'] as $item): ?>
       <tr>
         <td>
-          <a href="<?php echo $_ENV['URL_VIEWS'] . '/admin/caixa/show.php?id=' . $item['caixa_id']; ?>">
+          <a href="<?php echo $_ENV['VIEWS'] . '/admin/caixa/show.php?id=' . $item['caixa_id']; ?>">
             <center>
               <i class="fa fa-info-circle" style="color: #24c28d; font-size: 26px;" title="Ver mais">
               </i>

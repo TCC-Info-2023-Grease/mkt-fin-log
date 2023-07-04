@@ -20,7 +20,7 @@ function router_run(array $routes, array $env): void {
     if (array_key_exists($pagina, $routes)) { 
         $route = $routes[$pagina];
         
-        $url = $method == 'GET' ? $env['URL_VIEWS'] : $env['URL_CONTROLLERS'];
+        $url = $method == 'GET' ? $env['VIEWS'] : $env['URL_CONTROLLERS'];
         $url .= '/' . $route['file'] . '.php';
 
         $paramsArray = [];

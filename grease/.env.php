@@ -1,6 +1,6 @@
 <?php
 #------- Variaveis de Ambiente
-$url_base = "http://localhost:8080/grease";
+$url_base = "http://localhost/grease";
 
 $_ENV = [
   # CAMINHOS DE PASTAS 
@@ -12,7 +12,7 @@ $_ENV = [
   # URLs
   "URL_BASE"        => $url_base,
   "ROUTE"           => $url_base . "/index.php?pagina=",
-  "URL_VIEWS"       => $url_base . '/resources/views',
+  "VIEWS"       => $url_base . '/resources/views',
   "URL_CONTROLLERS" => $url_base . '/controllers',
   "STORAGE"         => $url_base . '/storage',
 

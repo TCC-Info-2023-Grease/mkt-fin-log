@@ -94,7 +94,7 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
                 <br><br>    
                 <?php endif; ?>
 
-                <a href="<?= $_ENV['URL_VIEWS']; ?>/admin/material/show.php?id=<?php echo $material['material_id']; ?>">
+                <a href="<?= $_ENV['VIEWS']; ?>/admin/material/show.php?id=<?php echo $material['material_id']; ?>">
                   <i class="fa-regular fa-eye"></i>
                 </a>
 

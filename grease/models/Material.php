@@ -185,7 +185,7 @@ class Material
           estoque_minimo    = '" . $dados['estoque_minimo'] . "',
           estoque_atual     = '" . $dados['estoque_atual'] . "',
           valor_unitario    = '" . $dados['valor_unitario'] . "',
-          datahora_cadastro = '" . $dados['datahora_cadastro'] . "',
+          datahora_cadastro = '" . $dados['datahora_cadastro'] . "', 
           data_validade     = '" . $dados['data_validade'] . "',
           foto_material     = '" . $dados['foto_material'] . "',
           status_material   = '" . $dados['status_material'] . "'
@@ -198,7 +198,6 @@ class Material
       die("Erro ao executar a consulta: " . $this->mysqli->error);
     }
   }
-
 
   public function deletar($id)
   {

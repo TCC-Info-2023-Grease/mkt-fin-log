@@ -1,5 +1,5 @@
 <?php 
-# ------ Configurações Básicas
+
 ?>
 
 <!-- USUARIO NÃO LOGADO -->
@@ -20,10 +20,14 @@
 
 <!-- USUARIO ADM LOGADO -->
 <?php if (isset($_SESSION['usuario']) && !empty($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] == 'adm') { ?>
+<a href="<?= $_ENV['ROUTE'] ?>admin.home">
+  Home
+</a>
+|
 <a href="<?= $_ENV['ROUTE'] ?>admin.categoria_material.index">
   Categoria Material
 </a>
-|
+| 
 <a href="<?= $_ENV['ROUTE'] ?>admin.material.index">
   Material
 </a>
@@ -31,13 +35,17 @@
 <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.index">
   Caixa
 </a>
+|
+<a href="<?= $_ENV['ROUTE'] ?>admin.makeof.index">
+  Make Of
+</a>
 <?php } ?>
 
 
 <!-- ALGUM USUARIO LOGADO -->
 <?php if (isset($_SESSION['usuario']) && !empty($_SESSION['usuario'])) { ?>
 |
-<a href="<?= $_ENV['URL_CONTROLLERS'] ?>/Auth/ProfileController.php?id=<?= $_SESSION['usuario']['usuario_id'] ?>">
+<a href="<?= $_ENV['VIEWS'] ?>/auth/profile.php">
   Perfil
 </a>
 |

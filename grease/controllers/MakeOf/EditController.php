@@ -3,26 +3,24 @@
 require dirname(dirname(__DIR__)) . '\config.php';
 
 global $mysqli;
-import_utils([ 'valida_campo', 'navegate' ]);
-
+import_utils(['valida_campo', 'navegate']);
 
 # ------ Validar Envio de Dados
 $campos_validos = ($_GET['id'] ? true : false);
 if (!$campos_validos) { 
-  navegate($_ENV['ROUTE'] . 'admin.material.entrada.index');
+  navegate($_ENV['ROUTE'] . 'admin.makeof.index');
 } 
 
+# ----- Editar 
+$makeOf = new MakeOf($mysqli); 
+$materialData = $makeOf->buscar($_GET['id']);
+//print_r($materialData);
 
-# ----- Show  
-$usuario = new Usuario($mysqli);
-$usuarioData = $usuario->buscarPorID($_GET['id']);
-//print_r($usuarioData);
-
-$url = $_ENV['VIEWS'] . '/admin/usuarios/show.php';
-
-# Criar um formulário oculto com os dados do material
+$url = $_ENV['VIEWS'] . '/admin/make-of/edit.php';
+ 
+# Criar um formulário oculto com os dados
 $form = '<form id="materialForm" action="' . $url . '" method="POST">';
-foreach ($usuarioData as $key => $value) {
+foreach ($materialData as $key => $value) {
   $form .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
 }
 $form .= '</form>'; 
@@ -35,6 +33,6 @@ $script = '
   }
 </script>';
 
-# Exibir o formulário e o script 
+# Exibir o formulário e o script
 echo $form . $script;
 ?>

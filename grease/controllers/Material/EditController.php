@@ -16,7 +16,7 @@ $material = new Material($mysqli);
 $materialData = $material->buscar($_GET['id']);
 //print_r($materialData);
 
-$url = $_ENV['URL_VIEWS'] . '/admin/material/edit.php';
+$url = $_ENV['VIEWS'] . '/admin/material/edit.php';
 
 # Criar um formulário oculto com os dados do material
 $form = '<form id="materialForm" action="' . $url . '" method="POST">';
