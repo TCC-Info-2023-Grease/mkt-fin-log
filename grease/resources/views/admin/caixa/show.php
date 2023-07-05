@@ -1,15 +1,14 @@
 <?php
 # ------ Configurações Básicas
 require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
-import_utils(['extend_styles', 'render_component']);
+import_utils(['extend_styles', 'render_component', 'navegate']);
 
-# ----- Consulta Caixa
-$caixa = new Caixa($mysqli);
-$data = $caixa->buscar($_GET['id']);
-
-//print_r($data);
- 	
 global $_ENV;   
+
+//print_r($_POST);
+$caixa = $_POST;
+
+if (!isset($_POST) && empty($_POST)) navegate($_ENV['VIEWS']. '/adm/caixa/');
 ?>
 
 <!------- HEAD --------->
@@ -35,36 +34,36 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
   <br><br>
 
   |
-  <a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.entrada.create">
+  <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.entrada.create">
     Nova Entrada
   </a>
   |
-  <a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.saida.create">
+  <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.saida.create">
     Nova Saída
   </a>
   <br><br><br
   >
   
   
-  <?php echo $data['foto_perfil']; ?>    
+  <?= $caixa['foto_perfil']; ?>    
   <br><br>
 
-  <?php echo $data['nome_usuario']; ?>    
+  <?= $caixa['nome_usuario']; ?>    
   <br><br>
 
-  <?php echo $data['valor']; ?>    
+  <?= $caixa['valor']; ?>    
   <br><br>
 
-  <?php echo $data['descricao']; ?>    
+  <?= $caixa['descricao']; ?>    
   <br><br>
 
-  <?php echo $data['tipo_movimentacao']; ?>    
+  <?= $caixa['tipo_movimentacao']; ?>    
   <br><br>
   
-  <?php echo $data['data_movimentacao']; ?>    
+  <?= $caixa['data_movimentacao']; ?>    
   <br><br>
   
-  <?php echo $data['obs']; ?>    
+  <?= $caixa['obs']; ?>    
   <br><br>
 
   <?php
