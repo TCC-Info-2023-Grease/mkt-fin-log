@@ -75,9 +75,12 @@ class Material
   {
     $sql = $this->mysqli->query("
         SELECT 
-            m.*
+            m.*,            
+            c.nome as nome_categoria
         FROM 
             " . $this->tabela . " as m
+        JOIN 
+          categoriasmaterial AS c ON m.categoria_id = c.categoria_id
         WHERE 
             material_id = '" . $id . "'
         ");
