@@ -118,6 +118,10 @@ CREATE TABLE Materiais (
 	categoria_id INT NOT NULL,
     FOREIGN KEY (categoria_id)
         REFERENCES CategoriasMaterial (categoria_id),
+    usuario_id INT NOT NULL,
+     FOREIGN KEY (usuario_id)
+        REFERENCES Usuario (usuario_id),
+
 
 	-- Atibutos
 	nome VARCHAR (100) NOT NULL,

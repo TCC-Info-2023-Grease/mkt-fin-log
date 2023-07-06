@@ -27,5 +27,9 @@ extend_styles(['styles']);
     <div>
         Olá
     </div>
+
+    <?php
+    render_component('footer');
+    ?>
 </body>
 <!------- /BODY --------->

@@ -7,14 +7,14 @@ $routes['welcome'] = [
   'file' => 'welcome',
   'params' => []
 ];
-$routes['about'] = [
+$routes['home.projeto'] = [
   'method' => 'GET',
-  'file' => 'about',
+  'file' => 'home/projeto',
   'params' => []
 ];
-$routes['contact'] = [
+$routes['home.contato'] = [
   'method' => 'GET',
-  'file' => 'contact',
+  'file' => 'home/contato',
   'params' => []
 ];
 
@@ -36,6 +36,19 @@ $routes['auth.sair'] = [
   'params' => []
 ];
 
+
+// --- Routes: Visitante
+#-- 
+$routes['visitante.financas'] = [
+  'method' => 'GET',
+  'file' => 'visitante/financas',
+  'params' => []
+];
+$routes['visitante.makeof'] = [
+  'method' => 'GET',
+  'file' => 'visitante/make-of/index',
+  'params' => []
+];
 
 
 // --- Routes: Admin

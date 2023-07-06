@@ -12,7 +12,7 @@ $_ENV = [
   # URLs
   "URL_BASE"        => $url_base,
   "ROUTE"           => $url_base . "/index.php?pagina=",
-  "VIEWS"       => $url_base . '/resources/views',
+  "VIEWS"           => $url_base . '/resources/views',
   "URL_CONTROLLERS" => $url_base . '/controllers',
   "STORAGE"         => $url_base . '/storage',
 

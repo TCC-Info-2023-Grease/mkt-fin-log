@@ -3,15 +3,15 @@
 require dirname(dirname(__DIR__)) . '\config.php';
 import_utils(['extend_styles', 'render_component']);
 
-# ----- Consulta Caixa
-$caixa = new Caixa($mysqli);
-$caixaData = $caixa->buscar($_GET['id']);
+# ----- Consulta 
+$material = new Material($mysqli);
+$data = $material->buscar($_GET['id']);
 
-$url = $_ENV['VIEWS'] . '/admin/caixa/show.php';
+$url = $_ENV['VIEWS'] . '/admin/material/show.php';
 
 # Criar um formulário oculto com os dados do material
 $form = '<form id="materialForm" action="' . $url . '" method="POST">';
-foreach ($caixaData as $key => $value) {
+foreach ($data as $key => $value) {
   $form .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
 }
 $form .= '</form>'; 
