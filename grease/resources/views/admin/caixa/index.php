@@ -60,7 +60,7 @@ render_component('head');
       <?php foreach ($data['caixa'] as $item): ?>
       <tr>
         <td>
-          <a href="<?php echo $_ENV['VIEWS'] . '/admin/caixa/show.php?id=' . $item['caixa_id']; ?>">
+          <a href="<?= $_ENV['URL_CONTROLLERS'] . '/Caixa/ShowController.php?id=' . $item['caixa_id']; ?>">
             <center>
               <i class="fa fa-info-circle" style="color: #24c28d; font-size: 26px;" title="Ver mais">
               </i>

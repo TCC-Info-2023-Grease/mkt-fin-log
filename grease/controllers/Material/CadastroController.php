@@ -49,6 +49,7 @@ if (isset($_FILES['foto_material']) && !empty($_FILES['foto_material'])) {
 }
 
 $dados = [
+  'usuario_id'        => $_POST['usuario_id'],
   'nome'              => $_POST['nome'],
   'categoria_id'      => $_POST['categoria_id'],
   'descricao'         => $_POST['descricao'],

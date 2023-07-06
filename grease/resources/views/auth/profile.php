@@ -12,7 +12,7 @@ if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
   
   if(time() - $ultimo_acesso > 100) {
-    unset($_SESSION['fed_cadastro_usuario']);
+    $_SESSION['fed_profile'] = '';
   }
 } 
 ?>
@@ -70,17 +70,15 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
         value="<?= $usuario['nome']; ?>"
         disabled
       />      
-      <br>
-
-      <label for="tipo-usuario">Tipo Usuario</label>
-      <?= $usuario['tipo_usuario']; ?>
 
       <br/>
-      <img 
-        width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>"
-        alt="<?= $usuario['nome']; ?>" 
-      />
-      <br>
+      <?php if ($_SESSION['usuario']['tipo_usuario'] == 'adm') { ?>
+        <img 
+          width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>"
+          alt="<?= $usuario['nome']; ?>" 
+        />
+        <br>
+      <?php } ?>
 
       <label for="email">Email</label>
       <input 
@@ -124,6 +122,7 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
       />
       <br>
 
+      <?php if ($_SESSION['usuario']['tipo_usuario'] == 'adm') { ?>
       <label for="cpf">CPF</label>
       <input 
         type="text" 
@@ -133,6 +132,7 @@ use_js_scripts([ 'inputmask', 'masksForInputs', 'vw_cadastrar_usuario' ], $_ENV[
         disabled
       />
       <br><br>
+      <?php } ?>
 
       <button class="btnEdit">
         Editar
