@@ -11,10 +11,6 @@
   <a href="<?= $_ENV['ROUTE'] ?>auth.login">
     Login
   </a> 
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>home.financas.index">
-    Finanças
-  </a> 
 <?php } ?>
 
 
@@ -52,7 +48,7 @@
     Projeto
   </a>
   |
-  <a href="<?= $_ENV['ROUTE'] ?>visitante.makeof.index">
+  <a href="<?= $_ENV['ROUTE'] ?>visitante.makeof">
     Make Of
   </a>
   |

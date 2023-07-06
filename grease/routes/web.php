@@ -39,9 +39,14 @@ $routes['auth.sair'] = [
 
 // --- Routes: Visitante
 #-- 
-$routes['admin.home'] = [
+$routes['visitante.financas'] = [
   'method' => 'GET',
-  'file' => 'admin/home',
+  'file' => 'visitante/financas',
+  'params' => []
+];
+$routes['visitante.makeof'] = [
+  'method' => 'GET',
+  'file' => 'visitante/make-of/index',
   'params' => []
 ];
 
