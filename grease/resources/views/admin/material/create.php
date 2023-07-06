@@ -49,6 +49,8 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
         action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/CadastroController.php"
         enctype="multipart/form-data"
     >
+        <input type="hidden" name="usuario_id" value="<?= $_SESSION['usuario']['usuario_id'] ?>" />
+
         <input type="text" class="text" name="nome" placeholder="Corda de arame...">
         <label for="nome">Nome</label>
         <br>
