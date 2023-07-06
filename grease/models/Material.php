@@ -51,11 +51,15 @@ class Material
   {
     $stmt = $this->mysqli->query("
       SELECT 
-            m.*, c.nome AS nome_categoria
+            m.*, 
+            c.nome AS nome_categoria, 
+            u.nome AS nome_usuario, u.*
       FROM 
           " . $this->tabela . " as m
       JOIN 
           categoriasmaterial AS c ON m.categoria_id = c.categoria_id
+      JOIN 
+          usuario AS u ON m.usuario_id = u.usuario_id
       ORDER BY 
           m.nome ASC
     ");
@@ -75,12 +79,15 @@ class Material
   {
     $sql = $this->mysqli->query("
         SELECT 
-            m.*,            
-            c.nome as nome_categoria
+            m.*, 
+            c.nome AS nome_categoria, 
+            u.nome AS nome_usuario, u.*
         FROM 
             " . $this->tabela . " as m
         JOIN 
-          categoriasmaterial AS c ON m.categoria_id = c.categoria_id
+            categoriasmaterial AS c ON m.categoria_id = c.categoria_id
+        JOIN 
+            usuario AS u ON m.usuario_id = u.usuario_id
         WHERE 
             material_id = '" . $id . "'
         ");
@@ -100,6 +107,7 @@ class Material
             INSERT INTO 
             " . $this->tabela . "
                 (
+                    usuario_id,
                     nome, 
                     categoria_id,
                     descricao, 
@@ -117,6 +125,7 @@ class Material
                 ) 
             VALUES 
                 (
+                    '" . $dados['usuario_idx'] . "',
                     '" . $dados['nome'] . "',
                     '" . $dados['categoria_id'] . "',
                     '" . $dados['descricao'] . "',
