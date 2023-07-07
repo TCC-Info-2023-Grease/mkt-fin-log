@@ -1,7 +1,9 @@
 <?php
 # ------ Configurações Básicas
 require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
-import_utils(['extend_styles', 'render_component']);
+import_utils(['auth', 'extend_styles', 'render_component']);
+
+Auth::check('vis');
 
 include $_ENV['PASTA_CONTROLLER'] . '/MakeOf/ConsultaController.php';
 global $_ENV;
@@ -45,18 +47,18 @@ render_component('head');
       <div>
         <div>
           <h3>
-            <?php echo $item['titulo']; ?>
+            <?= $item['titulo']; ?>
           </h3>
         </div>
 
         <div>
           <p>
-            <?php echo $item['descricao']; ?>
+            <?= $item['descricao']; ?>
           </p>
         </div>
 
         <div>
-          <?php echo $item['uri']; ?> 
+          <?= $item['uri']; ?> 
         </div>
       </div>
     <?php endforeach; ?>

@@ -6,7 +6,9 @@ global $_ENV;
 //print_r($_POST);
 $usuarioData = [$_POST];
 
-import_utils(['extend_styles', 'render_component']);
+import_utils(['auth', 'extend_styles', 'render_component']);
+
+Auth::check('adm');
 
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];

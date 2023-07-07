@@ -3,7 +3,9 @@
 require dirname(dirname(dirname(__DIR__))) . '/config.php';
 global $_ENV;
 
-import_utils(['extend_styles', 'render_component']);    
+import_utils(['auth', 'extend_styles', 'render_component']);
+
+Auth::check('vis');
 ?>
 
 <!------- HEAD --------->

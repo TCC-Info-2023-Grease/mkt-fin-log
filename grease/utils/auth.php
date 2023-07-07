@@ -7,6 +7,12 @@ class Auth {
       header('Location: '. $_ENV['VIEWS'] .'/auth/login.php');
     }
 
+    if ($user === 'all') {
+      if (!isset($_SESSION['usuario'])) {
+        header('Location: '. $_ENV['VIEWS'] .'/auth/login.php');
+      }
+    }
+
     if (!$_SESSION['usuario']['tipo_usuario'] === $user) {
       header('Location: '. $_ENV['VIEWS'] .'/auth/login.php');
     }

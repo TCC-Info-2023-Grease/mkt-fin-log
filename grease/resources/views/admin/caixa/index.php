@@ -1,7 +1,9 @@
 <?php
 # ------ Configurações Básicas
 require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
-import_utils(['extend_styles', 'render_component']);
+import_utils(['auth', 'extend_styles', 'render_component']);
+
+Auth::check('adm');
 
 include $_ENV['PASTA_CONTROLLER'] . '/Caixa/ConsultaController.php';
 

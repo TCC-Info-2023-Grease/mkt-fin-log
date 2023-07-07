@@ -1,10 +1,13 @@
 <?php
 # ------ Configurações Básicas
 require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
-import_utils(['extend_styles', 'render_component']);
+global $_ENV;
+
+import_utils(['auth', 'extend_styles', 'render_component']);
+
+Auth::check('adm');
  
 include $_ENV['PASTA_CONTROLLER'] . '/MakeOf/ConsultaController.php';
-global $_ENV;
 
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];

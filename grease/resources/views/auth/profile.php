@@ -3,9 +3,11 @@
 require dirname(dirname(dirname(__DIR__))) . '\config.php';
 global $_ENV;
 
-$usuarioData = [$_SESSION['usuario']];
+import_utils([ 'auth', 'use_js_scripts', 'extend_styles', 'render_component', 'navegate' ]);
 
-import_utils([ 'use_js_scripts', 'extend_styles', 'render_component', 'navegate' ]);
+Auth::check('all');
+
+$usuarioData = [$_SESSION['usuario']];
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {

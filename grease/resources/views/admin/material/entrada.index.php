@@ -3,10 +3,12 @@
 require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 global $_ENV;
 
+import_utils(['auth', 'extend_styles', 'render_component']);
+
+Auth::check('adm');
+
 include $_ENV['PASTA_CONTROLLER'] . '/EntradaMaterial/ConsultaController.php';
 //print_r($saidas);
-
-import_utils(['extend_styles', 'render_component']);
 ?>
 
 

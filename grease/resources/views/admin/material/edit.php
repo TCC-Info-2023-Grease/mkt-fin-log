@@ -4,14 +4,16 @@ require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 
 global $_ENV;   
 
+import_utils(['auth', 'extend_styles', 'render_component']);
+
+Auth::check('adm');
+
 $categoria_material = new CategoriaMaterial($mysqli);
 $categorias = $categoria_material->buscarTodos();
 
 # Receber os dados enviados via POST
 $materialData = $_POST;
 //print_r($materialData);
-
-import_utils(['extend_styles', 'render_component']);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {

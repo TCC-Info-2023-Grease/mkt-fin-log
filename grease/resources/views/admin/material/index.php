@@ -2,6 +2,10 @@
 # ------ Configurações Básicas
 require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 
+import_utils(['auth', 'extend_styles', 'render_component']);
+
+Auth::check('adm');
+
 include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
 // print_r($materiais);
 global $_ENV;   
