@@ -7,7 +7,9 @@ global $_ENV;
 # Receber os dados enviados via POST
 $data = $_POST;
 
-import_utils(['extend_styles', 'render_component']);
+import_utils(['auth', 'extend_styles', 'render_component']);
+
+Auth::check('adm');
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
