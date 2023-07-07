@@ -6,7 +6,9 @@ global $_ENV;
 $categoria_material = new CategoriaMaterial($mysqli);
 $categorias = $categoria_material->buscarTodos();
 
-import_utils(['extend_styles', 'render_component']);
+import_utils(['auth', 'extend_styles', 'render_component']);
+
+Auth::check('adm');
 ?>
 
 <!------- HEAD --------->
