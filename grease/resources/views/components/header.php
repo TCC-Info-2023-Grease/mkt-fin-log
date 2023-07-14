@@ -1,71 +1,36 @@
-<?php 
-
-?>
-
-<!-- USUARIO NÃO LOGADO -->
-<?php if (!isset($_SESSION['usuario']) && empty($_SESSION['usuario'])) { ?>
-  <a href="<?= $_ENV['ROUTE'] ?>auth.cadastrar">
-    Cadastrar
+<!--────────────────Header───────────────-->
+<header>
+  <a class="logo" href="index.html">
+    <img src="<?= assets('imagens/','logo.png') ?>" alt="GREASE" />
   </a>
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>auth.login">
-    Login
-  </a> 
-<?php } ?>
-
-
-<!-- USUARIO ADM LOGADO -->
-<?php if (isset($_SESSION['usuario']) && !empty($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] == 'adm') { ?>
-  <a href="<?= $_ENV['ROUTE'] ?>admin.home">
-    Home
-  </a>
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>admin.categoria_material.index">
-    Categoria Material
-  </a>
-  | 
-  <a href="<?= $_ENV['ROUTE'] ?>admin.material.index">
-    Material
-  </a>
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.index">
-    Caixa
-  </a>
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>admin.makeof.index">
-    Make Of
-  </a>
-<?php } ?>
-
-
-<!-- USUARIO VISITANTE LOGADO -->
-<?php if (isset($_SESSION['usuario']) && !empty($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] == 'vis') { ?>
-  <a href="<?= $_ENV['ROUTE'] ?>visitante.financas">
-    Finanças
-  </a>
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>home.projeto">
-    Projeto
-  </a>
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>visitante.makeof">
-    Make Of
-  </a>
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>home.contato">
-    Contato
-  </a>
-<?php } ?>
-
-<!-- ALGUM USUARIO LOGADO -->
-<?php if (isset($_SESSION['usuario']) && !empty($_SESSION['usuario'])) { ?>
-  |
-  <a href="<?= $_ENV['VIEWS'] ?>/auth/profile.php">
-    Perfil
-  </a>
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>auth.sair">
-    Sair
-  </a>
-<?php } ?>
+  <nav>
+    <ul class="nav-bar">
+      <div class="bg"></div>      
+      <?php if (!isset($_SESSION['usuario']) && empty($_SESSION['usuario'])) { ?>
+        <li><a class="nav-link active" href="<?= $_ENV['ROUTE'] ?>auth.login">Login</a></li>
+      <?php } else { ?>
+        <?php if ($_SESSION['usuario']['tipo_usuario'] == 'adm') { ?>
+          <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.home">Home</a></li>
+          <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.categoria_material.index">Categoria Material</a></li>
+          <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.material.index">Material</a></li>
+          <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.caixa.index">Caixa</a></li>
+          <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.makeof.index">Make Of</a></li>
+        <?php } elseif ($_SESSION['usuario']['tipo_usuario'] == 'vis') { ?>
+          <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>visitante.financas">Finanças</a></li>
+          <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>home.projeto">Projeto</a></li>
+          <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>visitante.makeof">Make Of</a></li>
+          <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>home.contato">Contato</a></li>
+        <?php } ?>
+        <li><a class="nav-link" href="<?= $_ENV['VIEWS'] ?>/auth/profile.php">Perfil</a></li>
+        <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>auth.sair">Sair</a></li>
+      <?php } ?>
+    </ul>
+    <div class="hamburger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+  </nav>
+</header>
+<!--────────────────Fim - Header───────────────-->
 
