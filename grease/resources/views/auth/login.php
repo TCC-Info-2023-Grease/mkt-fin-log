@@ -3,7 +3,7 @@
 require dirname(dirname(dirname(__DIR__))) . '/config.php';
 global $_ENV;
 
-import_utils(['extend_styles', 'render_component']);
+import_utils(['extend_styles', 'render_component', 'use_js_scripts']);
 
 //print_r($_SESSION['usuario']);
 ?>
@@ -12,7 +12,8 @@ import_utils(['extend_styles', 'render_component']);
 <!------- HEAD --------->
 <?php
 render_component('head');
-extend_styles(['styles']);
+extend_styles([ 'css.stylelogin' ]);
+use_js_scripts([ 'js.scriptindex', 'js.forms.FormCadastroUsuario' ]);
 ?>
 
 <title>
@@ -20,66 +21,200 @@ extend_styles(['styles']);
 </title>
 <!-------/ HEAD --------->
 
+<?php if (isset($_GET['erro']) == 'campos_invalidos'): ?>
+    <script>
+        Swal.fire({
+            title: 'Erro!',
+            text: 'Campos invalidos!',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        })
+    </script>
+<?php endif; ?>
+<?php if (isset($_GET['erro']) == 'usuario'): ?>
+    <script>
+        Swal.fire({
+            title: 'Erro!',
+            text: 'Email e/ou senha incorretos!',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        })
+    </script>
+<?php endif; ?>
+
 
 <!------- BODY --------->
 <body>
-    <a href="<?php echo $_ENV['URL_BASE']; ?>" class="btn-voltar">
-        Voltar
-    </a>
-    <div class="login">
+ 
+  <div class="container">
+     <!--─────────────────Home────────────────-->
+    <main>
+ 
+      <div id="home">
+        <div class="filter"></div>
+        <section class="intro">
 
-        <?php if (isset($_GET['erro']) == 'campos_invalidos'): ?>
-            <script>
-                Swal.fire({
-                    title: 'Erro!',
-                    text: 'Campos invalidos!',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-            </script>
-        <?php endif; ?>
-        <?php if (isset($_GET['erro']) == 'usuario'): ?>
-            <script>
-                Swal.fire({
-                    title: 'Erro!',
-                    text: 'Email e/ou senha incorretos!',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-            </script>
-        <?php endif; ?>
+  
 
-        <a href="<?php echo $_ENV['ROUTE'] . 'auth.login'; ?>">
-            <h2 class="active" id="my-button" style="color:gray">
-                Login
-            </h2>
-        </a>
+          <div class="wrapper">
+            <div class="title-text">
+              <div class="title login">Login</div>
+              <div class="title signup">Cadastro</div>
+            </div>
+      
+      
+            <div class="form-container">
+      
+              <div class="slide-controls">
+                <input type="radio" name="slide" id="login" checked>
+                <input type="radio" name="slide" id="signup">
+                <label for="login" class="slide login">Login</label>
+                <label for="signup" class="slide signup">Cadastro</label>
+                <div class="slider-tab"></div>
+              </div>
+      
+      
+              <div class="form-inner">
+      
+                
+                <form 
+                    method="POST" 
+                    action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Auth/LoginController.php"
+                    class="login"
+                >
+                    <div class="field">
+                        <input type="email" placeholder="Email" name="email" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" name="password" required>
+                    </div>
 
-        <a href="<?php echo $_ENV['ROUTE'] . 'auth.cadastrar'; ?>">
-            <h2 class="noactive" style="color:aliceblue">
-                Criar conta
-            </h2>
-        </a>
-        
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <input type="submit" value="Login">
+                   </div>
+                   <div class="signup-link">
+                      Crie uma conta <a href="">Cadastre-se</a>
+                   </div>        
+                   <div class="pass-link">
+                        <a href="#">
+                            Esqueceu a senha?
+                        </a>
+                    </div>
+                </form>      
+      
+                        <form 
+                          class="signup"
+                           method="POST" 
+                          action="<?= $_ENV['URL_CONTROLLERS']; ?>/Auth/CadastroController.php"
+                          enctype="multipart/form-data"
+                        >
+                          <div class="field">
+                            <input 
+                              type="text" 
+                              required  
+                              name="username" 
+                              placeholder="Stefano Jobs" />
+                          </div>
+                          <div class="field">
+                            <input type="email" placeholder="stefano@android.com" required class="text" name="email" />
+                          </div>
+                          <div class="field">
+                             <input type="number" placeholder="666" required class="text" name="age">
+                      
+                          </div>
+                          <div class="field">
+                            <label for="tipo-usuario" style="display: none;">Tipo Usuario</label>
+            <select name="tipo_usuario" id="tipo-usuario-select" style="display: none;">
+                <option value="vis" selected>
+                    Visitante
+                </option>
+                <option value="fig">
+                    Figurino   
+                </option>
+                <option value="cen">
+                    Cénario
+                </option>
+                <option value="enc">
+                    Encenação
+                </option>
+                <option value="adm">
+                    Admin
+                </option>
+            </select>
+                          </div>
+                          <div class="field">
+                            <select name="genrer" name="genrer-select" id="genrer-select">
+                <option value="m">
+                    Masculino
+                </option>
+                <option value="f">
+                    Feminino
+                </option>
+                <option value="o">
+                    Outro
+                </option>
+                <option value="n">
+                    Prefiro não informar
+                </option>
+            </select>
+                          </div>
+                          <div class="field">
+                            <input 
+                type="text" 
+                required 
+                class="text phone" 
+                name="phone"
+                placeholder="(11) 90235-9078" />
+                          </div>
+                          <div class="field">
+                            <input 
+                type="password" 
+                required class="text" 
+                placeholder="Password" 
+                name="password" />
+                          </div>
+                          <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input type="submit" value="Signup">
+                          </div>
+                          <div class="signup-link">Já tem uma conta <a href="usuario com conta/conta.html">Login</a></div>
+                        </form>
+              </div>
+      
+            </div>
+          </div>
+          <p></p>
 
-        <form 
-            method="POST" 
-            action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Auth/LoginController.php"
-        >
-            <input type="email" class="text" name="email">
-            <label for="email">Email</label>
-            <br>
+        </section>
+      </div>
 
-            <input type="password" class="text" name="password">
-            <label for="password">Senha</label>
-            <br>
+      <?php use_js_scripts([ 'js.login' ]); ?>
+    </main>
+      <!--─────────────────fim Home────────────────-->
+  
+<br><br><br><br><br><br>
 
+      <!--─────────────────Footer─────────────────-->
+    <footer class="copyright">
+      <a href="https://goo.gl/maps/6L43o6zw5VmfJ3b99" target="_blank">ETEC DE FRANCISCO MORATO - Planejamanto e Desenvolvimento do Trabalho de Conclusão de Curso(TCC) INFORMÁTICA PARA INTERNET. </a>
+    </footer>
+      <!--─────────────────Fim Footer────────────────-->
+  </div>
 
-            <button class="signin login">
-                Entrar
-            </button>
-        </form>
+  <!--COMEÇO VLIBRAS-->
 
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
     </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
+  <!--FIM VLIBRAS-->
 </body>
 <!------- /BODY --------->
