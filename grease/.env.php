@@ -15,6 +15,7 @@ $_ENV = [
   "VIEWS"           => $url_base . '/resources/views',
   "URL_CONTROLLERS" => $url_base . '/controllers',
   "STORAGE"         => $url_base . '/storage',
+  "RESOURCES"         => $url_base . '/resources',
 
   # BANCO DE DADOS
   "DB_SERVIDOR" => "localhost",
