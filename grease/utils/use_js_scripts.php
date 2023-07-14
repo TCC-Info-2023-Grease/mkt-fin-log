@@ -8,15 +8,20 @@
  * @param string $type
  * @return void
  */          
-function use_js_scripts($scripts = [], $list_scripts = [], $type = 'text/javascript') {
-  for ($s = 0; $s < count($scripts); $s++) {
-    echo '
-      <!-- '. $scripts[$s] .'-->
-      <script
-        type="'. $type .'"
-        src="'. $list_scripts[$scripts[$s]]  .'">
-      </script>
-      <!-- /'.  $scripts[$s] .' -->
-    ';
+function use_js_scripts($scripts = [], $extension = 'js') {
+  global $_ENV;
+
+  foreach ($scripts as $script) {
+    $src = str_replace('.', '/', $script);
+    $type = isset($script['type']) ? $script['type'] : 'text/javascript';
+    $filename = $_ENV['RESOURCES'] . '/' . $src;
+    $src_with_extension = $filename . '.' . $extension;
+
+    echo 
+    <<<HTML
+      <!-- {$script} -->
+      <script type="$type" src="$src_with_extension"></script>
+      <!-- /{$script} -->
+    HTML;
   }
 }
