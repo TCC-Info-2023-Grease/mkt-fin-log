@@ -17,5 +17,3 @@ const loginText = document.querySelector(".title-text .login");
       });
 
       
-
-

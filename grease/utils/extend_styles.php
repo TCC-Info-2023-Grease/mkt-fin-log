@@ -6,12 +6,15 @@
  * @param  array  $styles Nome dos arquivos CSS
  * @return void
  */
-function extend_styles($styles = []) { 
-    foreach ($styles as $key => $value) {
-        $file_css = $value . ".css";
-        echo "\n
-        <link 
-            rel='stylesheet' 
-            href='" . assets('css/', $file_css) . "' />";
+function extend_styles($styles = []) {
+    global $_ENV;
+
+    foreach ($styles as $style) {
+        $file_css = $_ENV['URL_BASE'] . '/resources/' . str_replace('.', '/', $style);
+        echo 
+        <<<HTML
+            <link rel="stylesheet" href="{$file_css}.css" />
+        HTML;
     }
-} 
+}
+
