@@ -36,11 +36,11 @@ render_component('head');
   <br><br>
 
   |
-  <a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.entrada.create">
+  <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.entrada.create">
     Nova Entrada
   </a>
   |
-  <a href="<?php echo $_ENV['ROUTE'] ?>admin.caixa.saida.create">
+  <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.saida.create">
     Nova Saída
   </a>
   <br><br><br>
@@ -70,22 +70,19 @@ render_component('head');
           </a>
         </td>
         <td>
-          <?php echo $item['nome_usario']; ?>
+          <?= $item['nome_usuario']; ?>
         </td>
         <td>
-          <?php echo $item['valor']; ?>
+          <?= $item['valor']; ?>
         </td>
         <td>
-          <?php
-          $data_movimentacao = new DateTimeImmutable($item['data_movimentacao']);
-          echo $data_movimentacao->format('d/m/Y');
-          ?>
+          <?= date('d/m/Y', strtotime($item['data_movimentacao'])); ?>
         </td>
         <td>
-          <?php echo $item['categoria']; ?>
+          <?= $item['categoria']; ?>
         </td>
         <td>
-          <?php echo $item['tipo_movimentacao']; ?>
+          <?= $item['tipo_movimentacao']; ?>
         </td>
       </tr>
       <?php endforeach; ?>
@@ -94,12 +91,12 @@ render_component('head');
 
   <h3>
     Saldo Atual:
-    <?php echo $data['saldo_atual']; ?>
+    <?= $data['saldo_atual']; ?>
   </h3>
   -
   <h3>
     Saldo Anterior:
-    <?php echo $data['saldo_anterior']; ?>
+    <?= $data['saldo_anterior']; ?>
   </h3>
   <?php } else { ?>
   <h3>Sem inserções no caixa</h3>
