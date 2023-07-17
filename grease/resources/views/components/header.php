@@ -1,7 +1,7 @@
 <!--────────────────Header───────────────-->
 <header>
-  <a class="logo" href="index.html">
-    <img src="<?= assets('imagens/','logo.png') ?>" alt="GREASE" />
+  <a class="logo" href="<?= $_ENV['URL_BASE']; ?>">
+    <img src="<?= assets('images/web/','logo.png') ?>" alt="Grease" />
   </a>
   <nav>
     <ul class="nav-bar">
