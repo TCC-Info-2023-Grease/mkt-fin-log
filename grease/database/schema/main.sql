@@ -10,6 +10,18 @@ CREATE TABLE CategoriasMaterial (
 );
 
 
+CREATE TABLE meta (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(50) NOT NULL,
+  descricao TEXT,
+  data_inicio DATE,
+  data_fim DATE,
+  total_necessario DECIMAL(10, 2),
+  status INT;
+);
+
+
+
 CREATE TABLE MakeOf (
     -- PK & FK
     makeof_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
