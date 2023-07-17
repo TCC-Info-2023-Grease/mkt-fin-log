@@ -53,6 +53,25 @@ class Caixa
     return !$stmt->fetch();
   }
 
+  public function getRegistros($limit)
+  {
+      $query = "
+        SELECT 
+          c.*, u.*, u.nome as nome_usuario
+        FROM 
+          " . $this->tabela . " as c
+        JOIN 
+          usuarios AS u ON u.usuario_id = c.usuario_id
+        ORDER BY data_movimentacao LIMIT ?
+      ";
+      $stmt = $this->mysqli->prepare($query);
+      $stmt->bind_param('i', $limit);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      return $result->fetch_all(MYSQLI_ASSOC);
+  }
+
   public function buscarTodos()
   {
     $stmt = $this->mysqli->query("
@@ -211,6 +230,29 @@ class Caixa
 
     $saldo_anterior = mysqli_fetch_array($result, MYSQLI_ASSOC);
     return $saldo_anterior['valor'];
+  }
+
+  public function obterTotalGasto()
+  {
+      $query = "
+          SELECT 
+              SUM(valor) as total_gasto
+          FROM 
+              " . $this->tabela . "
+          WHERE 
+              tipo_movimentacao = 'Saida'
+      ";
+
+      $result = $this->mysqli->query($query);
+
+      if ($result->num_rows === 0) {
+          return 0;
+      }
+
+      $row = $result->fetch_assoc();
+      $totalGasto = $row['total_gasto'];
+
+      return $totalGasto;
   }
 
   public function buscar($id)

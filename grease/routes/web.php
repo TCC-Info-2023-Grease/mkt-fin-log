@@ -55,7 +55,7 @@ $routes['visitante.makeof'] = [
 #-- 
 $routes['admin.home'] = [
   'method' => 'GET',
-  'file' => 'admin/home',
+  'file' => 'admin/dashboard',
   'params' => []
 ];
  
