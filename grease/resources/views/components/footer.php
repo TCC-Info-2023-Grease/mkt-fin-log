@@ -1,22 +1,6 @@
 <footer class="copyright">
-    <a href="https://goo.gl/maps/6L43o6zw5VmfJ3b99" target="_blank">
-        ETEC DE FRANCISCO MORATO
-    </a>
-
-    <footer>
-        <div class="rounded-social-buttons">
-            <a class="social-button facebook" href="https://www.facebook.com/" target="_blank">
-                <i class="fa fa-facebook"></i>
-            </a>
-            <a class="social-button instagram" href="https://www.twitter.com/" target="_blank">
-                <i class="fa fa-instagram"></i>
-            </a>
-            <a class="social-button youtube" href="https://www.instagram.com/" target="_blank">
-                <i class="fa fa-youtube"></i>
-            </a>
-        </div>
+      <a href="https://goo.gl/maps/6L43o6zw5VmfJ3b99" target="_blank">ETEC DE FRANCISCO MORATO - Planejamanto e Desenvolvimento do Trabalho de Conclusão de Curso(TCC) INFORMÁTICA PARA INTERNET. </a>
     </footer>
-</footer>
 
 
     <!--COMEÇO VLIBRAS-->

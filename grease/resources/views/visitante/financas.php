@@ -1,113 +1,135 @@
 <?php
 # ------ Configurações Básicas
-require dirname(dirname(dirname(__DIR__))) . '\config.php';
-import_utils(['auth', 'extend_styles', 'render_component']);
-
-Auth::check('vis');
-
-include $_ENV['PASTA_CONTROLLER'] . '/Caixa/ConsultaController.php';
-
+require dirname(dirname(dirname(__DIR__))) . '/config.php';
 global $_ENV;
 
-//print_r($data);
+import_utils(['auth']);
+
+//Auth::check('vis');
+ 
+import_utils([
+  'extend_styles', 
+  'use_js_scripts', 
+  'render_component',
+  'Money'
+]);
+
+include $_ENV['PASTA_CONTROLLER'] . '/Caixa/VisitanteDashboardController.php';
+print_r($data);
 ?>
 
 <!------- HEAD --------->
 <?php
 render_component('head');
-//extend_styles(['styles']);
+extend_styles([ 'css.admin.financas' ]);
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-
 <title>
-    Finanças | Grease
+  Finanças 🕺 Grease
 </title>
-<!-------/ HEAD --------->
+<!------- /HEAD --------->
 
 
 <!------- BODY --------->
 <body>
+    <?php
+    render_component('header');
+    ?>
+
+    <section class="dashboard">
+      <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
+      <div class="dash-content">
+        <div class="overview">
+          <div class="title"> <span class="text">Olá, <?= ucfirst($_SESSION['usuario']['nome']); ?></span> </div>
+          <div class="boxes">
+            <div 
+              class="box 
+                <?php if ($data['saldo_atual'] < 0): ?>
+                  box2
+                <?php elseif ($data['saldo_atual'] > 0): ?>
+                  box1
+                <?php else: ?>
+                  box3
+                <?php endif; ?>
+            ">
+              <span class="text">Saldo Atual</span> 
+              <span class="number">
+                 <?= Money::format($data['saldo_atual']); ?>
+              </span> 
+            </div>
+            <div 
+              class="box 
+                <?php if ($data['total_gasto'] < $data['total_necessario']): ?>
+                  box1
+                <?php elseif ($data['total_gasto'] > $data['total_necessario']): ?>
+                  box2
+                <?php else: ?>
+                  box3
+                <?php endif; ?>
+            ">              
+              <span class="text">Total Gasto</span> 
+              <span class="number">
+                <?= Money::format($data['total_gasto']); ?>
+              </span> 
+            </div>
+            <div class="box box4"> 
+              <span class="text">Total Necessario</span> 
+              <span class="number">
+                <?= Money::format($data['total_necessario']); ?>
+              </span> 
+            </div>
+          </div>
+        </div>
+        <div class="activity">
+      <div class="title">
+        <span class="text">Atividades Recentes</span>
+      </div>
+        <div class="activity-data">
+          <div class="data names">
+            <span class="data-title">Usuario</span>
+            
+            <?php foreach ($data['caixa'] as $item): ?>
+            <span class="data-list">
+               <?= $item['nome_usuario']; ?>
+            </span>
+            <?php endforeach; ?>
+          </div>
+
+          <div class="data names">
+            <span class="data-title">Valor</span>
+            
+            <?php foreach ($data['caixa'] as $item): ?>
+            <span class="data-list">
+               <?= Money::format($item['valor']); ?>            
+             </span>
+            <?php endforeach; ?>
+          </div>
+
+          <div class="data names">
+            <span class="data-title">Data</span>
+            
+            <?php foreach ($data['caixa'] as $item): ?>
+            <span class="data-list">
+               <?= date('d/m/Y', strtotime($item['data_movimentacao'])); ?>
+            </span>
+            <?php endforeach; ?>
+          </div>
+
+          <div class="data names">
+            <span class="data-title">Tipo Movimentação</span>
+            
+            <?php foreach ($data['caixa'] as $item): ?>
+            <span class="data-list">
+               <?= $item['tipo_movimentacao']; ?>
+            </span>
+            <?php endforeach; ?>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
   <?php
-  render_component('header');
+  use_js_scripts([ 'js.admin.financas' ]);
   ?>
-
-   <?php if (isset($data['caixa']) && !empty($data['caixa'])) { ?>
-      <table id="myTable" class="display">
-        <thead>
-          <tr>            
-            <th>Usuario</th>
-            <th>Valor</th>
-            <th>Data</th>
-            <th>Categoria</th>
-            <th>Tipo Movimentação</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <?php foreach ($data['caixa'] as $item): ?>
-          <tr>
-            <td>
-              <?= $item['nome_usario']; ?>
-            </td>
-            <td>
-              <?= $item['valor']; ?>
-            </td>
-            <td>
-              <?php
-              $data_movimentacao = new DateTimeImmutable($item['data_movimentacao']);
-              echo $data_movimentacao->format('d/m/Y  h:s');
-              ?>
-            </td>
-            <td>
-              <?= $item['categoria']; ?>
-            </td>
-            <td>
-              <?= $item['tipo_movimentacao']; ?>
-            </td>
-          </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-
-      <h3>
-        Saldo Atual:
-        
-        <span 
-            style="color: <?php 
-                if ($data['saldo_atual'] > 0) echo 'green';
-                else if ($data['saldo_atual'] < 0) echo 'red';
-                else echo 'yellow'; ?>;"
-        >
-            <?= $data['saldo_atual']; ?>
-        </span>
-      </h3>
-      -
-      <h3>
-        Saldo Anterior:
-        <span
-            style="color: <?php 
-                if ($data['saldo_anterior'] > 0) echo 'green';
-                else if ($data['saldo_anterior'] < 0) echo 'red';
-                else echo 'yellow'; ?>;"
-        >
-            <?= $data['saldo_anterior']; ?>        
-        </span>
-      </h3>
-  <?php } else { ?>
-    <h3>Sem inserções no caixa</h3>
-  <?php } ?>
-
-  <?php
-  render_component('footer');
-  ?>
-
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('#myTable').DataTable();
-    });
-  </script>
+</body>
 <!------- /BODY --------->

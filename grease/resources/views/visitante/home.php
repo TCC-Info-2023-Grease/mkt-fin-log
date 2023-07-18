@@ -3,15 +3,23 @@
 require dirname(dirname(dirname(__DIR__))) . '/config.php';
 global $_ENV;
 
-import_utils(['auth', 'extend_styles', 'render_component']);
+import_utils(['auth']);
 
-Auth::check('vis');
+//Auth::check('vis');
+ 
+import_utils([
+  'extend_styles', 
+  'use_js_scripts', 
+  'render_component',
+  'Money'
+]);
+
 ?>
 
 <!------- HEAD --------->
 <?php
 render_component('head');
-extend_styles(['styles']);
+extend_styles(['css.visitante.styleindex']);
 ?>
 
 <title>
@@ -22,16 +30,40 @@ extend_styles(['styles']);
 
 <!------- BODY --------->
 <body>
-    <?php
-    render_component('header');
-    ?>
-    
-    <div>
-        Olá
+    <div class="container">
+        <?php render_component('header'); ?>
+
+         <!--─────────────────Começo Home────────────────-->
+        <main>
+     
+          <div id="home">
+            <div class="filter"></div>
+            <section class="intro">
+
+              <h3>Grease
+                <hr>
+              </h3>
+
+              <p>PLANEJAMENTO MUSICAL</p>
+
+              <p></p>
+
+              <p></p>
+
+            </section>
+          </div>
+
+        </main>
+          <!--─────────────────fim Home────────────────-->
+        <hr>
+
+        <?php render_component('sobrenos'); ?>
+
+        <?php render_component('footer'); ?>
     </div>
 
     <?php
-    render_component('footer');
+      use_js_scripts([ 'js.visitante.scriptindex' ]);
     ?>
 </body>
 <!------- /BODY --------->
