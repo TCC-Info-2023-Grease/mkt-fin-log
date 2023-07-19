@@ -95,13 +95,8 @@ use_js_scripts([ 'js.scriptindex', 'js.forms.FormCadastroUsuario' ]);
                    </div>
                    <div class="signup-link">
                       Crie uma conta <a href="">Cadastre-se</a>
-                   </div>        
-                   <div class="pass-link">
-                        <a href="#">
-                            Esqueceu a senha?
-                        </a>
-                    </div>
-                </form>      
+                   </div>                    
+                 </form>      
       
                         <form 
                           class="signup"
@@ -123,7 +118,7 @@ use_js_scripts([ 'js.scriptindex', 'js.forms.FormCadastroUsuario' ]);
                              <input type="number" placeholder="666" required class="text" name="age">
                       
                           </div>
-                          <div class="field">
+                          <div class="field" style="display: none;">
                             <label for="tipo-usuario" style="display: none;">Tipo Usuario</label>
             <select name="tipo_usuario" id="tipo-usuario-select" style="display: none;">
                 <option value="vis" selected>
@@ -144,7 +139,7 @@ use_js_scripts([ 'js.scriptindex', 'js.forms.FormCadastroUsuario' ]);
             </select>
                           </div>
                           <div class="field">
-                            <select name="genrer" name="genrer-select" id="genrer-select">
+                            <select name="genrer" id="genrer-select" class="form-select" aria-label="Default select example">
                 <option value="m">
                     Masculino
                 </option>
@@ -177,8 +172,7 @@ use_js_scripts([ 'js.scriptindex', 'js.forms.FormCadastroUsuario' ]);
                           <div class="field btn">
                             <div class="btn-layer"></div>
                             <input type="submit" value="Signup">
-                          </div>
-                          <div class="signup-link">Já tem uma conta <a href="usuario com conta/conta.html">Login</a></div>
+                          </div>                        
                         </form>
               </div>
       
