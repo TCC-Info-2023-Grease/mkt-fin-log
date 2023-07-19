@@ -3,14 +3,21 @@
 require dirname(dirname(__DIR__)) . '/config.php';
 global $_ENV;
 
-import_utils(['extend_styles', 'render_component']);
-?>
+import_utils(['auth']);
+ 
+import_utils([
+  'extend_styles', 
+  'use_js_scripts', 
+  'render_component',
+  'Money'
+]);
 
+?>
 
 <!------- HEAD --------->
 <?php
 render_component('head');
-extend_styles(['main']);
+extend_styles(['css.styleindex']);
 ?>
 
 <title>
@@ -18,38 +25,42 @@ Welcome 🕺 Grease
 </title>
 <!-------/ HEAD --------->
 
-
 <!------- BODY --------->
 <body>
+    <div class="container">
+        <?php render_component('header'); ?>
+
+         <!--─────────────────Começo Home────────────────-->
+        <main>
+     
+          <div id="home">
+            <div class="filter"></div>
+            <section class="intro">
+
+              <h3>Grease
+                <hr>
+              </h3>
+
+              <p>PLANEJAMENTO MUSICAL</p>
+
+              <p></p>
+
+              <p></p>
+
+            </section>
+          </div>
+
+        </main>
+          <!--─────────────────fim Home────────────────-->
+        <hr>
+
+        <?php render_component('sobrenos'); ?>
+
+        <?php render_component('footer'); ?>
+    </div>
+
     <?php
-    render_component('header');
-    ?>
-
-    <!--─────────────────Começo Home────────────────-->
-    <main>
- 
-      <div id="home">
-        <div class="filter"></div>
-        <section class="intro">
-
-          <h3>Grease
-            <hr>
-          </h3>
-
-          <p>PLANEJAMENTO MUSICAL</p>
-
-          <p></p>
-
-          <p></p>
-
-        </section>
-      </div>
-
-    </main>
-      <!--─────────────────fim Home────────────────-->
-
-    <?php
-    render_component('footer');
+      use_js_scripts([ 'js.visitante.scriptindex' ]);
     ?>
 </body>
 <!------- /BODY --------->

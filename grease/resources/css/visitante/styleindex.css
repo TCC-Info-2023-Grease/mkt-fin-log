@@ -90,34 +90,34 @@ a.nav-link{
 /*──────────────────
        home
 ──────────────────*/
-#home{ 	
-	margin: auto;
-	height: 100vh;
-	color: var(--main-fonts-color);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-evenly;
+#home{  
+    margin: auto;
+    height: 100vh;
+    color: var(--main-fonts-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 #home .filter{
 	background-image: url("../../images/wall/wall.jpg");
-	background-size: cover;
-	background-position:center;
+	   background-size: cover;
+    background-position:center;
     position: absolute;
     top: 0px;
     bottom: 0;
     left: 0;
     right: 0;
-	opacity:.20;
+    opacity:.20;
 }  
 
 .intro {
-	text-align:center;
+    text-align:center;
     color: var(--main-fonts-color);
-	z-index: 1;
-	margin: auto;
-	padding: 20px;
+    z-index: 1;
+    margin: auto;
+    padding: 20px;
 }
 
 .intro  p{
