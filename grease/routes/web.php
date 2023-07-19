@@ -39,6 +39,11 @@ $routes['auth.sair'] = [
 
 // --- Routes: Visitante
 #-- 
+$routes['visitante.home'] = [
+  'method' => 'GET',
+  'file' => 'visitante/home',
+  'params' => []
+];
 $routes['visitante.financas'] = [
   'method' => 'GET',
   'file' => 'visitante/financas',
