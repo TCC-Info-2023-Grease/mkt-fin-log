@@ -19,8 +19,20 @@
     --title-icon-color: #fff;
     --main-header-background:#20262e;
     --main-background: #0b0c0f;
-	--main-fonts-color: #fff;
-	--main-decor-color:#886f6f;
+    --main-fonts-color: #fff;
+    --main-decor-color:#886f6f;
+
+    /* ===== Colors ===== */
+    --primary-color: #0E4BF1;
+    --panel-color: #FFF;
+    --text-color: #000;
+    --black-light-color: #707070;
+    --border-color: #e6e5e5;
+    --toggle-color: #DDD;
+    --box1-color: #32CD32;
+    --box2-color: #DC143C;
+    --box3-color: #FFD700;
+    --title-icon-color: #fff;
     
     /* ====== transição ====== */
     --tran-05: all 0.5s ease;
@@ -40,12 +52,12 @@ body{
 ──────────────────*/
 ::-webkit-Scrollbar{
     width: 5px; 
-	background: rgba(5,5,5,1);
+    background: rgba(5,5,5,1);
 }
 ::-webkit-Scrollbar-thumb{
-	border-radius: 10px;
-	background: var(--main-decor-color);
-	box-shadow: inset 0 0 20px var(--main-decor-color);
+    border-radius: 10px;
+    background: var(--main-decor-color);
+    box-shadow: inset 0 0 20px var(--main-decor-color);
 }
 
 
@@ -55,55 +67,55 @@ body{
 ──────────────────*/
 
 header{
-	margin: 0 auto;
-	width: 100%;
-	height: 70px;
-	display: flex;
+    margin: 0 auto;
+    width: 100%;
+    height: 70px;
+    display: flex;
     align-items: center; 
-	justify-content: space-around; 
+    justify-content: space-around; 
     background: transparent;
-	position: fixed;
-	top: 0;
-	transition: 0.3s;
-	z-index: 5;
+    position: fixed;
+    top: 0;
+    transition: 0.3s;
+    z-index: 5;
 }
 .nav-show{
-	opacity: 0;
+    opacity: 0;
 }
 
 header:hover{
-	opacity: 1;
-	background: var(--main-header-background);
+    opacity: 1;
+    background: var(--main-header-background);
 }
 
 .logo img{
-	padding-top: 5px;
-	height: 100px;
-	cursor: pointer;
+    padding-top: 5px;
+    height: 100px;
+    cursor: pointer;
 }
 
 .nav-bar{
-	list-style:none;
-	position: relative;
-	display: inline-flex;
+    list-style:none;
+    position: relative;
+    display: inline-flex;
 }
 
 a.nav-link{
-	margin: 2px;
-	padding: 5px 10px;
-	text-decoration: none;
-	color: var(--main-fonts-color);
-	font-family: var(--main-font-family);
-	cursor: pointer;
-	text-transform: uppercase;
+    margin: 2px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: var(--main-fonts-color);
+    font-family: var(--main-font-family);
+    cursor: pointer;
+    text-transform: uppercase;
 }
 
 .active{
-	background: var(--main-decor-color);
+    background: var(--main-decor-color);
 }
 
 .nav-link:hover {
-	color: #000000;
+    color: #000000;
     background: var(--main-decor-color);
 }
 
@@ -111,38 +123,38 @@ a.nav-link{
      hamburger
 ──────────────────*/
 .hamburger {
-	display: none;
+    display: none;
 }
 
 .hamburger div{
-	width: 30px;
-	height: 3px;
-	background: #dbdbdb;
-	margin: 5px;
-	transition:all 0.3s ease;
+    width: 30px;
+    height: 3px;
+    background: #dbdbdb;
+    margin: 5px;
+    transition:all 0.3s ease;
 }
 
 .toggle .line1{
-	transform: rotate(-45deg) translate(-5px,6px);
+    transform: rotate(-45deg) translate(-5px,6px);
 }
 
 .toggle .line2{
-	opacity: 0;
+    opacity: 0;
 }
 
 .toggle .line3{
-	transform: rotate(45deg) translate(-5px,-6px);
+    transform: rotate(45deg) translate(-5px,-6px);
 }
 
 @keyframes navLinkFade{
-	from{
-		opacity:0;
-		transform: translatex(50px);
-	}
-	to{
-		opacity: 1;
-		transform:translatex(0px);
-	}
+    from{
+        opacity:0;
+        transform: translatex(50px);
+    }
+    to{
+        opacity: 1;
+        transform:translatex(0px);
+    }
 }
 
 /*────────────────── 
@@ -211,20 +223,17 @@ a.nav-link{
     color: var(--text-color);
 }
 .boxes .box.box1{
-    background-color: var(--box3-color);
-    background: rgba(0, 0, 0, 0.2);
+    background-color: var(--box1-color);
     box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
     color: #000;
 }
 .boxes .box.box2{
-    background-color: var(--box2-color);
-    background: rgba(0, 0, 0, 0.2);
+    background-color: var(--box2-color);    
     box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
     color: #000;
 }
 .boxes .box.box3{
     background-color: var(--box3-color);
-    background: rgba(0, 0, 0, 0.2);
     box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
     color: #000;
 }
@@ -235,10 +244,12 @@ a.nav-link{
     width: 100%;
 }
 
-.activity{
-    background: rgba(0, 0, 0, 0.2);
+.activity {
+    background: rgb(211 210 210 / 16%);
     box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    margin: 3rem 1.4rem;
     color: #000;
+    padding: 1rem 1rem;
 }
 
 .activity .activity-data{
@@ -261,6 +272,7 @@ a.nav-link{
     white-space: nowrap;
     color: var(--text-color);
 }
+
 
 @media (max-width: 1000px) {
     nav{
@@ -324,12 +336,12 @@ a.nav-link{
 /*MENU*/
 
 @media only screen and (max-width: 1484px) and (min-width: 1214px) {
-	.work{
+    .work{
         padding:20px 20%;
     }
 }
 @media only screen and (max-width: 1214px) and (min-width: 1000px) {
-	.work{
+    .work{
         padding:20px 12%;
     }
 }
@@ -337,48 +349,48 @@ a.nav-link{
 
 @media only screen and (max-width: 500px) {
 
-	#home, #projects, #contact{
+    #home, #projects, #contact{
         overflow-x: hidden;
-	}
-	header{
-		background-color: var(--main-header-background);
-	}
-	.logo{
-		position:absolute;
-		top: 2px;
-		left: 30px;
-	}
-	.nav-show{
-		opacity: 1;
-	}	 
-	.nav-bar{
-		position:fixed;
-		top: 0px;
-		right:0;
-		width:60%;
-		height: 100vh;
-		display:flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content:space-evenly;
-		background:var(--main-header-background);
-		transform:translatex(100%);
-		transition: transform 0.5s ease-in;
-		z-index: -1;
-	}
-	.hamburger{
-		position:absolute;
-		top: 17px;
-		right: 25%;
-		display: block;
-		cursor:pointer;
-		z-index: 5;
-	}	
-	.nav-bar li{
-		opacity:0;
-	}
+    }
+    header{
+        background-color: var(--main-header-background);
+    }
+    .logo{
+        position:absolute;
+        top: 2px;
+        left: 30px;
+    }
+    .nav-show{
+        opacity: 1;
+    }    
+    .nav-bar{
+        position:fixed;
+        top: 0px;
+        right:0;
+        width:60%;
+        height: 100vh;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:space-evenly;
+        background:var(--main-header-background);
+        transform:translatex(100%);
+        transition: transform 0.5s ease-in;
+        z-index: -1;
+    }
+    .hamburger{
+        position:absolute;
+        top: 17px;
+        right: 25%;
+        display: block;
+        cursor:pointer;
+        z-index: 5;
+    }   
+    .nav-bar li{
+        opacity:0;
+    }
 }
 
 .nav-active{
-	transform:translatex(0%);
+    transform:translatex(0%);
 }
