@@ -103,7 +103,7 @@ a.nav-link{
 }
 
 #home .filter{
-	background-image: url("imagens/wall4.jpg");
+	background-image: url("../images/wall/wall4.jpg");
 	background-size: cover;
 	background-position:center;
     position: absolute;
@@ -145,7 +145,8 @@ a.nav-link{
 
 footer {
 	width: 100%;
-	height: 100%;
+	height: 100px;
+	padding-top: 2rem;
     background-color: var(--main-header-background);
 }
 
@@ -184,7 +185,7 @@ hr {
      Scrollbar
 ──────────────────*/
 ::-webkit-Scrollbar{
-    width: 5px; 
+    width: 10px; 
 	background: rgba(5,5,5,1);
 }
 ::-webkit-Scrollbar-thumb{
