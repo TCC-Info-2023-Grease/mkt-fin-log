@@ -1,12 +1,19 @@
 <?php
 # ------ Configurações Básicas
 require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
-import_utils(['auth', 'extend_styles', 'render_component']);
+global $_ENV;
 
-Auth::check('vis');
+import_utils(['auth']);
+
+//Auth::check('vis');
+ 
+import_utils([
+  'extend_styles', 
+  'use_js_scripts', 
+  'render_component'
+]);
 
 include $_ENV['PASTA_CONTROLLER'] . '/MakeOf/ConsultaController.php';
-global $_ENV;
 
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
@@ -21,56 +28,98 @@ if(isset($_SESSION['ultimo_acesso'])) {
 <!------- HEAD --------->
 <?php
 render_component('head');
+extend_styles([ 'css.styleprojeto' ]);
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
 <title>
-  🕺 Grease
+  Grease - Projeto
 </title>
 <!-------/ HEAD --------->
 
 
 <!------- BODY --------->
 <body>
-  <?php
-  render_component('header');
-  ?>
+  <div class="container">
+    <?php
+    render_component('header');
+    ?>
 
-  <h2>Make Ofs</h2>
-  
-  <?php if (isset($data['makeOf']) && !empty($data['makeOf'])) { ?>
-    <?php foreach ($data['makeOf'] as $item): ?>
-      <div>
-        <div>
-          <h3>
-            <?= $item['titulo']; ?>
+
+     <!--─────────────────Home────────────────-->
+     <main>
+ 
+      <div id="home">
+        <div class="filter"></div>
+        <section class="intro">
+
+          <h3>Making Of
+            <hr>
           </h3>
-        </div>
 
-        <div>
-          <p>
-            <?= $item['descricao']; ?>
-          </p>
-        </div>
+          <p>Confira abaixo o Making Of do nosso musical!</p>
 
-        <div>
-          <?= $item['uri']; ?> 
+          <p></p>
+
+          <p></p>
+
+        </section>
+
+
+      </div>
+
+
+    </main>
+      <!--─────────────────fim Home────────────────-->
+
+    <hr>
+      <!--─────────────────imagens começo────────────────-->
+
+      <div class="img-area">
+      
+        <div class="wrapper">
+
+          <div class="single-box">
+            <a href="#"><img src="<?= assets('images/projeto/', '1.jpg'); ?>" /></a>
+          </div>
+
+          <div class="single-box">
+            <a href="#"><img src="<?= assets('images/projeto/', '2.jpg'); ?>" /></a>
+          </div>
+
+          <div class="single-box">
+            <a href="#"><img src="<?= assets('images/projeto/', '3.jpg'); ?>" /></a>
+          </div>
+
+          <div class="single-box">
+            <a href="#">      <video width="320" height="290" controls="controls">
+              <source src="<?= assets('images/projeto/', '4.jpg'); ?>" type="video/mp4">
+              </video></a>
+          </div>
+
+          <div class="single-box">
+            <a href="#"><img src="<?= assets('images/projeto/', '5.jpg'); ?>" /></a>
+          </div>
+
+          <div class="single-box">
+            <a href="#">      <video width="320" height="290" controls="controls">
+              <source src="<?= assets('images/projeto/', '6.jpg'); ?>" type="video/mp4">
+              </video></a>
+          </div>
+
         </div>
       </div>
-    <?php endforeach; ?>
-  <?php } else { ?>
-    <h3>Sem dados</h3>
-  <?php } ?>
 
+      
+    <!--─────────────────imagens fim────────────────-->
+
+
+    <?php
+    render_component('footer');
+    ?>
+  </div>
+  
   <?php
-  render_component('footer');
+    use_js_scripts([ 'js.scriptprojeto' ]);
   ?>
-
-  <script type="text/javascript">
-  </script>
 </body>
 <!-------/ BODY --------->

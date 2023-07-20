@@ -28,6 +28,7 @@ $campos_validos =  (
     'msg'   => 'Campos Invalidos', 
     'icon'  => 'error'
   ];
+  
   navegate($_ENV['VIEWS'] . '/auth/profile.php');
 } 
 
@@ -41,10 +42,10 @@ $dados = [
   'email' => $_POST['email'],
   'celular' => $_POST['celular'],
   'idade' => intval($_POST['idade']),
-  'cpf' => $_POST['cpf']
+  'cpf' => $_POST['cpf'] ?? null
 ];
 
-//print_r($_POST);
+print_r($_POST);
 $usuario->atualizar($dados);
 unset($_SESSION['usuario']); 
 $_SESSION['usuario'] = $usuario->buscarPorID($dados['usuario_id']);
@@ -55,4 +56,5 @@ $_SESSION['fed_profile'] = [
   'msg'   => 'Perfil atualizado com sucesso!', 
   'icon'  => 'success'
 ];
+
 navegate($_ENV['VIEWS'] . '/auth/profile.php');

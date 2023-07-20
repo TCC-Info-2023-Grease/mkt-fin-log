@@ -21,12 +21,6 @@ $_ENV = [
   "DB_SERVIDOR" => "localhost",
   "DB_USUARIO"  => "root",
   "DB_SENHA"    => "",
-  "DB_NOME"     => "db_tcc",
-
-  # LISTA DE JS SCRIPTS
-  "LIST_SCRIPTS" => [
-    "jquery"                => $url_base . "/resources/js/lib/jquery.js",
-    "inputmask"             => "https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"
-  ]
+  "DB_NOME"     => "db_tcc"
 ];
 ?>

@@ -101,7 +101,7 @@ a.nav-link{
 }
 
 #home .filter{
-	background-image: url("../../images/wall/wall.jpg");
+	background-image: url("../images/wall/wall.jpg");
 	   background-size: cover;
     background-position:center;
     position: absolute;
