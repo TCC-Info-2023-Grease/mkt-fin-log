@@ -26,12 +26,14 @@ extend_styles([ 'css.visitante.financas' ]);
 <title>
   Finanças 🕺 Grease
 </title>
-<!------- /HEAD --------->
+
 <style type="text/css">
   header {
     background: black;
   }
 </style>
+<!------- /HEAD --------->
+
 
 <!------- BODY --------->
 <body>

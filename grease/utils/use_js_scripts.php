@@ -13,7 +13,10 @@ function use_js_scripts($scripts = [], $extension = 'js') {
 
   foreach ($scripts as $script) {
     $src = str_replace('.', '/', $script);
+    
+    // Verifica se a chave 'type' existe no array $script
     $type = isset($script['type']) ? $script['type'] : 'text/javascript';
+
     $filename = $_ENV['RESOURCES'] . '/' . $src;
     $src_with_extension = $filename . '.' . $extension;
 
