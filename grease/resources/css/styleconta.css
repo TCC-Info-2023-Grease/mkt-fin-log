@@ -6,85 +6,108 @@
   font-family: 'Poppins', sans-serif;
 }
 :root{
-	--main-fonts-color: #fff;
-	--main-decor-color:#886f6f;
+  --main-fonts-color: #fff;
+  --main-decor-color:#886f6f;
     --main-header-background:#20262e;
-	--main-font-family: 'Poppins', sans-serif;
+  --main-font-family: 'Poppins', sans-serif;
 }
 
 *{
-	margin: 0;
-	padding: 0;
-	scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
 }
 
 body{
-  background-image: url("imagens/wall6.jpg");   
-  	background-size: cover;
-	background-position:center;
+  background-image: url("../images/wall/wall6.jpg");   
+    background-size: cover;
+  background-position:center;
 }
 
 main{
   padding: 0;
-	width: 100%;
-	height: 100%;
-	background: var(--main-background);
+  width: 100%;
+/*  height: 100vh;*/
+  background: var(--main-background);
 }
+
+/* Estilo básico para inputs */
+input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Estilo quando o input está focado */
+input:focus {
+  border-color: #007bff; /* Cor azul utilizada como exemplo, pode ser substituída pela cor desejada */
+  box-shadow: 0 0 5px #007bff; /* Efeito de sombra ao redor do input quando está focado */
+}
+
+/* Estilo para inputs desabilitados */
+input:disabled {
+  background-color: #f0f0f0; /* Cor de fundo para inputs desabilitados */
+  color: #777; /* Cor do texto para inputs desabilitados */
+  cursor: not-allowed; /* Altera o cursor do mouse para indicar que o input está desabilitado */
+}
+
 
 /*────────────────── 
        header
 ──────────────────*/
 
 header{
-	margin: 0 auto;
-	width: 100%;
-	height: 70px;
-	display: flex;
+  margin: 0 auto;
+  width: 100%;
+  height: 70px;
+  display: flex;
     align-items: center; 
-	justify-content: space-around; 
-    background: transparent;
-	position: fixed;
-	top: 0;
-	transition: 0.3s;
-	z-index: 5;
+  justify-content: space-around; 
+  background: var(--main-header-background);
+  position: fixed;
+  top: 0;
+  transition: 0.3s;
+  z-index: 5;
 }
 .nav-show{
-	opacity: 0;
+  opacity: 0;
 }
 
 header:hover{
-	opacity: 1;
-	background: var(--main-header-background);
+  opacity: 1;
+  background: var(--main-header-background);
 }
 
 .logo img{
-	padding-top: 5px;
-	height: 100px;
-	cursor: pointer;
+  padding-top: 5px;
+  height: 100px;
+  cursor: pointer;
 }
 
 .nav-bar{
-	list-style:none;
-	position: relative;
-	display: inline-flex;
+  list-style:none;
+  position: relative;
+  display: inline-flex;
 }
 
 a.nav-link{
-	margin: 2px;
-	padding: 5px 10px;
-	text-decoration: none;
-	color: var(--main-fonts-color);
-	font-family: var(--main-font-family);
-	cursor: pointer;
-	text-transform: uppercase;
+  margin: 2px;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: var(--main-fonts-color);
+  font-family: var(--main-font-family);
+  cursor: pointer;
+  text-transform: uppercase;
 }
 
 .active{
-	background: var(--main-decor-color);
+  background: var(--main-decor-color);
 }
 
 .nav-link:hover {
-	color: #000000;
+  color: #000000;
     background: var(--main-decor-color);
 }
 
@@ -136,6 +159,7 @@ a.nav-link{
     .conta .info {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       padding: 1.5rem 2rem;
       box-shadow: 0 0 12px rgba(0, 0, 0, .2);
       background-color: #ffffff;
@@ -150,15 +174,19 @@ a.nav-link{
     }
 
     .conta .lista-datos {
-      width: 50%;
+      display: flex;
+      flex-flow: column; nowrap;
+      justify-content: center;
+/*      width: 50%;*/
       list-style: none;
     }
 
     .conta .lista-datos li {
       padding: 5px 0;
+      margin-top: 1rem;
     }
 
-    .conta .lista-datos li>.infos {
+    .conta .lista-datos li > .infos {
       margin-right: 1rem;
       font-size: 1.2rem;
       vertical-align: middle;
@@ -207,38 +235,38 @@ a.nav-link{
      hamburger
 ──────────────────*/
 .hamburger {
-	display: none;
+  display: none;
 }
 
 .hamburger div{
-	width: 30px;
-	height: 3px;
-	background: #dbdbdb;
-	margin: 5px;
-	transition:all 0.3s ease;
+  width: 30px;
+  height: 3px;
+  background: #dbdbdb;
+  margin: 5px;
+  transition:all 0.3s ease;
 }
 
 .toggle .line1{
-	transform: rotate(-45deg) translate(-5px,6px);
+  transform: rotate(-45deg) translate(-5px,6px);
 }
 
 .toggle .line2{
-	opacity: 0;
+  opacity: 0;
 }
 
 .toggle .line3{
-	transform: rotate(45deg) translate(-5px,-6px);
+  transform: rotate(45deg) translate(-5px,-6px);
 }
 
 @keyframes navLinkFade{
-	from{
-		opacity:0;
-		transform: translatex(50px);
-	}
-	to{
-		opacity: 1;
-		transform:translatex(0px);
-	}
+  from{
+    opacity:0;
+    transform: translatex(50px);
+  }
+  to{
+    opacity: 1;
+    transform:translatex(0px);
+  }
 }
 
 /*────────────────── 
@@ -253,7 +281,7 @@ a.nav-link{
   font-weight: bold;
   text-align: center;
   color: #fff;
-  background-color: #8f8f8f;
+  background-color: #20262e;
   border: none;
   border-radius: 5px;
   transition: all 0.3s ease;
@@ -308,12 +336,12 @@ a.nav-link{
 /*MENU*/
 
 @media only screen and (max-width: 1484px) and (min-width: 1214px) {
-	.work{
+  .work{
         padding:20px 20%;
     }
 }
 @media only screen and (max-width: 1214px) and (min-width: 1000px) {
-	.work{
+  .work{
         padding:20px 12%;
     }
 }
@@ -321,50 +349,50 @@ a.nav-link{
 
 @media only screen and (max-width: 500px) {
 
-	#home, #projects, #contact{
+  #home, #projects, #contact{
         overflow-x: hidden;
-	}
-	header{
-		background-color: var(--main-header-background);
-	}
-	.logo{
-		position:absolute;
-		top: 2px;
-		left: 30px;
-	}
-	.nav-show{
-		opacity: 1;
-	}	 
-	.nav-bar{
-		position:fixed;
-		top: 0px;
-		right:0;
-		width:60%;
-		height: 100vh;
-		display:flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content:space-evenly;
-		background:var(--main-header-background);
-		transform:translatex(100%);
-		transition: transform 0.5s ease-in;
-		z-index: -1;
-	}
-	.hamburger{
-		position:absolute;
-		top: 17px;
-		right: 25%;
-		display: block;
-		cursor:pointer;
-		z-index: 5;
-	}	
-	.nav-bar li{
-		opacity:0;
-	}
+  }
+  header{
+    background-color: var(--main-header-background);
+  }
+  .logo{
+    position:absolute;
+    top: 2px;
+    left: 30px;
+  }
+  .nav-show{
+    opacity: 1;
+  }  
+  .nav-bar{
+    position:fixed;
+    top: 0px;
+    right:0;
+    width:60%;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-evenly;
+    background:var(--main-header-background);
+    transform:translatex(100%);
+    transition: transform 0.5s ease-in;
+    z-index: -1;
+  }
+  .hamburger{
+    position:absolute;
+    top: 17px;
+    right: 25%;
+    display: block;
+    cursor:pointer;
+    z-index: 5;
+  } 
+  .nav-bar li{
+    opacity:0;
+  }
 }
 
 .nav-active{
-	transform:translatex(0%);
+  transform:translatex(0%);
 }
 
 /*────────────────── 
@@ -372,38 +400,40 @@ a.nav-link{
 ──────────────────*/
 
 footer {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100px;
+  padding-top: 2rem;
+  margin-top: 2rem;
     background-color: var(--main-header-background);
 }
 
 .copyright {
-	color: #fff;
-	font-size: 1.2rem;
-	line-height: 40px;
-	text-align: center;
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 40px;
+  text-align: center;
 }
 
 .copyright a{
-	color: #fff;
-	font-size: 1rem;
-	letter-spacing: 1px;
+  color: #fff;
+  font-size: 1rem;
+  letter-spacing: 1px;
     text-decoration: none;
 }
 
 .copyright a:hover{
-	color: var(--main-decor-color);
+  color: var(--main-decor-color);
 }
 
 /*────────────────── 
      Scrollbar
 ──────────────────*/
 ::-webkit-Scrollbar{
-    width: 5px; 
-	background: rgba(5,5,5,1);
+    width: 10px; 
+  background: rgba(5,5,5,1);
 }
 ::-webkit-Scrollbar-thumb{
-	border-radius: 10px;
-	background: var(--main-decor-color);
-	box-shadow: inset 0 0 20px var(--main-decor-color);
+  border-radius: 10px;
+  background: var(--main-decor-color);
+  box-shadow: inset 0 0 20px var(--main-decor-color);
 }
