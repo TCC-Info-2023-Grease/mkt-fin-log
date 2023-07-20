@@ -13,7 +13,7 @@ import_utils(['extend_styles', 'render_component', 'use_js_scripts']);
 <?php
 render_component('head');
 extend_styles([ 'css.stylelogin' ]);
-use_js_scripts([ 'js.scriptindex', 'js.forms.FormCadastroUsuario' ]);
+use_js_scripts([ 'js.scriptindex' ]);
 ?>
 
 <title>
@@ -41,6 +41,32 @@ use_js_scripts([ 'js.scriptindex', 'js.forms.FormCadastroUsuario' ]);
         })
     </script>
 <?php endif; ?>
+
+
+<style type="text/css">
+  /* Estilo básico para selects */
+select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  background-color: #fff; /* Cor de fundo do select */
+  cursor: pointer; /* Altera o cursor do mouse ao passar sobre o select */
+}
+
+/* Estilo quando o select está focado */
+select:focus {
+  border-color: #007bff; /* Cor azul utilizada como exemplo, pode ser substituída pela cor desejada */
+  box-shadow: 0 0 5px #007bff; /* Efeito de sombra ao redor do select quando está focado */
+}
+
+/* Estilo para options dentro do select */
+select option {
+  font-size: 16px;
+}
+
+</style>
 
 
 <!------- BODY --------->
@@ -210,5 +236,7 @@ use_js_scripts([ 'js.scriptindex', 'js.forms.FormCadastroUsuario' ]);
   </script>
 
   <!--FIM VLIBRAS-->
+
+  <script type="module" src="<?= assets('js/forms/', 'FormCadastroUsuario.js'); ?>"></script>
 </body>
 <!------- /BODY --------->
