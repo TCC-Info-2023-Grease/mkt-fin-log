@@ -1,6 +1,6 @@
 <!--────────────────Header───────────────-->
 <header>
-  <a class="logo" href="<?= $_ENV['URL_BASE']; ?>">
+  <a class="logo" href="#">
     <img src="<?= assets('images/web/','logo.png') ?>" alt="Grease" />
   </a>
   <nav>
@@ -17,7 +17,7 @@
           <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.caixa.index">Caixa</a></li>
           <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.makeof.index">Make Of</a></li>
         <?php } elseif ($_SESSION['usuario']['tipo_usuario'] == 'vis') { ?>
-          <li><a class="nav-link active" href="<?= $_ENV['ROUTE'] ?>admin.home">Home</a></li>
+          <li><a class="nav-link active" href="<?= $_ENV['ROUTE'] ?>visitante.home">Home</a></li>
           <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>visitante.financas">Finanças</a></li>
           <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>visitante.makeof">Projeto</a></li>
         <?php } ?>
