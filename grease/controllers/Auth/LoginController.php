@@ -32,7 +32,7 @@ $_SESSION['usuario'] = $usuarioData;
 
   if ($_SESSION['usuario']['tipo_usuario'] == 'adm') 
 {
-  navegate($_ENV['VIEWS']. '/admin/home.php');
+  navegate($_ENV['VIEWS']. '/admin/dashboard.php');
 } 
   else if ($_SESSION['usuario']['tipo_usuario'] == 'vis') 
 {
