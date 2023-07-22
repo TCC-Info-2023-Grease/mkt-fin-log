@@ -79,54 +79,56 @@ extend_styles([ 'css.admin.financas' ]);
             </div>
           </div>
         </div>
+        <br><br>
+        <hr>
         <div class="activity">
-      <div class="title">
-        <span class="text">Atividades Recentes</span>
+          <div class="title">
+            <span class="text">Atividades Recentes</span>
+          </div>
+            <div class="activity-data">
+              <div class="data names">
+                <span class="data-title">Usuario</span>
+                
+                <?php foreach ($data['caixa'] as $item): ?>
+                <span class="data-list">
+                   <?= $item['nome_usuario']; ?>
+                </span>
+                <?php endforeach; ?>
+              </div>
+
+              <div class="data names">
+                <span class="data-title">Valor</span>
+                
+                <?php foreach ($data['caixa'] as $item): ?>
+                <span class="data-list">
+                   <?= Money::format($item['valor']); ?>            
+                 </span>
+                <?php endforeach; ?>
+              </div>
+
+              <div class="data names">
+                <span class="data-title">Data</span>
+                
+                <?php foreach ($data['caixa'] as $item): ?>
+                <span class="data-list">
+                   <?= date('d/m/Y', strtotime($item['data_movimentacao'])); ?>
+                </span>
+                <?php endforeach; ?>
+              </div>
+
+              <div class="data names">
+                <span class="data-title">Tipo Movimentação</span>
+                
+                <?php foreach ($data['caixa'] as $item): ?>
+                <span class="data-list">
+                   <?= $item['tipo_movimentacao']; ?>
+                </span>
+                <?php endforeach; ?>
+              </div>
+          </div>
+        </div>
       </div>
-        <div class="activity-data">
-          <div class="data names">
-            <span class="data-title">Usuario</span>
-            
-            <?php foreach ($data['caixa'] as $item): ?>
-            <span class="data-list">
-               <?= $item['nome_usuario']; ?>
-            </span>
-            <?php endforeach; ?>
-          </div>
-
-          <div class="data names">
-            <span class="data-title">Valor</span>
-            
-            <?php foreach ($data['caixa'] as $item): ?>
-            <span class="data-list">
-               <?= Money::format($item['valor']); ?>            
-             </span>
-            <?php endforeach; ?>
-          </div>
-
-          <div class="data names">
-            <span class="data-title">Data</span>
-            
-            <?php foreach ($data['caixa'] as $item): ?>
-            <span class="data-list">
-               <?= date('d/m/Y', strtotime($item['data_movimentacao'])); ?>
-            </span>
-            <?php endforeach; ?>
-          </div>
-
-          <div class="data names">
-            <span class="data-title">Tipo Movimentação</span>
-            
-            <?php foreach ($data['caixa'] as $item): ?>
-            <span class="data-list">
-               <?= $item['tipo_movimentacao']; ?>
-            </span>
-            <?php endforeach; ?>
-          </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
   <?php
   use_js_scripts([ 'js.admin.financas' ]);
