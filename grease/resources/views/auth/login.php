@@ -15,32 +15,16 @@ render_component('head');
 extend_styles([ 'css.stylelogin' ]);
 use_js_scripts([ 'js.scriptindex' ]);
 ?>
+<!-- # Sweet Alert # -->
+<script 
+  src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+</script> 
+<!-- # /Sweet Alert # -->
 
 <title>
     Login 🚪 Grease
 </title>
 <!-------/ HEAD --------->
-
-<?php if (isset($_GET['erro']) == 'campos_invalidos'): ?>
-    <script>
-        Swal.fire({
-            title: 'Erro!',
-            text: 'Campos invalidos!',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        })
-    </script>
-<?php endif; ?>
-<?php if (isset($_GET['erro']) == 'usuario'): ?>
-    <script>
-        Swal.fire({
-            title: 'Erro!',
-            text: 'Email e/ou senha incorretos!',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        })
-    </script>
-<?php endif; ?>
 
 
 <style type="text/css">
@@ -71,6 +55,29 @@ select option {
 
 <!------- BODY --------->
 <body>
+ 
+<?php if (isset($_GET['erro']) == 'campos_invalidos'): ?>
+    <script>
+        Swal.fire({
+            title: 'Erro!',
+            text: 'Campos invalidos!',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        })
+    </script>
+<?php endif; ?>
+<?php if (isset($_GET['erro']) == 'usuario'): ?>
+    <script>
+        Swal.fire({
+            title: 'Erro!',
+            text: 'Email e/ou senha incorretos!',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        })
+    </script>
+<?php endif; ?>
+
+
  
   <div class="container">
      <!--─────────────────Home────────────────-->
