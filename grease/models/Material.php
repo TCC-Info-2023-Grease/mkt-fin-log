@@ -59,7 +59,7 @@ class Material
       JOIN 
           categoriasmaterial AS c ON m.categoria_id = c.categoria_id
       JOIN 
-          usuario AS u ON m.usuario_id = u.usuario_id
+          usuarios AS u ON m.usuario_id = u.usuario_id
       ORDER BY 
           m.nome ASC
     ");
