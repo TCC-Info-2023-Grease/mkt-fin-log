@@ -52,8 +52,8 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
         <?php foreach ($entradas as $entrada): ?>
         <tr>
           <td>
-            <a href="<?= $_ENV['VIEWS']; ?>/admin/usuario/show.php?id=<?= $saida['usuario_id']; ?>">
-              <?= $saida['nome_usuario']; ?>
+            <a href="<?= $_ENV['VIEWS']; ?>/admin/usuario/show.php?id=<?= $entrada['usuario_id']; ?>">
+              <?= $entrada['nome_usuario']; ?>
             </a>
           </td>
           <td>
