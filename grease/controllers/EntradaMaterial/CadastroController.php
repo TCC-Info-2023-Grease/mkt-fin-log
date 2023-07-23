@@ -20,7 +20,6 @@ $campos_validos = (
   $_POST['usuario_id']      &&
   $_POST['qtde_compra']     &&
   $_POST['valor_gasto']     &&
-  $_POST['descricao']       &&
   $_POST['forma_pagamento']
 );
 if (!$campos_validos) 
@@ -33,14 +32,12 @@ if (!$campos_validos)
 
 # ----- Cadastro Entrada Caixa
 $caixa = new Caixa($mysqli);
-print_r($_POST);
 
 $dados = [
-  'caixa_id'          => null,
   'usuario_id'        => $_POST['usuario_id'],
   'material_id'       => $_POST['material_id'],
   'categoria'         => $_POST['categoria'],
-  'descricao'         => $_POST['descricao'],
+  'descricao'         => "Entrada Material",
   'data_movimentacao' => date("Y-m-d H:i:s"),
   'qtde_compra'       => $_POST['qtde_compra'],
   'valor_gasto'       => $_POST['valor_gasto'],
@@ -49,10 +46,9 @@ $dados = [
   'forma_pagamento'   => $_POST['forma_pagamento'],
   'obs'               => $_POST['obs']
 ];
+print_r($dados);
 
-$caixa->cadastrarEntrada($dados);
-$dados['caixa_id'] = $caixa->getID();
-
+$dados['caixa_id'] = $caixa->cadastrarEntrada($dados);
 
 # ----- Cadastro Entrada Material
 $entradaMaterial = new EntradaMaterial($mysqli);

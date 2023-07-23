@@ -62,7 +62,7 @@ class Caixa
           " . $this->tabela . " as c
         JOIN 
           usuarios AS u ON u.usuario_id = c.usuario_id
-        ORDER BY data_movimentacao LIMIT ?
+        ORDER BY data_movimentacao DESC LIMIT ?
       ";
       $stmt = $this->mysqli->prepare($query);
       $stmt->bind_param('i', $limit);
@@ -76,7 +76,7 @@ class Caixa
   {
     $stmt = $this->mysqli->query("
       SELECT 
-        c.*, u.*, u.nome as nome_usario
+        c.*, u.*, u.nome as nome_usuario
       FROM 
         " . $this->tabela . " as c
       JOIN 
@@ -130,6 +130,8 @@ class Caixa
     if ($result === false) {
       die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
     }
+
+    return $this->mysqli->insert_id;
   }
 
   public function cadastrarSaida($dados = [])

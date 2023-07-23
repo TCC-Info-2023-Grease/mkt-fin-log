@@ -1,11 +1,19 @@
 <?php
 # ------ Configurações Básicas
-require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
-import_utils(['auth', 'extend_styles', 'render_component', 'navegate']);
+require dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php';
+global $_ENV;
+
+import_utils(['auth']);
 
 Auth::check('adm');
+ 
+import_utils([
+  'extend_styles', 
+  'use_js_scripts', 
+  'render_component',
+  'Money'
+]);
 
-global $_ENV;   
 
 //print_r($_POST);
 $caixa = $_POST;
@@ -13,66 +21,123 @@ $caixa = $_POST;
 if (!isset($_POST) && empty($_POST)) navegate($_ENV['VIEWS']. '/adm/caixa/');
 ?>
 
+
 <!------- HEAD --------->
 <?php
-require $_ENV['PASTA_VIEWS'] . '/components/head.php';
+render_component('head');
+extend_styles([ 'css.admin.financas' ]);
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
 <title>
-    Admin 🕺 Grease
+  Finanças Admin 🕺 Grease
 </title>
 <!-------/ HEAD --------->
+
 
 <!------- BODY --------->
 <body>
   <?php
-  render_component('header');
+  render_component('sidebar');
   ?>
 
-  Caixa
-  <br><br>
+  <section class="dashboard">
+      <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
+      <div class="dash-content">
+        <div style="text-align: right;">
+          <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.entrada.create" class="button-link">
+            Nova Entrada
+          </a>
+          <span class="button-separator">|</span>
+          <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.saida.create" class="button-link">
+            Nova Saída
+          </a>
+        </div>
 
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.entrada.create">
-    Nova Entrada
-  </a>
-  |
-  <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.saida.create">
-    Nova Saída
-  </a>
-  <br><br><br
-  >
-  
-  
-  <?= $caixa['foto_perfil']; ?>    
-  <br><br>
+        <div class="overview">
+        <div class="title"> <span class="text">Informações da Movimentação</span> </div>
+        
+        <div class="activity">
+          <div class="activity-data">
+              <div class="data names">
+                <span class="data-list">
+                    <img  
+                      style="border-radius: 50%;border: 4px solid black;padding: 2px"
+                      width="200px"
+                      src="<?= $_ENV['STORAGE'].  '/image/usuario/' .$caixa['foto_perfil']; ?>" 
+                      alt="<?= $caixa['nome']; ?>" 
+                    />                
+                  </span>
+              </div>
 
-  <?= $caixa['nome_usuario']; ?>    
-  <br><br>
+              <div class="data names">
+                <span class="data-title">Tipo Movimentação</span>
+                
+                <span class="data-list">
+                  <?= $caixa['tipo_movimentacao']; ?>
+                </span>
+              </div>
+              
+              <div class="data names">
+                <span class="data-title">Valor</span>
+                
+                <span class="data-list">
+                   <?= Money::format($caixa['valor']); ?>            
+                 </span>
+              </div>
 
-  <?= $caixa['valor']; ?>    
-  <br><br>
+              <div class="data names">
+                <span class="data-title">Data</span>
+                
+                <span class="data-list">
+                   <?= date('d/m/Y', strtotime($caixa['data_movimentacao'])); ?>
+                </span>
+              </div>
+            </div>
+            <br>
 
-  <?= $caixa['descricao']; ?>    
-  <br><br>
+          <div class="activity-data">
+            <div class="data names">
+                <span class="data-title">
+                  Usuario
+                </span>
+                
+                <span class="data-list">
+                   <?= $caixa['nome_usuario']; ?>
+                </span>
+            </div>
 
-  <?= $caixa['tipo_movimentacao']; ?>    
-  <br><br>
-  
-  <?= $caixa['data_movimentacao']; ?>    
-  <br><br>
-  
-  <?= $caixa['obs']; ?>    
-  <br><br>
+            <div class="data names">
+                <span class="data-title">Descrição</span>
+                
+                <span class="data-list">
+                  <?= !empty($caixa['descricao'])? $caixa['descricao'] : 'N/A'; ?>
+                </span>
+              </div>
+
+              <div class="data names">
+                <span class="data-title">Obs</span>
+                
+                <span class="data-list">
+                  <?= !empty($caixa['obs'])? $caixa['obs'] : 'N/A'; ?>
+                </span>
+              </div>
+          </div>
+        </div>  
+      </div>
+    </div>
+    </div>
+  </section>
 
   <?php
-  render_component('footer');
+  use_js_scripts([ 'js.admin.financas' ]);
   ?>
-
   <script type="text/javascript">
+    $(document).ready(function () {
+      $('#myTable').DataTable();
+    });
   </script>
 </body>
 <!-------/ BODY --------->  

@@ -27,6 +27,10 @@
       <br>
 
 			<ul class="logout-mode">
+        <li><a  href="<?= $_ENV['VIEWS'] ?>/auth/profile.php">
+              <i class="uil uil-user"></i>
+              <span class="link-name">Perfil</span>
+            </a></li>
 				<li><a href="<?= $_ENV['ROUTE'] ?>auth.sair">
               <i class="uil uil-signout"></i>
               <span class="link-name">Sair</span>
