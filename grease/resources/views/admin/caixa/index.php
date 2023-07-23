@@ -114,7 +114,6 @@ extend_styles([ 'css.admin.financas' ]);
     $(document).ready(function () {
       $('#myTable').DataTable();
     });
-
   </script>
 </body>
 <!-------/ BODY --------->
