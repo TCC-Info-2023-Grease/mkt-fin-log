@@ -5,7 +5,7 @@ global $_ENV;
 
 import_utils(['auth']);
 
-//Auth::check('adm');
+Auth::check('adm');
  
 import_utils([
   'extend_styles', 
@@ -20,7 +20,7 @@ if(isset($_SESSION['ultimo_acesso'])) {
   
   // Verifica se já passaram 5 minutos desde o último acesso
   if(time() - $ultimo_acesso > 100) {
-    unset($_SESSION['fed_cadastro_usuario']);
+    unset($_SESSION['fed_caixa']);
   }
 } 
 ?>
@@ -65,7 +65,7 @@ extend_styles([ 'css.admin.financas' ]);
     <div class="dash-content">
         <div class="overview">
           <div class="title">
-            <span class="text">Cadastro caixa</span>
+            <span class="text">Cadastro Entrada</span>
           </div>
 
           <form 
