@@ -44,7 +44,7 @@ body.dark{
 }
 /* === Custom Scroll Bar CSS === */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
@@ -335,7 +335,7 @@ nav.close ~ .dashboard .top{
 }
 .dashboard .dash-content{
     max-width: 900px;
-    width: 900px;
+    width: 100%;
     padding-top: 50px;
 }
 .dash-content .title{
