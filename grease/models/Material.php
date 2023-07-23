@@ -125,7 +125,7 @@ class Material
                 ) 
             VALUES 
                 (
-                    '" . $dados['usuario_idx'] . "',
+                    '" . $dados['usuario_id'] . "',
                     '" . $dados['nome'] . "',
                     '" . $dados['categoria_id'] . "',
                     '" . $dados['descricao'] . "',
