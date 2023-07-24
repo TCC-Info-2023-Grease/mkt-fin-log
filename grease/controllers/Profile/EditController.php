@@ -45,10 +45,21 @@ $dados = [
   'cpf' => $_POST['cpf'] ?? null
 ];
 
-print_r($_POST);
-$usuario->atualizar($dados);
-unset($_SESSION['usuario']); 
-$_SESSION['usuario'] = $usuario->buscarPorID($dados['usuario_id']);
+try {
+  print_r($_POST);
+  $usuario->atualizar($dados);
+  unset($_SESSION['usuario']); 
+  $_SESSION['usuario'] = $usuario->buscarPorID($dados['usuario_id']);
+} catch (Exception $e) {
+    $_SESSION['fed_profile'] = [ 
+    'title' => 'Erro!', 
+    'msg'   => 'Campos Invalidos', 
+    'icon'  => 'error'
+  ];
+  
+  navegate($_ENV['VIEWS'] . '/auth/profile.php');
+}
+
 //print_r($_SESSION);
 
 $_SESSION['fed_profile'] = [ 
