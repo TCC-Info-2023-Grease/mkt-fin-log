@@ -64,6 +64,28 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
     background: #3A3B3C;
 }
 
+/* Estilo básico para os links com ícones */
+  .icon-link {
+    font-size: 14px; /* Tamanho do ícone */
+    background-color: #007bff; /* Cor do ícone (substitua pela cor desejada) */
+    text-decoration: none; /* Remover sublinhado */
+    margin-right: 10px; /* Espaçamento entre o ícone e o texto */
+    color: whitesmoke;
+    padding: 6px;
+    border-radius: 7px;
+    width: 100px;
+  }
+
+  /* Estilo para o ícone de edição */
+  .icon-link.edit {
+    background-color: #28a745; /* Cor verde (substitua pela cor desejada) */
+  }
+
+  /* Estilo para o ícone de exclusão */
+  .icon-link.delete {
+    background-color: #dc3545; /* Cor vermelha (substitua pela cor desejada) */
+  }
+
 nav{
     position: fixed;
     top: 0;
