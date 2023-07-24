@@ -52,8 +52,8 @@ class SaidaMaterial
     $stmt = $this->mysqli->query("
       SELECT 
         saida_m.*, 
-        u.*, u.nome AS nome_usuario, 
-        m.*,
+        u.nome AS nome_usuario, u.*, 
+        m.*, m.nome AS nome_material,
         c.*
       FROM 
         ". $this->tabela ." AS saida_m
@@ -63,8 +63,7 @@ class SaidaMaterial
         caixa AS c ON c.caixa_id = saida_m.caixa_id
       JOIN 
         usuarios AS u ON u.usuario_id = saida_m.usuario_id
-      ORDER BY 
-        m.nome ASC
+      ORDER BY c.data_movimentacao DESC
     ");
 
     if ($stmt->num_rows === 0) {
