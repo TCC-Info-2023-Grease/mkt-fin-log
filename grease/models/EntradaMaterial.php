@@ -55,7 +55,7 @@ class EntradaMaterial
       SELECT 
         entrada_m.*, 
         u.*, u.nome AS nome_usuario, 
-        m.*,
+        m.*, m.nome AS nome_material,
         c.*
       FROM 
         ". $this->tabela ." AS entrada_m
@@ -65,8 +65,7 @@ class EntradaMaterial
         caixa AS c ON c.caixa_id = entrada_m.caixa_id
       JOIN 
         usuarios AS u ON u.usuario_id = entrada_m.usuario_id
-      ORDER BY 
-        m.nome ASC
+      ORDER BY c.data_movimentacao DESC
     ");
 
     if ($stmt->num_rows === 0) {
