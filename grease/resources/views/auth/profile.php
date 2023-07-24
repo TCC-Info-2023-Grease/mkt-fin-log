@@ -98,7 +98,7 @@ extend_styles([ 'css.styleconta' ]);
                   
                   <?php if ($_SESSION['usuario']['tipo_usuario'] == 'adm'): ?>
                   <li>
-                    <img width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>" alt="<?= $usuario['nome']; ?>" />
+                    <img width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuario/' . $usuario['foto_perfil']; ?>" alt="<?= $usuario['nome']; ?>" />
                     <br/>
                   </li>
                   <?php endif; ?>
@@ -138,7 +138,6 @@ extend_styles([ 'css.styleconta' ]);
                     <i class="infos"></i> CPF:
                       <input type="text" name="cpf" class="input" value="<?= $usuario['cpf']; ?>" disabled />
                       <br><br>
-                    <br>
                   </li>
                   <?php endif; ?>           
 
