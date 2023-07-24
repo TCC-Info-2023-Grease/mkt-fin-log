@@ -38,6 +38,48 @@ extend_styles([ 'css.admin.financas' ]);
     Admin 🕺 Grease
 </title>
 <style type="text/css">
+  /* Estilo base do input */
+input[type="date"] {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Estilizar a seta do input (somente em alguns navegadores) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: #333;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Estilizar o texto do input (somente em alguns navegadores) */
+input[type="date"]::-webkit-datetime-edit-text {
+  color: #333;
+}
+
+/* Estilizar a seta drop-down do input (somente em alguns navegadores) */
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  border: none;
+}
+
+/* Estilizar o fundo do calendário (somente em alguns navegadores) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: #f1f1f1;
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+/* Estilizar o calendário popup (somente em alguns navegadores) */
+input[type="date"]::-webkit-calendar-popup {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
     /* Estilização do input do tipo "file" */
 .input-file {
   position: relative;
@@ -45,7 +87,7 @@ extend_styles([ 'css.admin.financas' ]);
   cursor: pointer;
   font-size: 16px;
   color: #fff;
-  background-color: #4CAF50;
+  background-color: #5275F5;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -146,12 +188,12 @@ extend_styles([ 'css.admin.financas' ]);
             <br><br>
 
             <label for="valor_estimado">Valor estimado</label>
-            <input type="text" class="text" name="valor_estimado" placeholder="R$10.00">
+            <input type="text" class="money" name="valor_estimado" placeholder="R$10.00">
             <br>
             <br>
 
             <label for="valor_gasto">Valor gasto</label>
-            <input type="text" class="text" name="valor_gasto" placeholder="R$50.00">
+            <input type="text" class="money"  name="valor_gasto" placeholder="R$50.00">
             <br><br>
 
             <label for="unidade_medida">Unidade de medida em Metros</label>
@@ -167,7 +209,7 @@ extend_styles([ 'css.admin.financas' ]);
             <br><br>
 
             <label for="valor_unitario">Valor unitário</label>
-            <input type="text" class="text" name="valor_unitario" placeholder="R$15.00">
+            <input type="text" class="money"  name="valor_unitario" placeholder="R$15.00">
             <br><br>
 
             <label for="data_validade">Data de validade</label>
@@ -194,7 +236,7 @@ extend_styles([ 'css.admin.financas' ]);
   ?>
   <script>
     $(document).ready(() => {
-      $('#money').maskMoney({
+      $('.money').maskMoney({
         prefix: 'R$ ',
         allowNegative: false,
         thousands: '.', decimal: ',',
@@ -202,7 +244,7 @@ extend_styles([ 'css.admin.financas' ]);
       });
 
       $('#frm-entrada').submit(function(event) {
-        $('input[name=valor]').val($('input[name=valor]').maskMoney('unmasked')[0]);
+        $('.money').val($('.money').maskMoney('unmasked')[0]);
       });
     });
   </script>
