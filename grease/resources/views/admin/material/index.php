@@ -42,6 +42,17 @@ extend_styles([ 'css.admin.financas' ]);
   render_component('sidebar');
   ?>
 
+  <?php if (isset($_SESSION['fed_material']) && !empty($_SESSION['fed_material'])): ?>
+      <script>
+          Swal.fire({
+              title: '<?php echo $_SESSION['fed_material']['title']; ?>',
+              text: '<?php echo $_SESSION['fed_material']['msg']; ?>',
+              icon: 'error',
+              confirmButtonText: 'OK'
+          })
+      </script>   
+  <?php endif; ?>
+
   <section class="dashboard">
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content" style="width: 80vw;">
