@@ -165,10 +165,13 @@ class Caixa
     ";
 
     $result = $this->mysqli->query($query);
+    
     if ($result === false) 
     {
       die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
     }
+
+    return $this->mysqli->insert_id;
   }
 
   public function obterSaldoAtual()
