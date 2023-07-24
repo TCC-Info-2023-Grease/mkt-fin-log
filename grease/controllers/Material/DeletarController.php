@@ -17,7 +17,13 @@ if (!$campos_validos)
 
 
 # ----- Deletar Material
-$material = new Material($mysqli);
-$material->deletar($_GET['id']);
+try {
+  $material = new Material($mysqli);
+  $material->deletar($_GET['id']);
+} catch (Exception $e) {
+  $_SESSION['fed_material'] = [ 
+    'title' => 'Erro!', 'msg' => 'Não é possível excluir esse material' 
+  ];
+}
 
 navegate($_ENV['ROUTE'] . 'admin.material.index');
