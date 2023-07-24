@@ -30,7 +30,7 @@ class Material
     {
         $stmt = $this->mysqli->query("
             SELECT 
-                m.*, 
+                m.*, m.nome AS nome_material,
                 c.nome AS nome_categoria, 
                 u.nome AS nome_usuario, u.*
             FROM 
