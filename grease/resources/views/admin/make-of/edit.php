@@ -1,15 +1,22 @@
 <?php
 # ------ Configurações Básicas
-require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
+require dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php';
+global $_ENV;
 
-global $_ENV;   
+import_utils(['auth']);
+
+Auth::check('adm');
+ 
+import_utils([
+  'extend_styles', 
+  'use_js_scripts', 
+  'render_component',
+  'Money'
+]);
 
 # Receber os dados enviados via POST
 $data = $_POST;
 
-import_utils(['auth', 'extend_styles', 'render_component']);
-
-Auth::check('adm');
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
@@ -23,32 +30,48 @@ if(isset($_SESSION['ultimo_acesso'])) {
 ?>
 
 
+
+<!------- HEAD --------->
 <?php
-require $_ENV['PASTA_VIEWS'] . '/components/head.php';
+render_component('head');
+extend_styles([ 'css.admin.financas' ]);
 ?>
 <title>
-    Admin 🕺 Grease
+  Admin 🕺 Grease
 </title>
+<!------- /HEAD --------->
 
 
 <body>
-    <?php
-    require $_ENV['PASTA_VIEWS'] . '/components/header.php';
-    ?>
+  <?php
+  render_component('sidebar');
+  ?>
 
-    <?php if (isset($_SESSION['fed_makeof']) && !empty($_SESSION['fed_makeof'])): ?>
-        <script>
-        Swal.fire({
-            title: '<?= $_SESSION['fed_makeof']['title']; ?>',
-            text: '<?= $_SESSION['fed_makeof']['msg']; ?>',
-            icon: '<?= $_SESSION['fed_makeof']['icon']; ?>',
-            confirmButtonText: 'OK'
+  <?php if (isset($_SESSION['fed_makeof']) && !empty($_SESSION['fed_makeof'])): ?>
+  <script>
+    Swal.fire({
+      title: '<?= $_SESSION['fed_makeof']['title']; ?>',
+      text: '<?= $_SESSION['fed_makeof']['msg']; ?>',
+      icon: '<?= $_SESSION['fed_makeof']['icon']; ?>',
+      confirmButtonText: 'OK'
 
-        })
-        </script>
-    <?php endif; ?>
-    
-    <form 
+    })
+  </script>
+  <?php endif; ?>
+
+
+   <section class="dashboard">
+
+    <div class="top">
+      <i class="uil uil-bars sidebar-toggle"></i>
+    </div>
+    <div class="dash-content">
+        <div class="overview">
+          <div class="title">
+            <span class="text">Editar Make Of</span>
+          </div>
+
+        <form 
         method="POST" 
         action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/MakeOf/UpdateController.php"
     >
@@ -79,22 +102,21 @@ require $_ENV['PASTA_VIEWS'] . '/components/head.php';
         <br>
 
         <label for="uri">Link Make Ofs:</label><br>
-        <textarea 
+        <input
+            type="text" 
             name="uri" 
-            id="" 
-            cols="30" 
-            rows="10" 
             required
-        >
-            <?= $data['uri'] ?>
-        </textarea>
+        />
         <br>
         
         <input type="submit" value="salvar">            
-    </form>
+    </form>            
+      </div>
+    </div>
+  </section>
 
 
-    <?php
-    require $_ENV['PASTA_VIEWS'] . '/components/footer.php';
-    ?>
-</body> 
+  <?php
+  use_js_scripts([ 'js.admin.financas' ]);
+  ?> 
+</body>
