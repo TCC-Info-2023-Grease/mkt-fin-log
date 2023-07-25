@@ -118,6 +118,24 @@ $routes['admin.categoria_material.edit'] = [
 ];
 
 
+# --
+$routes['admin.meta.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/meta/index',
+  'params' => []
+];
+$routes['admin.meta.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/meta/create',
+  'params' => []
+];
+$routes['admin.meta.edit'] = [
+  'method' => 'GET',
+  'file' => 'admin/meta/edit',
+  'params' => []
+];
+
+
 #--
 $routes['admin.makeof.index'] = [
   'method' => 'GET',
