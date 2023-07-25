@@ -5,7 +5,7 @@ global $_ENV;
 
 import_utils(['auth']);
 
-//Auth::check('adm');
+Auth::check('adm');
  
 import_utils([
   'extend_styles', 

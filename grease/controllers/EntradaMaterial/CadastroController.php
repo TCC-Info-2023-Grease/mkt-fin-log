@@ -58,4 +58,6 @@ $material = new Material($mysqli);
 $material->setarEntradaEstoque($dados);
 
 
-navegate($_ENV['ROUTE'] . 'admin.material.index');
+navegate($_ENV['ROUTE'] . 'admin.material.entrada.index');
+
+//print_r($entradaMaterial->buscarTodos());

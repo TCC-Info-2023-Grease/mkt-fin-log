@@ -43,13 +43,11 @@ $dados = [
   'valor_gasto'       => 0,
   'valor'             => 0,
   'tipo_movimentacao' => "Saida",
-  'forma_pagamento'   => $_POST['forma_pagamento'],
+  'forma_pagamento'   => "N/A",
   'obs'               => $_POST['obs']
 ];
 
-$caixa->cadastrarEntrada($dados);
-$dados['caixa_id'] = $caixa->getID();
-
+$dados['caixa_id'] = $caixa->cadastrarSaida($dados);
 
 # ----- Cadastro Saida Material
 $saidaMaterial = new SaidaMaterial($mysqli);
@@ -59,4 +57,4 @@ $material = new Material($mysqli);
 $material->setarSaidaEstoque($dados);
 
 
-navegate($_ENV['ROUTE'] . 'admin.material.index');
+navegate($_ENV['ROUTE'] . 'admin.material.saida.index');

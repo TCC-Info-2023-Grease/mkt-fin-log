@@ -8,6 +8,10 @@
             <i class="uil uil-estate"></i>
             <span class="link-name">Home</span>
           </a></li>
+          <li><a href="<?= $_ENV['VIEWS'] ?>/admin/meta/index.php">
+            <i class="uil uil-chart"></i>
+            <span class="link-name">Meta</span>
+          </a></li>
 			<li><a href="<?= $_ENV['ROUTE'] ?>admin.caixa.index">
             <i class="uil uil-chart"></i>
             <span class="link-name">Caixa</span>

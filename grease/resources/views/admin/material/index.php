@@ -16,7 +16,17 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
 
-//print_r($data);
+//print_r($_SESSION);
+
+// Verifica se a variável de sessão 'ultimo_acesso' já existe
+if(isset($_SESSION['ultimo_acesso'])) {
+  $ultimo_acesso = $_SESSION['ultimo_acesso'];
+  
+  // Verifica se já passaram 5 minutos desde o último acesso
+  if(time() - $ultimo_acesso > 100) {
+    unset($_SESSION['fed_material']);
+  }
+} 
 ?>
 
 <!------- HEAD --------->
@@ -41,6 +51,17 @@ extend_styles([ 'css.admin.financas' ]);
   <?php
   render_component('sidebar');
   ?>
+
+  <?php if (isset($_SESSION['fed_material']) && !empty($_SESSION['fed_material'])): ?>
+      <script>
+          Swal.fire({
+              title: '<?php echo $_SESSION['fed_material']['title']; ?>',
+              text: '<?php echo $_SESSION['fed_material']['msg']; ?>',
+              icon: 'error',
+              confirmButtonText: 'OK'
+          })
+      </script>   
+  <?php endif; ?>
 
   <section class="dashboard">
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
@@ -119,7 +140,10 @@ extend_styles([ 'css.admin.financas' ]);
                       </a>
                       <br><br>    
                       
-                      <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Material/DeletarController.php?id=<?= $material['material_id']; ?>">
+                      <a href="#"
+                        onclick="if (confirm('Deseja excluir mesmo?')) {
+                          this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Material/DeletarController.php?id=<?= $material['material_id']; ?>';
+                        }">
                         <i class="fa-solid fa-trash"></i>
                       </a>
                     </td>

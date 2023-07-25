@@ -8,7 +8,7 @@
  * @return string
  */
 function assets( $asset, $file ) {
-    $path = 'http://localhost/grease/resources/'. $asset . $file;
+    $path = $_ENV['URL_BASE']. '/resources/'. $asset . $file;
    
     return $path;
 }

@@ -26,7 +26,7 @@ class Meta
    *
    * @return array|null Os dados das metas encontradas
    */
-  public function buscarTodas()
+  public function buscarTodos()
   {
     $stmt = $this->mysqli->query("
       SELECT *
@@ -99,7 +99,7 @@ class Meta
     $stmt = $this->mysqli->prepare("
       SELECT *
       FROM " . $this->tabela . "
-      WHERE meta_id = ?
+      WHERE id = ?
     ");
     $stmt->bind_param('i', $id);
     $stmt->execute();
@@ -141,14 +141,14 @@ class Meta
    * @param array $dados Os novos dados da meta
    * @return bool True se a meta foi atualizada com sucesso, False caso contrário
    */
-  public function atualizar($id, $dados)
+  public function atualizar($dados)
   {
     $stmt = $this->mysqli->prepare("
       UPDATE " . $this->tabela . "
       SET nome = ?, descricao = ?, data_inicio = ?, data_fim = ?, total_necessario = ?
-      WHERE meta_id = ?
+      WHERE id = ?
     ");
-    $stmt->bind_param('ssssdi', $dados['nome'], $dados['descricao'], $dados['data_inicio'], $dados['data_fim'], $dados['total_necessario'], $id);
+    $stmt->bind_param('ssssdi', $dados['nome'], $dados['descricao'], $dados['data_inicio'], $dados['data_fim'], $dados['total_necessario'], $dados['meta_id']);
 
     return $stmt->execute();
   }
@@ -169,6 +169,50 @@ class Meta
 
     return $stmt->execute();
   }
+
+  public function alterarStatus($id, $novoStatus)
+  {
+      // Verifica se o novo status é um valor válido (0 para desativar, 1 para ativar)
+      if ($novoStatus === 0 || $novoStatus === 1) {
+          // Se o novo status for ativar (1), desativar todas as outras entradas primeiro
+          if ($novoStatus === 1) {
+              $query = "
+                  UPDATE " . $this->tabela . "
+                  SET status = 0
+              ";
+
+              $result = $this->mysqli->query($query);
+              if ($result === false) {
+                  die('Erro ao desativar todas as outras entradas: ' . $this->mysqli->error);
+              }
+          }
+
+          // Atualiza o status da entrada desejada para o novo status
+          $query = "
+              UPDATE " . $this->tabela . "
+              SET status = ?
+              WHERE id = ?
+          ";
+
+          $stmt = $this->mysqli->prepare($query);
+          if (!$stmt) {
+              die('Erro na preparação da query: ' . $this->mysqli->error);
+          }
+
+          $stmt->bind_param('ii', $novoStatus, $id);
+
+          if ($stmt->execute()) {
+              return true;
+          } else {
+              die('Erro na execução da query: ' . $this->mysqli->error);
+          }
+
+          $stmt->close();
+      }
+
+      return false;
+  }
+
 }
 
 

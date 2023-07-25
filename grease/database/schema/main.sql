@@ -17,7 +17,7 @@ CREATE TABLE meta (
   data_inicio DATE,
   data_fim DATE,
   total_necessario DECIMAL(10, 2),
-  status INT;
+  status INT(1) NOT NULL DEFAULT 0;
 );
 
 

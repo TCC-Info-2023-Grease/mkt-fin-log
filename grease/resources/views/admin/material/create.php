@@ -37,48 +37,6 @@ extend_styles([ 'css.admin.financas' ]);
 <title>
     Admin 🕺 Grease
 </title>
-<style type="text/css">
-    /* Estilização do input do tipo "file" */
-.input-file {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 16px;
-  color: #fff;
-  background-color: #4CAF50;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-}
-
-/* Estilização do texto do botão */
-.input-file span {
-  font-weight: bold;
-}
-
-/* Estilização do input real, escondido */
-.input-file input[type="file"] {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-
-/* Efeito de hover no botão */
-.input-file:hover {
-  background-color: #45a049;
-}
-
-/* Efeito de focus no botão */
-.input-file:focus {
-  outline: none;
-  box-shadow: 0 0 5px #4CAF50;
-}
-
-</style>
 
 
 
@@ -146,12 +104,12 @@ extend_styles([ 'css.admin.financas' ]);
             <br><br>
 
             <label for="valor_estimado">Valor estimado</label>
-            <input type="text" class="text" name="valor_estimado" placeholder="R$10.00">
+            <input type="text" class="money" name="valor_estimado" placeholder="R$10.00">
             <br>
             <br>
 
             <label for="valor_gasto">Valor gasto</label>
-            <input type="text" class="text" name="valor_gasto" placeholder="R$50.00">
+            <input type="text" class="money"  name="valor_gasto" placeholder="R$50.00">
             <br><br>
 
             <label for="unidade_medida">Unidade de medida em Metros</label>
@@ -167,7 +125,7 @@ extend_styles([ 'css.admin.financas' ]);
             <br><br>
 
             <label for="valor_unitario">Valor unitário</label>
-            <input type="text" class="text" name="valor_unitario" placeholder="R$15.00">
+            <input type="text" class="money"  name="valor_unitario" placeholder="R$15.00">
             <br><br>
 
             <label for="data_validade">Data de validade</label>
@@ -194,7 +152,7 @@ extend_styles([ 'css.admin.financas' ]);
   ?>
   <script>
     $(document).ready(() => {
-      $('#money').maskMoney({
+      $('.money').maskMoney({
         prefix: 'R$ ',
         allowNegative: false,
         thousands: '.', decimal: ',',
@@ -202,7 +160,7 @@ extend_styles([ 'css.admin.financas' ]);
       });
 
       $('#frm-entrada').submit(function(event) {
-        $('input[name=valor]').val($('input[name=valor]').maskMoney('unmasked')[0]);
+        $('.money').val($('.money').maskMoney('unmasked')[0]);
       });
     });
   </script>

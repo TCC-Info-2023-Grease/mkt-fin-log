@@ -58,16 +58,16 @@ class CategoriaMaterial
      * @param int $ID ID do usuario
      * @return mixed 
      */
-    public function buscar($email)
+    public function buscar($id)
     {
         $stmt = $this->mysqli->prepare("
             SELECT 
                 * 
             FROM 
                 " . $this->tabela . " 
-            WHERE email = ?
+            WHERE categoria_id = ?
         ");
-        $stmt->bind_param("s", $email);
+        $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -145,4 +145,58 @@ class CategoriaMaterial
         
         $verificarStmt->close();
     }
+
+    public function atualizar($dados = [])
+    {
+        $stmt = $this->mysqli->prepare("
+            UPDATE 
+                " . $this->tabela . " 
+            SET 
+                nome = ?
+            WHERE 
+                categoria_id = ?
+        ");
+
+        $stmt->bind_param("si", $dados['nome'], $dados['categoria_id']);
+
+        // Verificar se o nome já existe na tabela (excluding the current record being updated)
+        $verificarStmt = $this->mysqli->prepare("
+            SELECT 
+                nome 
+            FROM 
+                " . $this->tabela . " 
+            WHERE 
+                nome = ? AND categoria_id != ?
+        ");
+
+        $verificarStmt->bind_param("si", $dados['nome'], $dados['categoria_id']);
+        $verificarStmt->execute();
+        $verificarStmt->store_result();
+
+        if ($verificarStmt->num_rows > 0) {
+            // If the name already exists in the table (excluding the current record), display an error message or redirect the user to an error page
+            echo "O nome já existe na tabela.";
+        } else {
+            // If the name is not already in the table, update the record
+            $stmt->execute();
+            $stmt->close();
+        }
+        
+        $verificarStmt->close();
+    }
+
+    public function deletar($id)
+    {
+        $stmt = $this->mysqli->prepare("
+            DELETE FROM 
+                " . $this->tabela . " 
+            WHERE 
+                categoria_id = ?
+        ");
+
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    }
+
 }

@@ -64,6 +64,112 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
     background: #3A3B3C;
 }
 
+
+  /* Estilo base do input */
+input[type="date"] {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Estilizar a seta do input (somente em alguns navegadores) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: #333;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Estilizar o texto do input (somente em alguns navegadores) */
+input[type="date"]::-webkit-datetime-edit-text {
+  color: #333;
+}
+
+/* Estilizar a seta drop-down do input (somente em alguns navegadores) */
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  border: none;
+}
+
+/* Estilizar o fundo do calendário (somente em alguns navegadores) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: #f1f1f1;
+  padding: 4px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+/* Estilizar o calendário popup (somente em alguns navegadores) */
+input[type="date"]::-webkit-calendar-popup {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+    /* Estilização do input do tipo "file" */
+.input-file {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  background-color: #5275F5;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Estilização do texto do botão */
+.input-file span {
+  font-weight: bold;
+}
+
+/* Estilização do input real, escondido */
+.input-file input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* Efeito de hover no botão */
+.input-file:hover {
+  background-color: #45a049;
+}
+
+/* Efeito de focus no botão */
+.input-file:focus {
+  outline: none;
+  box-shadow: 0 0 5px #4CAF50;
+}
+
+
+/* Estilo básico para os links com ícones */
+  .icon-link {
+    font-size: 14px; /* Tamanho do ícone */
+    background-color: #007bff; /* Cor do ícone (substitua pela cor desejada) */
+    text-decoration: none; /* Remover sublinhado */
+    margin-right: 10px; /* Espaçamento entre o ícone e o texto */
+    color: whitesmoke;
+    padding: 6px;
+    border-radius: 7px;
+    width: 100px;
+  }
+
+  /* Estilo para o ícone de edição */
+  .icon-link.edit {
+    background-color: #28a745; /* Cor verde (substitua pela cor desejada) */
+  }
+
+  /* Estilo para o ícone de exclusão */
+  .icon-link.delete {
+    background-color: #dc3545; /* Cor vermelha (substitua pela cor desejada) */
+  }
+
 nav{
     position: fixed;
     top: 0;
