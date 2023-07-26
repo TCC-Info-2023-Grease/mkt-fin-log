@@ -75,7 +75,8 @@ extend_styles([ 'css.admin.financas' ]);
         method="POST" 
         action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/MakeOf/UpdateController.php"
     >
-        <type="hidden" 
+        <input 
+           type="hidden" 
             class="text" 
             name="id" 
             value="<?= $data['makeof_id']; ?>" />
@@ -88,7 +89,7 @@ extend_styles([ 'css.admin.financas' ]);
             required
         />
 
-        <br>
+        <br><br>
         <label for="descricao">Descrição:</label><br>
         <textarea 
             name="descricao" 
@@ -99,15 +100,17 @@ extend_styles([ 'css.admin.financas' ]);
         >
             <?= $data['descricao'] ?>
         </textarea>
-        <br>
+        <br><br>
 
         <label for="uri">Link Make Ofs:</label><br>
         <input
             type="text" 
             name="uri" 
             required
+            value="<?= $data['uri'] ?>"
+            placeholder="Colocar o Link..."
         />
-        <br>
+        <br><br>
         
         <input type="submit" value="salvar">            
     </form>            
