@@ -49,11 +49,11 @@ extend_styles([ 'css.admin.financas' ]);
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content">
         <div style="text-align: right;">
-          <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.entrada.create" class="button-link">
+          <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.entrada.create" class="button-link btn-edit">
             Nova Entrada
           </a>
           <span class="button-separator">|</span>
-          <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.saida.create" class="button-link">
+          <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.saida.create" class="button-link btn-delete">
             Nova Saída
           </a>
         </div>
