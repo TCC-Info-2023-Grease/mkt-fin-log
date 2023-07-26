@@ -42,6 +42,17 @@ extend_styles([ 'css.admin.financas' ]);
   render_component('sidebar');
   ?>
 
+  <?php if (isset($_SESSION['fed_caixa']) && !empty($_SESSION['fed_caixa'])): ?>
+  <script>
+    Swal.fire({
+      title: '<?php echo $_SESSION['fed_caixa']['title']; ?>',
+      text: '<?php echo $_SESSION['fed_caixa']['msg']; ?>',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
+  </script>
+  <?php endif; ?>
+
   <section class="dashboard">
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content">
