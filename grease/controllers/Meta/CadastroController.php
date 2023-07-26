@@ -30,7 +30,14 @@ $dados = [
   'status' => $_POST['status']
 ];
 
-$meta->cadastrar($dados);
+try {
+  $meta->cadastrar($dados);
+} catch (Exception $e) {
+  $_SESSION['fed_categoria_material'] = [ 
+      'title' => 'Erro!', 'msg' => 'Campos Invalidos' 
+  ];
+  navegate($_ENV['ROUTE'] . 'admin.meta.create');
+}
 
 print_r($_POST);
 
