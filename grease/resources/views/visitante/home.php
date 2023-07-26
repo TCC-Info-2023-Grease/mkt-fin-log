@@ -19,7 +19,7 @@ import_utils([
 <!------- HEAD --------->
 <?php
 render_component('head');
-extend_styles(['css.styleprojeto']);
+extend_styles(['css.styleindex']);
 ?>
 
 <title>
