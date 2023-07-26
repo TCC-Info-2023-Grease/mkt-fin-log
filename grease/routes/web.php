@@ -136,6 +136,24 @@ $routes['admin.meta.edit'] = [
 ];
 
 
+# --
+$routes['admin.usuario.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/usuarios/index',
+  'params' => []
+];
+$routes['admin.usuario.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/usuarios/create',
+  'params' => []
+];
+$routes['admin.usuario.edit'] = [
+  'method' => 'GET',
+  'file' => 'admin/usuarios/edit',
+  'params' => []
+];
+
+
 #--
 $routes['admin.makeof.index'] = [
   'method' => 'GET',
