@@ -40,7 +40,7 @@ body{
      Scrollbar
 ──────────────────*/
 ::-webkit-Scrollbar{
-    width: 5px; 
+    width: 10px; 
 	background: rgba(5,5,5,1);
 }
 ::-webkit-Scrollbar-thumb{
