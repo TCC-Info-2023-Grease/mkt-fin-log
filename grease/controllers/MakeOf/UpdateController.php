@@ -13,15 +13,13 @@ if(isset($_SESSION['ultimo_acesso'])) {
 
 $_SESSION['ultimo_acesso'] = time();
 
-// var_dump($_POST); 
-// exit;
+ //var_dump($_POST); 
 
 # ------ Validar Envio de Dados
 $campos_validos = (
   $_POST['id']        &&  
   $_POST['descricao'] &&
-  $_POST['titulo']    &&
-  $_POST['uri']  
+  $_POST['titulo']    
 );
 if (!$campos_validos) 
 {
@@ -50,7 +48,7 @@ $makeOf->atualizar($dados);
 
 $_SESSION['fed_makeof'] = [ 
   'title' => 'Sucesso!', 
-  'msg' => 'Cadastro com sucesso',
+  'msg' => 'Atualizado  com sucesso',
   'icon' => 'success' 
 ];
 navegate($_ENV['ROUTE'] . 'admin.makeof.index');
