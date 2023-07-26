@@ -1,114 +1,169 @@
 <?php
 # ------ Configurações Básicas
-require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
+require dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php';
 global $_ENV;
 
-//print_r($_POST);
-$usuarioData = [$_POST];
-
-import_utils(['auth', 'extend_styles', 'render_component']);
+import_utils(['auth']);
 
 Auth::check('adm');
+ 
+if (!isset($_POST) && empty($_POST)) navegate($_ENV['VIEWS']. '/adm/usuarios/');
 
-if(isset($_SESSION['ultimo_acesso'])) {
-  $ultimo_acesso = $_SESSION['ultimo_acesso'];
-  
-  // Verifica se já passaram 5 minutos desde o último acesso
-  if(time() - $ultimo_acesso > 100) {
-    unset($_SESSION['fed_profile']);
-  }
-} 
+import_utils([
+  'extend_styles', 
+  'use_js_scripts', 
+  'render_component',
+  'Money'
+]);
+
+global $_ENV;   
+
+//print_r($_POST);
+$usuario = $_POST;
 ?>
-
 
 <!------- HEAD --------->
 <?php
-require $_ENV['PASTA_VIEWS'] . '/components/head.php';
+render_component('head');
+extend_styles(['css.admin.financas']);
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-
 <title>
-  Admin 🕺 Grease
+  Finanças Admin 🕺 Grease
 </title>
 <!-------/ HEAD --------->
 
-
-<!-------/ BODY --------->
-
+<!------- BODY --------->
 <body>
   <?php
-  require $_ENV['PASTA_VIEWS'] . '/components/header.php';
+  render_component('sidebar');
   ?>
- <br><br>
 
+  <section class="dashboard">
+    <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
+    <div class="dash-content">
+      <div style="text-align: right;">
+         <a href="#" class="button-link btn-delete"
+                               onclick="if (confirm('Deseja excluir mesmo?')) {
+                                   this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/DeletarController.php?id=<?= $usuario['usuario_id']; ?>';
+                               }"
+                            >
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+        <span class="button-separator">|</span>
+        <a href="#"
+          class="button-link btn-edit"
+                   onclick="if (confirm('Deseja editar mesmo?')) {
+                       this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/EditController.php?id=<?= $usuario['usuario_id']; ?>';
+                   }"
+                >
+                    <i class="fa-solid fa-pen"></i>
+                </a>
+      </div>
 
-  <table id="myTable" class="display">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Tipo</th>
-        <th>Foto</th>
-        <th>Email</th>
-        <th>Idade</th>
-        <th>Genero</th>
-        <th>Celular</th>
-      </tr>
-    </thead>
+      <div class="overview">
+        <div class="title"> <span class="text">Informações do Usuário</span> </div>
 
-    <tbody>
-      <?php if ($usuarioData): ?>
-        <?php foreach ($usuarioData as $usuario): ?>
-        <tr>
-          <td>
-            <?= $usuario['nome']; ?>            
-          </td>
-          <td>
-            <?= $usuario['tipo_usuario']; ?>
-          </td>
-          <td>
-            <img 
-              width="300px" 
-              src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>"
-              alt="<?= $usuario['nome']; ?>" 
-            />
-          </td>
-          <td>
-            <?= $usuario['email']; ?>
-          </td>
-          <td>
-            <?= $usuario['idade']; ?>
-          </td>
-          <td>
-            <?php if ($usuario['genero'] == 'm') { ?> 
-              Masculino
-            <?php } else if ($usuario['genero'] == 'f') { ?> 
-              Feminino
-            <?php } else { ?> 
-              Outro
-            <?php } ?> 
-          </td>
-          <td>
-            <?= $usuario['celular']; ?>
-          </td>
-        </tr>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </tbody>
-  </table>
+        <div class="activity">
+          <div class="activity-data">
+            <div class="data names">
+              <span class="data-list">
+                <img  
+                  style="border-radius: 50%;border: 4px solid black;padding: 2px"
+                  width="200px"
+                  src="<?= $_ENV['STORAGE']. '/image/usuario/' .$usuario['foto_perfil']; ?>" 
+                  alt="<?= $usuario['nome']; ?>" 
+                />             
+              </span>
+            </div>
 
+            <div class="data names">
+              <span class="data-title">Nome</span>
+              <span class="data-list">
+                <?= $usuario['nome']; ?>  
+              </span>
+            </div>
+
+            <div class="data names">
+              <span class="data-title">Email</span>
+              <span class="data-list">
+                <?= $usuario['email']; ?> 
+              </span>
+            </div>
+
+            <div class="data names">
+                <span class="data-title">Tipo Usuário</span>
+                <span class="data-list">
+                  <?php if ($usuario['tipo_usuario'] === 'adm'): ?> 
+                    Administrador
+                  <?php elseif ($usuario['tipo_usuario'] === 'vis'): ?>
+                    Visitante
+                  <?php endif; ?>
+                </span>
+              </div>
+          </div>
+          <br>
+          <br>
+
+          <div class="activity-data">
+            <!-- Verificação de campo nulo -->
+            <?php if (!empty($usuario['cpf'])): ?>
+              <div class="data names">
+                <span class="data-title">CPF</span>
+                <span class="data-list">
+                  <?= $usuario['cpf']; ?> 
+                </span>
+              </div>
+            <?php endif; ?>
+
+            <!-- Verificação de campo nulo -->
+            <?php if (!empty($usuario['idade'])): ?>
+              <div class="data names">
+                <span class="data-title">Idade</span>
+                <span class="data-list">
+                  <?= $usuario['idade']; ?> 
+                </span>
+              </div>
+            <?php endif; ?>
+
+            <!-- Verificação de campo nulo -->
+            <?php if (!empty($usuario['genero'])): ?>
+              <div class="data names">
+                <span class="data-title">Gênero</span>
+                <span class="data-list">
+                  <?php 
+                    if($usuario['genero'] === 'm') {
+                      echo 'Masculino';
+                    } elseif($usuario['genero'] === 'f') {
+                      echo 'Feminino';
+                    } elseif($usuario['genero'] === 'o') {
+                      echo 'Outro';
+                    } elseif($usuario['genero'] === 'n') {
+                      echo 'Não especificado';
+                    }
+                  ?>
+                </span>
+              </div>
+            <?php endif; ?>
+
+            <!-- Verificação de campo nulo -->
+            <?php if (!empty($usuario['celular'])): ?>
+              <div class="data names">
+                <span class="data-title">Celular</span>
+                <span class="data-list">
+                  <?= $usuario['celular']; ?> 
+                </span>
+              </div>
+            <?php endif; ?>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
 
   <?php
-  require $_ENV['PASTA_VIEWS'] . '/components/footer.php';
+  use_js_scripts(['js.admin.financas']);
   ?>
-
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('#myTable').DataTable();
-    });
-  </script>
 </body>
 <!-------/ BODY --------->

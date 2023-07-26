@@ -12,6 +12,10 @@
             <i class="uil uil-chart"></i>
             <span class="link-name">Meta</span>
           </a></li>
+           <li><a href="<?= $_ENV['ROUTE'] ?>admin.usuario.index">
+            <i class="uil uil-chart"></i>
+            <span class="link-name">Usuários</span>
+          </a></li>
 			<li><a href="<?= $_ENV['ROUTE'] ?>admin.caixa.index">
             <i class="uil uil-chart"></i>
             <span class="link-name">Caixa</span>

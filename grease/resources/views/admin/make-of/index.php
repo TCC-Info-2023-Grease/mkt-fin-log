@@ -67,7 +67,7 @@ extend_styles([ 'css.admin.financas' ]);
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content">
         <div style="text-align: right;">
-          <a href="<?= $_ENV['ROUTE']; ?>admin.makeof.create" class="button-link">
+          <a href="<?= $_ENV['ROUTE']; ?>admin.makeof.create" class="button-link btn-edit">
             Nova Make Of
           </a>
         </div>
@@ -95,19 +95,19 @@ extend_styles([ 'css.admin.financas' ]);
                 <?= $item['descricao']; ?>
               </td>
               <td>
-                <?= $item['uri']; ?> 
+                 <iframe width="360" height="315" src="<?= $item['uri']; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
               </td>
               <td>
                 <a 
                   href="#"
                   onclick="if (confirm('Deseja excluir mesmo?')) {
                     this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/MakeOf/DeletarController.php?id=<?= $item['makeof_id']; ?>';
-                  }" 
+                  }"
+                  class="icon-link delete" 
                 >
-                  <i class="fa-solid fa-trash"></i>
+                  <i class="fa-solid fa-trash"></i> 
                 </a>
                 <br />      
-                <br />
                 <br />
 
                 <a 
@@ -115,8 +115,9 @@ extend_styles([ 'css.admin.financas' ]);
                   onclick="if (confirm('Deseja editar mesmo?')) {
                     this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/MakeOf/EditController.php?id=<?= $item['makeof_id']; ?>';
                   }" 
+                  class="icon-link edit"
                 >
-                  <i class="fa-solid fa-pen"></i>
+                  <i class="fa-solid fa-pen"></i> 
                 </a>
               </td>
             </tr>

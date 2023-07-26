@@ -18,11 +18,11 @@ if (!$campos_validos)
 
 # ----- Deletar Material
 try {
-  $categoria = new CategoriaMaterial($mysqli);
-  $categoria->deletar($_GET['id']);
+  $meta = new Meta($mysqli);
+  $meta->deletar($_GET['id']);
 } catch (Exception $e) {
   $_SESSION['fed_categoria_material'] = [ 
-    'title' => 'OK!', 'msg' => 'Não é possível excluir esse categoria', 'icon' => 'error'
+    'title' => 'OK!', 'msg' => 'Não é possível excluir essa meta', 'icon' => 'error'
   ];
 }
 

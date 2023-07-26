@@ -109,6 +109,27 @@ class Usuario
       return $usuario;
     }
 
+     public function buscarTodos()
+    {
+        $stmt = $this->mysqli->query("
+            SELECT 
+                * 
+            FROM 
+                " . $this->tabela ."
+            ORDER BY nome ASC"    
+        );
+
+        if ($stmt->num_rows === 0) {
+            return null;
+        }
+
+        while ($linha = mysqli_fetch_array($stmt, MYSQLI_ASSOC)) {
+            $usuario[] = $linha;
+        }
+
+        return $usuario;
+    }
+
     /**
      * Método para realizar o login do usuario
      *
@@ -203,29 +224,65 @@ class Usuario
     public function atualizar($dados = [])
     {
       $stmt = $this->mysqli->prepare("
-          UPDATE 
-              " . $this->tabela . " 
-          SET 
-              nome    = ?,  
-              email   = ?,  
-              celular = ?,  
-              idade   = ?, 
-              cpf     = ? 
-          WHERE 
+        UPDATE 
+            " . $this->tabela . " 
+        SET 
+            nome = ?,  
+            email = ?,  
+            cpf = ?,  
+            senha = ?, 
+            idade = ?, 
+            genero = ?, 
+            celular = ?, 
+            foto_perfil = ? 
+        WHERE 
             usuario_id = ? 
-      ");
+    ");
 
-        $stmt->bind_param(
-          "sssisi",
-          $dados['nome'],
-          $dados['email'],
-          $dados['celular'],
-          $dados['idade'],
-          $dados['cpf'],
-          $dados['usuario_id']
-      );
+    $stmt->bind_param(
+        "ssssisiss", 
+        $dados['nome'],
+        $dados['email'],
+        $dados['cpf'],
+        $dados['senha'],
+        $dados['idade'],
+        $dados['genero'],
+        $dados['celular'],
+        $dados['foto_perfil'],
+        $dados['usuario_id']
+    );
       
       $stmt->execute();
       $stmt->close();
     }
+
+    public function deletar($id)
+{
+    $query = "
+        DELETE FROM 
+            " . $this->tabela . " 
+        WHERE usuario_id = ?
+    ";
+
+    $stmt = $this->mysqli->prepare($query);
+
+    if (!$stmt) {
+        die('Erro na preparação da query: ' . $this->mysqli->error);
+    }
+
+    $stmt->bind_param('i', $id);
+
+    if ($stmt->execute()) {
+        if ($stmt->affected_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        die('Erro na execução da query: ' . $this->mysqli->error);
+    }
+
+    $stmt->close();
+}
+
 }

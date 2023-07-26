@@ -69,7 +69,7 @@ extend_styles([ 'css.admin.financas' ]);
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content">
         <div style="text-align: right;">
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.categoria_material.create" class="button-link">
+          <a href="<?php echo $_ENV['ROUTE'] ?>admin.categoria_material.create" class="button-link btn-edit">
             Nova Categoria
           </a>
         </div>

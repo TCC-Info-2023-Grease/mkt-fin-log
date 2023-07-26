@@ -64,6 +64,13 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
     background: #3A3B3C;
 }
 
+/* Estilo para as mensagens de erro */
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
 
   /* Estilo base do input */
 input[type="date"] {
@@ -162,13 +169,25 @@ input[type="date"]::-webkit-calendar-popup {
 
   /* Estilo para o ícone de edição */
   .icon-link.edit {
-    background-color: #28a745; /* Cor verde (substitua pela cor desejada) */
+    background-color: #28a745!important; /* Cor verde (substitua pela cor desejada) */
   }
 
   /* Estilo para o ícone de exclusão */
   .icon-link.delete {
-    background-color: #dc3545; /* Cor vermelha (substitua pela cor desejada) */
+    background-color: #dc3545!important; /* Cor vermelha (substitua pela cor desejada) */
   }
+
+
+  /* Estilo para o ícone de edição */
+  .btn-edit {
+    background-color: #28a745!important; /* Cor verde (substitua pela cor desejada) */
+  }
+
+  /* Estilo para o ícone de exclusão */
+  .btn-delete {
+    background-color: #dc3545!important; /* Cor vermelha (substitua pela cor desejada) */
+  }
+
 
 nav{
     position: fixed;
@@ -354,7 +373,9 @@ body.dark .switch:before{
     }
 
     form input[type="text"],
-    form input[type="number"] {
+    form input[type="number"],
+    form input[type="email"],
+     form input[type="password"]  {
       width: 100%;
       height: 36px;
       padding: 8px;
@@ -367,6 +388,29 @@ body.dark .switch:before{
     form input[type="radio"] {
       margin-right: 4px;
     }
+
+      /* Estilo básico para selects */
+    select {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      outline: none;
+      background-color: #fff; /* Cor de fundo do select */
+      cursor: pointer; /* Altera o cursor do mouse ao passar sobre o select */
+    }
+
+    /* Estilo quando o select está focado */
+    select:focus {
+      border-color: #007bff; /* Cor azul utilizada como exemplo, pode ser substituída pela cor desejada */
+      box-shadow: 0 0 5px #007bff; /* Efeito de sombra ao redor do select quando está focado */
+    }
+
+    /* Estilo para options dentro do select */
+    select option {
+      font-size: 16px;
+    }
+
 
     form input[type="submit"] {
       width: 100%;

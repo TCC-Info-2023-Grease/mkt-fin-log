@@ -26,33 +26,6 @@ use_js_scripts([ 'js.scriptindex' ]);
 </title>
 <!-------/ HEAD --------->
 
-
-<style type="text/css">
-  /* Estilo básico para selects */
-select {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  outline: none;
-  background-color: #fff; /* Cor de fundo do select */
-  cursor: pointer; /* Altera o cursor do mouse ao passar sobre o select */
-}
-
-/* Estilo quando o select está focado */
-select:focus {
-  border-color: #007bff; /* Cor azul utilizada como exemplo, pode ser substituída pela cor desejada */
-  box-shadow: 0 0 5px #007bff; /* Efeito de sombra ao redor do select quando está focado */
-}
-
-/* Estilo para options dentro do select */
-select option {
-  font-size: 16px;
-}
-
-</style>
-
-
 <!------- BODY --------->
 <body>
  
@@ -118,8 +91,8 @@ select option {
                     <div class="field">
                         <input type="email" placeholder="Email" name="email" required>
                     </div>
-                    <div class="field">
-                        <input type="password" placeholder="Password" name="password" required>
+                    <div class="field">                      
+                      <input type="password" name="password" id="inputPassword" required>
                     </div>
 
                     <div class="field btn">
@@ -153,54 +126,50 @@ select option {
                           </div>
                           <div class="field" style="display: none;">
                             <label for="tipo-usuario" style="display: none;">Tipo Usuario</label>
-            <select name="tipo_usuario" id="tipo-usuario-select" style="display: none;">
-                <option value="vis" selected>
-                    Visitante
-                </option>
-                <option value="fig">
-                    Figurino   
-                </option>
-                <option value="cen">
-                    Cénario
-                </option>
-                <option value="enc">
-                    Encenação
-                </option>
-                <option value="adm">
-                    Admin
-                </option>
-            </select>
+                            <select name="tipo_usuario" id="tipo-usuario-select" style="display: none;">
+                                <option value="vis" selected>
+                                    Visitante
+                                </option>
+                                <option value="fig">
+                                    Figurino   
+                                </option>
+                                <option value="cen">
+                                    Cénario
+                                </option>
+                                <option value="enc">
+                                    Encenação
+                                </option>
+                                <option value="adm">
+                                    Admin
+                                </option>
+                            </select>
                           </div>
                           <div class="field">
                             <select name="genrer" id="genrer-select" class="form-select" aria-label="Default select example">
-                <option value="m">
-                    Masculino
-                </option>
-                <option value="f">
-                    Feminino
-                </option>
-                <option value="o">
-                    Outro
-                </option>
-                <option value="n">
-                    Prefiro não informar
-                </option>
-            </select>
+                                <option value="m">
+                                    Masculino
+                                </option>
+                                <option value="f">
+                                    Feminino
+                                </option>
+                                <option value="o">
+                                    Outro
+                                </option>
+                                <option value="n">
+                                    Prefiro não informar
+                                </option>
+                            </select>
                           </div>
                           <div class="field">
                             <input 
-                type="text" 
-                required 
-                class="text phone" 
-                name="phone"
-                placeholder="(11) 90235-9078" />
+                              type="text" 
+                              required 
+                              class="text phone" 
+                              name="phone"
+                              placeholder="(11) 90235-9078" />
                           </div>
                           <div class="field">
-                            <input 
-                type="password" 
-                required class="text" 
-                placeholder="Password" 
-                name="password" />
+                            <input type="password" name="password" id="inputPassword" required>                           
                           </div>
                           <div class="field btn">
                             <div class="btn-layer"></div>
@@ -216,7 +185,7 @@ select option {
         </section>
       </div>
 
-      <?php use_js_scripts([ 'js.login' ]); ?>
+      <?php use_js_scripts([ 'js.login', 'js.masksForInputs' ]); ?>
     </main>
       <!--─────────────────fim Home────────────────-->
   
