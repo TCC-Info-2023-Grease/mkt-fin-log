@@ -67,7 +67,7 @@ extend_styles([ 'css.admin.financas' ]);
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content" style="width: 80vw;">
         <div style="text-align: right;">
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link">
+          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link btn-edit">
             Novo Material
           </a>
           <span class="button-separator">|</span>
@@ -106,7 +106,7 @@ extend_styles([ 'css.admin.financas' ]);
                     </td>
                     <td>
                       <img  
-                        width="100px"
+                        width="200px"
                         src="<?= $_ENV['STORAGE'].  '/image/material/' .$material['foto_material']; ?>" 
                         alt="<?= $material['nome']; ?>" 
                       />
@@ -117,25 +117,34 @@ extend_styles([ 'css.admin.financas' ]);
                     <td>
                       <?php echo $material['status_material']; ?>
                     </td>
-                    <td>
-                      <a href="<?= $_ENV['VIEWS']; ?>/admin/material/entrada.create.php?id=<?php echo $material['material_id']; ?>"> 
+                    <th style="padding: 26px;">
+                      <a href="<?= $_ENV['VIEWS']; ?>/admin/material/entrada.create.php?id=<?php echo $material['material_id']; ?>"
+                        class="icon-link edit"
+                      >
                         <i class="fa-solid fa-plus"></i>
                       </a>
                       <br><br>    
 
                       <?php if($material['estoque_atual'] >= 0): ?>
-                      <a href="<?= $_ENV['VIEWS']; ?>/admin/material/saida.create.php?id=<?php echo $material['material_id']; ?>">
+                      <a href="<?= $_ENV['VIEWS']; ?>/admin/material/saida.create.php?id=<?php echo $material['material_id']; ?>"
+                        class="icon-link delete"
+                      >
                         <i class="fa-solid fa-minus"></i>
-                      </a>
-                      <br><br>    
+                      </a><br>
+                      <br><hr><br>    
                       <?php endif; ?>
 
-                      <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Material/ShowController.php?id=<?php echo $material['material_id']; ?>">
+                      <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Material/ShowController.php?id=<?php echo $material['material_id']; ?>"
+                        class="icon-link"
+                      >
                         <i class="fa-regular fa-eye"></i>
                       </a>
 
                       <br><br>    
-                      <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Material/EditController.php?id=<?= $material['material_id']; ?>">
+                      <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Material/EditController.php?id=<?= $material['material_id']; ?>"
+                        class="icon-link edit"
+                      >
+
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
                       <br><br>    
@@ -143,7 +152,9 @@ extend_styles([ 'css.admin.financas' ]);
                       <a href="#"
                         onclick="if (confirm('Deseja excluir mesmo?')) {
                           this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Material/DeletarController.php?id=<?= $material['material_id']; ?>';
-                        }">
+                        }"
+                        class="icon-link delete"
+                      >
                         <i class="fa-solid fa-trash"></i>
                       </a>
                     </td>
