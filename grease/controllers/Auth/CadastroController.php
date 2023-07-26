@@ -44,7 +44,7 @@ if (isset($_FILES['profile_picture']) && !empty($_FILES['profile_picture'])) {
   if (count($_FILES['profile_picture']['tmp_name']) > 0) {
     for ($q = 0; $q < count($_FILES['profile_picture']['tmp_name']); $q++) {
       $nomeDoArquivo = $_FILES['profile_picture']['name'][$q];
-      move_uploaded_file($_FILES['profile_picture']['tmp_name'][$q], '../../storage/image/usuarios/' . $nomeDoArquivo);
+      move_uploaded_file($_FILES['profile_picture']['tmp_name'][$q], '../../storage/image/usuario/' . $nomeDoArquivo);
     }
   }
 }
@@ -62,8 +62,16 @@ $dados = [
 ];
 
 print_r($dados);
-$usuario->cadastrar($dados);
 
+try {
+  $usuario->cadastrar($dados);
+} catch (Exception $e) {
+   $_SESSION['fed_cadastro_usuario'] = [
+    'title' => 'Erro!',
+    'msg' => 'Campos Invalidos'
+  ];
+  navegate($_ENV['VIEWS'] . '/auth/cadastrar.php');
+}
 
 if (!$usuario->login($dados['email'], $dados['password'])) {
   $_SESSION['fed_cadastro_usuario'] = [
