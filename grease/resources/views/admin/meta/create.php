@@ -89,6 +89,7 @@ extend_styles([ 'css.admin.financas' ]);
 
               <label for="data_fim">Data de Fim:</label>
               <input type="date" name="data_fim">
+              <div class="error-msg" id="lblErroDataInicio"></div>
               <br>
               <br>
 
@@ -121,6 +122,23 @@ extend_styles([ 'css.admin.financas' ]);
 
       $('#frm-entrada').submit(function(event) {
         $('.money').val($('.money').maskMoney('unmasked')[0]);
+      });
+
+      // Verificar se a data de início é menor que a data de fim
+      $('input[name=data_inicio]').blur(({ currentTarget }) => { 
+        let erro = '';
+        const dataInicio = new Date(currentTarget.value);
+        const dataFim = new Date($('input[name=data_fim]').val());
+
+        if (dataInicio >= dataFim) {
+          $('#btn-register').prop('disabled', true);
+          erro = '* A data de início deve ser menor que a data de fim';
+        } else {
+          $('#btn-register').prop('disabled', false);
+          erro = '';
+        }
+
+        $('#lblErroDataInicio').text(erro);
       });
     });
   </script>
