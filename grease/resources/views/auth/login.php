@@ -92,7 +92,7 @@ use_js_scripts([ 'js.scriptindex' ]);
                         <input type="email" placeholder="Email" name="email" required>
                     </div>
                     <div class="field">                      
-                      <input type="password" name="password" id="inputPassword" required>
+                      <input type="password" placeholder="Senha" name="password" id="inputPassword" required>
                     </div>
 
                     <div class="field btn">
