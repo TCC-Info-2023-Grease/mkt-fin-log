@@ -309,4 +309,78 @@ class Caixa
     }
   }
 
+  /**
+   * Obtém os dados de despesas e receitas por mês e calcula os saldos mensais
+   *
+   * @return array Um array associativo contendo as receitas, despesas e saldos por mês
+   */
+  public function obterDadosDespesasReceitasPorMes()
+  {
+    // Consulta para obter as receitas e despesas por mês do banco de dados
+    $query = "
+      SELECT 
+        DATE_FORMAT(data_movimentacao, '%b') as mes,
+        SUM(CASE WHEN LOWER(tipo_movimentacao) = 'receita' THEN valor ELSE 0 END) as receita,
+        SUM(CASE WHEN LOWER(tipo_movimentacao) = 'despesa' THEN valor ELSE 0 END) as despesa
+      FROM caixa
+      GROUP BY mes
+    ";
+    $result = $this->mysqli->query($query);
+
+    // Inicializa os arrays para armazenar os dados
+    $meses = [];
+    $receitas = [];
+    $despesas = [];
+    $saldos = [];
+    $balance = 0;
+
+    while ($row = $result->fetch_assoc()) {
+      $meses[] = $row['mes'];
+      $receitas[] = (float)$row['receita'];
+      $despesas[] = (float)$row['despesa'];
+      $balance += (float)$row['receita'] - (float)$row['despesa'];
+      $saldos[] = $balance;
+    }
+
+    // Retornar os dados em um array associativo
+    return [
+      'meses' => $meses,
+      'receitas' => $receitas,
+      'despesas' => $despesas,
+      'saldos' => $saldos
+    ];
+  }
+
+  /**
+   * Obtém os dados das categorias com os totais de despesas e receitas
+   *
+   * @return array Retorna um array com os dados das categorias e seus totais
+   */
+  public function obterDadosCategorias()
+  {
+    $dadosCategorias = array();
+
+    // Consulta SQL para obter os totais de despesas e receitas por categoria
+    $sql = "SELECT 
+              categoria, 
+              SUM(CASE WHEN LOWER(tipo_movimentacao) = 'despesa' THEN valor ELSE 0 END) as total_despesa,
+              SUM(CASE WHEN LOWER(tipo_movimentacao) = 'receita' THEN valor ELSE 0 END) as total_receita
+            FROM 
+              $this->tabela
+            GROUP BY categoria";
+
+    // Executa a consulta
+    $result = $this->mysqli->query($sql);
+
+    // Verifica se a consulta foi bem-sucedida
+    if ($result) {
+      // Converte os resultados em um array associativo
+      while ($row = $result->fetch_assoc()) {
+        $dadosCategorias[] = $row;
+      }
+    }
+
+    return $dadosCategorias;
+  }
+
 }
