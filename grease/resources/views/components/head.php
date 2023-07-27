@@ -80,6 +80,10 @@
 </script> 
 <!-- # /Sweet Alert # -->
 
+<!-- Adicione o script do Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 <!--  
     .-----.
    .' -   - '.
