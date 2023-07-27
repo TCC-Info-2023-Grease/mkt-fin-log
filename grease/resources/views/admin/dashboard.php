@@ -43,7 +43,7 @@ extend_styles([ 'css.admin.financas' ]);
           <div class="boxes">
             <div 
                 class="box 
-                  <?php if ($data['saldo_atual'] < 0): ?>
+                  <?php if ($data['saldo_atual'] <= 0): ?>
                     box2
                   <?php elseif ($data['saldo_atual'] > 0): ?>
                     box1

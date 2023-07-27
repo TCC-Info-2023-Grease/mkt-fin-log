@@ -593,6 +593,23 @@ nav.close ~ .dashboard .top{
 }
 
 
+.dash-estatistics {
+   background: snow;
+   box-shadow: -2px 0px 11px 3px #efeaea;
+   padding: 21px 18px;
+   border-radius: 5px;
+}
+
+.dash-estatistics .title {
+    margin-top: 6px;
+    margin-bottom: 12px;
+}
+
+summary {
+    cursor: pointer;
+}
+
+
 
 @media (max-width: 1000px) {
     nav{
