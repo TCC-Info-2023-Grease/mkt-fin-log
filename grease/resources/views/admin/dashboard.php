@@ -1,3 +1,23 @@
+<?php
+# ------ Configurações Básicas
+require dirname(dirname(dirname(__DIR__))) . '/config.php';
+global $_ENV;
+
+import_utils(['auth']);
+
+Auth::check('adm');
+ 
+import_utils([
+  'extend_styles', 
+  'use_js_scripts', 
+  'render_component',
+  'Money'
+]);
+
+include $_ENV['PASTA_CONTROLLER'] . '/Caixa/AdminDashboardController.php';
+//print_r($data);
+?>
+
 <!------- HEAD --------->
 <?php
 render_component('head');
@@ -21,8 +41,7 @@ extend_styles([ 'css.admin.financas' ]);
         <div class="overview">
           <div class="title"> <span class="text">Olá, <?= ucfirst($_SESSION['usuario']['nome']); ?></span> </div>
           <div class="boxes">
-            <?php if (isset($data['saldo_atual'])): ?>
-              <div 
+            <div 
                 class="box 
                   <?php if ($data['saldo_atual'] < 0): ?>
                     box2
@@ -37,9 +56,7 @@ extend_styles([ 'css.admin.financas' ]);
                    <?= Money::format($data['saldo_atual']); ?>
                 </span> 
               </div>
-            <?php endif; ?>
 
-            <?php if (isset($data['total_gasto']) && isset($data['total_necessario'])): ?>
               <div 
                 class="box 
                   <?php if ($data['total_gasto'] < $data['total_necessario']): ?>
@@ -61,8 +78,7 @@ extend_styles([ 'css.admin.financas' ]);
                 <span class="number">
                   <?= Money::format($data['total_necessario']); ?>
                 </span> 
-              </div>
-            <?php endif; ?>
+              </div>   
           </div>
         </div>
         <br><br>
