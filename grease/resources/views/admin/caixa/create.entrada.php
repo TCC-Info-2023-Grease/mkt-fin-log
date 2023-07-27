@@ -81,7 +81,7 @@ extend_styles([ 'css.admin.financas' ]);
         <input 
           type="hidden" 
           name="tipo_movimentacao" 
-          value="Entrada" 
+          value="Receita" 
         />
 
         <label for="categoria_escolhida">                                                   
