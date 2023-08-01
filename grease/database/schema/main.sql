@@ -132,7 +132,7 @@ CREATE TABLE Materiais (
         REFERENCES CategoriasMaterial (categoria_id),
     usuario_id INT NOT NULL,
      FOREIGN KEY (usuario_id)
-        REFERENCES Usuario (usuario_id),
+        REFERENCES Usuarios (usuario_id),
 
 
 	-- Atibutos
