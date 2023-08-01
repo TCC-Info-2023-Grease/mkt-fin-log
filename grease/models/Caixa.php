@@ -118,7 +118,7 @@ class Caixa
           '" . $dados['descricao'] . "',
           '" . $dados['data_movimentacao'] . "',
           '" . $dados['valor'] . "',
-          '" . $dados['tipo_movimentacao'] . "',
+          LOWER('" . $dados['tipo_movimentacao'] . "'),
           '" . $dados['forma_pagamento'] . "',
           '" . $dados['obs'] . "'
         );
@@ -158,7 +158,7 @@ class Caixa
           '" . $dados['descricao'] . "',
           '" . $dados['data_movimentacao'] . "',
           '" . $dados['valor'] . "',
-          '" . $dados['tipo_movimentacao'] . "',
+          LOWER('" . $dados['tipo_movimentacao'] . "'),
           '" . $dados['forma_pagamento'] . "',
           '" . $dados['obs'] . "'
         );
@@ -186,7 +186,7 @@ class Caixa
       FROM 
         CAIXA
       WHERE 
-        tipo_movimentacao = 'Entrada'
+        tipo_movimentacao = 'receita'
     ";
     $query_saida = "
       SELECT 
@@ -194,7 +194,7 @@ class Caixa
       FROM 
         CAIXA
       WHERE 
-        tipo_movimentacao = 'Saida'
+        tipo_movimentacao = 'despesa'
     ";
 
     $result_entrada = $this->mysqli->query($query_entrada);  
@@ -245,7 +245,7 @@ class Caixa
           FROM 
               " . $this->tabela . "
           WHERE 
-              tipo_movimentacao = 'Saida'
+              tipo_movimentacao = 'despesa'
       ";
 
       $result = $this->mysqli->query($query);

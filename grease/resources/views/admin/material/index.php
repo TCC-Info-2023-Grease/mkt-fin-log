@@ -16,7 +16,7 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
 
-//print_r($_SESSION);
+//print_r($materiais);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
@@ -102,13 +102,13 @@ extend_styles([ 'css.admin.financas' ]);
                       <?= $material['material_id']; ?>
                     </td>
                     <td>
-                      <?= $material['nome']; ?>
+                      <?= $material['nome_material']; ?>
                     </td>
                     <td>
                       <img  
                         width="200px"
                         src="<?= $_ENV['STORAGE'].  '/image/material/' .$material['foto_material']; ?>" 
-                        alt="<?= $material['nome']; ?>" 
+                        alt="<?= $material['nome_material']; ?>" 
                       />
                     </td>  
                     <td>

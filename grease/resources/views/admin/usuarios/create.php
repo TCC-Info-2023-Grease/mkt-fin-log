@@ -83,6 +83,7 @@ extend_styles([ 'css.admin.financas' ]);
                     <input type="number" name="cpf" required><br>
                     <span id="lblErroCpf" class="error-msg"></span><br>
 
+                    <label for="password">Senha:</label>
                     <input type="password" name="password" id="inputPassword" required>
                     <i class="fas fa-eye-slash" id="togglePassword"></i>                    
                     <br>

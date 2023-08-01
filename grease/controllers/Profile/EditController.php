@@ -36,13 +36,23 @@ $campos_validos =  (
 # ----- Show  
 $usuario = new Usuario($mysqli);
 
+if (isset($_FILES['profile_picture']) && !empty($_FILES['profile_picture'])) {
+  if (count($_FILES['profile_picture']['tmp_name']) > 0) {
+    for ($q = 0; $q < count($_FILES['profile_picture']['tmp_name']); $q++) {
+      $nomeDoArquivo = $_FILES['profile_picture']['name'][$q];
+      move_uploaded_file($_FILES['profile_picture']['tmp_name'][$q], '../../storage/image/usuario/' . $nomeDoArquivo);
+    }
+  }
+}
+
 $dados = [
   'usuario_id' => $_POST['usuario_id'],
   'nome' => $_POST['nome'],
   'email' => $_POST['email'],
   'celular' => $_POST['celular'],
   'idade' => intval($_POST['idade']),
-  'cpf' => $_POST['cpf'] ?? null
+  'cpf' => $_POST['cpf'] ?? null,
+  'foto_perfil' => $nomeDoArquivo
 ];
 
 try {

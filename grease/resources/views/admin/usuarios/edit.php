@@ -112,14 +112,15 @@ extend_styles(['css.admin.financas']);
           <br>
           <br>
 
-          <label for="foto_perfil">Foto de Perfil: <br> <br>        
+          <label for="foto_perfil">Foto de Perfil: <br> <br>    
+          
           <center>
-              <img  
-            style="border-radius: 50%;border: 4px solid black;padding: 2px"
-            width="200px"
-            src="<?= $_ENV['STORAGE']. '/image/usuario/' .$dados['foto_perfil']; ?>" 
-            alt="<?= $usuario['nome']; ?>" 
-          />    
+            <img  
+              style="border-radius: 50%;border: 4px solid black;padding: 2px"
+              width="200px"
+              src="<?= $_ENV['STORAGE']. '/image/usuario/' .$dados['foto_perfil']; ?>" 
+              alt="<?= $usuario['nome']; ?>" 
+            />    
           </center>         
           </label><br>
           <input type="file" name="profile_picture[]" class="input-file" placeholder="Foto de perfil" />

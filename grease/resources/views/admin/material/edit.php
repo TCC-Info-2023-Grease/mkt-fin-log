@@ -18,6 +18,7 @@ import_utils([
 $categoria_material = new CategoriaMaterial($mysqli);
 $categorias = $categoria_material->buscarTodos();
 $materialData = $_POST;
+//print_r($materialData);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
@@ -157,6 +158,7 @@ input[type="date"]::-webkit-calendar-popup {
                 method="POST" 
                 action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/UpdateController.php"
                 enctype="multipart/form-data"
+                id="frm-entrada"
             >
                 <input 
                     type="hidden" 
@@ -165,7 +167,7 @@ input[type="date"]::-webkit-calendar-popup {
                     value="<?= $materialData['material_id']; ?>" />
 
                 <label for="nome">Nome</label>
-                <input type="text" class="text" name="nome" placeholder="Corda de arame..." value="<?= $materialData['nome']; ?>">
+                <input type="text" class="text" name="nome" placeholder="Corda de arame..." value="<?= $materialData['nome_material']; ?>">
                 <br><br>
 
                 <label for="categoria">Categoria</label>

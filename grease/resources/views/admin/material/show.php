@@ -213,7 +213,7 @@ extend_styles([ 'css.admin.financas' ]);
                     <img  
                       style="border-radius: 50%;border: 4px solid black;padding: 2px"
                       width="200px"
-                      src="<?= $_ENV['STORAGE'].  '/image/usuario/' .$material['foto_perfil']; ?>" 
+                      src="<?= $_ENV['STORAGE'].  '/image/usuarios/' .$material['foto_perfil']; ?>" 
                       alt="<?= $material['nome_usuario']; ?>" 
                     />             
                   </span>

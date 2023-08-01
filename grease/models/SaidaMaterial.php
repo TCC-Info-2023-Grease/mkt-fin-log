@@ -29,7 +29,7 @@ class SaidaMaterial
     public function cadastrar($dados = [])
     {
         $query = "
-            INSERT INTO {$this->tabela} (
+            INSERT INTO ". $this->tabela. " (
                 saida_id,
                 material_id,  
                 caixa_id, 
@@ -40,10 +40,13 @@ class SaidaMaterial
             VALUES (?, ?, ?, ?, ?, ?)
         ";
 
+        // Armazene o valor NULL em uma variável
+        $saida_id = NULL;
+
         $stmt = $this->mysqli->prepare($query);
         $stmt->bind_param(
             "iisids",
-            NULL,
+            $saida_id, // Use a variável aqui em vez de NULL
             $dados['material_id'],
             $dados['caixa_id'],
             $dados['usuario_id'],
@@ -54,6 +57,7 @@ class SaidaMaterial
         $stmt->execute();
         $stmt->close();
     }
+
 
     /**
      * Busca todos os registros de Saída de Material cadastrados no sistema

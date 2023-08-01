@@ -1,6 +1,6 @@
 <?php
 #------- Variaveis de Ambiente
-$url_base = "http://localhost/grease";
+$url_base = "http://localhost:8080/grease";
 
 $_ENV = [
   # CAMINHOS DE PASTAS 

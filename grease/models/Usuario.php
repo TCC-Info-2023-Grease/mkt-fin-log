@@ -240,7 +240,7 @@ class Usuario
     ");
 
     $stmt->bind_param(
-        "ssssisiss", 
+        "ssssisssi", 
         $dados['nome'],
         $dados['email'],
         $dados['cpf'],
