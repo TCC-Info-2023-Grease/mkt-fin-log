@@ -137,9 +137,7 @@ extend_styles([ 'css.admin.financas' ]);
             <input type="file" class="text input-file" name="foto_material[]">
             <br><br>
             
-            <label for="status_material">Status do material</label>
-            <input type="text" class="text" name="status_material" placeholder="Ok">
-            <br><br>
+            <input type="hidden" class="text" name="status_material" value="Ok">
 
             <input type="submit" value="salvar">
         </form>
@@ -161,6 +159,7 @@ extend_styles([ 'css.admin.financas' ]);
       });
 
       $('#frm-entrada').submit(function(event) {
+        event.preventDefault();
         $('.money').val($('.money').maskMoney('unmasked')[0]);
       });
     });

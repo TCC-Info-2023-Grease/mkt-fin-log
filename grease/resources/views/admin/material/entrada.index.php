@@ -78,12 +78,12 @@ extend_styles([ 'css.admin.financas' ]);
               <?php foreach ($entradas as $entrada): ?>
               <tr>
                 <td>
-                  <a href="<?= $_ENV['VIEWS']; ?>/admin/usuario/show.php?id=<?= $entrada['usuario_id']; ?>">
+                  <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/ShowController.php?id=<?= $entrada['usuario_id']; ?>">
                     <?= $entrada['nome_usuario']; ?>
                   </a>
                 </td>
                 <td>
-                  <a href="<?= $_ENV['VIEWS']; ?>/admin/material/show.php?id=<?= $entrada['material_id']; ?>">
+                  <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Material/ShowController.php?id=<?= $entrada['material_id']; ?>">
                     <?= $entrada['nome_material']; ?>
                   </a>
                 </td>

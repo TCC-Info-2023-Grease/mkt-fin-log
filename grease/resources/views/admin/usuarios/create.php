@@ -51,7 +51,7 @@ extend_styles([ 'css.admin.financas' ]);
     Swal.fire({
       title: '<?php echo $_SESSION['fed_usuario']['title']; ?>',
       text: '<?php echo $_SESSION['fed_usuario']['msg']; ?>',
-      icon: '<?php echo $_SESSION['fed_usuario']['icon']; ?>',
+      icon: 'warning',
       confirmButtonText: 'OK'
     })
   </script>
@@ -109,7 +109,7 @@ extend_styles([ 'css.admin.financas' ]);
                     <input type="file" name="profile_picture[]" required class="input-file"><br><br>
 
                     <input type="hidden" name="tipo_usuario" value="adm">
-                    <input type="submit" id="btn-register" value="Cadastrar">
+                    <input type="submit"  value="Cadastrar">
                 </form>
 					</div>
       </div>

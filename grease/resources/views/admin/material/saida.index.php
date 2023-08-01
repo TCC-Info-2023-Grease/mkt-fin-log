@@ -82,7 +82,7 @@ extend_styles([ 'css.admin.financas' ]);
                     </a>
                   </td>
                   <td>
-                    <a href="<?= $_ENV['VIEWS']; ?>/admin/material/show.php?id=<?= $saida['material_id']; ?>">
+                    <a href="<?=  $_ENV['URL_CONTROLLERS']; ?>/Material/ShowController.php?id=<?= $saida['material_id']; ?>">
                       <?= $saida['nome_material']; ?>
                     </a>
                   </td>
