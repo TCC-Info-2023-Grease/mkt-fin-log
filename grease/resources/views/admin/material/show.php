@@ -16,7 +16,7 @@ import_utils([
 
 global $_ENV;   
 
-//print_r($_POST);
+print_r($_POST);
 $material = $_POST;
 
 if (!isset($_POST) && empty($_POST)) navegate($_ENV['VIEWS']. '/adm/material/');

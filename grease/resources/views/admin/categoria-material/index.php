@@ -78,6 +78,7 @@ extend_styles([ 'css.admin.financas' ]);
             <span class="text">Categoria dos Materiais</span> 
         </div>
         
+        <?php if (isset($categorias) || !empty($categorias)) { ?> 
         <table id="myTable" class="display">
             <thead>
                 <tr>
@@ -113,6 +114,9 @@ extend_styles([ 'css.admin.financas' ]);
                 </tr>
                 <?php endforeach; ?>
             </tbody>
+            <?php } else { ?>
+            <h3>Sem inserções no caixa</h3>
+            <?php } ?>
         </table>
       </div>
     </div>
