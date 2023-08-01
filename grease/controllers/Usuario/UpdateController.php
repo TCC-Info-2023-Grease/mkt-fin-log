@@ -34,7 +34,7 @@ if (isset($_FILES['profile_picture']) && !empty($_FILES['profile_picture'])) {
   if (count($_FILES['profile_picture']['tmp_name']) > 0) {
     for ($q = 0; $q < count($_FILES['profile_picture']['tmp_name']); $q++) {
       $nomeDoArquivo = $_FILES['profile_picture']['name'][$q];
-      move_uploaded_file($_FILES['profile_picture']['tmp_name'][$q], '../../storage/image/usuario/' . $nomeDoArquivo);
+      move_uploaded_file($_FILES['profile_picture']['tmp_name'][$q], '../../storage/image/usuarios/' . $nomeDoArquivo);
     }
   }
 }

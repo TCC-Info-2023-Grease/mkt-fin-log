@@ -17,7 +17,7 @@ CREATE TABLE meta (
   data_inicio DATE,
   data_fim DATE,
   total_necessario DECIMAL(10, 2),
-  status INT(1) NOT NULL DEFAULT 0;
+  status INT(1) NOT NULL DEFAULT 0
 );
 
 
@@ -47,7 +47,7 @@ CREATE TABLE Usuarios (
     genero CHAR(1),
     celular VARCHAR(25),
     foto_perfil VARCHAR(200) 
-        DEFAULT 'profile_default.png';
+        DEFAULT 'profile_default.png'
 );
 
 
@@ -132,7 +132,7 @@ CREATE TABLE Materiais (
         REFERENCES CategoriasMaterial (categoria_id),
     usuario_id INT NOT NULL,
      FOREIGN KEY (usuario_id)
-        REFERENCES Usuario (usuario_id),
+        REFERENCES Usuarios (usuario_id),
 
 
 	-- Atibutos

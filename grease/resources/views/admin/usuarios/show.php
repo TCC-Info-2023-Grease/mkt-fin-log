@@ -70,12 +70,11 @@ extend_styles(['css.admin.financas']);
                 <img  
                   style="border-radius: 50%;border: 4px solid black;padding: 2px"
                   width="200px"
-                  src="<?= $_ENV['STORAGE']. '/image/usuario/' .$usuario['foto_perfil']; ?>" 
+                  src="<?= $_ENV['STORAGE']. '/image/usuarios/' .$usuario['foto_perfil']; ?>" 
                   alt="<?= $usuario['nome']; ?>" 
                 />             
               </span>
-            </div>
-
+            </div> 
             <div class="data names">
               <span class="data-title">Nome</span>
               <span class="data-list">

@@ -72,6 +72,7 @@ extend_styles([ 'css.admin.financas' ]);
             method="POST" 
             action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/CadastroController.php"
             enctype="multipart/form-data"
+            id="frm-entrada"
           >
             <input type="hidden" name="usuario_id" value="<?= $_SESSION['usuario']['usuario_id'] ?>" />
 

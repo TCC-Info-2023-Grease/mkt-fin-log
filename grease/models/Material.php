@@ -65,7 +65,7 @@ class Material
     {
         $sql = $this->mysqli->query("
             SELECT 
-                m.*, 
+                m.nome as nome_material, m.*, 
                 c.nome AS nome_categoria, 
                 u.nome AS nome_usuario, u.*
             FROM 
@@ -118,7 +118,7 @@ class Material
 
         $stmt = $this->mysqli->prepare($query);
         $stmt->bind_param(
-            "isissdddssdsss",
+            "isissdddssdssss",
             $dados['usuario_id'],
             $dados['nome'],
             $dados['categoria_id'],

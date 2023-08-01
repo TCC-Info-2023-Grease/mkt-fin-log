@@ -14,9 +14,13 @@ $dadosDespesasReceitasPorMes = $caixa->obterDadosDespesasReceitasPorMes();
 $totalReceitas = array_sum($dadosDespesasReceitasPorMes['receitas']);
 $totalDespesas = array_sum($dadosDespesasReceitasPorMes['despesas']);
 
-$porcentagemDespesas = ($totalDespesas / ($totalReceitas + $totalDespesas)) * 100;
-$porcentagemReceitas = 100 - $porcentagemDespesas;
-
+if ($totalDespesas != 0 || $totalReceitas != 0) {
+  $porcentagemDespesas = ($totalDespesas / ($totalReceitas + $totalDespesas)) * 100;
+  $porcentagemReceitas = 100 - $porcentagemDespesas;
+} else {
+  $porcentagemDespesas = 0;
+  $porcentagemReceitas = 0;
+}
 
 return $data = [
   'caixa'             => $caixa->buscarTodos(),

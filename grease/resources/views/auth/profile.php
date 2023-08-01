@@ -25,7 +25,7 @@ if(isset($_SESSION['ultimo_acesso'])) {
   }
 } 
 
-//print_r($_SESSION['usuario']);
+print_r($_SESSION['usuario']);
 ?>
 
 
@@ -98,7 +98,7 @@ extend_styles([ 'css.styleconta' ]);
                   
                   <?php if ($_SESSION['usuario']['tipo_usuario'] == 'adm'): ?>
                   <li>
-                    <img width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuario/' . $usuario['foto_perfil']; ?>" alt="<?= $usuario['nome']; ?>" />
+                    <img width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>" alt="<?= $usuario['nome']; ?>" />
                     <br/>
                   </li>
                   <?php endif; ?>

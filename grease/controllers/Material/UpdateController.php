@@ -66,7 +66,7 @@ $dados = [
   'status_material'   => $_POST['status_material']
 ];
 
-// print_r($dados);
+//print_r($dados);
 $material->atualizar($dados);
 navegate($_ENV['ROUTE'] . 'admin.material.index');
 

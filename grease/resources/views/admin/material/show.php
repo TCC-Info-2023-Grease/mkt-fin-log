@@ -16,7 +16,7 @@ import_utils([
 
 global $_ENV;   
 
-//print_r($_POST);
+print_r($_POST);
 $material = $_POST;
 
 if (!isset($_POST) && empty($_POST)) navegate($_ENV['VIEWS']. '/adm/material/');
@@ -213,7 +213,7 @@ extend_styles([ 'css.admin.financas' ]);
                     <img  
                       style="border-radius: 50%;border: 4px solid black;padding: 2px"
                       width="200px"
-                      src="<?= $_ENV['STORAGE'].  '/image/usuario/' .$material['foto_perfil']; ?>" 
+                      src="<?= $_ENV['STORAGE'].  '/image/usuarios/' .$material['foto_perfil']; ?>" 
                       alt="<?= $material['nome_usuario']; ?>" 
                     />             
                   </span>

@@ -77,7 +77,8 @@ extend_styles([ 'css.admin.financas' ]);
         <div class="title"> 
             <span class="text">Meta</span> 
         </div>
-        
+      
+        <?php if (isset($metas) && !empty($metas)) { ?>
         <table id="myTable" class="display" style="width:950px;">
             <thead>
                 <tr>
@@ -130,6 +131,9 @@ extend_styles([ 'css.admin.financas' ]);
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <?php } else { ?>
+        <h3>Sem metas</h3>
+        <?php } ?>
       </div>
     </div>
   </section>
