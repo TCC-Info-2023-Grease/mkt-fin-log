@@ -14,6 +14,8 @@ import_utils([
     'Money'
 ]);
 
+//print_r($_SESSION);
+
 include $_ENV['PASTA_CONTROLLER'] . '/Usuario/ConsultaController.php';
 
 if (isset($_SESSION['ultimo_acesso'])) {

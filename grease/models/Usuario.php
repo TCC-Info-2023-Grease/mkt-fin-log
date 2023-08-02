@@ -233,14 +233,13 @@ class Usuario
             senha = ?, 
             idade = ?, 
             genero = ?, 
-            celular = ?, 
-            foto_perfil = ? 
+            celular = ?
         WHERE 
             usuario_id = ? 
     ");
 
     $stmt->bind_param(
-        "ssssisssi", 
+        "ssssissi", 
         $dados['nome'],
         $dados['email'],
         $dados['cpf'],
@@ -248,7 +247,6 @@ class Usuario
         $dados['idade'],
         $dados['genero'],
         $dados['celular'],
-        $dados['foto_perfil'],
         $dados['usuario_id']
     );
       
@@ -257,32 +255,32 @@ class Usuario
     }
 
     public function deletar($id)
-{
-    $query = "
-        DELETE FROM 
-            " . $this->tabela . " 
-        WHERE usuario_id = ?
-    ";
+    {
+        $query = "
+            DELETE FROM 
+                " . $this->tabela . " 
+            WHERE usuario_id = ?
+        ";
 
-    $stmt = $this->mysqli->prepare($query);
+        $stmt = $this->mysqli->prepare($query);
 
-    if (!$stmt) {
-        die('Erro na preparação da query: ' . $this->mysqli->error);
-    }
-
-    $stmt->bind_param('i', $id);
-
-    if ($stmt->execute()) {
-        if ($stmt->affected_rows > 0) {
-            return true;
-        } else {
-            return false;
+        if (!$stmt) {
+            die('Erro na preparação da query: ' . $this->mysqli->error);
         }
-    } else {
-        die('Erro na execução da query: ' . $this->mysqli->error);
-    }
 
-    $stmt->close();
-}
+        $stmt->bind_param('i', $id);
+
+        if ($stmt->execute()) {
+            if ($stmt->affected_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            die('Erro na execução da query: ' . $this->mysqli->error);
+        }
+
+        $stmt->close();
+    }
 
 }
