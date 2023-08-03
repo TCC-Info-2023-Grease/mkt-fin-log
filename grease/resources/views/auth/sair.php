@@ -1,7 +1,9 @@
 <?php  
-session_start();
-session_destroy();
-header("Location: http://localhost/grease");
-exit();
+require dirname(dirname(dirname(__DIR__))) . '\config.php';
+global $_ENV;
+
+import_utils([ 'navegate', 'auth' ]);
+
+Auth::logout();
 
 ?>
