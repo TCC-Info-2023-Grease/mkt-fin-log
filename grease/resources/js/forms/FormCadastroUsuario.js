@@ -102,11 +102,13 @@ $(document).ready(() => {
   const togglePassword = document.getElementById('togglePassword');
   const inputPassword = document.getElementById('inputPassword');
 
-  togglePassword.addEventListener('click', () => {
-    const type = inputPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-    inputPassword.setAttribute('type', type);
-
-    // Altera o ícone do olho conforme a visibilidade da senha
-    togglePassword.classList.toggle('fa-eye-slash');
-    togglePassword.classList.toggle('fa-eye');
-  });
+  if (togglePassword) {
+    togglePassword.addEventListener('click', () => {
+      const type = inputPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+      inputPassword.setAttribute('type', type);
+  
+      // Altera o ícone do olho conforme a visibilidade da senha
+      togglePassword.classList.toggle('fa-eye-slash');
+      togglePassword.classList.toggle('fa-eye');
+    });
+  }
