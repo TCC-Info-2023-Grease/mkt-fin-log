@@ -25,7 +25,7 @@ if (!$campos_validos) {
     'title' => 'Erro!',
     'msg' => 'Campos Invalidos'
   ];
-  navegate($_ENV['VIEWS'] . '/auth/cadastrar.php');
+  navegate($_ENV['VIEWS'] . '/auth/login.php');
 }
 
 
@@ -70,7 +70,7 @@ try {
     'title' => 'Erro!',
     'msg' => 'Campos Invalidos'
   ];
-  navegate($_ENV['VIEWS'] . '/auth/cadastrar.php');
+  navegate($_ENV['VIEWS'] . '/auth/login.php');
 }
 
 if (!$usuario->login($dados['email'], $dados['password'])) {
@@ -78,7 +78,7 @@ if (!$usuario->login($dados['email'], $dados['password'])) {
     'title' => 'Erro!',
     'msg' => 'Usuario não cadastrado'
   ];
-  navegate($_ENV['VIEWS'] . '/auth/cadastrar.php');
+  navegate($_ENV['VIEWS'] . '/auth/login.php');
 }
 
 $_SESSION['usuario'] = $usuario->buscar($dados['email']);
