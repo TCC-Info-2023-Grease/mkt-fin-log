@@ -3,7 +3,7 @@
 require dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php';
 global $_ENV;
 
-import_utils(['auth']);
+import_utils(['Auth']);
 
 Auth::check('adm');
  
@@ -34,10 +34,6 @@ extend_styles([ 'css.admin.financas' ]);
 <title>
   Finanças Admin 🕺 Grease
 </title>
-<script 
-  src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js"
-  type="text/javascript">
-</script>
 <!------- /HEAD --------->
 
 
@@ -86,6 +82,7 @@ extend_styles([ 'css.admin.financas' ]);
 
 
   <?php
+  use_js_scripts([ 'js.lib.maskMoney'  ]);
   use_js_scripts([ 'js.admin.financas' ]);
   ?> 
 </body>
