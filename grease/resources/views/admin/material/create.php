@@ -4,7 +4,7 @@ require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 
 global $_ENV;   
 
-import_utils(['auth']);
+import_utils(['Auth']);
 
 Auth::check('adm');
  
@@ -158,9 +158,10 @@ extend_styles([ 'css.admin.financas' ]);
         affixesStay: true
       });
 
-      $('#frm-entrada').submit(function(event) {
-        event.preventDefault();
-        $('.money').val($('.money').maskMoney('unmasked')[0]);
+       $('#frm-entrada').submit(function(event) {
+        $('.money').each(function() {
+          $(this).val($(this).maskMoney('unmasked')[0]);
+        });
       });
     });
   </script>
