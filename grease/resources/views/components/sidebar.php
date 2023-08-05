@@ -35,7 +35,7 @@
       <br>
 
 			<ul class="logout-mode">
-        <li><a  href="<?= $_ENV['VIEWS'] ?>/auth/profile.php">
+        <li><a  href="<?= $_ENV['URL_CONTROLLERS'] ?>/Auth/ProfileController.php?id=<?php echo $_SESSION['usuario']['usuario_id']?>">
               <i class="uil uil-user"></i>
               <span class="link-name">Perfil</span>
             </a></li>
