@@ -5,21 +5,21 @@ global $_ENV;
 
 import_utils(['Auth']);
 
+if (!isset($_POST) && empty($_POST)) navegate($_ENV['VIEWS']. '/adm/material/');
+
 Auth::check('adm');
- 
+
 import_utils([
-  'extend_styles', 
-  'use_js_scripts', 
+  'extend_styles',
+  'use_js_scripts',
   'render_component',
   'Money'
 ]);
 
-global $_ENV;   
+global $_ENV;
 
 //print_r($_POST);
 $material = $_POST;
-
-if (!isset($_POST) && empty($_POST)) navegate($_ENV['VIEWS']. '/adm/material/');
 ?>
 
 
@@ -60,41 +60,41 @@ extend_styles([ 'css.admin.financas' ]);
 
         <div class="overview">
         <div class="title"> <span class="text">Informações do Material</span> </div>
-        
+
         <div class="activity">
           <div class="activity-data">
               <div class="data names">
                 <span class="data-list">
-                    <img  
+                    <img
                       style="border-radius: 50%;border: 4px solid black;padding: 2px"
                       width="200px"
-                      src="<?= $_ENV['STORAGE'].  '/image/material/' .$material['foto_material']; ?>" 
-                      alt="<?= $material['nome']; ?>" 
-                    />             
+                      src="<?= $_ENV['STORAGE'].  '/image/material/' .$material['foto_material']; ?>"
+                      alt="<?= $material['nome_material']; ?>"
+                    />
                   </span>
               </div>
-              
+
               <div class="data names">
                 <span class="data-title">Valor Unitário</span>
-                
+
                 <span class="data-list">
-                   <?= Money::format($material['valor_unitario']); ?>            
+                   <?= Money::format($material['valor_unitario']); ?>
                  </span>
               </div>
 
               <div class="data names">
                 <span class="data-title">Valor Estimado</span>
-                
+
                 <span class="data-list">
-                   <?= Money::format($material['valor_estimado']); ?>            
+                   <?= Money::format($material['valor_estimado']); ?>
                  </span>
               </div>
 
               <div class="data names">
                 <span class="data-title">Valor Gasto</span>
-                
+
                 <span class="data-list">
-                   <?= Money::format($material['valor_gasto']); ?>            
+                   <?= Money::format($material['valor_gasto']); ?>
                  </span>
               </div>
             </div>
@@ -105,15 +105,15 @@ extend_styles([ 'css.admin.financas' ]);
                 <span class="data-title">
                   Material
                 </span>
-                
+
                 <span class="data-list">
-                   <?= $material['nome']; ?>
+                   <?= $material['nome_material']; ?>
                 </span>
             </div>
 
               <div class="data names">
                 <span class="data-title">Data Cadastro</span>
-                
+
                 <span class="data-list">
                    <?= date('d/m/Y', strtotime($material['datahora_cadastro'])); ?>
                 </span>
@@ -121,9 +121,9 @@ extend_styles([ 'css.admin.financas' ]);
 
               <div class="data names">
                 <span class="data-title">Categoria</span>
-                
+
                 <span class="data-list">
-                  <?= $material['nome_categoria']; ?>    
+                  <?= $material['nome_categoria']; ?>
                 </span>
               </div>
           </div>
@@ -132,77 +132,83 @@ extend_styles([ 'css.admin.financas' ]);
           <div class="activity-data">
             <div class="data names">
                 <span class="data-title">Descrição</span>
-                
+
                 <span class="data-list">
-                  <?= !empty($material['descricao'])? $material['descricao'] : 'N/A'; ?>
+                    <details>
+                        <summary>Mostrar</summary>
+                        <?= !empty($material['descricao'])? $material['descricao'] : 'N/A'; ?>
+                    </details>
                 </span>
               </div>
           </div>
           <br><br>
-          
+
           <div class="activity-data">
               <div class="data names">
                 <span class="data-title">Obs</span>
-                
+
                 <span class="data-list">
-                  <?= !empty($material['obs'])? $material['obs'] : 'N/A'; ?>
+                    <details>
+                        <summary>Mostrar</summary>
+                        <?= !empty($material['obs'])? $material['obs'] : 'N/A'; ?>
+                    </details>
                 </span>
               </div>
-        </div>  
+        </div>
 
         <br><br>
         <div class="activity-data">
             <div class="data names">
                 <span class="data-title">Estoque Minimo</span>
-                
+
                 <span class="data-list">
-                  <?= $material['estoque_minimo']; ?>  
+                  <?= $material['estoque_minimo']; ?>
                 </span>
               </div>
 
               <div class="data names">
                 <span class="data-title">Estoque Atual</span>
-                
+
                 <span class="data-list">
-                  <?= $material['estoque_atual']; ?>  
+                  <?= $material['estoque_atual']; ?>
                 </span>
               </div>
 
               <div class="data names">
                 <span class="data-title">Status Material</span>
-                
+
                 <span class="data-list">
-                  <?= $material['status_material']; ?>  
+                  <?= $material['status_material']; ?>
                 </span>
               </div>
-        </div>  
+        </div>
         <br><br>
 
         <div class="activity-data">
             <div class="data names">
                 <span class="data-title">Unidade Medida</span>
-                
+
                 <span class="data-list">
-                  <?= $material['unidade_medida']; ?>  
+                  <?= $material['unidade_medida']; ?>
                 </span>
               </div>
 
               <div class="data names">
                 <span class="data-title">Data Validade</span>
-                
+
                 <span class="data-list">
-                  <?= date('d/m/Y', strtotime($material['data_validade'])); ?> 
+                  <?= date('d/m/Y', strtotime($material['data_validade'])); ?>
                 </span>
               </div>
 
               <div class="data names">
                 <span class="data-title">Status Material</span>
-                
+
                 <span class="data-list">
-                  <?= $material['status_material']; ?>  
+                  <?= $material['status_material']; ?>
                 </span>
               </div>
-        </div> 
+        </div>
         <br>
         <br>
         <br>
@@ -213,31 +219,31 @@ extend_styles([ 'css.admin.financas' ]);
          <div class="activity-data">
             <div class="data names">
                 <span class="data-list">
-                    <img  
+                    <img
                       style="border-radius: 50%;border: 4px solid black;padding: 2px"
                       width="200px"
-                      src="<?= $_ENV['STORAGE'].  '/image/usuarios/' .$material['foto_perfil']; ?>" 
-                      alt="<?= $material['nome_usuario']; ?>" 
-                    />             
+                      src="<?= $_ENV['STORAGE'].  '/image/usuarios/' .$material['foto_perfil']; ?>"
+                      alt="<?= $material['nome_usuario']; ?>"
+                    />
                   </span>
               </div>
 
             <div class="data names">
                 <span class="data-title">Usuario</span>
-                
+
                 <span class="data-list">
-                  <?= $material['nome_usuario']; ?>  
+                  <?= $material['nome_usuario']; ?>
                 </span>
               </div>
 
               <div class="data names">
                 <span class="data-title">Email</span>
-                
+
                 <span class="data-list">
-                  <?= $material['email']; ?> 
+                  <?= $material['email']; ?>
                 </span>
               </div>
-        </div>  
+        </div>
       </div>
     </div>
     </div>
@@ -252,5 +258,5 @@ extend_styles([ 'css.admin.financas' ]);
     });
   </script>
 </body>
-<!-------/ BODY --------->  
+<!-------/ BODY --------->
 
