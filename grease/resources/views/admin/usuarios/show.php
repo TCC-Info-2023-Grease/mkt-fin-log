@@ -70,7 +70,13 @@ extend_styles(['css.admin.financas']);
                 <img  
                   style="border-radius: 50%;border: 4px solid black;padding: 2px"
                   width="200px"
-                  src="<?= $_ENV['STORAGE']. '/image/usuarios/' .$usuario['foto_perfil']; ?>" 
+                  src="<?php 
+                    if (isset($usuario['foto_perfil']) && !empty($usuario['foto_perfil'])) {
+                      echo $_ENV['STORAGE']. '/image/usuarios/' .$usuario['foto_perfil'];
+                    } else {
+                      echo $_ENV['STORAGE']. '/image/usuarios/profile_default.png';  
+                    }
+                  ?>" 
                   alt="<?= $usuario['nome']; ?>" 
                 />             
               </span>

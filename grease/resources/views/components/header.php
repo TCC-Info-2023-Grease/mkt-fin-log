@@ -23,7 +23,8 @@
           <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>visitante.financas">Finanças</a></li>
           <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>visitante.makeof">Projeto</a></li>
         <?php } ?>
-        <li><a class="nav-link" href="<?= $_ENV['VIEWS'] ?>/auth/profile.php">Perfil</a></li>
+
+        <li><a class="nav-link" href="<?= $_ENV['URL_CONTROLLERS'] ?>/Auth/ProfileController.php?id=<?php echo $_SESSION['usuario']['usuario_id']?>">Perfil</a></li>
         <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>auth.sair">Sair</a></li>
       <?php } ?>
     </ul>

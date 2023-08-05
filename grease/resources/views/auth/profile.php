@@ -15,7 +15,6 @@ import_utils([
 ]);
 
 
-
 $usuarioData = [$_SESSION['usuario']];
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
