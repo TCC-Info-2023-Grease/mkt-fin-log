@@ -86,6 +86,11 @@ render_component('sidebar');
                 </thead>
 
                 <tbody>
+                <style type="text/css">
+                    th a i {
+                        font-size: 1.7rem;
+                    }
+                </style>
                 <?php foreach ($data['usuarios'] as $usuario): ?>
                     <tr>
                         <td>
@@ -102,9 +107,11 @@ render_component('sidebar');
                         </td>
                          <th style="padding: 26px;">
                           <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/ShowController.php?id=<?= $usuario['usuario_id']; ?>" class="icon-link ">
-                            <i class="fa-regular fa-eye"></i> Ver
+                            <i class="fa-regular fa-eye"></i>
                           </a>
                           <br>
+                          <br>
+                          <hr>
                           <br>
 
                             <a href="#"
@@ -113,7 +120,7 @@ render_component('sidebar');
                                }"
                                 class="icon-link delete"
                             >
-                                <i class="fa-solid fa-trash"></i> Deletar
+                                <i class="fa-solid fa-trash"></i>
                             </a>
                             <br/>
                             <br/>
@@ -124,9 +131,9 @@ render_component('sidebar');
                                }"
                                 class="icon-link edit"
                             >
-                                <i class="fa-solid fa-pen"></i> Editar
+                                <i class="fa-solid fa-pen"></i>
                             </a>
-                        </td>
+                        </th>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
