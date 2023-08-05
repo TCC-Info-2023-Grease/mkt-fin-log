@@ -2,15 +2,15 @@
 # ------ Configurações Básicas
 require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 
-global $_ENV;   
+global $_ENV;
 
 import_utils(['Auth']);
 
 Auth::check('adm');
- 
+
 import_utils([
-  'extend_styles', 
-  'use_js_scripts', 
+  'extend_styles',
+  'use_js_scripts',
   'render_component',
   'Money'
 ]);
@@ -23,12 +23,12 @@ $materialData = $_POST;
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
-  
+
   // Verifica se já passaram 5 minutos desde o último acesso
   if(time() - $ultimo_acesso > 100) {
     unset($_SESSION['fed_material']);
   }
-} 
+}
 ?>
 
 
@@ -139,7 +139,7 @@ input[type="date"]::-webkit-calendar-popup {
                 icon: 'error',
                 confirmButtonText: 'OK'
             })
-        </script>   
+        </script>
     <?php endif; ?>
 
 
@@ -154,16 +154,16 @@ input[type="date"]::-webkit-calendar-popup {
             <span class="text">Cadastro Material</span>
           </div>
 
-          <form 
-                method="POST" 
+          <form
+                method="POST"
                 action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Material/UpdateController.php"
                 enctype="multipart/form-data"
                 id="frm-entrada"
             >
-                <input 
-                    type="hidden" 
-                    class="text" 
-                    name="material_id" 
+                <input
+                    type="hidden"
+                    class="text"
+                    name="material_id"
                     value="<?= $materialData['material_id']; ?>" />
 
                 <label for="nome">Nome</label>
@@ -197,16 +197,16 @@ input[type="date"]::-webkit-calendar-popup {
                 <br><br>
 <label for="unidade_medida">Unidade de medida em Metros</label>
                 <input type="text" class="text" name="unidade_medida" placeholder="10 metros" value="<?= $materialData['unidade_medida']; ?>">
-                
+
                 <br><br>
 
                 <label for="estoque_minimo">Estoque mínimo</label>
                 <input type="number" class="text" name="estoque_minimo" placeholder="5 unidades" value="<?= $materialData['estoque_minimo']; ?>">
-                
+
                 <br><br>
 <label for="estoque_atual">Estoque atual</label>
                 <input type="number" class="text" name="estoque_atual" placeholder="2 unidades" value="<?= $materialData['estoque_atual']; ?>">
-                
+
                 <br><br>
 <label for="valor_unitario">Valor unitário</label>
                 <input type="text" class="money" name="valor_unitario" placeholder="R$15.00" value="<?= $materialData['valor_unitario']; ?>">
@@ -214,19 +214,19 @@ input[type="date"]::-webkit-calendar-popup {
                 <br>
 <label for="data_validade">Data de validade</label>
                 <input type="date" class="text" name="data_validade" placeholder="10/09/2024" value="<?= $materialData['data_validade']; ?>">
-                
+
                 <br><br>
 <label for="foto_material">Foto do material</label>
-                <img 
+                <img
                   width="300px"
-                  src="<?= $_ENV['STORAGE'].  '/image/material/' .$materialData['foto_material']; ?>" 
-                  alt="<?= $materialData['nome']; ?>" />
+                  src="<?= $_ENV['STORAGE'].  '/image/material/' .$materialData['foto_material']; ?>"
+                  alt="<?= $materialData['nome_material']; ?>" />
                 <input type="file" class="input-file" name="foto_material[]">
-                
+
                 <br><br>
 <label for="status_material">Status do material</label>
                 <input type="text" class="text" name="status_material" placeholder="Status ok" value="<?= $materialData['status_material']; ?>">
-                
+
                 <br><br>
 
                 <input type="submit" value="salvar">
@@ -235,7 +235,7 @@ input[type="date"]::-webkit-calendar-popup {
     </div>
   </section>
 
-    
+
   <?php
   use_js_scripts([ 'js.admin.financas' ]);
   ?>
