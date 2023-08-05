@@ -3,9 +3,10 @@
 require dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php';
 global $_ENV;
 
-import_utils(['auth']);
+import_utils(['Auth']);
 
 Auth::check('adm');
+if (!isset($_POST) && empty($_POST)) navegate($_ENV['VIEWS']. '/adm/caixa/');
  
 import_utils([
   'extend_styles', 
@@ -17,8 +18,6 @@ import_utils([
 
 //print_r($_POST);
 $caixa = $_POST;
-
-if (!isset($_POST) && empty($_POST)) navegate($_ENV['VIEWS']. '/adm/caixa/');
 ?>
 
 
@@ -66,7 +65,7 @@ extend_styles([ 'css.admin.financas' ]);
                     <img  
                       style="border-radius: 50%;border: 4px solid black;padding: 2px"
                       width="200px"
-                      src="<?= $_ENV['STORAGE'].  '/image/usuario/' .$caixa['foto_perfil']; ?>" 
+                      src="<?= $_ENV['STORAGE'].  '/image/usuarios/' .$caixa['foto_perfil']; ?>" 
                       alt="<?= $caixa['nome']; ?>" 
                     />                
                   </span>
@@ -125,6 +124,29 @@ extend_styles([ 'css.admin.financas' ]);
                 </span>
               </div>
           </div>
+          <br><br>
+
+          <div class="activity-data">
+            <div class="data names">
+                <span class="data-title">Descrição</span>
+                
+                <span class="data-list">
+                  <?= !empty($caixa['descricao'])? $caixa['descricao'] : 'N/A'; ?>
+                </span>
+              </div>
+          </div>
+          <br><br>
+
+          <div class="activity-data">
+              <div class="data names">
+                <span class="data-title">Obs</span>
+                
+                <span class="data-list">
+                  <?= !empty($caixa['obs'])? $caixa['obs'] : 'N/A'; ?>
+                </span>
+              </div>
+          </div>
+          
         </div>  
       </div>
     </div>

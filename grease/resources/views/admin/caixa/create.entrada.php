@@ -3,7 +3,7 @@
 require dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php';
 global $_ENV;
 
-import_utils(['auth']);
+import_utils(['Auth']);
 
 Auth::check('adm');
  
@@ -34,11 +34,8 @@ extend_styles([ 'css.admin.financas' ]);
 <title>
   Finanças Admin 🕺 Grease
 </title>
-<script 
-  src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js"
-  type="text/javascript">
-</script>
 <!------- /HEAD --------->
+
 
 <body>
   <?php
@@ -82,6 +79,11 @@ extend_styles([ 'css.admin.financas' ]);
           type="hidden" 
           name="tipo_movimentacao" 
           value="Receita" 
+        />
+        <input 
+          type="hidden" 
+          name="status_caixa" 
+          value="ok" 
         />
 
         <label for="categoria_escolhida">                                                   
@@ -137,20 +139,6 @@ extend_styles([ 'css.admin.financas' ]);
         <br>
         <br>
 
-        <label for="status_caixa">Status caixa:</label><br>
-        <select name="status_caixa" id="" required>
-          <option value="">
-            - Selecione uma opção -
-          </option>
-          <option value="Receitas">Aberta</option>
-          <option value="Fechada">Fechada</option>
-          <option value="Em andamento">Em andamento</option>
-          <option value="Concluída">Concluída</option>
-          <option value="Cancelada">Cancelada</option>
-        </select>
-        <br>
-        <br>
-
         <label for="obs">Observação:</label><br>
         <textarea 
           name="obs" 
@@ -170,6 +158,7 @@ extend_styles([ 'css.admin.financas' ]);
 
 
   <?php
+  use_js_scripts([ 'js.lib.maskMoney'  ]);
   use_js_scripts([ 'js.admin.financas' ]);
   ?>
   <script>
@@ -182,7 +171,9 @@ extend_styles([ 'css.admin.financas' ]);
       });
 
       $('#frm-entrada').submit(function(event) {
-        $('input[name=valor]').val($('input[name=valor]').maskMoney('unmasked')[0]);
+        $('.money').each(function() {
+          $(this).val($(this).maskMoney('unmasked')[0]);
+        });
       });
     });
   </script>

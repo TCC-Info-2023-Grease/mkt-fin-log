@@ -3,16 +3,18 @@
 require dirname(dirname(dirname(__DIR__))) . '\config.php';
 global $_ENV;
 
-import_utils(['auth']);
+import_utils(['Auth']);
 
-//Auth::check('vis');
- 
+Auth::isLogged();
+
 import_utils([
   'extend_styles', 
   'use_js_scripts', 
   'render_component',
   'navegate'
 ]);
+
+
 
 $usuarioData = [$_SESSION['usuario']];
 
@@ -25,7 +27,7 @@ if(isset($_SESSION['ultimo_acesso'])) {
   }
 } 
 
-print_r($_SESSION['usuario']);
+//print_r($_SESSION['usuario']);
 ?>
 
 

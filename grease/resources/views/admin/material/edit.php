@@ -4,7 +4,7 @@ require dirname(dirname(dirname(dirname(__DIR__)))) . '\config.php';
 
 global $_ENV;   
 
-import_utils(['auth']);
+import_utils(['Auth']);
 
 Auth::check('adm');
  
@@ -249,7 +249,9 @@ input[type="date"]::-webkit-calendar-popup {
       });
 
       $('#frm-entrada').submit(function(event) {
-        $('.money').val($('.money').maskMoney('unmasked')[0]);
+        $('.money').each(function() {
+          $(this).val($(this).maskMoney('unmasked')[0]);
+        });
       });
     });
   </script>

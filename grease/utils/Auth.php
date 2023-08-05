@@ -57,7 +57,11 @@ class Auth {
    */
   public static function isLogged()
   {
-    return isset($_SESSION['usuario']);
+    if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+      Auth::redirectToLogin();
+    }
+
+    return;
   }
 
   /**
@@ -87,7 +91,7 @@ class Auth {
    *
    * @return void
    */
-  private static function redirectToLogin()
+  public static function redirectToLogin()
   {
     self::redirectTo($_ENV['VIEWS'] . '/auth/login.php');
   }

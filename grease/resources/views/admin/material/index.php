@@ -3,7 +3,7 @@
 require dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php';
 global $_ENV;
 
-import_utils(['auth']);
+import_utils(['Auth']);
 
 Auth::check('adm');
  
@@ -16,16 +16,16 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
 
-//print_r($materiais);
+//print_r($_SESSION);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
   
   // Verifica se já passaram 5 minutos desde o último acesso
-  if(time() - $ultimo_acesso > 100) {
+  if (time() - $ultimo_acesso > 100) {
     unset($_SESSION['fed_material']);
-  }
+}
 } 
 ?>
 

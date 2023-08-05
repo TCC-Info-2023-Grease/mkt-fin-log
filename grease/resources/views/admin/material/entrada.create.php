@@ -3,7 +3,7 @@
 require dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php';
 global $_ENV;
 
-import_utils(['auth']);
+import_utils(['Auth']);
 
 Auth::check('adm');
  
@@ -38,10 +38,6 @@ extend_styles([ 'css.admin.financas' ]);
 <title>
   Finanças Admin 🕺 Grease
 </title>
-<script 
-  src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js"
-  type="text/javascript">
-</script>
 <!------- /HEAD --------->
 
 <body>
@@ -149,7 +145,7 @@ extend_styles([ 'css.admin.financas' ]);
           </textarea>
           <br><br>
 
-          <input type="submit" value="salvar" />
+          <input type="submit" value="Salvar" />
         </form>
       </div>
     </div>
@@ -157,6 +153,7 @@ extend_styles([ 'css.admin.financas' ]);
 
 
   <?php
+  use_js_scripts([ 'js.lib.maskMoney'  ]);
   use_js_scripts([ 'js.admin.financas' ]);
   ?>
   <script>
@@ -169,7 +166,7 @@ extend_styles([ 'css.admin.financas' ]);
       });
 
       $('#frm-entrada').submit(function(event) {
-        $('input[name=valor]').val($('input[name=valor]').maskMoney('unmasked')[0]);
+        $('.money').val($('.money').maskMoney('unmasked')[0]);
       });
     });
   </script>

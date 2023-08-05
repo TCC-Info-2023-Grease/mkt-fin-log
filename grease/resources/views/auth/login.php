@@ -29,26 +29,26 @@ use_js_scripts([ 'js.scriptindex' ]);
 <!------- BODY --------->
 <body>
  
-<?php if (isset($_GET['erro']) == 'campos_invalidos'): ?>
-    <script>
-        Swal.fire({
-            title: 'Erro!',
-            text: 'Campos invalidos!',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        })
-    </script>
-<?php endif; ?>
-<?php if (isset($_GET['erro']) == 'usuario'): ?>
-    <script>
-        Swal.fire({
-            title: 'Erro!',
-            text: 'Email e/ou senha incorretos!',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        })
-    </script>
-<?php endif; ?>
+  <?php if (isset($_GET['erro']) == 'campos_invalidos'): ?>
+      <script>
+          Swal.fire({
+              title: 'Erro!',
+              text: 'Campos invalidos!',
+              icon: 'error',
+              confirmButtonText: 'OK'
+          })
+      </script>
+  <?php endif; ?>
+  <?php if (isset($_GET['erro']) == 'usuario'): ?>
+      <script>
+          Swal.fire({
+              title: 'Erro!',
+              text: 'Email e/ou senha incorretos!',
+              icon: 'error',
+              confirmButtonText: 'OK'
+          })
+      </script>
+  <?php endif; ?>
 
 
  
@@ -121,7 +121,7 @@ use_js_scripts([ 'js.scriptindex' ]);
                             <input type="email" placeholder="stefano@android.com" required class="text" name="email" />
                           </div>
                           <div class="field">
-                             <input type="number" placeholder="666" required class="text" name="age">
+                             <input type="number" placeholder="Idade" required class="text" name="age">
                       
                           </div>
                           <div class="field" style="display: none;">
@@ -169,7 +169,7 @@ use_js_scripts([ 'js.scriptindex' ]);
                               placeholder="(11) 90235-9078" />
                           </div>
                           <div class="field">
-                            <input type="password" name="password" id="inputPassword" required>                           
+                            <input type="password" name="password" id="inputPassword" placeholder="Senha" required>                           
                           </div>
                           <div class="field btn">
                             <div class="btn-layer"></div>
@@ -186,6 +186,8 @@ use_js_scripts([ 'js.scriptindex' ]);
       </div>
 
       <?php use_js_scripts([ 'js.login', 'js.masksForInputs' ]); ?>
+      <script type="module" src="<?php assets('js/forms/', 'FormCadastroUsuario.js'); ?>">
+      </script>
     </main>
       <!--─────────────────fim Home────────────────-->
   
