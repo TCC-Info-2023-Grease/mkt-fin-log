@@ -84,10 +84,12 @@ extend_styles(['css.admin.financas']);
           <br>
           <br>
 
+          <?php if (isset($dados['cpf']) && !empty($dados['cpf'])): ?>
           <label for="cpf">CPF:</label>
           <input type="text" name="cpf" placeholder="CPF do usuário" value="<?php echo isset($dados['cpf']) ? $dados['cpf'] : ''; ?>">
           <br>
           <br>
+          <?php endif; ?>
 
           <label for="senha">Senha:</label>
           <input type="password" name="senha" placeholder="Nova senha">
@@ -111,9 +113,6 @@ extend_styles(['css.admin.financas']);
 
           <label for="celular">Celular:</label>
           <input type="text" name="celular" placeholder="Celular do usuário" value="<?php echo isset($dados['celular']) ? $dados['celular'] : ''; ?>">
-          <br>
-          <br>
-
           <br>
           <br>
 
