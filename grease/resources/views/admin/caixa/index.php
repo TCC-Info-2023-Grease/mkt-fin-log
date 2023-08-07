@@ -193,11 +193,24 @@ extend_styles([ 'css.admin.financas' ]);
         <br><br>
         <br><br>
         <hr>
-        
+
         <div class="dash-content">
-           <div class="title"><span class="text">Movimentações</span></div>
+          <div style="display: flex;justify-content: space-between;align-items: center;">
+            <div class="title"><span class="text">Movimentações</span></div>
+
+            <div class="dropdown">
+              <button onclick="toggleDropdown()" class="dropbtn">Exportar</button>
+              <div id="myDropdown" class="dropdown-content">
+                <button onclick="exportToPDF()">PDF</button>
+                <button onclick="exportToExcel()">Excel</button>
+              </div>
+            </div>
+          </div>
+           
           <?php if (isset($data['caixa']) && !empty($data['caixa'])) { ?>
+
           <table id="myTable" class="display">
+            <caption>Caixa</caption>
             <thead>
               <tr>
                 <th></th>
@@ -224,7 +237,7 @@ extend_styles([ 'css.admin.financas' ]);
                   <?= $item['nome_usuario']; ?>
                 </td>
                 <td>
-                  <?= $item['valor']; ?>
+                  <?= Money::format($item['valor']); ?>            
                 </td>
                 <td>
                   <?= date('d/m/Y', strtotime($item['data_movimentacao'])); ?>
@@ -249,7 +262,10 @@ extend_styles([ 'css.admin.financas' ]);
 
 
   <?php
-  use_js_scripts([ 'js.admin.financas' ]);
+    use_js_scripts([ 
+      'js.admin.financas',
+      'js.lib.xlsx'
+    ]);
   ?>
   <script>
     class ChartCaixa {
@@ -381,10 +397,50 @@ extend_styles([ 'css.admin.financas' ]);
       ChartCaixa.receitasDespesasPorCategoria();
     });
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.19/jspdf.plugin.autotable.min.js"></script>
+
 
 
   <script type="text/javascript">
+    // Função para mostrar/ocultar o menu dropdown
+    function toggleDropdown() {
+      const dropdown = document.getElementById("myDropdown");
+      dropdown.classList.toggle("show");
+    }
+
+
+    // Função para exportar para PDF
+    function exportToPDF() {
+      window.jsPDF = window.jspdf.jsPDF
+
+      const doc = new jsPDF();
+      const table = document.getElementById('myTable');
+
+      doc.autoTable({ html: table });
+      doc.save('Caixa.pdf');
+
+      toggleDropdown(); // Oculta o menu dropdown após o download do PDF
+    }
+
+
+    // Função para exportar para Excel
+    function exportToExcel() {
+      const table = document.getElementById('myTable');
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.table_to_sheet(table);
+
+      // Adiciona o worksheet ao workbook
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Caixa');
+
+      // Salva o arquivo Excel
+      XLSX.writeFile(workbook, 'Livro - Caixa.xlsx');
+      toggleDropdown(); // Oculta o menu dropdown após o download do Excel
+    }
+
+
     $(document).ready(function () {
+      // Criar a DataTable
       $('#myTable').DataTable();
     });
   </script>
