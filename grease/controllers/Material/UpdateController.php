@@ -6,7 +6,7 @@ global $mysqli;
 import_utils([ 'valida_campo', 'navegate' ]);
 
 if(isset($_SESSION['ultimo_acesso'])) {
-  $ultimo_acesso = $_SESSION['ultimo_acesso'];
+  $ultimo_acesso = time();
 } else {
   $ultimo_acesso = null;
 }
@@ -30,7 +30,9 @@ $campos_validos = (
 if (!$campos_validos) 
 {
   $_SESSION['fed_material'] = [ 
-    'title' => 'Erro!', 'msg' => 'Campos Invalidos' 
+    'title' => 'Erro!', 
+    'msg'   => 'Campos Invalidos',
+    'icon'  => 'error' 
   ];
   navegate($_ENV['ROUTE'] . 'admin.material.edit');
 } 
@@ -67,7 +69,22 @@ $dados = [
 ];
 
 //print_r($dados);
-$material->atualizar($dados);
+
+try {
+  $material->atualizar($dados);
+  $_SESSION['fed_material'] = [ 
+    'title' => 'OK!', 
+    'msg'   => 'Atualizado com sucesso',
+    'icon'  => 'success' 
+  ];
+} catch (Exception $e) {
+  $_SESSION['fed_material'] = [ 
+    'title' => 'Erro!', 
+    'msg'   => 'Campos Invalidos',
+    'icon'  => 'error' 
+  ];
+}
+
 navegate($_ENV['ROUTE'] . 'admin.material.index');
 
 ?>

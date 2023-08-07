@@ -22,10 +22,9 @@ include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
   
-  // Verifica se já passaram 5 minutos desde o último acesso
-  if (time() - $ultimo_acesso > 100) {
-    unset($_SESSION['fed_material']);
-}
+  if (time() - $ultimo_acesso > 2) {
+    unset($_SESSION['fed_material']); 
+  }
 } 
 ?>
 
@@ -57,7 +56,7 @@ extend_styles([ 'css.admin.financas' ]);
           Swal.fire({
               title: '<?php echo $_SESSION['fed_material']['title']; ?>',
               text: '<?php echo $_SESSION['fed_material']['msg']; ?>',
-              icon: 'error',
+              icon: '<?php echo $_SESSION['fed_material']['icon']; ?>',
               confirmButtonText: 'OK'
           })
       </script>   
