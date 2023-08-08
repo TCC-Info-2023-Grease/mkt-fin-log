@@ -66,10 +66,10 @@ extend_styles([ 'css.admin.financas' ]);
           </div>
 
           <form 
-      action="<?php echo $_ENV["URL_CONTROLLERS"]; ?>/Caixa/EntradaController.php" 
-      method="POST"
-      id="frm-entrada"
-    >
+            action="<?php echo $_ENV["URL_CONTROLLERS"]; ?>/Caixa/EntradaController.php" 
+            method="POST"
+            id="frm-entrada"
+          >
         <input 
           type="hidden" 
           name="usuario_id" 
@@ -120,8 +120,9 @@ extend_styles([ 'css.admin.financas' ]);
         <label for="price">Valor:</label><br>
         <input 
           type="text" 
-          id="money" 
+          id="money"  class="money"
           name="valor" 
+          class="money"
           placeholder="R$ 0,99"
           required
         />
