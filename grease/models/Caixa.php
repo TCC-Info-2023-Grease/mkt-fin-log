@@ -81,6 +81,9 @@ class Caixa
         " . $this->tabela . " as c
       JOIN 
         usuarios AS u ON u.usuario_id = c.usuario_id
+      WHERE
+        LOWER(c.tipo_movimentacao) = 'despesa' OR
+        LOWER(c.tipo_movimentacao) = 'receita'
     ");
 
     if ($stmt->num_rows === 0) {
@@ -270,7 +273,7 @@ class Caixa
       JOIN 
         usuarios AS u ON u.usuario_id = c.usuario_id
       WHERE 
-        caixa_id = '" . $id ."'
+        caixa_id = '" . $id ."' 
     ");
 
     if ($sql->num_rows === 0) {

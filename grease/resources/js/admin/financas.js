@@ -22,3 +22,13 @@ sidebarToggle.addEventListener("click", () => {
     }
 })
 
+// Função para mostrar/ocultar o menu dropdown
+function toggleDropdown() {
+  const dropdown = document.getElementById("myDropdown");
+  dropdown.classList.toggle("show");
+}
+
+$(document).ready(function () {
+  // Criar a DataTable
+  $('#myTable').DataTable();
+});

@@ -9,10 +9,13 @@ import_utils([ 'valida_campo', 'navegate' ]);
 $caixa = new Caixa($mysqli);
 $meta = new Meta($mysqli);
 
+
 $dadosDespesasReceitasPorMes = $caixa->obterDadosDespesasReceitasPorMes();
+
 
 $totalReceitas = array_sum($dadosDespesasReceitasPorMes['receitas']);
 $totalDespesas = array_sum($dadosDespesasReceitasPorMes['despesas']);
+
 
 if ($totalDespesas != 0 || $totalReceitas != 0) {
   $porcentagemDespesas = ($totalDespesas / ($totalReceitas + $totalDespesas)) * 100;
@@ -21,6 +24,7 @@ if ($totalDespesas != 0 || $totalReceitas != 0) {
   $porcentagemDespesas = 0;
   $porcentagemReceitas = 0;
 }
+
 
 return $data = [
   'caixa'             => $caixa->buscarTodos(),

@@ -5,7 +5,7 @@ global $_ENV;
 
 import_utils(['Auth']);
 
-//Auth::check('vis');
+Auth::check('vis');
  
 import_utils([
   'extend_styles', 

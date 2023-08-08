@@ -11,7 +11,7 @@ $meta = new Meta($mysqli);
  
 
 $data = [
-  'caixa'             => $caixa->getRegistros(5),
+  'caixa'             => $caixa->getRegistros(10),
   'saldo_atual'       => $caixa->obterSaldoAtual(),
   'saldo_anterior'    => $caixa->obterSaldoAnterior(),
   'total_gasto'       => $caixa->obterTotalGasto(),

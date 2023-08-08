@@ -5,7 +5,7 @@ global $_ENV;
 
 import_utils(['Auth']);
 
-//Auth::check('vis');
+Auth::check('vis');
  
 import_utils([
   'extend_styles', 
@@ -14,7 +14,21 @@ import_utils([
   'Money'
 ]);
 
+
 include $_ENV['PASTA_CONTROLLER'] . '/Caixa/VisitanteDashboardController.php';
+
+$receitas = $data['receitas'];
+$despesas = $data['despesas'];
+$meses    = $data['meses'];
+$saldos   = $data['saldos'];
+
+$dadosCategorias = $data['dadosCategorias'];
+
+$totalReceitas = $data['totalReceitas'];
+$totalDespesas = $data['totalDespesas'];
+
+$porcentagemDespesas = $data['porcentagemDespesas'];
+$porcentagemReceitas = $data['porcentagemReceitas'];
 
 //print_r($data);
 ?>
@@ -87,10 +101,10 @@ extend_styles([ 'css.visitante.financas' ]);
             text-decoration: underline;
           }
         </style>
-        <section class="activity" style="margin-top: 1rem;box-shadow: 0 5px 15px rgb(214 211 211 / 92%);border-radius: 3rem;">
+        <section class="activity" style="margin-top: 1rem;box-shadow: 0 5px 15px rgb(214 211 211 / 92%);border-radius: 3rem;border: 4px solid black;">
           <nav style="width: 100%">
             <ul class="style_nav_secondary" style="<?= $style_nav_secondary; ?>">
-              <li><a href="#estatisticas">Estatisticas</a></li>
+              <li><a href="#estatisticas">Estátisticas</a></li>
               <li><a href="#movimentacoes">Movimentações</a></A></li>
               <li><a href="#politicas">Nossas Politicas</a></li>
             </ul>
@@ -99,8 +113,8 @@ extend_styles([ 'css.visitante.financas' ]);
 
 
         <div class="activity" style="padding: 0rem 2rem;padding-bottom: 2rem;" >
-          <div class="dash-content" id="estatisticas">
-            <center style="margin-bottom: 46px;"><h2>Estatisticas</h2></center>
+          <div class="dash-content" id="estatisticas" style="padding-top: 0;">
+            <center style="margin-bottom: 46px;padding-top: 2.4rem;"><h2>Estátisticas</h2></center>
 
             <div class="dash-estatistics">
               <div class="title"><span class="text">Saldo Mensal</span></div>
@@ -117,7 +131,7 @@ extend_styles([ 'css.visitante.financas' ]);
             </div>
           </div>
 
-          <div class="dash-content">
+          <div class="dash-content" style="padding-top: 0;">
             <div class="dash-estatistics">
                   <div class="title"><span class="text">Porcentagem de Despesas e Receitas</span></div>
 
@@ -138,7 +152,7 @@ extend_styles([ 'css.visitante.financas' ]);
             </div>
           </div>
 
-          <div class="dash-content">
+          <div class="dash-content" style="padding-top: 0;">
             <div class="dash-estatistics">
               <div class="title"><span class="text">Categorias de despesas e receitas</span></div>
 
@@ -162,8 +176,8 @@ extend_styles([ 'css.visitante.financas' ]);
 
 
       <div class="activity" id="movimentacoes" style="overflow: hidden;">
-        <center style="margin-bottom: 46px;margin-top: 34px;"><h2>Movimentações</h2></center>
-            <div class="activity-data" style="overflow: hidden;padding: 2rem;">
+        <center style="margin-bottom: 34px;margin-top: 34px;"><h2>Movimentações</h2></center>
+            <div class="activity-data" style="overflow: hidden;padding: 2rem;padding-bottom: 3rem;background: #e4e5e775;border-radius: 12px;border: 2px solid black;">
               <div class="data names">
                 <span class="data-title">Usuario</span>
                 
@@ -189,7 +203,7 @@ extend_styles([ 'css.visitante.financas' ]);
                 
                 <?php foreach ($data['caixa'] as $item): ?>
                 <span class="data-list">
-                   <?= date('d/m/Y', strtotime($item['data_movimentacao'])); ?>a
+                   <?= date('d/m/Y', strtotime($item['data_movimentacao'])); ?>
                 </span>
                 <?php endforeach; ?>
               </div>
@@ -199,7 +213,7 @@ extend_styles([ 'css.visitante.financas' ]);
                 
                 <?php foreach ($data['caixa'] as $item): ?>
                 <span class="data-list">
-                   <?= $item['tipo_movimentacao']; ?>
+                   <?= ucfirst($item['tipo_movimentacao']); ?>
                 </span>
                 <?php endforeach; ?>
               </div>
@@ -254,7 +268,27 @@ extend_styles([ 'css.visitante.financas' ]);
 
   </div>
   <?php
-  use_js_scripts([ 'js.visitante.financas' ]);
+  use_js_scripts([ 
+    'js.visitante.financas', 
+    'js.services.ChartCaixa' 
+  ]);
   ?>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      ChartCaixa.saldoMensal(
+        <?= json_encode($saldos); ?>, 
+        <?= json_encode($meses); ?>
+      );
+
+      ChartCaixa.despesasReceitas(
+        <?= json_encode($porcentagemDespesas); ?>, 
+        <?= json_encode($porcentagemReceitas); ?>
+      );
+
+      ChartCaixa.receitasDespesasPorCategoria(
+        <?= json_encode($dadosCategorias); ?>
+      );
+    });
+  </script>
 </body>
 <!------- /BODY --------->
