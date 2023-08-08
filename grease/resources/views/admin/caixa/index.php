@@ -263,185 +263,29 @@ extend_styles([ 'css.admin.financas' ]);
 
   <?php
     use_js_scripts([ 
-      'js.admin.financas',
-      'js.lib.xlsx'
+      'js.lib.xlsx',
+      'js.lib.jspdf',
+      'js.lib.jspdf_plugin_autotable',
+      'js.services.ChartCaixa',
+      'js.services.ExportTabelaCaixa',
+      'js.admin.financas'
     ]);
   ?>
   <script>
-    class ChartCaixa {
-      static saldoMensal () {
-        const ctx = document.getElementById("financasChart").getContext("2d");
-
-        const chartData = {
-          labels: <?= json_encode($meses); ?>,
-          datasets: [
-            {
-              label: "Saldo",
-              data: <?= json_encode($saldos); ?>,
-              borderColor: "rgba(75, 192, 192, 1)",
-              backgroundColor: "rgba(75, 192, 192, 0.2)",
-              fill: true,
-            },
-          ],
-        };
-
-        const chartConfig = {
-          type: "line",
-          data: chartData,
-          options: {
-            responsive: true,
-            scales: {
-              x: {
-                display: true,
-                title: {
-                  display: true,
-                  text: "Mês",
-                },
-              },
-              y: {
-                display: true,
-                title: {
-                  display: true,
-                  text: "Saldo",
-                },
-              },
-            },
-          },
-        };
-
-        new Chart(ctx, chartConfig);
-      }
-
-      static despesasReceitas() {
-        const ctx2 = document.getElementById("despesasReceitasChart").getContext("2d");
-
-        const chartData2 = {
-          labels: ["Receitas", "Despesas"],
-          datasets: [
-            {
-              data: [<?= $porcentagemReceitas; ?>, <?= $porcentagemDespesas; ?>],
-              backgroundColor: ["rgba(75, 192, 192, 0.2)", "rgba(255, 99, 132, 0.2)"],
-              borderColor: ["rgba(75, 192, 192, 1)", "rgba(255, 99, 132, 1)"],
-              borderWidth: 1,
-            },
-          ],
-        };
-
-        const chartConfig2 = {
-          type: "pie",
-          data: chartData2,
-          options: {
-            responsive: true,
-            plugins: {
-              legend: {
-                display: true,
-                position: "bottom",
-              },
-            },
-          },
-        };
-
-        new Chart(ctx2, chartConfig2);
-      }
-
-      static receitasDespesasPorCategoria() {
-        const dadosCategorias = <?php echo json_encode($dadosCategorias); ?>;
-
-        let labelsCategorias = dadosCategorias.map(item => item.categoria);
-
-        let totalDespesas = dadosCategorias.map(item => item.total_despesa);
-        let totalReceitas = dadosCategorias.map(item => item.total_receita);
-
-        
-        let ctxCategorias = document.getElementById('categoriasChart').getContext('2d');
-        let categoriasChart = new Chart(ctxCategorias, {
-          type: 'bar',
-          data: {
-            labels: labelsCategorias,
-            datasets: [
-              {
-                label: 'Despesas',
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1,
-                data: totalDespesas,
-              },
-              {
-                label: 'Receitas',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
-                data: totalReceitas,
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                stacked: true,
-              },
-              y: {
-                beginAtZero: true,
-              }
-            }
-          }
-        });
-      }
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
-      ChartCaixa.saldoMensal();
-      ChartCaixa.despesasReceitas();
-      ChartCaixa.receitasDespesasPorCategoria();
-    });
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.19/jspdf.plugin.autotable.min.js"></script>
+      ChartCaixa.saldoMensal(
+        <?= json_encode($saldos); ?>, 
+        <?= json_encode($meses); ?>
+      );
 
+      ChartCaixa.despesasReceitas(
+        <?= json_encode($porcentagemDespesas); ?>, 
+        <?= json_encode($porcentagemReceitas); ?>
+      );
 
-
-  <script type="text/javascript">
-    // Função para mostrar/ocultar o menu dropdown
-    function toggleDropdown() {
-      const dropdown = document.getElementById("myDropdown");
-      dropdown.classList.toggle("show");
-    }
-
-
-    // Função para exportar para PDF
-    function exportToPDF() {
-      window.jsPDF = window.jspdf.jsPDF
-
-      const doc = new jsPDF();
-      const table = document.getElementById('myTable');
-
-      doc.autoTable({ html: table });
-      doc.save('Caixa.pdf');
-
-      toggleDropdown(); // Oculta o menu dropdown após o download do PDF
-    }
-
-
-    // Função para exportar para Excel
-    function exportToExcel() {
-      const table = document.getElementById('myTable');
-      const workbook = XLSX.utils.book_new();
-      const worksheet = XLSX.utils.table_to_sheet(table);
-
-      // Adiciona o worksheet ao workbook
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Caixa');
-
-      // Salva o arquivo Excel
-      XLSX.writeFile(workbook, 'Livro - Caixa.xlsx');
-      toggleDropdown(); // Oculta o menu dropdown após o download do Excel
-    }
-
-
-    $(document).ready(function () {
-      // Criar a DataTable
-      $('#myTable').DataTable();
+      ChartCaixa.receitasDespesasPorCategoria(
+        <?= json_encode($dadosCategorias); ?>
+      );
     });
   </script>
 </body>
