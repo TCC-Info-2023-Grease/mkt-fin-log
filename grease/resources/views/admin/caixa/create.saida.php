@@ -121,7 +121,7 @@ extend_styles([ 'css.admin.financas' ]);
           <label for="price">Valor:</label><br>
           <input 
             type="text" 
-            id="money" 
+            id="money"  class="money"
             name="valor" 
             placeholder="R$ 0,99"
             required
