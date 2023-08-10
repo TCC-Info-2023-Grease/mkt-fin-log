@@ -195,10 +195,7 @@ CREATE TABLE EntradasMaterial (
 CREATE TABLE PedidosMateriais (
 	-- PK & FK
     pedido_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    material_id INT NOT NULL,
     usuario_id INT NOT NULL,
-	FOREIGN KEY (material_id)
-        REFERENCES Materiais (material_id),
     FOREIGN KEY (usuario_id)
         REFERENCES Usuarios (usuario_id),
     
