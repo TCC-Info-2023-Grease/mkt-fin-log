@@ -63,7 +63,6 @@ $routes['admin.home'] = [
   'file' => 'admin/dashboard',
   'params' => []
 ];
- 
 
 #-- 
 $routes['admin.material.index'] = [
