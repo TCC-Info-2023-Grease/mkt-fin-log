@@ -26,7 +26,7 @@ if (isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
 
   // Verifica se já passaram 5 minutos desde o último acesso
-  if (time() - $ultimo_acesso > 100) {
+  if (time() - $ultimo_acesso > 2) {
     unset($_SESSION['fed_usuario']);
   }
 }
