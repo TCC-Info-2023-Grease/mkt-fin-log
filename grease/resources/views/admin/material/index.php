@@ -14,7 +14,7 @@ import_utils([
   'Money'
 ]);
 
-include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
+include $_ENV['PASTA_CONTROLLER'] . '/PedidoMaterial/ConsultaController.php';
 
 //print_r($_SESSION);
 
@@ -23,7 +23,7 @@ if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
   
   if (time() - $ultimo_acesso > 2) {
-    unset($_SESSION['fed_material']); 
+    unset($_SESSION['fed_pedido_material']); 
   }
 } 
 ?>
@@ -39,9 +39,7 @@ extend_styles([ 'css.admin.financas' ]);
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
-<title>
-  Finanças Admin 🕺 Grease
-</title>
+<title>Pedidos de Material | Admin</title>
 <!-------/ HEAD --------->
 
 
@@ -66,16 +64,8 @@ extend_styles([ 'css.admin.financas' ]);
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content" style="width: 80vw;">
         <div style="text-align: right;">
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link btn-edit">
-            Novo Material
-          </a>
-          <span class="button-separator">|</span>
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.entrada.index" class="button-link">
-            Entradas
-          </a>
-          <span class="button-separator">|</span>
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.saida.index" class="button-link">
-            Saidas
+          <a href="<?php echo $_ENV['ROUTE'] ?>admin.pedidos_material.create" class="button-link btn-edit">
+            Novo Pedido
           </a>
         </div>
 

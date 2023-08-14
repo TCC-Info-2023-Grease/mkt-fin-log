@@ -192,26 +192,6 @@ CREATE TABLE EntradasMaterial (
 );
 
 
-CREATE TABLE PedidosMateriais (
-	-- PK & FK
-    pedido_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    material_id INT NOT NULL,
-    usuario_id INT NOT NULL,
-	FOREIGN KEY (material_id)
-        REFERENCES Materiais (material_id),
-    FOREIGN KEY (usuario_id)
-        REFERENCES Usuarios (usuario_id),
-    
-    -- Atibutos
-    dada_pedido DATE NOT NULL,
-    data_entrega DATE NOT NULL,
-    qtde_material INT NOT NULL,
-    -- 'em aberto', 'fechado', 'cancelado'
-    status_pedido VARCHAR(16) NOT NULL,
-    descricao VARCHAR(200) NOT NULL
-);
-
-
 CREATE TABLE Figurinos (
 	-- PK & FK
 	figurino_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,

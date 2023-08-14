@@ -21,7 +21,7 @@ $usuarioData = [$_SESSION['usuario']];
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
   
-  if(time() - $ultimo_acesso > 100) {
+  if(time() - $ultimo_acesso > 2) {
     $_SESSION['fed_profile'] = null;
   }
 } 

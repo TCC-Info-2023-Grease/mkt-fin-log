@@ -220,8 +220,6 @@ class Material
         } else {
             die('Erro na execução da query: ' . $this->mysqli->error);
         }
-
-        $stmt->close();
     }
 
     /**
