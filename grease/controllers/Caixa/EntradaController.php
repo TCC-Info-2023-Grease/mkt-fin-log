@@ -36,6 +36,7 @@ $caixa = new Caixa($mysqli);
 print_r($_POST);
 
 $dados = [
+  'aluno_id'          => '',
   'usuario_id'        => $_POST['usuario_id'],
   'categoria'         => $_POST['categoria_escolhida'],
   'descricao'         => $_POST['descricao'],
@@ -46,5 +47,14 @@ $dados = [
   'obs'               => $_POST['obs']
 ];
 
-$caixa->cadastrarEntrada($dados);
+try {
+  $caixa->cadastrarEntrada($dados);
+} catch (Exception $e) {
+  //throw $e;
+  $_SESSION['fed_caixa'] = [ 
+    'title' => 'Erro!', 'msg' => 'Campos Invalidos' 
+];
+}
+
+
 navegate($_ENV['ROUTE'] . 'admin.caixa.index');

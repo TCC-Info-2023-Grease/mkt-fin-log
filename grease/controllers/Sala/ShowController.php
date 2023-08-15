@@ -16,7 +16,7 @@ $sala = new Sala($mysqli);
 $salaData = $sala->buscar($_GET['id']); // Certifique-se de que o método buscar() está implementado na classe Sala
 //print_r($salaData);
 
-$url = $_ENV['VIEWS'] . '/admin/salas/show.php'; // Certifique-se de ajustar o caminho correto
+$url = $_ENV['VIEWS'] . '/admin/sala/show.php'; // Certifique-se de ajustar o caminho correto
 
 # Criar um formulário oculto com os dados da sala
 $form = '<form id="salaForm" action="' . $url . '" method="POST">';

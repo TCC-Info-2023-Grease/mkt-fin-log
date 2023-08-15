@@ -14,13 +14,15 @@ import_utils([
   'Money'
 ]);
 
-// Verifica se a variável de sessão 'ultimo_acesso' já existe
+include $_ENV['PASTA_CONTROLLER'] . '/Sala/ConsultaAlunosController.php';
+
+//var_dump($data);
+
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
   
-  // Verifica se já passaram 5 minutos desde o último acesso
-  if(time() - $ultimo_acesso > 2) {
-    unset($_SESSION['fed_usuario']);
+  if(time() - $ultimo_acesso > 3) {
+    unset($_SESSION['fed_sala']);
   }
 } 
 ?>
@@ -62,50 +64,64 @@ extend_styles([ 'css.admin.financas' ]);
     <div class="dash-content">
         <div class="overview">
           <div class="title">
-            <span class="text">Cadastro Admin</span>
+            <span class="text">Cadastro Entrada</span>
           </div>
 
 		       <div class="activity">
-				      <form id="form-cadastro" enctype="multipart/form-data" method="post" action="<?= $_ENV['URL_CONTROLLERS']; ?>/Auth/AdminCadastroController.php">
-                    <label for="username">Nome:</label>
-                    <input type="text" name="username" placeholder="Stefano Jobs" required><br>
-                    <span id="lblErroNome" class="error-msg"></span><br>
+				      <form action="<?php echo $_ENV["URL_CONTROLLERS"]; ?>/Sala/EntradaController.php" method="POST"
+                    id="frm-entrada">
+                    <input type="hidden" name="usuario_id" value="<?= $_SESSION['usuario']['usuario_id']; ?>" />
+                    <input type="hidden" name="tipo_movimentacao" value="Receita" />
+                    <input type="hidden" name="status_caixa" value="ok" />
+                    <input type="hidden" name="categoria_escolhida" value="Pagamento aluno" />
 
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" placeholder="stefano@android.com" required><br>
-                    <span id="lblErroEmail" class="error-msg"></span><br>
-
-                    <label for="cpf">CPF:</label>
-                    <input type="number" name="cpf" required><br>
-                    <span id="lblErroCpf" class="error-msg"></span><br>
-
-                    <label for="password">Senha:</label>
-                    <input type="password" name="password" id="inputPassword" required>
-                    <i class="fas fa-eye-slash" id="togglePassword"></i>                    
+                    <label for="aluno_escolhido">
+                        Alunos:
+                    </label><br>
+                    <select name="aluno_escolhido" id="">
+                        <option value="">
+                            - Selecione uma opção -
+                        </option>
+                       <?php foreach ($data['alunos'] as $aluno): ?>
+                        <option value="<?= $aluno['aluno_id']; ?>">
+                          <?= $aluno['nome']; ?>
+                        </option>
+                       <?php endforeach; ?>
+                    </select>
+                    <br>
                     <br>
 
-                    <label for="age">Idade:</label>
-                    <input type="number" name="age" required><br>
-                    <span id="lblErroAge" class="error-msg"></span><br>
+                    <label for="descricao">Descrição:</label><br>
+                    <textarea name="descricao" id="" cols="30" rows="10" required>
+                    </textarea>
+                    <br>
+                    <br>
 
-                    <label for="genrer">Gênero:</label>
-                    <select name="genrer" required>
-                        <option value="m">Masculino</option>
-                        <option value="f">Feminino</option>
-                        <option value="o">Outro</option>
-                        <option value="n">Não informado</option>
+                    <label for="price">Valor:</label><br>
+                    <input type="text" id="money" class="money" name="valor" class="money" placeholder="R$ 0,99"
+                        required />
+                    <br>
+                    <br>
+
+                    <label for="forma_pagamento">Forma pagamento:</label><br>
+                    <select name="forma_pagamento" id="" required>
+                        <option value="">
+                            - Selecione uma opção -
+                        </option>
+                        <option value="Físico">Físico</option>
+                        <option value="Pix">Pix</option>
                     </select>
-                    <br><br>
+                    <br>
+                    <br>
 
-                    <label for="phone">Celular:</label>
-                    <input type="text" class="phone" name="phone" required><br>
-                    <span id="lblErroCelular" class="error-msg"></span><br>
+                    <label for="obs">Observação:</label><br>
+                    <textarea name="obs" id="" cols="30" rows="10"
+                        placeholder="Observações adicionais sobre a movimentação.">
+                    </textarea>
+                    <br>
+                    <br>
 
-                    <label for="foto_perfil">Foto de Perfil:</label>
-                    <input type="file" name="profile_picture[]" required class="input-file"><br><br>
-
-                    <input type="hidden" name="tipo_usuario" value="adm">
-                    <input type="submit"  value="Cadastrar">
+                    <input type="submit" value="salvar">
                 </form>
 					</div>
       </div>

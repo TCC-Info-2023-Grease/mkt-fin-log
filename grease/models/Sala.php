@@ -5,11 +5,12 @@ class Sala {
     private $mysqli;
     private $id;
     private $tabela = 'caixa';
+    private $tabela_secundaria = 'alunos';
   
     public function getID() {
       return $this->id;
     }
-  
+
     /**
      * Método construtor da coolasse
      *
@@ -19,6 +20,24 @@ class Sala {
     public function __construct(mysqli $mysqli)
     {
       $this->mysqli = $mysqli;
+    }
+
+
+    public function obterTodosAlunos() {
+        $query = "SELECT * FROM ". $this->tabela_secundaria;
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        $listaDosAlunos = [];
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $listaDosAlunos[] = $linha;
+        }
+
+        return $listaDosAlunos;
     }
 
      /**

@@ -14,9 +14,9 @@ import_utils([
     'Money'
 ]);
 
-//print_r($_SESSION);
-
 include $_ENV['PASTA_CONTROLLER'] . '/Sala/ConsultaController.php';
+
+//var_dump($data);
 
 if (isset($_SESSION['ultimo_acesso'])) {
     $ultimo_acesso = $_SESSION['ultimo_acesso'];
@@ -47,12 +47,12 @@ extend_styles(['css.admin.financas']);
 <body>
     <?php if (isset($_SESSION['fed_sala']) && !empty($_SESSION['fed_sala'])): ?>
     <script>
-        Swal.fire({
-            title: '<?= $_SESSION['fed_sala']['title']; ?>',
-            text: '<?= $_SESSION['fed_sala']['msg']; ?>',
-            icon: '<?= $_SESSION['fed_sala']['icon']; ?>',
-            confirmButtonText: 'OK'
-        })
+    Swal.fire({
+        title: '<?= $_SESSION['fed_sala']['title']; ?>',
+        text: '<?= $_SESSION['fed_sala']['msg']; ?>',
+        icon: '<?= $_SESSION['fed_sala']['icon']; ?>',
+        confirmButtonText: 'OK'
+    })
     </script>
     <?php endif; ?>
 
@@ -65,14 +65,14 @@ extend_styles(['css.admin.financas']);
         <div class="dash-content">
             <div style="text-align: right;">
                 <a href="<?php echo $_ENV['ROUTE'] ?>admin.sala.create" class="button-link btn-edit">
-                    Nova entrada 
+                    Nova entrada
                 </a>
             </div>
 
 
             <div class="title"> <span class="text">Caixa Sala</span> </div>
 
-            <?php if (isset($data['usuarios']) && !empty($data['usuarios'])) { ?>
+            <?php if (isset($data['sala']) && !empty($data['sala'])) { ?>
             <table id="myTable" class="display">
                 <thead>
                     <tr>
@@ -88,9 +88,9 @@ extend_styles(['css.admin.financas']);
 
                 <tbody>
                     <style type="text/css">
-                        th a i {
-                            font-size: 1.7rem;
-                        }
+                    th a i {
+                        font-size: 1.7rem;
+                    }
                     </style>
                     <?php foreach ($data['sala'] as $sala): ?>
                     <tr>
@@ -98,10 +98,10 @@ extend_styles(['css.admin.financas']);
                             <?= $sala['nome_usuario']; ?>
                         </td>
                         <td>
-                            <?= $sala['valor']; ?>
+                            <?= Money::format($sala['valor']); ?>
                         </td>
                         <td>
-                            <?= $sala['data_movimentacao']; ?>
+                            <?= date('d/m/Y', strtotime($sala['data_movimentacao'])); ?>
                         </td>
                         <td>
                             <?= $sala['tipo_movimentacao']; ?>
@@ -122,14 +122,11 @@ extend_styles(['css.admin.financas']);
                             <hr>
                             <br>
 
-                            <a href="#" onclick="if (confirm('Deseja excluir mesmo?')) {
+                            <!-- <a href="#" onclick="if (confirm('Deseja excluir mesmo?')) {
                                    this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Sala/DeletarController.php?id=<?= $sala['caixa_id']; ?>';
                                }" class="icon-link delete">
                                 <i class="fa-solid fa-trash"></i>
-                            </a>
-                            <br />
-                            <br />
-
+                            </a> -->
                             <a href="#" onclick="if (confirm('Deseja editar mesmo?')) {
                                    this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Sala/EditController.php?id=<?= $sala['caixa_id']; ?>';
                                }" class="icon-link edit">
@@ -150,9 +147,9 @@ extend_styles(['css.admin.financas']);
     use_js_scripts(['js.admin.financas']);
     ?>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#myTable').DataTable();
-        });
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
     </script>
 </body>
 <!-------/ BODY --------->
