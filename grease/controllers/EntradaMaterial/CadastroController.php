@@ -46,7 +46,7 @@ $dados = [
   'forma_pagamento'   => $_POST['forma_pagamento'],
   'obs'               => $_POST['obs']
 ];
-print_r($dados);
+//print_r($dados);
 
 $dados['caixa_id'] = $caixa->cadastrarEntrada($dados);
 
