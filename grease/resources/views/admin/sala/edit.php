@@ -20,7 +20,7 @@ include $_ENV['PASTA_CONTROLLER'] . '/Sala/ConsultaAlunosController.php';
 
 $dados = $_POST;
 
-print_r($_POST);
+//print_r($_POST);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if (isset($_SESSION['ultimo_acesso'])) {
@@ -104,6 +104,19 @@ extend_styles(['css.admin.financas']);
             <label for="price">Valor:</label><br>
             <input type="text" id="money" class="money" name="valor" class="money" placeholder="R$ 0,99"
               value="<?= $dados['valor']; ?>" required />
+            <br>
+            <br>
+
+            <label for="price">Data:</label><br>
+            <input 
+              type="date" 
+              id="date" 
+              class="date" 
+              name="data_movimentacao"
+              value="<?= date('d/m/Y', strtotime($dados['data_movimentacao'])); ?>" 
+              placeholder="<?= date('d/m/Y', strtotime($dados['data_movimentacao'])); ?>"
+              required 
+            />
             <br>
             <br>
 
