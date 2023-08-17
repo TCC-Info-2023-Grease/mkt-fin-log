@@ -170,6 +170,194 @@ class Sala {
     }
 
     
+    public function agruparPagamentosPorMes()
+    {
+        $query = "
+            SELECT 
+                YEAR(data_movimentacao) as ano,
+                MONTH(data_movimentacao) as mes,
+                SUM(valor) as total
+            FROM 
+                " . $this->tabela . "
+            WHERE 
+                LOWER(tipo_movimentacao) = 'receita' AND
+                aluno_id IS NOT NULL
+            GROUP BY 
+                YEAR(data_movimentacao), MONTH(data_movimentacao)
+            ORDER BY 
+                YEAR(data_movimentacao) DESC, MONTH(data_movimentacao) DESC
+        ";
 
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        $pagamentosPorMes = array();
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $pagamentosPorMes[] = $linha;
+        }
+
+        return $pagamentosPorMes;
+    }
+
+
+    public function calcularTotalAlunosPagantes()
+    {
+        $query = "
+            SELECT 
+                COUNT(DISTINCT aluno_id) as total
+            FROM 
+                " . $this->tabela . "
+            WHERE 
+                LOWER(tipo_movimentacao) = 'receita' AND
+                aluno_id IS NOT NULL
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return 0;
+        }
+
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+
+    public function calcularTotalPagamentos()
+    {
+        $query = "
+            SELECT 
+                SUM(valor) as total
+            FROM 
+                " . $this->tabela . "
+            WHERE 
+                LOWER(tipo_movimentacao) = 'receita' AND
+                aluno_id IS NOT NULL
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return 0;
+        }
+
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+
+    public function calcularRankingTopPagantes($limit = 5)
+    {
+        $query = "
+            SELECT 
+                a.nome as nome_aluno,
+                SUM(c.valor) as total_pago
+            FROM 
+                " . $this->tabela . " as c
+            JOIN 
+                alunos AS a ON a.aluno_id = c.aluno_id
+            WHERE 
+                LOWER(c.tipo_movimentacao) = 'receita' AND
+                c.aluno_id IS NOT NULL
+            GROUP BY 
+                c.aluno_id
+            ORDER BY 
+                total_pago DESC
+            LIMIT " . $limit;
+            
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        $ranking = array();
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $ranking[] = $linha;
+        }
+
+        return $ranking;
+    }
+
+    public function calcularDevedores()
+    {
+        $query = "
+            SELECT 
+                a.nome as nome_aluno,
+                c.valor as valor_devido
+            FROM 
+                " . $this->tabela . " as c
+            JOIN 
+                alunos AS a ON a.aluno_id = c.aluno_id
+            WHERE 
+                LOWER(c.tipo_movimentacao) = 'receita' AND
+                c.aluno_id IS NOT NULL AND
+                c.valor > 0
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        $devedores = array();
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $devedores[] = $linha;
+        }
+
+        return $devedores;
+    }
+
+    public function obterAlunosDevedores()
+    {
+        $query = "
+            SELECT 
+                DISTINCT a.aluno_id, a.nome as nome_aluno
+            FROM 
+                " . $this->tabela . " as c
+            JOIN 
+                alunos AS a ON a.aluno_id = c.aluno_id
+            WHERE 
+                LOWER(c.tipo_movimentacao) = 'receita' AND
+                c.aluno_id IS NOT NULL AND
+                c.valor > 0
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        $alunosDevedores = array();
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $alunosDevedores[] = $linha;
+        }
+
+        return $alunosDevedores;
+    }
+
+    public function calcularPorcentagemDevedoresPagantes()
+    {
+        $alunosDevedores = $this->obterAlunosDevedores();
+        $totalAlunos = $this->obterTodosAlunos();
+
+        if (!$totalAlunos) {
+            return ['porcentagem_devedores' => 0, 'porcentagem_pagantes' => 0];
+        }
+
+        $totalDevedores = count($alunosDevedores);
+        $totalPagantes = count($totalAlunos) - $totalDevedores;
+
+        $porcentagemDevedores = ($totalDevedores / count($totalAlunos)) * 100;
+        $porcentagemPagantes = ($totalPagantes / count($totalAlunos)) * 100;
+
+        return [
+            'porcentagem_devedores' => $porcentagemDevedores,
+            'porcentagem_pagantes' => $porcentagemPagantes
+        ];
+    }
 
 }

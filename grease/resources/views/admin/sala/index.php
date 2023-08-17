@@ -62,15 +62,22 @@ extend_styles(['css.admin.financas']);
 
     <section class="dashboard">
         <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
+
         <div class="dash-content">
-            <div style="text-align: right;">
-                <a href="<?php echo $_ENV['ROUTE'] ?>admin.sala.create" class="button-link btn-edit">
-                    Nova entrada
-                </a>
+            <div style="display: flex;justify-content: space-between;align-items: center;">
+              <div class="title"> <span class="text"><h1>Caixa Sala</h1></span> </div> 
+
+              <div>
+                   <a href="<?= $_ENV['ROUTE'] ?>admin.sala.create" class="button-link">
+                    Nova Entrada
+                  </a>
+              </div>
             </div>
+        </div>
 
 
-            <div class="title"> <span class="text">Caixa Sala</span> </div>
+        <div class="dash-content">
+            <div class="title"> <span class="text">Movimentações</span> </div>
 
             <?php if (isset($data['sala']) && !empty($data['sala'])) { ?>
             <table id="myTable" class="display">
@@ -106,10 +113,10 @@ extend_styles(['css.admin.financas']);
                         <td>
                             <?= $sala['tipo_movimentacao']; ?>
                         </td>
-                        <td>
+                        <td style="width: 100p;">
                             <?= $sala['descricao']; ?>
                         </td>
-                        <td>
+                        <td style="width: 100p;">
                             <?= $sala['obs']; ?>
                         </td>
                         <th style="padding: 26px;">

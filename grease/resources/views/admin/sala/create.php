@@ -130,8 +130,28 @@ extend_styles([ 'css.admin.financas' ]);
 
 
   <?php
-  use_js_scripts([ 'js.lib.maskMoney'  ]);
-  use_js_scripts([ 'js.admin.financas', 'js.masksForInputs' ]);
+  use_js_scripts([ 
+    'js.lib.maskMoney', 
+    'js.admin.financas', 
+    'js.masksForInputs'  
+  ]);
   ?> 
   <script type="module" src="<?= assets('js/forms/', 'FormCadastroUsuario.js'); ?>"></script>
+  <script>
+    $(document).ready(() => {
+        $('#money').maskMoney({
+            prefix: 'R$ ',
+            allowNegative: false,
+            thousands: '.',
+            decimal: ',',
+            affixesStay: true
+        });
+
+        $('#frm-entrada').submit(function(event) {
+            $('.money').each(function() {
+                $(this).val($(this).maskMoney('unmasked')[0]);
+            });
+        });
+    });
+    </script>
 </body>

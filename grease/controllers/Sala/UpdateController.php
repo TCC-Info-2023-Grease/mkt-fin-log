@@ -24,7 +24,7 @@ if (!$campos_validos) {
         'msg' => 'Campos Inválidos',
         'icon' => 'error'
     ];
-    navegate($_ENV['ROUTE'] . 'admin.sala.index'); // Certifique-se de ajustar o redirecionamento
+    navegate($_ENV['ROUTE'] . 'admin.sala.index'); 
 }
 
 # ------ Atualizar Sala
@@ -33,7 +33,7 @@ $sala = new Sala($mysqli);
 $dados = [
   'id'                => $_POST['id'],
   'usuario_id'        => $_POST['usuario_id'],
-  'aluno_id'          => $_POST['aluno_id'],
+  'aluno_id'          => $_POST['aluno_escolhido'],
   'categoria'         => $_POST['categoria_escolhida'],
   'descricao'         => $_POST['descricao'],
   'data_movimentacao' => date("Y-m-d H:i:s"),
@@ -44,7 +44,7 @@ $dados = [
 ];
 
 try {
-    $sala->atualizar($dados); // Certifique-se de que o método atualizar() está implementado na classe Sala
+    $sala->atualizar($dados); 
     $_SESSION['fed_sala'] = [
         'title' => 'Sucesso!',
         'msg' => 'Atualizado com sucesso',
@@ -58,5 +58,5 @@ try {
     ];
 }
 
-navegate($_ENV['ROUTE'] . 'admin.sala.index'); // Certifique-se de ajustar o redirecionamento
+navegate($_ENV['ROUTE'] . 'admin.sala.index'); 
 ?>

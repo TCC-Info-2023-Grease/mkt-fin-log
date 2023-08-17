@@ -16,10 +16,11 @@ import_utils([
   'Money'
 ]);
 
-# Receber os dados enviados via POST
+include $_ENV['PASTA_CONTROLLER'] . '/Sala/ConsultaAlunosController.php';
+
 $dados = $_POST;
 
-//print_r($_POST);
+print_r($_POST);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if (isset($_SESSION['ultimo_acesso'])) {
@@ -27,7 +28,7 @@ if (isset($_SESSION['ultimo_acesso'])) {
 
   // Verifica se já passaram 5 minutos desde o último acesso
   if (time() - $ultimo_acesso > 2) {
-    unset($_SESSION['fed_usuario']);
+    unset($_SESSION['fed_sala']);
   }
 }
 ?>
@@ -49,86 +50,113 @@ extend_styles(['css.admin.financas']);
   render_component('sidebar');
   ?>
 
-  <?php if (isset($_SESSION['fed_usuario']) && !empty($_SESSION['fed_usuario'])): ?>
+  <?php if (isset($_SESSION['fed_sala']) && !empty($_SESSION['fed_sala'])): ?>
   <script>
     Swal.fire({
-      title: '<?php echo $_SESSION['fed_usuario']['title']; ?>',
-      text: '<?php echo $_SESSION['fed_usuario']['msg']; ?>',
-      icon: '<?php echo $_SESSION['fed_usuario']['icon']; ?>',
+      title: '<?php echo $_SESSION['fed_sala']['title']; ?>',
+      text: '<?php echo $_SESSION['fed_sala']['msg']; ?>',
+      icon: 'warning',
       confirmButtonText: 'OK'
     })
   </script>
   <?php endif; ?>
 
   <section class="dashboard">
-
     <div class="top">
       <i class="uil uil-bars sidebar-toggle"></i>
     </div>
     <div class="dash-content">
       <div class="overview">
         <div class="title">
-          <span class="text">Editar Categoria</span>
+          <span class="text">Atualização de Entrada</span>
         </div>
+        <div class="activity">
+          <form action="<?php echo $_ENV["URL_CONTROLLERS"]; ?>/Sala/UpdateController.php" method="POST"
+            id="frm-atualizacao">
+            <input type="hidden" name="id" value="<?= $dados['caixa_id']; ?>" />
+            <input type="hidden" name="usuario_id" value="<?= $dados['usuario_id']; ?>" />
+            <input type="hidden" name="tipo_movimentacao" value="Receita" />
+            <input type="hidden" name="status_caixa" value="ok" />
+            <input type="hidden" name="categoria_escolhida" value="Pagamento aluno" />
 
-        <form method="POST" id="frm-usuario" enctype="multipart/form-data" action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Usuario/UpdateController.php">
-          <input type="hidden" name="id" value="<?php echo isset($dados['usuario_id']) ? $dados['usuario_id'] : ''; ?>">
+            <label for="aluno_escolhido">
+              Alunos:
+            </label><br>
+            <select name="aluno_escolhido" id="">
+              <option value="">
+                - Selecione uma opção -
+              </option>
+              <?php foreach ($data['alunos'] as $aluno): ?>
+              <option value="<?= $aluno['aluno_id']; ?>"
+                <?php if ($aluno['aluno_id'] == $dados['aluno_id']): ?> selected <?php endif; ?>>
+                <?= $aluno['nome']; ?>
+              </option>
+              <?php endforeach; ?>
+            </select>
+            <br>
+            <br>
 
-          <label for="nome">Nome:</label>
-          <input type="text" name="nome" placeholder="Nome do usuário" value="<?php echo isset($dados['nome']) ? $dados['nome'] : ''; ?>">
-          <br>
-          <br>
+            <label for="descricao">Descrição:</label><br>
+            <textarea name="descricao" id="" cols="30" rows="10" required><?= $dados['descricao']; ?></textarea>
+            <br>
+            <br>
 
-          <label for="email">E-mail:</label>
-          <input type="email" name="email" placeholder="E-mail do usuário" value="<?php echo isset($dados['email']) ? $dados['email'] : ''; ?>">
-          <br>
-          <br>
+            <label for="price">Valor:</label><br>
+            <input type="text" id="money" class="money" name="valor" class="money" placeholder="R$ 0,99"
+              value="<?= $dados['valor']; ?>" required />
+            <br>
+            <br>
 
-          <?php if (isset($dados['cpf']) && !empty($dados['cpf'])): ?>
-          <label for="cpf">CPF:</label>
-          <input type="text" name="cpf" placeholder="CPF do usuário" value="<?php echo isset($dados['cpf']) ? $dados['cpf'] : ''; ?>">
-          <br>
-          <br>
-          <?php endif; ?>
+            <label for="forma_pagamento">Forma pagamento:</label><br>
+            <select name="forma_pagamento" id="" required>
+              <option value="">
+                - Selecione uma opção -
+              </option>
+              <option value="Físico" <?php if ($dados['forma_pagamento'] == 'Físico'): ?> selected <?php endif; ?>>
+                Físico
+              </option>
+              <option value="Pix" <?php if ($dados['forma_pagamento'] == 'Pix'): ?> selected <?php endif; ?>>
+                Pix
+              </option>
+            </select>
+            <br>
+            <br>
 
-          <label for="senha">Senha:</label>
-          <input type="password" name="senha" placeholder="Nova senha">
-          <br>
-          <br>
+            <label for="obs">Observação:</label><br>
+            <textarea name="obs" id="" cols="30" rows="10"
+              placeholder="Observações adicionais sobre a movimentação."><?= $dados['obs']; ?></textarea>
+            <br>
+            <br>
 
-          <label for="idade">Idade:</label>
-          <input type="number" name="idade" placeholder="Idade do usuário" value="<?php echo isset($dados['idade']) ? $dados['idade'] : ''; ?>">
-          <br>
-          <br>
-
-          <label for="genero">Gênero:</label>
-          <select name="genero">
-            <option value="m" <?php echo isset($dados['genero']) && $dados['genero'] === 'm' ? 'selected' : ''; ?>>Masculino</option>
-            <option value="f" <?php echo isset($dados['genero']) && $dados['genero'] === 'f' ? 'selected' : ''; ?>>Feminino</option>
-            <option value="o" <?php echo isset($dados['genero']) && $dados['genero'] === 'o' ? 'selected' : ''; ?>>Outro</option>
-            <option value="n" <?php echo isset($dados['genero']) && $dados['genero'] === 'n' ? 'selected' : ''; ?>>Não especificado</option>
-          </select>
-          <br>
-          <br>
-
-          <label for="celular">Celular:</label>
-          <input type="text" name="celular" placeholder="Celular do usuário" value="<?php echo isset($dados['celular']) ? $dados['celular'] : ''; ?>">
-          <br>
-          <br>
-
-          <input type="submit" value="Salvar">
-        </form>
+            <input type="submit" value="Atualizar">
+          </form>
+        </div>
       </div>
     </div>
   </section>
 
   <?php
-  use_js_scripts(['js.admin.financas']);
+  use_js_scripts([
+    'js.lib.maskMoney',
+    'js.admin.financas',
+    'js.masksForInputs'
+  ]);
   ?>
+  <script type="module" src="<?= assets('js/forms/', 'FormCadastroUsuario.js'); ?>"></script>
   <script>
     $(document).ready(() => {
-      $('#frm-usuario').submit(function(event) {
-        $('.money').val($('.money').maskMoney('unmasked')[0]);
+      $('#money').maskMoney({
+        prefix: 'R$ ',
+        allowNegative: false,
+        thousands: '.',
+        decimal: ',',
+        affixesStay: true
+      });
+
+      $('#frm-atualizacao').submit(function(event) {
+        $('.money').each(function() {
+          $(this).val($(this).maskMoney('unmasked')[0]);
+        });
       });
     });
   </script>
