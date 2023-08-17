@@ -76,6 +76,7 @@ $routes['admin.material.create'] = [
   'params' => []
 ];
 
+
 $routes['admin.material.entrada.create'] = [
   'method' => 'GET',
   'file' => 'admin/material/entrada.create',
@@ -116,6 +117,22 @@ $routes['admin.categoria_material.edit'] = [
   'params' => []
 ];
 
+# --
+$routes['admin.sala.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/sala/index',
+  'params' => []
+];
+$routes['admin.sala.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/sala/create',
+  'params' => []
+];
+$routes['admin.sala.edit'] = [
+  'method' => 'GET',
+  'file' => 'admin/sala/edit',
+  'params' => []
+];
 
 # --
 $routes['admin.meta.index'] = [

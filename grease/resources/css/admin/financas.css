@@ -121,7 +121,12 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
 .show { display:block; }
 
 
-  /* Estilo base do input */
+td {
+    word-wrap: break-word!important;
+}
+
+
+/* Estilo base do input */
 input[type="date"] {
   padding: 8px;
   font-size: 14px;
@@ -477,6 +482,17 @@ nav.close ~ .dashboard{
     left: 73px;
     width: calc(100% - 73px);
 }
+
+table {
+    width: 900px;
+    max-width: 900px;
+}
+
+td {
+    word-break: break-word!important;
+}
+
+
 .dashboard .top{
     position: fixed;
     top: 0;
@@ -602,14 +618,22 @@ nav.close ~ .dashboard .top{
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    overflow-x: hidden;
 }
+
+div .dash-content .activity .activity-data {
+    word-break: break-all;!important;
+}
+
 .activity .activity-data{
     display: flex;
+    word-break: break-all;!important;
 }
 .activity-data .data{
     display: flex;
     flex-direction: column;
     margin: 0 15px;
+    word-break: break-word!important;
 }
 .activity-data .data-title{
     font-size: 20px;

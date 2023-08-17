@@ -14,7 +14,7 @@ import_utils([
   'Money'
 ]);
 
-include $_ENV['PASTA_CONTROLLER'] . '/PedidoMaterial/ConsultaController.php';
+include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
 
 //print_r($_SESSION);
 

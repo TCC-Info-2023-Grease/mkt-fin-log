@@ -50,13 +50,22 @@ CREATE TABLE Usuarios (
         DEFAULT 'profile_default.png'
 );
 
+CREATE TABLE Alunos (
+	-- PK & FK
+    aluno_id INT PRIMARY KEY NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    status BOOLEAN DEFAULT TRUE
+);
 
 CREATE TABLE Caixa (
 		-- PK & FK
     caixa_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    usuario_id INT NOT NULL,
+    usuario_id INT NULL,
     FOREIGN KEY (usuario_id)
         REFERENCES Usuarios (usuario_id),
+    aluno_id INT NOT NULL,
+    FOREIGN KEY (aluno_id)
+        REFERENCES Alunos (aluno_id),
         
 		-- Atibutos
     categoria VARCHAR(20),

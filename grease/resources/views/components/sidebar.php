@@ -18,7 +18,11 @@
           </a></li>
 			<li><a href="<?= $_ENV['ROUTE'] ?>admin.caixa.index">
             <i class="uil uil-chart"></i>
-            <span class="link-name">Caixa</span>
+            <span class="link-name">Caixa Geral</span>
+          </a></li>
+          <li><a href="<?= $_ENV['ROUTE'] ?>admin.sala.index">
+            <i class="uil uil-chart"></i>
+            <span class="link-name">Caixa Sala</span>
           </a></li>
 			<li><a href="<?= $_ENV['ROUTE'] ?>admin.makeof.index">
             <i class="uil uil-chart"></i>

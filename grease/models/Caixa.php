@@ -104,6 +104,7 @@ class Caixa
       " . $this->tabela . "
         (
           caixa_id,
+          aluno_id,
           usuario_id, 
           categoria,
           descricao, 
@@ -116,6 +117,7 @@ class Caixa
       VALUES 
         (
           NULL,
+          '" . $dados['aluno_id'] . "',
           '" . $dados['usuario_id'] . "',
           '" . $dados['categoria'] . "',
           '" . $dados['descricao'] . "',
