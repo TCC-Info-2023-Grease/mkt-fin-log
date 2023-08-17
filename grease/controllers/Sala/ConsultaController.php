@@ -10,7 +10,7 @@ $porcentagemDevedoresPagantes = $sala->porcentagemDevedoresPagantes();
 
 return $data = [
   'sala' => $sala->obterReceitasComAluno(),
-  'agruparPagamentosPorMes'      => $sala->agruparPagamentosPorMes(),
+  'pagamentosPorMes'      => $sala->agruparPagamentosPorMes(),
   'totalAlunosPagantes'          => $sala->calcularTotalAlunosPagantes(),
   'totalPagamentos'              => $sala->calcularTotalPagamentos(),
   'alunosDevedores'              => $sala->obterAlunosDevedores(),
