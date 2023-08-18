@@ -14,6 +14,7 @@
           <li><a class="nav-link active" href="<?= $_ENV['ROUTE'] ?>admin.home">Home</a></li>
           <li><a class="nav-link" href="<?= $_ENV['VIEWS'] ?>/admin/meta/index.php">Meta</a></li>
           <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.usuario.index">Usuários</a></li>
+          <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.alunos.index">Alunos</a></li>
           <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.categoria_material.index">Categoria Material</a></li>
           <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.material.index">Material</a></li>
           <li><a class="nav-link" href="<?= $_ENV['ROUTE'] ?>admin.caixa.index">Caixa Geral</a></li>

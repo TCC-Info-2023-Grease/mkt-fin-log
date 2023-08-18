@@ -38,11 +38,6 @@ $porcentagemReceitas = $data['porcentagemReceitas'];
 render_component('head');
 extend_styles([ 'css.admin.financas' ]);
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
 <title>
   Finanças Admin 🕺 Grease
@@ -195,6 +190,7 @@ extend_styles([ 'css.admin.financas' ]);
         <hr>
 
         <div class="dash-content">
+          <?php if (isset($data['caixa']) && !empty($data['caixa'])) { ?>
           <div style="display: flex;justify-content: space-between;align-items: center;">
             <div class="title"><span class="text">Movimentações</span></div>
 
@@ -206,8 +202,6 @@ extend_styles([ 'css.admin.financas' ]);
               </div>
             </div>
           </div>
-           
-          <?php if (isset($data['caixa']) && !empty($data['caixa'])) { ?>
 
           <table id="myTable" class="display">
             <caption>Caixa</caption>

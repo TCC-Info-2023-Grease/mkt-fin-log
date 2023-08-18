@@ -313,22 +313,24 @@ class Sala {
     public function obterAlunosDevedores()
     {
         $query = "
-            SELECT 
-                DISTINCT a.aluno_id, a.nome as nome_aluno
-            FROM 
-                " . $this->tabela . " as c
-            JOIN 
-                alunos AS a ON a.aluno_id = c.aluno_id
-            WHERE 
+            SELECT
+                COUNT(*)    as totalDevedores,
+                a.aluno_id   as nome_aluno,
+                c.*
+
+            FROM
+                alunos as a,
+                caixa  as c
+            WHERE
                 LOWER(c.tipo_movimentacao) = 'receita' AND
-                c.aluno_id IS NOT NULL AND
-                c.valor > 0
+                MONTH(c.data_movimentacao) =  month(NOW()) AND
+                c.aluno_id != a.aluno_id
         ";
 
         $result = $this->mysqli->query($query);
 
         if ($result->num_rows === 0) {
-            return null;
+            return [];
         }
 
         $alunosDevedores = array();
@@ -336,10 +338,12 @@ class Sala {
             $alunosDevedores[] = $linha;
         }
 
+        $alunosDevedores = $alunosDevedores[0];
+
         return $alunosDevedores;
     }
 
-    public function calcularPorcentagemDevedoresPagantes()
+    public function porcentagemDevedoresPagantes()
     {
         $alunosDevedores = $this->obterAlunosDevedores();
         $totalAlunos = $this->obterTodosAlunos();

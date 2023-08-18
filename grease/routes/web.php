@@ -135,6 +135,23 @@ $routes['admin.sala.edit'] = [
 ];
 
 # --
+$routes['admin.alunos.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/alunos/index',
+  'params' => []
+];
+$routes['admin.alunos.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/alunos/create',
+  'params' => []
+];
+$routes['admin.alunos.edit'] = [
+  'method' => 'GET',
+  'file' => 'admin/alunos/edit',
+  'params' => []
+];
+
+# --
 $routes['admin.meta.index'] = [
   'method' => 'GET',
   'file' => 'admin/meta/index',
