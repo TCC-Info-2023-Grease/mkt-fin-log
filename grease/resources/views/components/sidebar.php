@@ -16,6 +16,10 @@
             <i class="uil uil-chart"></i>
             <span class="link-name">Usuários</span>
           </a></li>
+          <li><a href="<?= $_ENV['ROUTE'] ?>admin.alunos.index">
+            <i class="uil uil-chart"></i>
+            <span class="link-name">Alunos</span>
+          </a></li>
 			<li><a href="<?= $_ENV['ROUTE'] ?>admin.caixa.index">
             <i class="uil uil-chart"></i>
             <span class="link-name">Caixa Geral</span>
@@ -23,10 +27,6 @@
           <li><a href="<?= $_ENV['ROUTE'] ?>admin.sala.index">
             <i class="uil uil-chart"></i>
             <span class="link-name">Caixa Sala</span>
-          </a></li>
-          <li><a href="<?= $_ENV['ROUTE'] ?>admin.alunos.index">
-            <i class="uil uil-chart"></i>
-            <span class="link-name">Alunos</span>
           </a></li>
 			<li><a href="<?= $_ENV['ROUTE'] ?>admin.makeof.index">
             <i class="uil uil-chart"></i>

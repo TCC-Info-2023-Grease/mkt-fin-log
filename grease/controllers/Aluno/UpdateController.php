@@ -19,44 +19,36 @@ $campos_validos = (
     $_POST['id'] ? true : false
 );
 if (!$campos_validos) {
-    $_SESSION['fed_sala'] = [
+    $_SESSION['fed_aluno'] = [
         'title' => 'Erro!',
         'msg' => 'Campos Inválidos',
         'icon' => 'error'
     ];
-    navegate($_ENV['ROUTE'] . 'admin.sala.index'); 
+    navegate($_ENV['ROUTE'] . 'admin.alunos.index'); 
 }
 
-# ------ Atualizar Sala
-$sala = new Sala($mysqli);
+# ------ Atualizar aluno
+$aluno = new Aluno($mysqli);
 
 $dados = [
-  'id'                => $_POST['id'],
-  'usuario_id'        => $_POST['usuario_id'],
-  'aluno_id'          => $_POST['aluno_escolhido'],
-  'categoria'         => $_POST['categoria_escolhida'],
-  'descricao'         => $_POST['descricao'],
-  'data_movimentacao' => $_POST['data_movimentacao'],
-  'valor'             => floatval($_POST['valor']),
-  'tipo_movimentacao' => $_POST['tipo_movimentacao'],
-  'forma_pagamento'   => $_POST['forma_pagamento'],
-  'obs'               => $_POST['obs']
+  'id'   => $_POST['id'],
+  'nome' => $_POST['nome']
 ];
 
 try {
-    $sala->atualizar($dados); 
-    $_SESSION['fed_sala'] = [
+    $aluno->atualizar($dados); 
+    $_SESSION['fed_aluno'] = [
         'title' => 'Sucesso!',
         'msg' => 'Atualizado com sucesso',
         'icon' => 'success'
     ];
 } catch (Exception $e) {
-    $_SESSION['fed_sala'] = [
+    $_SESSION['fed_aluno'] = [
         'title' => 'Erro!',
         'msg' => 'Erro ao atualizar',
         'icon' => 'error'
     ];
 }
 
-navegate($_ENV['ROUTE'] . 'admin.sala.index'); 
+navegate($_ENV['ROUTE'] . 'admin.alunos.index'); 
 ?>

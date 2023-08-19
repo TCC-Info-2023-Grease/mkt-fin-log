@@ -17,7 +17,7 @@ import_utils([
 # Receber os dados enviados via POST
 $data = $_POST;
 
-print_r($_POST);
+//print_r($_POST);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
