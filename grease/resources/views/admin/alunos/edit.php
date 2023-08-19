@@ -10,8 +10,7 @@ Auth::check('adm');
 import_utils([
   'extend_styles', 
   'use_js_scripts', 
-  'render_component',
-  'Money'
+  'render_component'
 ]);
 
 # Receber os dados enviados via POST
@@ -25,7 +24,7 @@ if(isset($_SESSION['ultimo_acesso'])) {
   
   // Verifica se já passaram 5 minutos desde o último acesso
   if(time() - $ultimo_acesso > 2) {
-    unset($_SESSION['fed_categoria_material']);
+    unset($_SESSION['fed_aluno']);
   }
 } 
 ?>
@@ -47,37 +46,37 @@ extend_styles([ 'css.admin.financas' ]);
   render_component('sidebar');
   ?>
 
-  <?php if (isset($_SESSION['fed_categoria_material']) && !empty($_SESSION['fed_categoria_material'])): ?>
+  <?php if (isset($_SESSION['fed_aluno']) && !empty($_SESSION['fed_aluno'])): ?>
   <script>
     Swal.fire({
-      title: '<?php echo $_SESSION['fed_categoria_material']['title']; ?>',
-      text: '<?php echo $_SESSION['fed_categoria_material']['msg']; ?>',
-      icon: '<?php echo $_SESSION['fed_categoria_material']['icon']; ?>',
+      title: '<?php echo $_SESSION['fed_aluno']['title']; ?>',
+      text: '<?php echo $_SESSION['fed_aluno']['msg']; ?>',
+      icon: '<?php echo $_SESSION['fed_aluno']['icon']; ?>',
       confirmButtonText: 'OK'
     })
   </script>
   <?php endif; ?>
 
 
-   <section class="dashboard">
-
+  <section class="dashboard">
     <div class="top">
       <i class="uil uil-bars sidebar-toggle"></i>
     </div>
+
     <div class="dash-content">
         <div class="overview">
           <div class="title">
-            <span class="text">Editar Categoria</span>
+            <span class="text">Editar Aluno</span>
           </div>
 
           <form 
       			method="POST" 
-      			action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/CategoriaMaterial/UpdateController.php"
+      			action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Aluno/UpdateController.php"
     		  >
-          <input type="hidden" name="id" value="<?= $data['categoria_id']; ?>">
+          <input type="hidden" name="id" value="<?= $data['aluno_id']; ?>">
 
     			<label for="nome">Nome:</label>
-    			<input type="text" value="<?= $data['nome']; ?>" name="nome" placeholder="Corda de arame...">
+    			<input type="text" value="<?= $data['nome']; ?>" name="nome" />
     			<br>
     			<br>
     				
