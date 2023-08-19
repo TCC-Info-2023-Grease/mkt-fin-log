@@ -14,13 +14,16 @@ import_utils([
   'Money'
 ]);
 
+
+//var_dump($_SESSION['fed_aluno']);
+
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
   
   // Verifica se já passaram 5 minutos desde o último acesso
-  if(time() - $ultimo_acesso > 2) {
-    unset($_SESSION['fed_categoria_material']);
+  if(time() - $ultimo_acesso > 4) {
+    unset($_SESSION['fed_aluno']);
   }
 } 
 ?>
@@ -42,16 +45,18 @@ extend_styles([ 'css.admin.financas' ]);
   render_component('sidebar');
   ?>
 
-  <?php if (isset($_SESSION['fed_categoria_material']) && !empty($_SESSION['fed_categoria_material'])): ?>
+  <?php if (isset($_SESSION['fed_aluno']) && !empty($_SESSION['fed_aluno'])): ?>
   <script>
     Swal.fire({
-      title: '<?php echo $_SESSION['fed_categoria_material']['title']; ?>',
-      text: '<?php echo $_SESSION['fed_categoria_material']['msg']; ?>',
-      icon: '<?php echo $_SESSION['fed_categoria_material']['icon']; ?>',
+      title: '<?php echo $_SESSION['fed_aluno']['title']; ?>',
+      text: '<?php echo $_SESSION['fed_aluno']['msg']; ?>',
+      icon: '<?php echo $_SESSION['fed_aluno']['icon']; ?>',
       confirmButtonText: 'OK'
     })
   </script>
   <?php endif; ?>
+
+
 
 
    <section class="dashboard">
@@ -62,15 +67,15 @@ extend_styles([ 'css.admin.financas' ]);
     <div class="dash-content">
         <div class="overview">
           <div class="title">
-            <span class="text">Cadastro Materiais</span>
+            <span class="text">Cadastro Aluno</span>
           </div>
 
           <form 
       			method="POST" 
-      			action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/CategoriaMaterial/CadastroController.php"
+      			action="<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/CadastroController.php"
     		  >
     			<label for="nome">Nome:</label>
-    			<input type="text" name="nome" placeholder="Corda de arame...">
+    			<input type="text" name="nome" placeholder="Manoel Gomes" required>
     			<br>
     			<br>
     				
