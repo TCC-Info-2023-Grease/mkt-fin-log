@@ -1,202 +1,150 @@
 <?php
 /**
- * Categoria Material
- */
-class CategoriaMaterial
+ * Aluno
+*/
+class Aluno
 {
     private $mysqli;
-    private $tabela = "categoriasmaterial";
+    private $tabela = 'alunos';
+    private $tabela_secundaria = 'caixa';
 
-
-    /**
-     * Método construtor da classe
-     *
-     * @param  mysqli $mysqli É a conexão com o banco de dados
-     * @return void
-     */
-    public function __construct(mysqli $mysqli)
+    public function __construct($mysqli)
     {
         $this->mysqli = $mysqli;
     }
 
-
-    /**
-     * Método para verificar se determinado valor de um campo é único
-     *
-     * @param int $campo Nome do campo
-     * @param int $valor É o valor do campo
-     * @return bool|null
-     */
-    public function unico($campo, $valor)
+    public function cadastrar($dados)
     {
         $query = "
-            SELECT 
-                id 
-            FROM 
-                " . $this->tabela . " 
-            WHERE {$campo} = ?
+            INSERT INTO 
+                {$this->tabela} 
+                    (nome)
+            VALUES 
+                    (?)
         ";
-        $params = [$valor];
 
         $stmt = $this->mysqli->prepare($query);
+        $stmt->bind_param(
+            "s",
+            $dados['nome']
+        );
 
-        if (!$stmt) {
-            error_log("Erro ao preparar a consulta: " . $this->mysqli->error);
+        if (!$stmt->execute()) {
+            die("Erro ao criar aluno: " . $stmt->error);
+        }
+
+        $stmt->close();
+    }
+
+    public function deletar($id)
+    {
+        // Verifica se há pagamentos associados a esse aluno
+        $sqlPagamentos = "SELECT aluno_id FROM caixa WHERE aluno_id = ?";
+        $stmtPagamentos = $this->mysqli->prepare($sqlPagamentos);
+        $stmtPagamentos->bind_param('i', $id);
+        $stmtPagamentos->execute();
+        $resultPagamentos = $stmtPagamentos->get_result();
+
+        if ($resultPagamentos->num_rows > 0) {
+            // Aluno tem pagamentos, não pode ser deletado
             return false;
         }
 
-        $stmt->bind_param(str_repeat('s', count($params)), ...$params);
-        $stmt->execute();
+        // Não há pagamentos, pode deletar o aluno
+        $sql = "DELETE FROM " . $this->tabela . " WHERE aluno_id = ?";
+        $stmt = $this->mysqli->prepare($sql);
 
-        return !$stmt->fetch();
+        if (!$stmt) {
+            die('Erro na preparação da query: ' . $this->mysqli->error);
+        }
+
+        $stmt->bind_param('i', $id);
+
+        if ($stmt->execute()) {
+            if ($stmt->affected_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            die('Erro na execução da query: ' . $this->mysqli->error);
+        }
     }
 
 
-    /**
-     * Método para buscar um usuario por um ID 
-     *
-     * @param int $ID ID do usuario
-     * @return mixed 
-     */
-    public function buscar($id)
+    public function atualizar($dados)
     {
-        $stmt = $this->mysqli->prepare("
-            SELECT 
-                * 
-            FROM 
-                " . $this->tabela . " 
-            WHERE categoria_id = ?
-        ");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $query = "
+            UPDATE {$this->tabela}
+            SET nome = ?
+            WHERE aluno_id = ?
+        ";
+        $stmt = $this->mysqli->prepare($query);
+
+        if (!$stmt) {
+            die('Erro na preparação da query: ' . $this->mysqli->error);
+        }
+
+        $stmt->bind_param(
+            'si',
+            $dados['nome'],
+            $dados['id']
+        );
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            die('Erro na execução da query: ' . $stmt->error);
+        }
+    }
+
+    public function buscarTodos()
+    {
+        $query = "SELECT * FROM {$this->tabela}";
+
+        $result = $this->mysqli->query($query);
 
         if ($result->num_rows === 0) {
             return null;
         }
 
-        $usuario = $result->fetch_assoc();
-        $stmt->close();
+        $alunos = [];
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $alunos[] = $linha;
+        }
 
-        return $usuario;
+        return $alunos;
     }
 
-    public function buscarTodos()
+    public function buscar($id)
     {
-        $stmt = $this->mysqli->query("
+        $sql = $this->mysqli->query("
             SELECT 
-                * 
+                c.*,
+                a.*,
+                u.nome as nome_usuario,
+                SUM(c.valor) AS total_pago
             FROM 
-                " . $this->tabela ."
-            ORDER BY nome ASC"    
-        );
+                {$this->tabela} as a
+            JOIN 
+                {$this->tabela_secundaria} as c 
+            ON 
+                c.aluno_id = a.aluno_id
+            JOIN
+                usuarios as u
+            ON
+                u.usuario_id = c.usuario_id
+            WHERE 
+                c.usuario_id = '".$id."'
+        ");
 
-        if ($stmt->num_rows === 0) {
+
+        if ($sql->num_rows === 0) {
             return null;
         }
 
-        while ($linha = mysqli_fetch_array($stmt, MYSQLI_ASSOC)) {
-            $categoria[] = $linha;
-        }
-
-        return $categoria;
+        $aluno = $sql->fetch_assoc();
+        return $aluno;
     }
-
-    /**
-     * Método para realizar o cadastro de um Úsuario
-     *
-     * @param  array $dados Dados a serem cadastrados
-     * @return void
-     */
-    public function cadastrar($dados = [])
-    {
-        $stmt = $this->mysqli->prepare("
-            INSERT INTO 
-                " . $this->tabela . " 
-                (nome) 
-            VALUES 
-                (?)
-        ");
-
-        $stmt->bind_param("s", $dados['nome']);
-
-        // Verificar se o nome já existe na tabela
-        $verificarStmt = $this->mysqli->prepare("
-            SELECT 
-                nome 
-            FROM 
-                " . $this->tabela . " 
-            WHERE 
-                nome = ?
-        ");
-
-        $verificarStmt->bind_param("s", $dados['nome']);
-        $verificarStmt->execute();
-        $verificarStmt->store_result();
-
-        if ($verificarStmt->num_rows > 0) {
-            // Se o nome já existe na tabela, exibir uma mensagem de erro ou redirecionar o usuário para uma página de erro
-            echo "O nome já existe na tabela.";
-        } else {
-            // Se o nome não existe na tabela, inserir o novo registro
-            $stmt->execute();
-            $stmt->close();
-        }
-        
-        $verificarStmt->close();
-    }
-
-    public function atualizar($dados = [])
-    {
-        $stmt = $this->mysqli->prepare("
-            UPDATE 
-                " . $this->tabela . " 
-            SET 
-                nome = ?
-            WHERE 
-                categoria_id = ?
-        ");
-
-        $stmt->bind_param("si", $dados['nome'], $dados['categoria_id']);
-
-        // Verificar se o nome já existe na tabela (excluding the current record being updated)
-        $verificarStmt = $this->mysqli->prepare("
-            SELECT 
-                nome 
-            FROM 
-                " . $this->tabela . " 
-            WHERE 
-                nome = ? AND categoria_id != ?
-        ");
-
-        $verificarStmt->bind_param("si", $dados['nome'], $dados['categoria_id']);
-        $verificarStmt->execute();
-        $verificarStmt->store_result();
-
-        if ($verificarStmt->num_rows > 0) {
-            // If the name already exists in the table (excluding the current record), display an error message or redirect the user to an error page
-            echo "O nome já existe na tabela.";
-        } else {
-            // If the name is not already in the table, update the record
-            $stmt->execute();
-            $stmt->close();
-        }
-        
-        $verificarStmt->close();
-    }
-
-    public function deletar($id)
-    {
-        $stmt = $this->mysqli->prepare("
-            DELETE FROM 
-                " . $this->tabela . " 
-            WHERE 
-                categoria_id = ?
-        ");
-
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->close();
-    }
-
 }
+ 

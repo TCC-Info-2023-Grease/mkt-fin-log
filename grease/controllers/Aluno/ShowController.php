@@ -8,19 +8,19 @@ import_utils(['valida_campo', 'navegate']);
 # ------ Validar Envio de Dados
 $campos_validos = ($_GET['id'] ? true : false);
 if (!$campos_validos) {
-    navegate($_ENV['ROUTE'] . 'admin.sala.index'); // Certifique-se de ajustar o redirecionamento
+    navegate($_ENV['ROUTE'] . 'admin.aluno.index');
 }
 
 # ----- Show
-$sala = new Sala($mysqli);
-$salaData = $sala->buscar($_GET['id']); // Certifique-se de que o método buscar() está implementado na classe Sala
-//print_r($salaData);
+$aluno = new Aluno($mysqli);
+$alunoData = $aluno->buscar($_GET['id']); 
+//print_r($alunoData);
 
-$url = $_ENV['VIEWS'] . '/admin/sala/show.php'; // Certifique-se de ajustar o caminho correto
+$url = $_ENV['VIEWS'] . '/admin/alunos/show.php'; 
 
-# Criar um formulário oculto com os dados da sala
-$form = '<form id="salaForm" action="' . $url . '" method="POST">';
-foreach ($salaData as $key => $value) {
+# Criar um formulário oculto com os dados da aluno
+$form = '<form id="alunoForm" action="' . $url . '" method="POST">';
+foreach ($alunoData as $key => $value) {
     $form .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
 }
 $form .= '</form>';
@@ -29,7 +29,7 @@ $form .= '</form>';
 $script = '
 <script>
   window.onload = function() {
-    document.getElementById("salaForm").submit();
+    document.getElementById("alunoForm").submit();
   }
 </script>';
 

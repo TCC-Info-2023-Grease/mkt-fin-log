@@ -14,18 +14,17 @@ import_utils([
   'Money'
 ]);
 
-$categoria_material = new CategoriaMaterial($mysqli);
-$categorias = $categoria_material->buscarTodos();
+include $_ENV['PASTA_CONTROLLER'] . '/Aluno/ConsultaController.php';
 
-//print_r($categorias);
+//print_r(isset($_SESSION['fed_aluno']) && !empty($_SESSION['fed_aluno']));
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
   
   // Verifica se já passaram 5 minutos desde o último acesso
-  if(time() - $ultimo_acesso > 2) {
-    unset($_SESSION['fed_categoria_material']);
+  if(time() - $ultimo_acesso > 4) {
+    unset($_SESSION['fed_aluno']);
   }
 } 
 ?>
@@ -53,32 +52,31 @@ extend_styles([ 'css.admin.financas' ]);
   render_component('sidebar');
   ?>
 
-  <?php if (isset($_SESSION['fed_categoria_material']) && !empty($_SESSION['fed_categoria_material'])): ?> 
-    <script>
-      Swal.fire({
-        title: '<?= $_SESSION['fed_categoria_material']['title']; ?>',
-        text: '<?= $_SESSION['fed_categoria_material']['msg']; ?>',
-        icon: '<?= $_SESSION['fed_categoria_material']['icon']; ?>',
-        confirmButtonText: 'OK'
-
-      })
-    </script>
+  <?php if (isset($_SESSION['fed_aluno']) && !empty($_SESSION['fed_aluno'])): ?>
+  <script>
+    Swal.fire({
+      title: '<?php echo $_SESSION['fed_aluno']['title']; ?>',
+      text: '<?php echo $_SESSION['fed_aluno']['msg']; ?>',
+      icon: '<?php echo $_SESSION['fed_aluno']['icon']; ?>',
+      confirmButtonText: 'OK'
+    })
+  </script>
   <?php endif; ?>
 
   <section class="dashboard">
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content">
         <div style="text-align: right;">
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.categoria_material.create" class="button-link btn-edit">
-            Nova Categoria
+          <a href="<?php echo $_ENV['ROUTE'] ?>admin.alunos.create" class="button-link btn-edit">
+            Novo Aluno
           </a>
         </div>
 
         <div class="title"> 
-            <span class="text">Categoria dos Materiais</span> 
+            <span class="text">Alunos</span> 
         </div>
         
-        <?php if (isset($categorias) || !empty($categorias)) { ?> 
+        <?php if (isset($alunos) || !empty($alunos)) { ?> 
         <table id="myTable" class="display">
             <thead>
                 <tr>
@@ -88,27 +86,43 @@ extend_styles([ 'css.admin.financas' ]);
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($categorias as $categoria): ?>
+                <?php foreach ($alunos as $aluno): ?>
                 <tr>
-                    <td>
-                        <?php echo $categoria['categoria_id']; ?>
+                    <td style="width: 96px;">
+                        <?= $aluno['aluno_id']; ?>
                     </td>
                     <td>
-                        <?php echo $categoria['nome']; ?>
+                        <?= $aluno['nome']; ?>
                     </td>
-                    <th style="padding: 26px;">
-                      <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/CategoriaMaterial/EditController.php?id=<?= $categoria['categoria_id']; ?>" class="icon-link edit">
-                        <i class="fa-regular fa-pen-to-square"></i> Editar
+                    <th style="padding: 32px;width: 90px;">
+                      <a 
+                        href="<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/ShowController.php?id=<?= $aluno['aluno_id']; ?>"
+                        class="icon-link"
+                      >
+                        <i class="fa-regular fa-eye"></i>
                       </a>
-                      <br><br>    
+
+                      <br>
+                      <br>
+                      <hr>
+                      <br>    
+
+                      <a 
+                        href="<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/EditController.php?id=<?= $aluno['aluno_id']; ?>" 
+                        class="icon-link edit"
+                      >
+                        <i class="fa-regular fa-pen-to-square"></i>
+                      </a>
+                      <br><br>
                       
-                      <a href="#"
+                      <a 
+                        href="#"
                         onclick="if (confirm('Deseja excluir mesmo?')) {
-                          this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/CategoriaMaterial/DeletarController.php?id=<?= $categoria['categoria_id']; ?>';
+                          this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/DeletarController.php?id=<?= $aluno['aluno_id']; ?>';
                         }"
                         class="icon-link delete"
                       >
-                        <i class="fa-solid fa-trash"></i> Deletar
+                        <i class="fa-solid fa-trash"></i>
                       </a>
                     </th>
                 </tr>

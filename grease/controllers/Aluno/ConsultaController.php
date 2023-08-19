@@ -1,21 +1,22 @@
-<?php  
+<?php
 # ------ Dados Iniciais
 global $mysqli;
-import_utils(['valida_campo', 'navegate']);
+import_utils([ 'navegate' ]);
 
-# ----- Consulta Usuário
-$sala = new Sala($mysqli);
- 
-$porcentagemDevedoresPagantes = $sala->porcentagemDevedoresPagantes();
 
-return $data = [
-  'sala' => $sala->obterReceitasComAluno(),
-  'pagamentosPorMes'      => $sala->agruparPagamentosPorMes(),
-  'totalAlunosPagantes'          => $sala->calcularTotalAlunosPagantes(),
-  'totalPagamentos'              => $sala->calcularTotalPagamentos(),
-  'alunosDevedores'              => $sala->obterAlunosDevedores(),
-  'rankingTopPagantes'           => $sala->calcularRankingTopPagantes(),
-  'porcentagem_devedores'        => $porcentagemDevedoresPagantes['porcentagem_devedores'],
-  'porcentagem_pagantes'         => $porcentagemDevedoresPagantes['porcentagem_pagantes']
-];
-?>
+# ----- Cadastro Sala
+$alunos = new Sala($mysqli);
+
+try {
+    $alunos = $alunos->obterTodosAlunos();
+} catch (Exception $e) {
+    //throw $e;
+
+    $_SESSION['fed_aluno'] = [ 
+    'title' => 'Erro!', 'msg' => 'Erro inesperado' 
+    ];
+
+    navegate($_ENV['ROUTE'] . 'admin.alunos.create');
+}
+
+return $alunos;

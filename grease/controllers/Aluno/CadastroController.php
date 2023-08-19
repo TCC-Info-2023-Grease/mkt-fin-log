@@ -1,4 +1,4 @@
-<?php 		
+<?php     
 # ------ Dados Iniciais
 require dirname(dirname(__DIR__)) . '\config.php';
 
@@ -16,44 +16,48 @@ $_SESSION['ultimo_acesso'] = time();
 
 # ------ Validar Envio de Dados
 $campos_validos = (
-  $_POST['categoria_escolhida'] &&
-  $_POST['descricao']           &&
-  $_POST['valor']               &&
-  $_POST['forma_pagamento']     
+  !empty($_POST['nome']) && isset($_POST['nome'])
 );
 if (!$campos_validos) 
 {
-  $_SESSION['fed_caixa'] = [ 
-      'title' => 'OK!', 'msg' => 'Campos Invalidos', 'icon' => 'error'
+  $_SESSION['fed_aluno'] = [ 
+      'title' => 'Erro!', 'msg' => 'Campos Invalidos', 
+      'icon'  => 'error'
   ];
-  navegate($_ENV['ROUTE'] . 'admin.sala.create');
+
+  //var_dump($campos_validos);
+  navegate($_ENV['ROUTE'] . 'admin.alunos.create');
 } 
 
 
-# ----- Cadastro Entrada Caixa
-$caixa = new Caixa($mysqli);
+# ----- Cadastro
+$aluno = new Aluno($mysqli);
 
 //print_r($_POST);
 
-$dados = [
-  'usuario_id'        => $_POST['usuario_id'],
-  'categoria'         => $_POST['categoria_escolhida'],
-  'descricao'         => $_POST['descricao'],
-  'data_movimentacao' => date("Y-m-d H:i:s"),
-  'valor'             => floatval($_POST['valor']),
-  'tipo_movimentacao' => $_POST['tipo_movimentacao'],
-  'forma_pagamento'   => $_POST['forma_pagamento'],
-  'obs'               => $_POST['obs']
+try {
+  $dados = [
+    'nome' => $_POST['nome']
+  ];
+  $aluno->cadastrar($dados);
+  
+  navegate($_ENV['ROUTE'] . 'admin.alunos.index');
+} catch (Exception $e) {
+  //throw $e;
+  $_SESSION['fed_aluno'] = [ 
+    'title' => 'Erro!', 'msg' => 'Campos Invalidos',
+    'icon'  => 'error'
+  ];
+
+  //var_dump($dados);
+  navegate($_ENV['ROUTE'] . 'admin.alunos.create');
+}
+
+//var_dump($dados);
+
+$_SESSION['fed_aluno'] = [ 
+  'title' => 'OK!', 'msg' => 'Cadastrado com sucesso',
+  'icon'  => 'success'
 ];
 
-try {
-  $caixa->cadastrarEntrada($dados);
-  $_SESSION['fed_caixa'] = [ 
-    'title' => 'OK!', 'msg' => 'Tudo certo!', 'icon' => 'success'
-  ];
-} catch (Exception $error) {
-  $_SESSION['fed_caixa'] = [ 
-    'title' => 'OK!', 'msg' => 'Campos Invalidos', 'icon' => 'error'
-  ];
-}
-navegate($_ENV['ROUTE'] . 'admin.caixa.index');
+navegate($_ENV['ROUTE'] . 'admin.alunos.index');
