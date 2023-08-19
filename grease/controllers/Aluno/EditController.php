@@ -8,28 +8,30 @@ import_utils(['valida_campo', 'navegate']);
 # ------ Validar Envio de Dados
 $campos_validos = ($_GET['id'] ? true : false);
 if (!$campos_validos) { 
-  navegate($_ENV['ROUTE'] . 'admin.sala.index'); // Certifique-se de ajustar o redirecionamento
+  navegate($_ENV['ROUTE'] . 'admin.alunos.index'); 
 } 
 
-# ----- Editar Sala
+# ----- Editar aluno
 try {
-  $sala = new Sala($mysqli);
-  $salaData = $sala->buscar($_GET['id']); // Certifique-se de que o método buscarPorID() existe na classe Sala
-  if (!$salaData) {
-      $_SESSION['fed_sala'] = [
-          'title' => 'Erro!',
-          'msg' => 'Sala não encontrada.',
-          'icon' => 'error'
-      ];
-      navegate($_ENV['ROUTE'] . 'admin.sala.index'); // Certifique-se de ajustar o redirecionamento
+  $aluno = new Aluno($mysqli);
+  $alunoData = $aluno->buscar($_GET['id']);
+
+  if (!$alunoData) {
+    $_SESSION['fed_aluno'] = [
+      'title' => 'Erro!',
+      'msg' => 'Aluno não encontrada.',
+      'icon' => 'error'
+    ];
+
+    navegate($_ENV['ROUTE'] . 'admin.alunos.index');
   }
 
-  $url = $_ENV['VIEWS'] . '/admin/sala/edit.php'; // Certifique-se de ajustar o caminho correto para a view de edição
+  $url = $_ENV['VIEWS'] . '/admin/alunos/edit.php';
 
-  # Criar um formulário oculto com os dados da sala
-  $form = '<form id="salaForm" action="' . $url . '" method="POST">';
-  foreach ($salaData as $key => $value) {
-      $form .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
+  # Criar um formulário oculto com os dados da aluno
+  $form = '<form id="alunoForm" action="' . $url . '" method="POST">';
+  foreach ($alunoData as $key => $value) {
+    $form .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
   }
   $form .= '</form>'; 
 
@@ -37,18 +39,19 @@ try {
   $script = '
   <script>
     window.onload = function() {
-      document.getElementById("salaForm").submit();
+      document.getElementById("alunoForm").submit();
     }
   </script>';
 
   # Exibir o formulário e o script
   echo $form . $script;
 } catch (Exception $e) {
-  $_SESSION['fed_sala'] = [
-      'title' => 'Erro!',
-      'msg' => 'Ocorreu um erro ao editar a sala.',
-      'icon' => 'error'
+  $_SESSION['fed_aluno'] = [
+    'title' => 'Erro!',
+    'msg' => 'Ocorreu um erro ao editar a aluno.',
+    'icon' => 'error'
   ];
-  navegate($_ENV['ROUTE'] . 'admin.sala.index'); // Certifique-se de ajustar o redirecionamento
+
+  navegate($_ENV['ROUTE'] . 'admin.alunos.index'); 
 }
 ?>
