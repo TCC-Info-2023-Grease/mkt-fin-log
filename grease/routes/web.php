@@ -145,6 +145,11 @@ $routes['admin.alunos.create'] = [
   'file' => 'admin/alunos/create',
   'params' => []
 ];
+$routes['admin.alunos.create.all'] = [
+  'method' => 'GET',
+  'file' => 'admin/alunos/create_all',
+  'params' => []
+];
 $routes['admin.alunos.edit'] = [
   'method' => 'GET',
   'file' => 'admin/alunos/edit',

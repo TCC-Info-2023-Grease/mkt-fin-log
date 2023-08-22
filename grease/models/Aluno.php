@@ -37,6 +37,43 @@ class Aluno
         $stmt->close();
     }
 
+
+    public function cadastrarEmMassa($dados)
+    {
+        $textComNomeDosAlunos = $dados['nomes_alunos'];
+
+        $listaDeNomesDosAlunos = explode(';', $textComNomeDosAlunos);
+        
+        $values = '';
+
+        foreach ($listaDeNomesDosAlunos as $key => $value) {
+
+            if (!empty($value) && isset($value)) {
+                $values .= "('{$value}')";
+                if ($key <= count($listaDeNomesDosAlunos) - 2) {
+                    $values .= " , ";
+                } else {
+                    $values .= " ";
+                }
+            } else {
+                $values .= " ";
+            }
+            
+        }
+
+        $query = "
+            INSERT INTO 
+                alunos
+                (nome)
+            VALUES 
+                ". $values;
+
+        $stmt = $this->mysqli->query($query);
+
+        return $query;
+    }
+
+
     public function deletar($id)
     {
         // Verifica se há pagamentos associados a esse aluno
@@ -147,6 +184,7 @@ class Aluno
         // -- pegar as movimentações
         $result = $this->mysqli->query("
             SELECT 
+                c.caixa_id,
                 c.`categoria`,
                 c.`descricao`,
                 c.`data_movimentacao`,

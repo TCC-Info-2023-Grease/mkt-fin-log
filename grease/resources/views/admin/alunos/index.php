@@ -67,8 +67,14 @@ extend_styles([ 'css.admin.financas' ]);
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content">
         <div style="text-align: right;">
+          <a href="<?php echo $_ENV['ROUTE'] ?>admin.alunos.create.all" class="button-link btn-edit">
+            Adicionar varios Alunos
+          </a>
+          
+          <span class="button-separator">|</span>
+
           <a href="<?php echo $_ENV['ROUTE'] ?>admin.alunos.create" class="button-link btn-edit">
-            Novo Aluno
+            Adicionar um Aluno
           </a>
         </div>
 

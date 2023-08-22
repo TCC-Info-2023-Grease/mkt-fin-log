@@ -105,9 +105,11 @@ extend_styles(['css.admin.financas']);
           </div>
         </div>
 
-          <div class="title"> <span class="text">Movimentações do Aluno</span> </div>
+        <br><br><br>
+          <hr>
 
-          <div class="dash-content">
+
+          <div class="dash-content" style="padding-top: 1.1rem;">
               <?php if (isset($aluno['movimentacoes']) || !empty($aluno['movimentacoes'])) { ?>
               <div style="display: flex;justify-content: space-between;align-items: center;">
                 <div class="title"><span class="text">Movimentações</span></div>
@@ -127,9 +129,8 @@ extend_styles(['css.admin.financas']);
                   <tr>
                     <th>Admin</th>
                     <th>Valor</th>
-                    <th>Descrição</th>
                     <th>Data</th>
-                    <th>Observação</th>
+                    <th></th>
                   </tr>
                 </thead>
 
@@ -143,13 +144,15 @@ extend_styles(['css.admin.financas']);
                       <?= Money::format($item->valor); ?>            
                     </td>
                     <td>
-                      <?= ($item->descricao)? $item->descricao : 'N/A'; ?>
-                    </td>
-                    <td>
                       <?= date('d/m/Y', strtotime($item->data_movimentacao)); ?>
                     </td>
                     <td>
-                      <?= ($item->obs)? $item->obs : 'N/A'; ?>
+                      <a 
+                        href="<?= $_ENV['URL_CONTROLLERS']; ?>/Sala/ShowController.php?id=<?= $item->caixa_id; ?>"
+                        class="icon-link "
+                      >
+                        <i class="fa-regular fa-eye" style="font-size: 1.15rem!important;"></i>
+                      </a>
                     </td>
                   </tr>
                   <?php endforeach; ?>

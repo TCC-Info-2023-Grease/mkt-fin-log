@@ -17,7 +17,7 @@ $alunoData = $aluno->buscar($_GET['id']);
 
 $alunoData['movimentacoes'] = json_encode($alunoData['movimentacoes']);
 
-var_dump($alunoData);
+//var_dump($alunoData);
 
 $url = $_ENV['VIEWS'] . '/admin/alunos/show.php'; 
 
