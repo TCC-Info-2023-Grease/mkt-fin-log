@@ -14,14 +14,17 @@ if (!$campos_validos) {
 # ----- Show
 $aluno = new Aluno($mysqli);
 $alunoData = $aluno->buscar($_GET['id']); 
-//print_r($alunoData);
+
+$alunoData['movimentacoes'] = json_encode($alunoData['movimentacoes']);
+
+var_dump($alunoData);
 
 $url = $_ENV['VIEWS'] . '/admin/alunos/show.php'; 
 
 # Criar um formulário oculto com os dados da aluno
 $form = '<form id="alunoForm" action="' . $url . '" method="POST">';
 foreach ($alunoData as $key => $value) {
-    $form .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
+    $form .= '<input type="hidden" name="' . $key . "\" value='" . $value . "'>";
 }
 $form .= '</form>';
 
