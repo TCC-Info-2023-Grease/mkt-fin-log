@@ -6,20 +6,23 @@ global $_ENV;
 import_utils(['Auth']);
 
 Auth::check('adm');
- 
+
 if (!isset($_POST) && empty($_POST)) navegate($_ENV['VIEWS']. '/adm/alunos/');
 
 import_utils([
-  'extend_styles', 
-  'use_js_scripts', 
+  'extend_styles',
+  'use_js_scripts',
   'render_component',
   'Money'
 ]);
 
-global $_ENV;   
+global $_ENV;
 
-print_r($_POST);
 $aluno = $_POST;
+
+$aluno['movimentacoes'] = json_decode($aluno['movimentacoes']);
+
+//print_r($aluno);
 ?>
 
 <!------- HEAD --------->
@@ -42,8 +45,8 @@ extend_styles(['css.admin.financas']);
     <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
     <div class="dash-content">
       <div style="text-align: right;">
-          <a 
-            href="#" 
+          <a
+            href="#"
             class="button-link btn-delete"
             onclick="if (confirm('Deseja excluir mesmo?')) {
                this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/DeletarController.php?id=<?= $aluno['aluno_id']; ?>';
@@ -70,7 +73,7 @@ extend_styles(['css.admin.financas']);
             <div class="data names">
               <span class="data-title">Nome</span>
               <span class="data-list">
-                <?= $aluno['nome']; ?>  
+                <?= $aluno['nome']; ?>
               </span>
             </div>
 
@@ -82,32 +85,93 @@ extend_styles(['css.admin.financas']);
               >
                 Total Pago:
               </span>
-              <span 
-                class="data-list" 
+              <span
+                class="data-list"
                 style="
                   border: 2px solid black;
                   padding: 11px;
                   border-radius: 8px;
                   background:
                   <?php if ($aluno['total_pago'] > 0): ?>
-                    #61e661  
+                    #61e661
                   <?php else: ?>
                     #e66161
                   <?php endif; ?>;
                 "
               >
-                <?= Money::format($aluno['total_pago']); ?>  
+                <?= Money::format($aluno['total_pago']); ?>
               </span>
             </div>
           </div>
         </div>
+
+          <div class="title"> <span class="text">Movimentações do Aluno</span> </div>
+
+          <div class="dash-content">
+              <?php if (isset($aluno['movimentacoes']) || !empty($aluno['movimentacoes'])) { ?>
+              <div style="display: flex;justify-content: space-between;align-items: center;">
+                <div class="title"><span class="text">Movimentações</span></div>
+
+                <div class="dropdown">
+                  <button onclick="toggleDropdown()" class="dropbtn">Exportar</button>
+                  <div id="myDropdown" class="dropdown-content">
+                    <button onclick="exportToPDF()">PDF</button>
+                    <button onclick="exportToExcel()">Excel</button>
+                  </div>
+                </div>
+              </div>
+
+              <table id="myTable" class="display">
+                <caption>Caixa</caption>
+                <thead>
+                  <tr>
+                    <th>Admin</th>
+                    <th>Valor</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>Observação</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <?php foreach ($aluno['movimentacoes'] as $item): ?>
+                  <tr>
+                    <td>
+                      <?= $item->nome_usuario; ?>
+                    </td>
+                    <td>
+                      <?= Money::format($item->valor); ?>            
+                    </td>
+                    <td>
+                      <?= ($item->descricao)? $item->descricao : 'N/A'; ?>
+                    </td>
+                    <td>
+                      <?= date('d/m/Y', strtotime($item->data_movimentacao)); ?>
+                    </td>
+                    <td>
+                      <?= ($item->obs)? $item->obs : 'N/A'; ?>
+                    </td>
+                  </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+              <?php } else { ?>
+              <h3>Sem inserções no caixa</h3>
+              <?php } ?>
+            </div>
         </div>
       </div>
     </div>
   </section>
 
   <?php
-  use_js_scripts(['js.admin.financas']);
+    use_js_scripts([ 
+      'js.lib.xlsx',
+      'js.lib.jspdf',
+      'js.lib.jspdf_plugin_autotable',
+      'js.services.ExportTabelaCaixa',
+      'js.admin.financas'
+    ]);
   ?>
 </body>
 <!-------/ BODY --------->
