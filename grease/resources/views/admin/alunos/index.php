@@ -6,10 +6,10 @@ global $_ENV;
 import_utils(['Auth']);
 
 Auth::check('adm');
- 
+
 import_utils([
-  'extend_styles', 
-  'use_js_scripts', 
+  'extend_styles',
+  'use_js_scripts',
   'render_component',
   'Money'
 ]);
@@ -21,12 +21,12 @@ include $_ENV['PASTA_CONTROLLER'] . '/Aluno/ConsultaController.php';
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
-  
+
   // Verifica se já passaram 5 minutos desde o último acesso
   if(time() - $ultimo_acesso > 4) {
     unset($_SESSION['fed_aluno']);
   }
-} 
+}
 ?>
 
 <!------- HEAD --------->
@@ -72,11 +72,11 @@ extend_styles([ 'css.admin.financas' ]);
           </a>
         </div>
 
-        <div class="title"> 
-            <span class="text">Alunos</span> 
+        <div class="title">
+            <span class="text">Alunos</span>
         </div>
-        
-        <?php if (isset($alunos) || !empty($alunos)) { ?> 
+
+        <?php if (isset($alunos) || !empty($alunos)) { ?>
         <table id="myTable" class="display">
             <thead>
                 <tr>
@@ -95,7 +95,7 @@ extend_styles([ 'css.admin.financas' ]);
                         <?= $aluno['nome']; ?>
                     </td>
                     <th style="padding: 32px;width: 90px;">
-                      <a 
+                      <a
                         href="<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/ShowController.php?id=<?= $aluno['aluno_id']; ?>"
                         class="icon-link"
                       >
@@ -105,17 +105,17 @@ extend_styles([ 'css.admin.financas' ]);
                       <br>
                       <br>
                       <hr>
-                      <br>    
+                      <br>
 
-                      <a 
-                        href="<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/EditController.php?id=<?= $aluno['aluno_id']; ?>" 
+                      <a
+                        href="<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/EditController.php?id=<?= $aluno['aluno_id']; ?>"
                         class="icon-link edit"
                       >
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
                       <br><br>
-                      
-                      <a 
+
+                      <a
                         href="#"
                         onclick="if (confirm('Deseja excluir mesmo?')) {
                           this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/DeletarController.php?id=<?= $aluno['aluno_id']; ?>';
