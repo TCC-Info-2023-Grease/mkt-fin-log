@@ -109,6 +109,22 @@ extend_styles([ 'css.styleprojeto' ]);
         </div>
       </div>
 
+      <div class="img-area" style="background: black;">
+      
+        <div class="wrapper" style="display: block;">
+          <h3>Grease - O Musical</h3>
+          <br><br>
+          
+          <p  
+            style="color: white;"
+          >
+            Na Califórnia na década de 50, Danny (John Travolta) e Sandy (Olivia Newton-John), um casal de estudantes, trocam juras de amor mas se separam, pois ela voltará para a Austrália. Entretanto, os planos mudam e Sandy por acaso se matricula na escola de Danny. Para fazer gênero ele infantilmente lhe dá uma esnobada, mas os dois continuam apaixonados, apesar do relacionamento ter ficado em crise. Esta trama serve como pano de fundo para retratar o comportamento dos jovens da época.
+
+          </p>
+
+        </div>
+      </div>
+
       
     <!--─────────────────imagens fim────────────────-->
 
