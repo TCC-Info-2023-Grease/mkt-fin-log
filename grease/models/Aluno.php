@@ -7,6 +7,7 @@ class Aluno
     private $mysqli;
     private $tabela = 'alunos';
     private $tabela_secundaria = 'caixa';
+    private $tabela_terciaria = 'usuarios';
 
     public function __construct($mysqli)
     {
@@ -118,24 +119,22 @@ class Aluno
 
     public function buscar($id)
     {
+        $aluno = [];
+
+        // -- pegar os dados do usuario
         $sql = $this->mysqli->query("
             SELECT 
-                c.*,
+                a.nome AS nome_aluno, 
                 a.*,
-                u.nome as nome_usuario,
                 SUM(c.valor) AS total_pago
             FROM 
-                {$this->tabela} as a
+                {$this->tabela} AS a
             JOIN 
-                {$this->tabela_secundaria} as c 
+                {$this->tabela_secundaria} AS c 
             ON 
                 c.aluno_id = a.aluno_id
-            JOIN
-                usuarios as u
-            ON
-                u.usuario_id = c.usuario_id
             WHERE 
-                c.usuario_id = '".$id."'
+                c.aluno_id = '".$id."'
         ");
 
 
@@ -144,6 +143,38 @@ class Aluno
         }
 
         $aluno = $sql->fetch_assoc();
+
+        // -- pegar as movimentações
+        $result = $this->mysqli->query("
+            SELECT 
+                c.`categoria`,
+                c.`descricao`,
+                c.`data_movimentacao`,
+                c.`valor`,
+                c.`tipo_movimentacao`,
+                c.`forma_pagamento`,
+                c.`obs`,
+                u.nome as nome_usuario
+            FROM 
+                alunos AS a
+            JOIN 
+                caixa AS c 
+            ON 
+                c.aluno_id = a.aluno_id
+            JOIN 
+                usuarios AS u
+            ON 
+                u.usuario_id = c.usuario_id
+            WHERE 
+                c.aluno_id = '".$id."'
+        ");
+
+        if ($sql->num_rows === 0) {
+            return null;
+        }
+
+        $aluno['movimentacoes'] = $result->fetch_all(MYSQLI_ASSOC);
+
         return $aluno;
     }
 }
