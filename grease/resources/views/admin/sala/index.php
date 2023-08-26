@@ -94,27 +94,26 @@ extend_styles(['css.admin.financas']);
 
               <div 
                 class="box 
-                <?php if ($data['alunosDevedores']['totalDevedores'] == 0): ?>
+                <?php if ($data['alunosDevedores'] == 0): ?>
                     box1
                 <?php elseif (
-                    $data['alunosDevedores']['totalDevedores'] >= 1 && 
-                    $data['alunosDevedores']['totalDevedores'] <= 10
+                    $data['alunosDevedores'] <= $data['totalAlunosPagantes']
                 ): ?>
                     box3
-                <?php elseif ($data['alunosDevedores']['totalDevedores'] > 10): ?>
+                <?php elseif ($data['alunosDevedores'] > $data['totalAlunosPagantes']): ?>
                     box2
                 <?php endif; ?>
               ">              
                 <span class="text">Total Devedores do Mês</span> 
                 <span class="number">
-                  <?= $data['alunosDevedores']['totalDevedores']; ?>
+                  <?= $data['alunosDevedores']; ?>
                 </span> 
               </div>
 
               <div class="box
-                <?php if ($data['totalAlunosPagantes'] <= 0): ?>
+                <?php if ($data['totalAlunosPagantes'] <= $data['alunosDevedores']): ?>
                     box3
-                <?php elseif ($data['totalAlunosPagantes'] > 0): ?>
+                <?php elseif ($data['totalAlunosPagantes'] > $data['alunosDevedores']): ?>
                     box1
                 <?php endif; ?>
               "> 

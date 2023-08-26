@@ -15,6 +15,8 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/MakeOf/ConsultaController.php';
 
+//var_dump($data);
+
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
   
@@ -106,6 +108,11 @@ extend_styles([ 'css.styleprojeto' ]);
               </video></a>
           </div>
 
+          <?php foreach ($data['makeOf'] as $makeOf) { ?>
+            <div class="single-box">
+              <iframe width="560" height="315" src="<?= $makeOf['uri']; ?>" title="<?= $makeOf['titulo']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+          <?php } ?>
         </div>
       </div>
 
