@@ -15,6 +15,8 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/MakeOf/ConsultaController.php';
 
+//var_dump($data);
+
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
   
@@ -106,6 +108,11 @@ extend_styles([ 'css.styleprojeto' ]);
               </video></a>
           </div>
 
+          <?php foreach ($data['makeOf'] as $makeOf) { ?>
+            <div class="single-box">
+              <iframe width="560" height="315" src="<?= $makeOf['uri']; ?>" title="<?= $makeOf['titulo']; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+          <?php } ?>
         </div>
       </div>
 
@@ -118,8 +125,13 @@ extend_styles([ 'css.styleprojeto' ]);
           <p  
             style="color: white;"
           >
-            Na Califórnia na década de 50, Danny (John Travolta) e Sandy (Olivia Newton-John), um casal de estudantes, trocam juras de amor mas se separam, pois ela voltará para a Austrália. Entretanto, os planos mudam e Sandy por acaso se matricula na escola de Danny. Para fazer gênero ele infantilmente lhe dá uma esnobada, mas os dois continuam apaixonados, apesar do relacionamento ter ficado em crise. Esta trama serve como pano de fundo para retratar o comportamento dos jovens da época.
-
+            Grease - O Musical é uma adaptação do filme Grease, lançado em 1978, que conta a história de amor entre Danny Zuko e Sandy Olsson nos anos 50. O musical estreou na Broadway em 1972 e foi um sucesso de público e crítica, sendo indicado a sete prêmios Tony. O musical tem canções famosas como "Summer Nights", "You're the One That I Want" e "Greased Lightnin'". 
+          </p>
+          <BR></BR>
+          <p
+            style="color: white;"
+          >
+            O musical já foi montado em vários países, incluindo o Brasil, onde teve duas versões: uma em 1994, com Edson Celulari e Claudia Raia, e outra em 2013, com Tiago Abravanel e Lívia Dabarian . Grease - O Musical é uma obra divertida, romântica e nostálgica, que retrata os costumes, as roupas e a música da juventude americana dos anos 50.
           </p>
 
         </div>

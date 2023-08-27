@@ -312,19 +312,17 @@ class Sala {
 
     public function obterAlunosDevedores()
     {
+        // -- Total Alunos Pagantes
         $query = "
             SELECT
-                COUNT(*)    as totalDevedores,
-                a.aluno_id   as nome_aluno,
-                c.*
-
+                COUNT(*) as totalPagantes
             FROM
                 alunos as a,
                 caixa  as c
             WHERE
                 LOWER(c.tipo_movimentacao) = 'receita' AND
                 MONTH(c.data_movimentacao) =  month(NOW()) AND
-                c.aluno_id != a.aluno_id
+                c.aluno_id = a.aluno_id;
         ";
 
         $result = $this->mysqli->query($query);
@@ -332,13 +330,28 @@ class Sala {
         if ($result->num_rows === 0) {
             return [];
         }
+        $alunosPagantes = $result->fetch_assoc();
 
-        $alunosDevedores = array();
-        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            $alunosDevedores[] = $linha;
+
+
+        // -- Total Alunos 
+        $query = "
+            SELECT
+                COUNT(*) as totalAlunos
+            FROM
+                alunos 
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return [];
         }
+        $alunos = $result->fetch_assoc();
 
-        $alunosDevedores = $alunosDevedores[0];
+        // -- Alunos Pagantes
+        $alunosDevedores = $alunos['totalAlunos'] - $alunosPagantes['totalPagantes'];
+
 
         return $alunosDevedores;
     }
@@ -352,7 +365,7 @@ class Sala {
             return ['porcentagem_devedores' => 0, 'porcentagem_pagantes' => 0];
         }
 
-        $totalDevedores = count($alunosDevedores);
+        $totalDevedores = $alunosDevedores;
         $totalPagantes = count($totalAlunos) - $totalDevedores;
 
         $porcentagemDevedores = ($totalDevedores / count($totalAlunos)) * 100;

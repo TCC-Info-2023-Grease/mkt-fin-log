@@ -95,13 +95,13 @@ extend_styles([ 'css.visitante.financas' ]);
           list-style: none;
         "; ?>
         <style>
-          a { text-decoration: none }
+          a { text-decoration: none; color: black }
           .style_nav_secondary a:hover {
             transition: 0.45s all;
             text-decoration: underline;
           }
         </style>
-        <section class="activity" style="margin-top: 1rem;box-shadow: 0 5px 15px rgb(214 211 211 / 92%);border-radius: 3rem;border: 4px solid black;">
+        <section class="activity" style="margin-top: 1rem;box-shadow: 0 5px 15px rgb(214 211 211 / 92%);border-radius: 3rem;border: 2px solid #958f8f17;">
           <nav style="width: 100%">
             <ul class="style_nav_secondary" style="<?= $style_nav_secondary; ?>">
               <li><a href="#estatisticas">Estátisticas</a></li>
@@ -175,9 +175,9 @@ extend_styles([ 'css.visitante.financas' ]);
         </div>
 
 
-      <div class="activity" id="movimentacoes" style="overflow: hidden;">
-        <center style="margin-bottom: 34px;margin-top: 34px;"><h2>Movimentações</h2></center>
-            <div class="activity-data" style="overflow: hidden;padding: 2rem;padding-bottom: 3rem;background: #e4e5e775;border-radius: 12px;border: 2px solid black;">
+      <div class="activity" id="movimentacoes" style="overflow: hidden;background: transparent;box-shadow: none;">
+        <center style="margin-bottom: 34px;margin-top: 34px;"><h2>Movimentações Recentes</h2></center>
+            <div class="activity-data" style="overflow: hidden;padding: 2rem;padding-bottom: 3rem;background: #f3f3f3;border-radius: 12px;border: 2px solid #958f8f17;">
               <div class="data names">
                 <span class="data-title">Usuario</span>
                 
