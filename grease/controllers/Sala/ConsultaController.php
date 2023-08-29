@@ -18,7 +18,7 @@ return $data = [
   'alunosDevedores'              => $sala->obterAlunosDevedores(),
   'rankingTopPagantes'           => $sala->calcularRankingTopPagantes(),
   
-  'porcentagem_devedores'        => $porcentagemDevedoresPagantes['porcentagem_devedores'],
-  'porcentagem_pagantes'         => $porcentagemDevedoresPagantes['porcentagem_pagantes']
+  'porcentagem_devedores'        => abs(round($porcentagemDevedoresPagantes['porcentagem_devedores'], 1)),
+  'porcentagem_pagantes'         => abs(round($porcentagemDevedoresPagantes['porcentagem_pagantes'], 1))
 ];
 ?>

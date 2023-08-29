@@ -317,11 +317,10 @@ class Sala {
             SELECT
                 COUNT(*) as totalPagantes
             FROM
-                alunos as a,
+                alunos as a,t
                 caixa  as c
             WHERE
                 LOWER(c.tipo_movimentacao) = 'receita' AND
-                MONTH(c.data_movimentacao) =  month(NOW()) AND
                 c.aluno_id = a.aluno_id;
         ";
 
@@ -331,7 +330,6 @@ class Sala {
             return [];
         }
         $alunosPagantes = $result->fetch_assoc();
-
 
 
         // -- Total Alunos 
@@ -351,7 +349,6 @@ class Sala {
 
         // -- Alunos Pagantes
         $alunosDevedores = $alunos['totalAlunos'] - $alunosPagantes['totalPagantes'];
-
 
         return $alunosDevedores;
     }

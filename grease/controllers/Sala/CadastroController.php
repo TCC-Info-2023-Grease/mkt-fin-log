@@ -16,8 +16,6 @@ $_SESSION['ultimo_acesso'] = time();
 
 # ------ Validar Envio de Dados
 $campos_validos = (
-  $_POST['categoria_escolhida'] &&
-  $_POST['descricao']           &&
   $_POST['valor']               &&
   $_POST['forma_pagamento']     
 );
@@ -39,7 +37,7 @@ $dados = [
   'usuario_id'        => $_POST['usuario_id'],
   'categoria'         => $_POST['categoria_escolhida'],
   'descricao'         => $_POST['descricao'],
-  'data_movimentacao' => date("Y-m-d H:i:s"),
+  'data_movimentacao' => $_POST['data_movimentacao'],
   'valor'             => floatval($_POST['valor']),
   'tipo_movimentacao' => $_POST['tipo_movimentacao'],
   'forma_pagamento'   => $_POST['forma_pagamento'],
