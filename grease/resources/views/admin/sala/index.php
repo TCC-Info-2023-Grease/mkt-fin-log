@@ -306,7 +306,7 @@ extend_styles(['css.admin.financas']);
                             Pagadores:
                         </strong> 
                         <span style="border: 2px solid black; padding: 12px;border-radius: 4px;margin-right: 12px;">
-                            <?= abs(round($data['porcentagem_pagantes'], 1)); ?>%
+                            <?= $data['porcentagem_pagantes']; ?>%
                         </span>
                     </span>
                     <span>
@@ -317,7 +317,7 @@ extend_styles(['css.admin.financas']);
                             Devedores:
                         </strong> 
                         <span style="border: 2px solid black; padding: 12px;border-radius: 4px;margin-right: 12px;">
-                            <?= abs(round($data['porcentagem_devedores'], 1)); ?>%
+                            <?= $data['porcentagem_devedores']; ?>%
                         </span>
                     </span>
                 </center>
