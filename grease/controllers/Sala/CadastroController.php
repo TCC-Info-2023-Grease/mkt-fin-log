@@ -16,8 +16,6 @@ $_SESSION['ultimo_acesso'] = time();
 
 # ------ Validar Envio de Dados
 $campos_validos = (
-  $_POST['categoria_escolhida'] &&
-  $_POST['descricao']           &&
   $_POST['valor']               &&
   $_POST['forma_pagamento']     
 );
