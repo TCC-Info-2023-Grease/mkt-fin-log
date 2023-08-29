@@ -103,6 +103,17 @@ extend_styles([ 'css.admin.financas' ]);
                     <br>
                     <br>
 
+                    <label for="price">Data:</label><br>
+                    <input 
+                      type="date" 
+                      id="date" 
+                      class="date" 
+                      name="data_movimentacao"
+                      required 
+                    />
+                    <br>
+                    <br>
+
                     <label for="forma_pagamento">Forma pagamento:</label><br>
                     <select name="forma_pagamento" id="" required>
                         <option value="">
