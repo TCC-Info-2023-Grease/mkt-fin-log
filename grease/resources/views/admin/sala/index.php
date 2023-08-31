@@ -21,7 +21,7 @@ include $_ENV['PASTA_CONTROLLER'] . '/Sala/ConsultaController.php';
 if (isset($_SESSION['ultimo_acesso'])) {
     $ultimo_acesso = $_SESSION['ultimo_acesso'];
 
-    if (time() - $ultimo_acesso > 3) {
+    if (time() - $ultimo_acesso > 5) {
         unset($_SESSION['fed_sala']);
     }
 }
@@ -94,34 +94,26 @@ extend_styles(['css.admin.financas']);
 
               <div 
                 class="box 
-                <?php if ($data['alunosDevedores'] == 0): ?>
-                    box1
-                <?php elseif (
-                    $data['alunosDevedores'] <= $data['totalAlunosPagantes']
-                ): ?>
-                    box3
-                <?php elseif ($data['alunosDevedores'] > $data['totalAlunosPagantes']): ?>
                     box2
-                <?php endif; ?>
               ">              
                 <span class="text">Total Devedores do Mês</span> 
                 <span class="number">
-                  <?= $data['alunosDevedores']; ?>
+                    <?= abs($data['totalAlunosPagantes'] - count($data['totalAlunos'])); ?>
                 </span> 
-              </div>
-
+              </div> 
+              
               <div class="box
-                <?php if ($data['totalAlunosPagantes'] <= $data['alunosDevedores']): ?>
-                    box3
+              <?php if ($data['totalAlunosPagantes'] <= $data['alunosDevedores']): ?>
+                box1
                 <?php elseif ($data['totalAlunosPagantes'] > $data['alunosDevedores']): ?>
                     box1
-                <?php endif; ?>
-              "> 
-                <span class="text">Total Alunos Pagantes</span> 
-                <span class="number">
-                  <?= $data['totalAlunosPagantes']; ?>
-                </span> 
-              </div>          
+                    <?php endif; ?>
+                    "> 
+                    <span class="text">Total Alunos Pagantes</span> 
+                    <span class="number">
+                        <?= $data['totalAlunosPagantes']; ?>
+                    </span> 
+                </div>          
             </div>
         </div>
 

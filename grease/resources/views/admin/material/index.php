@@ -64,8 +64,8 @@ extend_styles([ 'css.admin.financas' ]);
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content" style="width: 80vw;">
         <div style="text-align: right;">
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.pedidos_material.create" class="button-link btn-edit">
-            Novo Pedido
+          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link btn-edit">
+            Novo Material
           </a>
         </div>
 
