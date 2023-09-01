@@ -44,3 +44,18 @@
   src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
 </script> 
 <!-- # /Sweet Alert # -->
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+<!--COMEÇO VLIBRAS-->
+  <div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+
+<script>
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+<!--FIM VLIBRAS-->

@@ -68,7 +68,7 @@ extend_styles(['css.admin.financas']);
               <div class="title"> <span class="text"><h1>Caixa Sala</h1></span> </div> 
 
               <div>
-                   <a href="<?= $_ENV['ROUTE'] ?>admin.sala.create" class="button-link">
+                   <a href="<?= $_ENV['ROUTE'] ?>admin.sala.create" class="button-link btn-edit">
                     Nova Entrada
                   </a>
               </div>
@@ -103,12 +103,12 @@ extend_styles(['css.admin.financas']);
               </div> 
               
               <div class="box
-              <?php if ($data['totalAlunosPagantes'] <= $data['alunosDevedores']): ?>
-                box1
+                <?php if ($data['totalAlunosPagantes'] <= $data['alunosDevedores']): ?>
+                    box2
                 <?php elseif ($data['totalAlunosPagantes'] > $data['alunosDevedores']): ?>
                     box1
-                    <?php endif; ?>
-                    "> 
+                <?php endif; ?>
+                "> 
                     <span class="text">Total Alunos Pagantes</span> 
                     <span class="number">
                         <?= $data['totalAlunosPagantes']; ?>
@@ -153,32 +153,37 @@ extend_styles(['css.admin.financas']);
                     }
                 </style>
 
-                <table class="pagamentosPorMes" style="width: 80%!important;text-align: center;" cellpadding="19px" cellspacing="5px"> 
-                    <thead>
-                        <tr>
-                            <th>Mês</th>
-                            <th>Valor Total</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <style type="text/css">
-                        th a i {
-                            font-size: 1.7rem;
-                        }
-                        </style>
-                        <?php foreach ($data['pagamentosPorMes'] as $item): ?>
+                <?php if (isset($data['pagamentosPorMes']) || !empty($data['pagamentosPorMes'])): ?>
+                    <table class="pagamentosPorMes" style="width: 80%!important;text-align: center;" cellpadding="19px" cellspacing="5px"> 
+                        <thead>
                             <tr>
-                                <td>
-                                    <?= $item['mes'] ?>
-                                </td>
-                                <td>
-                                    <?= Money::format($item['total']) ?>
-                                </td>
+                                <th>Mês</th>
+                                <th>Valor Total</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+
+                        <tbody>
+                            <style type="text/css">
+                            th a i {
+                                font-size: 1.7rem;
+                            }
+                            </style>
+                            <?php foreach ($data['pagamentosPorMes'] as $item): ?>
+                                <tr>
+                                    <td>
+                                        <?= $item['mes'] ?>
+                                    </td>
+                                    <td>
+                                        <?= Money::format($item['total']) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <br>
+                    <h3>Sem dados</h3>
+                <?php endif ?>
                 </center>
             </details>
           </div>
@@ -320,10 +325,12 @@ extend_styles(['css.admin.financas']);
           <br>
         </div>
 
-        <div class="dash-content">
+        <br>
+        <div style="width: 100%;">
             <hr color="black" />
         </div>
 
+        <br>
         <div class="dash-content" style="padding-top: 0px;">
             <?php if (isset($data['sala']) && !empty($data['sala'])) { ?>
                 <div style="display: flex;justify-content: space-between;align-items: center;">
@@ -337,6 +344,12 @@ extend_styles(['css.admin.financas']);
                       </div>
                     </div>
                 </div>
+                <div>
+                   <a href="<?= $_ENV['ROUTE'] ?>admin.sala.create" class="button-link btn-edit">
+                    Nova Entrada
+                  </a>
+                </div>
+                <br>    
 
                 <table id="myTable" class="display" style="width: 100%!important;"> 
                     <thead>
@@ -386,7 +399,8 @@ extend_styles(['css.admin.financas']);
                     </tbody>
                 </table>
             <?php } else { ?>
-            <h3>Sem dados</h3>
+                <br>
+                <h3>Sem dados</h3>
             <?php } ?>
         </div>
 

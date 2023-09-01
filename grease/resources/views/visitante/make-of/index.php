@@ -78,23 +78,46 @@ extend_styles([ 'css.styleprojeto' ]);
 
       <div class="img-area">
       
-        <div class="wrapper">
-
+        <div class="" style="    
+          display: flex;
+          flex-wrap: wrap;
+          align-content: stretch;
+          justify-content: space-between;
+          align-items: center;
+          gap: 2rem;
+          flex-basis: min-content;
+        ">
+          <style type="text/css">
+            .single-box span {  
+              color: white;
+              margin-top: 32px;
+            }
+          </style>
           <div class="single-box">
             <a href="#"><img src="<?= assets('images/projeto/', '1.jpg'); ?>" /></a>
+              <span>Foto do Cast </span> 
+          </div>
+          <br>
+
+          <div class="single-box">
+            <a href="#">
+                <img src="<?= assets('images/projeto/', '2.jpg'); ?>" alt="Integrantes do grupo na Semana Paulo Freire trabalhando na barraca de pipoca" />
+            </a>
+            <span>
+              Integrantes do grupo na Semana Paulo Freire trabalhando na barraca de pipoca
+            </span>
           </div>
 
           <div class="single-box">
-            <a href="#"><img src="<?= assets('images/projeto/', '2.jpg'); ?>" /></a>
-          </div>
-
-          <div class="single-box">
-            <a href="#"><img src="<?= assets('images/projeto/', '3.jpg'); ?>" /></a>
+            <a href="#"><img height="200" src="<?= assets('images/projeto/', '3.jpg'); ?>" alt="Integrantes do grupo na Semana Paulo Freire trabalhando na venda de pipoca" /></a>
+            <span>
+              Integrantes do grupo na Semana Paulo Freire trabalhando na venda de pipoca
+            </span>
           </div>
 
           <div class="single-box">
             <a href="#">      <video width="320" height="290" controls="controls">
-              <source src="<?= assets('images/projeto/', '4.jpg'); ?>" type="video/mp4">
+              <source src="<?= assets('images/projeto/', '4.mov'); ?>" type="video/mp4">
               </video></a>
           </div>
 
@@ -104,7 +127,7 @@ extend_styles([ 'css.styleprojeto' ]);
 
           <div class="single-box">
             <a href="#">      <video width="320" height="290" controls="controls">
-              <source src="<?= assets('images/projeto/', '6.jpg'); ?>" type="video/mp4">
+              <source src="<?= assets('images/projeto/', '6.mov'); ?>" type="video/mp4">
               </video></a>
           </div>
 
@@ -149,7 +172,7 @@ extend_styles([ 'css.styleprojeto' ]);
   </div>
   
   <?php
-    use_js_scripts([ 'js.scriptprojeto' ]);
+    //use_js_scripts([ 'js.scriptprojeto' ]);
   ?>
 </body>
 <!-------/ BODY --------->
