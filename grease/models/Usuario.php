@@ -283,4 +283,55 @@ class Usuario
         $stmt->close();
     }
 
+     // Verifica se o e-mail existe no banco de dados
+    public function existeEmail($email) {
+        $query = "SELECT * FROM usuarios WHERE email = ?";
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows > 0;
+    }
+
+    // Salva um token no banco de dados
+    public function salvarTokenNoBanco($email, $token, $expiration) {
+        $query = "INSERT INTO ResetPasswordRequests (email, token, expiration) VALUES (?, ?, ?)";
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->bind_param("sss", $email, $token, $expiration);
+        return $stmt->execute();
+    }
+
+     // Método para verificar se um token de redefinição de senha é válido
+    public function verificarToken($token) {
+        // Verifique se o token existe no banco de dados e não foi usado
+        $query = "SELECT * FROM ResetPasswordRequests WHERE token = ? AND used = 0 AND expiration > NOW()";
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->bind_param("s", $token);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($result->num_rows === 1) {
+            return $row; // O token é válido
+        } else {
+            return false; // O token não é válido
+        }
+    }
+
+    // Atualiza a senha de um usuário
+    public function atualizarSenha($email, $novaSenha) {
+        $query = "UPDATE usuarios SET senha = MD5(?) WHERE email = ?";
+        $stmt = $this->mysqli->prepare($query);
+
+        $stmt->bind_param("ss", $novaSenha, $email);
+        return $stmt->execute();
+    }
+
+    // Invalida um token de redefinição de senha após o uso
+    public function invalidarToken($token) {
+        $query = "UPDATE ResetPasswordRequests SET used = 1 WHERE token = ?";
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->bind_param("s", $token);
+        return $stmt->execute();
+    }
 }
