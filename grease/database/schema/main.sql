@@ -200,6 +200,14 @@ CREATE TABLE EntradasMaterial (
     obs TEXT NOT NULL
 );
 
+CREATE TABLE ResetPasswordRequests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    expiration DATETIME NOT NULL,
+    used BOOLEAN NOT NULL DEFAULT 0
+);
+
 
 CREATE TABLE Figurinos (
 	-- PK & FK
