@@ -265,4 +265,132 @@ class Material
             die("Erro ao executar a consulta: " . $this->mysqli->error);
         }
     }
+
+     /**
+     * Obtém a lista de categorias de materiais disponíveis.
+     *
+     * @return array|null Um array com as categorias dos materiais ou null se não houver categorias.
+     */
+    public function obterCategorias()
+    {
+        $query = "
+            SELECT 
+                materiais.categoria_id, 
+                categoriasmaterial.nome as 'categoria'
+            FROM 
+                materiais
+            JOIN 
+                categoriasmaterial ON categoriasmaterial.categoria_id = materiais.categoria_id
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        $categorias = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $categorias[] = $row['categoria'];
+        }
+
+        return $categorias;
+    }
+
+    /**
+     * Conta o número de materiais em cada categoria.
+     *
+     * @return array|null Um array associativo onde a chave é a categoria e o valor é o número de materiais nessa categoria,
+     *                    ou null se não houver materiais ou categorias.
+     */
+    public function contarMateriaisPorCategoria()
+    {
+        $query = "
+            SELECT 
+                categoriasmaterial.nome as 'categoria',
+                COUNT(*) as total
+            FROM 
+                materiais
+            JOIN 
+                categoriasmaterial ON categoriasmaterial.categoria_id = materiais.categoria_id
+            GROUP BY 
+                categoriasmaterial.nome
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        $contagemPorCategoria = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $contagemPorCategoria[$row['categoria']] = $row['total'];
+        }
+
+        return $contagemPorCategoria;
+    }
+
+     /**
+     * Conta a quantidade de materiais por status.
+     *
+     * @return array Um array associativo com a contagem de materiais por status.
+     */
+    public function contarMateriaisPorStatus()
+    {
+        $query = "
+            SELECT 
+                status_material, 
+                COUNT(*) as total 
+            FROM 
+                materiais 
+            GROUP BY 
+                status_material
+        ";
+        $result = $this->mysqli->query($query);
+
+        $contagemPorStatus = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $contagemPorStatus[$row['status_material']] = $row['total'];
+        }
+
+        return $contagemPorStatus;
+    }
+
+    /**
+     * Conta quantos materiais foram gastos no último mês e qual foi o mais gasto.
+     *
+     * @return array Um array associativo com as informações sobre o gasto no último mês.
+     */
+    public function contarGastosUltimoMes()
+    {
+        $ultimoMes = date('Y-m', strtotime('-1 month'));
+        $query = "
+            SELECT 
+                COUNT(*) as totalGastos, 
+                MAX(valor) as maiorGasto 
+            FROM 
+                caixa
+            WHERE 
+                categoria = 'Entrada Material' AND 
+                DATE_FORMAT(data_movimentacao, '%Y-%m') = ?
+        ";
+        $stmt = $this->mysqli->prepare($query);
+
+        if (!$stmt) {
+            error_log('Erro ao preparar a consulta: ' . $this->mysqli->error);
+            return null;
+        }
+
+        $stmt->bind_param('s', $ultimoMes);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        return $result->fetch_assoc();
+    }
 }
