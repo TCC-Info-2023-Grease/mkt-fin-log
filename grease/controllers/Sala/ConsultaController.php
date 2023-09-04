@@ -19,6 +19,8 @@ return $data = [
   'rankingTopPagantes'           => $sala->calcularRankingTopPagantes(),
   
   'porcentagem_devedores'        => abs(round($porcentagemDevedoresPagantes['porcentagem_devedores'], 1)),
-  'porcentagem_pagantes'         => abs(round($porcentagemDevedoresPagantes['porcentagem_pagantes'], 1))
+  'porcentagem_pagantes'         => abs(round($porcentagemDevedoresPagantes['porcentagem_pagantes'], 1)),
+
+  'totalAlunos' => $sala->obterTodosAlunos()
 ];
 ?>

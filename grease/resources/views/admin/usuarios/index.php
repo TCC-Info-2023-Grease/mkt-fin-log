@@ -91,50 +91,53 @@ render_component('sidebar');
                         font-size: 1.7rem;
                     }
                 </style>
+
                 <?php foreach ($data['usuarios'] as $usuario): ?>
-                    <tr>
-                        <td>
-                            <?= $usuario['nome']; ?>
-                        </td>
-                        <td>
-                            <?= $usuario['email']; ?>
-                        </td>                       
-                        <td>
-                            <?= $usuario['idade']; ?>
-                        </td>
-                        <td>
-                            <?= $usuario['tipo_usuario']; ?>
-                        </td>
-                         <th style="padding: 26px;">
-                          <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/ShowController.php?id=<?= $usuario['usuario_id']; ?>" class="icon-link ">
-                            <i class="fa-regular fa-eye"></i>
-                          </a>
-                          <br>
-                          <br>
-                          <hr>
-                          <br>
+                    <?php if ($usuario['usuario_id'] != $_SESSION['usuario']['usuario_id']): ?>
+                        <tr>
+                            <td>
+                                <?= $usuario['nome']; ?>
+                            </td>
+                            <td>
+                                <?= $usuario['email']; ?>
+                            </td>                       
+                            <td>
+                                <?= $usuario['idade']; ?>
+                            </td>
+                            <td>
+                                <?= $usuario['tipo_usuario']; ?>
+                            </td>
+                             <th style="padding: 26px;">
+                              <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/ShowController.php?id=<?= $usuario['usuario_id']; ?>" class="icon-link ">
+                                <i class="fa-regular fa-eye"></i>
+                              </a>
+                              <br>
+                              <br>
+                              <hr>
+                              <br>
 
-                            <a href="#"
-                               onclick="if (confirm('Deseja excluir mesmo?')) {
-                                   this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/DeletarController.php?id=<?= $usuario['usuario_id']; ?>';
-                               }"
-                                class="icon-link delete"
-                            >
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                            <br/>
-                            <br/>
+                                <a href="#"
+                                   onclick="if (confirm('Deseja excluir mesmo?')) {
+                                       this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/DeletarController.php?id=<?= $usuario['usuario_id']; ?>';
+                                   }"
+                                    class="icon-link delete"
+                                >
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                                <br/>
+                                <br/>
 
-                            <a href="#"
-                               onclick="if (confirm('Deseja editar mesmo?')) {
-                                   this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/EditController.php?id=<?= $usuario['usuario_id']; ?>';
-                               }"
-                                class="icon-link edit"
-                            >
-                                <i class="fa-solid fa-pen"></i>
-                            </a>
-                        </th>
-                    </tr>
+                                <a href="#"
+                                   onclick="if (confirm('Deseja editar mesmo?')) {
+                                       this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/EditController.php?id=<?= $usuario['usuario_id']; ?>';
+                                   }"
+                                    class="icon-link edit"
+                                >
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    <?php endif ?>
                 <?php endforeach; ?>
                 </tbody>
             </table>

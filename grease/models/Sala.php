@@ -314,22 +314,25 @@ class Sala {
     {
         // -- Total Alunos Pagantes
         $query = "
-            SELECT
-                COUNT(*) as totalPagantes
-            FROM
-                alunos as a,t
-                caixa  as c
-            WHERE
-                LOWER(c.tipo_movimentacao) = 'receita' AND
-                c.aluno_id = a.aluno_id;
+        SELECT
+            COUNT(*) as totalPagantes
+        FROM
+            alunos as a,
+            caixa  as c
+        WHERE
+            LOWER(c.tipo_movimentacao) = 'receita' AND
+            Year(c.data_movimentacao) =  YEAR(NOW()) AND
+            MONTH(c.data_movimentacao) =  month(NOW()) AND
+            c.aluno_id = a.aluno_id;
         ";
 
         $result = $this->mysqli->query($query);
 
         if ($result->num_rows === 0) {
-            return [];
+            return [ 'totalPagantes' => 0 ];
         }
         $alunosPagantes = $result->fetch_assoc();
+
 
 
         // -- Total Alunos 
@@ -349,6 +352,7 @@ class Sala {
 
         // -- Alunos Pagantes
         $alunosDevedores = $alunos['totalAlunos'] - $alunosPagantes['totalPagantes'];
+
 
         return $alunosDevedores;
     }

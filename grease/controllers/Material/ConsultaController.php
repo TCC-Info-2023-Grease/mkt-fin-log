@@ -1,12 +1,18 @@
 <?php
 # ------ Dados Iniciais
 global $mysqli;
-import_utils([ 'valida_campo', 'navegate' ]);
+import_utils([ 'navegate' ]);
 
 
 # ----- Consulta Material
 $material = new Material($mysqli);
  
 //print_r($material->buscarTodos());
-return $materiais = $material->buscarTodos();
+return [
+	$materiais           = $material->buscarTodos(),
+	$categoriasMateriais = $material->obterCategorias(),
+	$quantidadeMateriais = $material->contarMateriaisPorCategoria(),
+	$dadosStatus         = $material->contarMateriaisPorStatus(),
+	$gastosUltimoMes 		 = $material->contarGastosUltimoMes()
+];
 ?>
