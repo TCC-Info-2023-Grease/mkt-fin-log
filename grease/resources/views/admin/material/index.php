@@ -16,7 +16,7 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
 
-//print_r($_SESSION);
+//var_dump($quantidadeMateriais);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
@@ -39,7 +39,7 @@ extend_styles([ 'css.admin.financas' ]);
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
-<title>Pedidos de Material | Admin</title>
+<title>Material | Admin</title>
 <!-------/ HEAD --------->
 
 
@@ -62,14 +62,90 @@ extend_styles([ 'css.admin.financas' ]);
 
   <section class="dashboard">
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
-      <div class="dash-content" style="width: 80vw;">
-        <div style="text-align: right;">
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link btn-edit">
-            Novo Material
-          </a>
+      <div class="dash-content">
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+          <div class="title"> <span class="text"><h1>Materiais</h1></span> </div> 
+          
+          <div style="text-align: right;">
+            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link btn-edit">
+              Novo Material
+            </a>
+          </div>
         </div>
 
-        <div class="title"> <span class="text">Materiais</span> </div>
+      <div class="dash-content">
+          <center style="margin-bottom: 46px;"><h2>Estatisticas</h2></center>
+
+          <div class="dash-estatistics">
+             <div class="title"><span class="text">Materiais por Categoria</span></div>
+
+            <details>
+              <summary>Ver mais...</summary>
+
+              <div class="chart-container" style="width: 100%;">
+                <center>
+                  <canvas id="materialCategoriaChart" style="max-width: 800px;"></canvas>
+                </center>
+              </div>
+            </details>
+          </div>
+        </div>
+
+         <div class="dash-content">
+          <div class="dash-estatistics">
+                <div class="title"><span class="text">Materiais por Status</span></div>
+
+                <details>
+                  <summary>Ver mais...</summary>
+
+                  <div class="chart-container">
+                    <style type="text/css">
+                      #statusChart {
+                        height: 300px!important;
+                      }
+                    </style>
+                    <center>
+                    <canvas id="statusChart" style="max-width: 300px;" height="300"></canvas>
+                    </center>
+                  </div>
+                </details>
+          </div>
+        </div>
+
+        <div class="dash-content">
+          <div class="dash-estatistics">
+            <div class="title"><span class="text">Gastos do Mês</span></div>
+
+            <details>
+              <summary>Ver mais...</summary>
+
+              <div class="chart-container">
+                <style type="text/css">
+                  #categoriasChart {
+                    height: 400px!important;
+                  }
+                </style>
+                <center>
+                <canvas id="graficoGastos" style="max-width: 800px;"></canvas>
+                </center>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <br><br>
+        <br><br>  
+        <hr>
+
+      <div class="dash-content" style="width: 80vw;">
+      
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+          <div class="title"> <span class="text">Materiais</span> </div>
+            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link btn-edit" style="height: 40px;">
+              Novo Material
+            </a>
+        </div>
+
         <?php if (isset($materiais) && !empty($materiais)) { ?>
           <table id="myTable" class="display">
             <thead>
@@ -162,11 +238,118 @@ extend_styles([ 'css.admin.financas' ]);
   <?php
   use_js_scripts([ 'js.admin.financas' ]);
   ?>
+
+  <script>
+    // Dados de exemplo (substitua isso com seus próprios dados)
+    const data = {
+        labels: <?= json_encode($categoriasMateriais);  ?>,
+        datasets: [{
+            label: 'Materiais por Categoria',
+            data: <?= json_encode(array_values($quantidadeMateriais));  ?>, // Quantidade de materiais em cada categoria
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)', // Cor da categoria 1
+                'rgba(54, 162, 235, 0.2)', // Cor da categoria 2
+                'rgba(255, 206, 86, 0.2)'  // Cor da categoria 3
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Opções de configuração do gráfico
+    const options = {
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Quantidade de Materiais'
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Categorias'
+                }
+            }
+        }
+    };
+
+    // Obtendo o contexto do canvas
+    const ctx = document.getElementById('materialCategoriaChart').getContext('2d');
+
+    // Criando o gráfico de barras
+    const myChart = new Chart(ctx, {
+        type: 'bar', // Tipo de gráfico
+        data: data,   // Dados
+        options: options // Opções de configuração
+});
+  </script>
+
+  <script>
+        <?php
+        $statusLabels = json_encode(array_keys($dadosStatus));
+        $statusContagens = json_encode(array_values($dadosStatus));
+        ?>
+
+        // Configure os dados para o gráfico de pizza
+        var ctx2 = document.getElementById('statusChart').getContext('2d');
+        var statusChart = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: <?php echo $statusLabels; ?>, // Rótulos de status 
+                datasets: [{
+                    data: <?php echo $statusContagens; ?>, // Dados de contagem
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'], // Cores das fatias
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'], // Cores da borda das fatias
+                    borderWidth: 1
+                }]
+            }
+        });
+    </script>
+
+    <script>
+        // Obtém os dados do PHP e converte para JavaScript
+        const dadosGastos = <?php echo json_encode($gastosUltimoMes); ?>;
+
+        // Prepara os dados para o gráfico
+        const labels = ['Total de Gastos', 'Maior Gasto'];
+        const valores = [dadosGastos.totalGastos, dadosGastos.maiorGasto];
+
+        // Cria o gráfico
+        const ctx3 = document.getElementById('graficoGastos').getContext('2d');
+        const grafico = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Gastos no Último Mês',
+                    data: valores,
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+
+
   <script type="text/javascript">
     $(document).ready(function () {
       $('#myTable').DataTable();
     });
-
   </script>
 </body>
 <!-------/ BODY --------->
