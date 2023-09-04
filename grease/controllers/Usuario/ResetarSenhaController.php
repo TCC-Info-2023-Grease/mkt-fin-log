@@ -8,7 +8,7 @@ import_utils(['valida_campo', 'navegate', 'EnviarEmail']);
 # ----- Resetar Senha
 $usuario = new Usuario($mysqli);
 
-//$_POST['email'] = 'gustavojs417@gmail.com';
+$_POST['email'] = 'master.potato@gmail.com';
 
 # Definir regras para cada requisição
 if (valida_campo($_POST['email'] ?? null)) {
@@ -22,13 +22,15 @@ if (valida_campo($_POST['email'] ?? null)) {
 
     // Envie um e-mail com o link de redefinição de senha
     EnviarEmail::redefinicaoSenha($email, $token);
+  } else {
+    echo "Usuario não existe";
   }
 }  
 
-$_GET['token']      = '39cb04caf678fb1cbc3e751d955f9db9';
-$_POST['novaSenha'] = '12345678';
+//$_GET['token']      = '39cb04caf678fb1cbc3e751d955f9db9';
+//$_POST['novaSenha'] = '12345678';
 
-if (valida_campo($_GET["token"])) {
+if (valida_campo($_GET["token"] ?? NULL)) {
   $token = $_GET["token"];
 
   // Verifique se o token é válido e não expirou
