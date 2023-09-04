@@ -3,6 +3,9 @@
 class EnviarEmail {
 
     public static function redefinicaoSenha($email, $token) {
+        ini_set( 'display_errors', 1 );
+        error_reporting( E_ALL );
+
         // Destinatário
         $para = $email;
 
@@ -17,12 +20,16 @@ class EnviarEmail {
 
             Link de Redefinição de Senha: http://localhost:8080/grease/usuario/redefinir_senha.php?token=' . $token;
 
-        $cabecalhos = 'From: grease.musical@gmail.com' . "\r\n" .
-            'Reply-To: grease.musical@gmail.com' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
+        $enviador = 'gustavojs417@gmail.com';
+
+        $cabecalhos =  
+            "From: ". $enviador ."\r\n".
+            "Reply-To: ".$para."\r\n".
+            "X-Mailer: PHP/".phpversion();
 
         // Envie o e-mail
         $enviado = mail($para, $assunto, $mensagem, $cabecalhos);
+        var_dump($enviado);
 
         // Verifique se o e-mail foi enviado com sucesso
         if ($enviado) {
