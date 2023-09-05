@@ -11,8 +11,11 @@ import_utils([
   'extend_styles', 
   'use_js_scripts', 
   'render_component',
-  'Money'
+  'Money',
+  'MercuryLog'
 ]);
+
+
 
 include $_ENV['PASTA_CONTROLLER'] . '/Caixa/ConsultaController.php';
 
@@ -136,7 +139,7 @@ extend_styles([ 'css.admin.financas' ]);
 
               <div class="chart-container" style="width: 100%;">
                 <center>
-                  <canvas id="financasChart" style="max-width: 500px;"></canvas>
+                  <canvas id="financasChart" style="max-width: 800px;"></canvas>
                 </center>
               </div>
             </details>
@@ -157,7 +160,7 @@ extend_styles([ 'css.admin.financas' ]);
                       }
                     </style>
                     <center>
-                    <canvas id="despesasReceitasChart" style="max-width: 300px;"></canvas>
+                    <canvas id="despesasReceitasChart" style="max-width: 800px;"></canvas>
                     </center>
                   </div>
                 </details>
@@ -178,7 +181,7 @@ extend_styles([ 'css.admin.financas' ]);
                   }
                 </style>
                 <center>
-                <canvas id="categoriasChart" style="max-width: 300px;"></canvas>
+                <canvas id="categoriasChart" style="max-width: 800px;"></canvas>
                 </center>
               </div>
             </details>
@@ -301,7 +304,6 @@ extend_styles([ 'css.admin.financas' ]);
       </section>
 
   </section>
-
 
   <?php
     use_js_scripts([ 
