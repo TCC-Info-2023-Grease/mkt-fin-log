@@ -31,5 +31,5 @@ require __DIR__ . '/.env.php';
 require __DIR__ . '/database/db.php'; 
 require __DIR__ . '/routes/web.php';
 
-import_utils([ 'assets' ]);
+import_utils([ 'assets', 'ChamaSamu' ]);
 spl_autoload_register('autocarregamento');
