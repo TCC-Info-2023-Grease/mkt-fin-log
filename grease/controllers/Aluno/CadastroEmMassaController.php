@@ -50,10 +50,9 @@ try {
   ];
 
   //var_dump($dados);
-  navegate($_ENV['ROUTE'] . 'admin.alunos.create.all');
 }
 
-var_dump($aluno->cadastrarEmMassa($dados));
+//var_dump($aluno->cadastrarEmMassa($dados));
 
 $_SESSION['fed_aluno'] = [ 
   'title' => 'OK!', 'msg' => 'Cadastrado com sucesso',

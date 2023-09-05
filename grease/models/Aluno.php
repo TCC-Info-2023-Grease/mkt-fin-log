@@ -41,36 +41,30 @@ class Aluno
     public function cadastrarEmMassa($dados)
     {
         $textComNomeDosAlunos = $dados['nomes_alunos'];
-
         $listaDeNomesDosAlunos = explode(';', $textComNomeDosAlunos);
-        
-        $values = '';
+
+        $query = "INSERT INTO alunos (nome) VALUES ";
+        $values = array();
 
         foreach ($listaDeNomesDosAlunos as $key => $value) {
-
             if (!empty($value) && isset($value)) {
-                $values .= "('{$value}')";
-                if ($key <= count($listaDeNomesDosAlunos) - 2) {
-                    $values .= " , ";
-                } else {
-                    $values .= " ";
-                }
-            } else {
-                $values .= " ";
+                $values[] = "('$value')";
+                //echo $value;
             }
-            
         }
 
-        $query = "
-            INSERT INTO 
-                alunos
-                (nome)
-            VALUES 
-                ". $values;
+        $query .= implode(',', $values) . ';';
 
+        // Execute a consulta SQL para inserir os alunos
         $stmt = $this->mysqli->query($query);
 
-        return $query;
+        print_r($query);
+
+        if ($stmt) {
+            return true; // Inserção bem-sucedida
+        } else {
+            return false; // Erro na inserção
+        }
     }
 
 
