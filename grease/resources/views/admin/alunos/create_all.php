@@ -78,17 +78,17 @@ extend_styles([ 'css.admin.financas' ]);
           <p style="margin-top: 0.5rem;">
             Exemplo de uso: Stefano Jobs;Markinhos Zuckeberg;
           </p>
-    			<textarea 
+    			<input
             name="nomes_alunos" 
             id="nomes_alunos"
             style="
               resize: none;
               width: 100%;
-              height: 80px;
+              height: 40px;
               margin-top: 1rem;
+              padding: 1rem;
             "
-          >   
-          </textarea>
+          />
     			<br>
     			<br>
     				
