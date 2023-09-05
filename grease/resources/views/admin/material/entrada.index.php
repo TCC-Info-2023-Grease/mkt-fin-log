@@ -50,11 +50,11 @@ extend_styles([ 'css.admin.financas' ]);
             Novo Material
           </a>
           <span class="button-separator">|</span>
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.entrada.index" class="button-link">
+          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.entrada.index" class="button-link btn-edit">
             Entradas
           </a>
           <span class="button-separator">|</span>
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.saida.index" class="button-link">
+          <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.saida.index" class="button-link btn-delete">
             Saidas
           </a>
         </div>
