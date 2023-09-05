@@ -67,8 +67,16 @@ extend_styles([ 'css.admin.financas' ]);
           <div class="title"> <span class="text"><h1>Materiais</h1></span> </div> 
           
           <div style="text-align: right;">
-            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link btn-edit">
+            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link">
               Novo Material
+            </a>
+            <span class="button-separator">|</span>
+            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.entrada.index" class="button-link btn-edit">
+              Entradas
+            </a>
+            <span class="button-separator">|</span>
+            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.saida.index" class="button-link btn-delete">
+              Saidas
             </a>
           </div>
         </div>
