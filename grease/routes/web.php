@@ -133,6 +133,11 @@ $routes['admin.sala.edit'] = [
   'file' => 'admin/sala/edit',
   'params' => []
 ];
+$routes['admin.sala.relatorio'] = [
+  'method' => 'GET',
+  'file' => 'admin/sala/relatorio',
+  'params' => []
+];
 
 # --
 $routes['admin.alunos.index'] = [
