@@ -337,11 +337,9 @@ extend_styles(['css.admin.financas']);
                     <div class="title"><span class="text">Movimentações</span></div>
 
                     <div class="dropdown">
-                      <button onclick="toggleDropdown()" class="dropbtn">Exportar</button>
-                      <div id="myDropdown" class="dropdown-content">
-                        <button onclick="exportToPDF()">PDF</button>
-                        <button onclick="exportToExcel()">Excel</button>
-                      </div>
+                        <button onclick="window.location = '<?= $_ENV['ROUTE'] ?>admin.sala.relatorio'" class="dropbtn">
+                            Exportar
+                        </button>
                     </div>
                 </div>
                 <div>
