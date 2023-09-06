@@ -6,7 +6,7 @@ function exportToPDF() {
   const table = document.getElementById('myTable');
 
   doc.autoTable({ html: table });
-  doc.save('Caixa.pdf');
+  doc.save('Relatorio.pdf');
 
   toggleDropdown(); // Oculta o menu dropdown após o download do PDF
 }
@@ -19,9 +19,9 @@ function exportToExcel() {
   const worksheet = XLSX.utils.table_to_sheet(table);
 
   // Adiciona o worksheet ao workbook
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Caixa');
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Relatorio');
 
   // Salva o arquivo Excel
-  XLSX.writeFile(workbook, 'Livro - Caixa.xlsx');
+  XLSX.writeFile(workbook, 'Relatorio.xlsx');
   toggleDropdown(); // Oculta o menu dropdown após o download do Excel
 }
