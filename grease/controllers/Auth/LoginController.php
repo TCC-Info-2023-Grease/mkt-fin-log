@@ -3,7 +3,7 @@
 require dirname(dirname(__DIR__)) . '\config.php';
 
 global $mysqli;
-import_utils([ 'valida_campo', 'navegate' ]);
+import_utils([ 'valida_campo', 'navegate', 'Auth' ]);
 
 
 # ------ Validar Envio de Dados
@@ -33,10 +33,12 @@ $_SESSION['usuario'] = $usuarioData;
   if ($_SESSION['usuario']['tipo_usuario'] == 'adm') 
 {
   navegate($_ENV['VIEWS']. '/admin/dashboard.php');
+  MercuryLog::info('usuario admin criado', Auth::getUserData()['nome'], $folder = 'usuario');
 } 
   else if ($_SESSION['usuario']['tipo_usuario'] == 'vis') 
 {
   navegate($_ENV['VIEWS']. '/visitante/home.php');
+  MercuryLog::info('usuario visitante criado', Auth::getUserData()['nome'], $folder = 'usuario');
 } 
   else 
 {
