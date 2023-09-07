@@ -97,11 +97,9 @@ extend_styles([ 'css.admin.financas' ]);
             <option value="">
               - Selecione uma opção -
             </option>
-            <option value="Aberta">Aberta</option>
             <option value="Despesas">Despesas</option>
             <option value="Pagamentos">Pagamentos</option>
             <option value="Transferências">Transferências</option>
-            <option value="Reservas">Reservas</option>
           </select>
           <br>
           <br>
@@ -136,20 +134,6 @@ extend_styles([ 'css.admin.financas' ]);
             </option>
             <option value="Físico">Físico</option>
             <option value="Pix">Pix</option>
-          </select>
-          <br>
-          <br>
-
-          <label for="status_caixa">Status caixa:</label><br>
-          <select name="status_caixa" id="" required>
-            <option value="">
-              - Selecione uma opção -
-            </option>
-            <option value="Receitas">Aberta</option>
-            <option value="Fechada">Fechada</option>
-            <option value="Em andamento">Em andamento</option>
-            <option value="Concluída">Concluída</option>
-            <option value="Cancelada">Cancelada</option>
           </select>
           <br>
           <br>
