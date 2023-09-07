@@ -635,9 +635,9 @@ div .dash-content .activity .activity-data {
     margin: 0 15px;
     word-break: break-word!important;
 }
-.activity-data .data-title{
+.data-title{
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 700!important;
     color: var(--text-color);
 }
 .activity-data .data .data-list{
