@@ -78,8 +78,6 @@ extend_styles([ 'css.admin.financas' ]);
                         <option value="">
                             - Selecione uma opção -
                         </option>
-                        <option value="Aberta">Aberta</option>
-                        <option value="Despesas">Despesas</option>
                         <option value="Pagamentos">Pagamentos</option>
                         <option value="Transferências">Transferências</option>
                         <option value="Reservas">Reservas</option>

@@ -3,7 +3,7 @@
 require dirname(dirname(__DIR__)) . '\config.php';
 
 global $mysqli;
-import_utils([ 'valida_campo', 'navegate' ]);
+import_utils([ 'valida_campo', 'navegate', 'Auth' ]);
 
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
@@ -33,7 +33,7 @@ if (!$campos_validos)
 # ----- Cadastro Entrada Caixa
 $caixa = new Caixa($mysqli);
 
-print_r($_POST);
+//print_r($_POST);
 
 $dados = [
   'aluno_id'          => '',
@@ -53,8 +53,10 @@ try {
   //throw $e;
   $_SESSION['fed_caixa'] = [ 
     'title' => 'Erro!', 'msg' => 'Campos Invalidos' 
-];
+  ];
+  MercuryLog::error('erro na entrada adicionada', Auth::getUserData()['nome'], $folder = 'usuario');
 }
+
 
 
 navegate($_ENV['ROUTE'] . 'admin.caixa.index');

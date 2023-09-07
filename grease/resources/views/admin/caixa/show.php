@@ -49,11 +49,11 @@ extend_styles([ 'css.admin.financas' ]);
         <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
         <div class="dash-content">
             <div style="text-align: right;">
-                <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.entrada.create" class="button-link">
+                <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.entrada.create" class="button-link" style="background-color: #28a745;">
                     Nova Entrada
                 </a>
                 <span class="button-separator">|</span>
-                <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.saida.create" class="button-link">
+                <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.saida.create" class="button-link" style="background-color: #dc3545;">
                     Nova Saída
                 </a>
             </div>
@@ -72,10 +72,12 @@ extend_styles([ 'css.admin.financas' ]);
                         </div>
 
                         <div class="data names">
-                            <span class="data-title">Tipo Movimentação</span>
+                            <span class="data-title">
+                                Usúario
+                            </span>
 
                             <span class="data-list">
-                                <?= $caixa['tipo_movimentacao']; ?>
+                                <?= $caixa['nome_usuario']; ?>
                             </span>
                         </div>
 
@@ -95,16 +97,32 @@ extend_styles([ 'css.admin.financas' ]);
                             </span>
                         </div>
                     </div>
-                    <br>
+                    <br><br>
 
                     <div class="activity-data">
                         <div class="data names">
-                            <span class="data-title">
-                                Usuario
-                            </span>
+                            <span class="data-title">Tipo Movimentação</span>
 
                             <span class="data-list">
-                                <?= $caixa['nome_usuario']; ?>
+                                <?= $caixa['tipo_movimentacao']; ?>
+                            </span>
+                        </div>
+
+
+                        <div class="data names">
+                            <span class="data-title">Categoria</span>
+
+                            <span class="data-list">
+                                <?= $caixa['categoria']; ?>
+                            </span>
+                        </div>
+
+
+                        <div class="data names">
+                            <span class="data-title">Forma de Pagamento</span>
+
+                            <span class="data-list">
+                                <?= $caixa['forma_pagamento']; ?>
                             </span>
                         </div>
                     </div>
@@ -114,9 +132,13 @@ extend_styles([ 'css.admin.financas' ]);
                         <div class="data names">
                             <span class="data-title">Descrição</span>
 
-                            <span class="data-list">
+                            <br>
+                            <details>
+                                <summary>Mostrar</summary>
+                                <br>
+
                                 <?= !empty($caixa['descricao'])? $caixa['descricao'] : 'N/A'; ?>
-                            </span>
+                            </details>
                         </div>
                     </div>
                     <br><br>
@@ -125,9 +147,13 @@ extend_styles([ 'css.admin.financas' ]);
                         <div class="data names">
                             <span class="data-title">Obs</span>
 
-                            <span class="data-list">
+                            <br>
+                            <details>
+                                <summary>Mostrar</summary>
+                                <br>
+                                
                                 <?= !empty($caixa['obs'])? $caixa['obs'] : 'N/A'; ?>
-                            </span>
+                            </details>
                         </div>
                     </div>
 

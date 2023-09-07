@@ -236,6 +236,11 @@ $routes['admin.caixa.saida.create'] = [
   'file' => 'admin/caixa/create.saida',
   'params' => []
 ];
+$routes['admin.caixa.relatorio'] = [
+  'method' => 'GET',
+  'file' => 'admin/caixa/relatorio',
+  'params' => []
+];
 
 
 // --- Routes: Actions

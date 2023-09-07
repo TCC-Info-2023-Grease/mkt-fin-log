@@ -56,7 +56,7 @@ extend_styles(['css.admin.financas']);
                 <div class="activity">
                     <div class="activity-data">
                         <div class="data names">
-                            <span class="data-title">Tipo Movimentação</span>
+                            <span class="data-title"><strong>Tipo Movimentação</strong></span>
 
                             <span class="data-list">
                                 <?= $data['tipo_movimentacao']; ?>
@@ -64,7 +64,7 @@ extend_styles(['css.admin.financas']);
                         </div>
 
                         <div class="data names">
-                            <span class="data-title">Valor</span>
+                            <span class="data-title"><strong>Valor</strong></span>
 
                             <span class="data-list">
                                 <?= Money::format($data['valor']); ?>
@@ -72,7 +72,7 @@ extend_styles(['css.admin.financas']);
                         </div>
 
                         <div class="data names">
-                            <span class="data-title">Data</span>
+                            <span class="data-title"><strong>Data</strong></span>
 
                             <span class="data-list">
                                 <?= date('d/m/Y', strtotime($data['data_movimentacao'])); ?>
@@ -83,7 +83,7 @@ extend_styles(['css.admin.financas']);
 
                     <div class="activity-data">
                         <div class="data names">
-                            <span class="data-title">Descrição</span>
+                            <span class="data-title"><strong>Descrição</strong></span>
 
                             <span class="data-list">
                                 <?= !empty($data['descricao'])? $data['descricao'] : 'N/A'; ?>
@@ -94,7 +94,7 @@ extend_styles(['css.admin.financas']);
 
                     <div class="activity-data">
                         <div class="data names">
-                            <span class="data-title">Obs</span>
+                            <span class="data-title"><strong>Obs</strong></span>
 
                             <span class="data-list">
                                 <?= !empty($data['obs'])? $data['obs'] : 'N/A'; ?>
@@ -114,7 +114,7 @@ extend_styles(['css.admin.financas']);
                 <div class="activity">
                     <div class="activity-data">
                         <div class="data names" style="display: inline-block;">
-                            <span class="data-title" style="margin-right: 12px;">Nome</span>
+                            <span class="data-title" style="margin-right: 12px;"><strong>Nome</strong></span>
                             <span class="data-list">
                                 <?= $data['nome']; ?>
                             </span>
@@ -143,14 +143,14 @@ extend_styles(['css.admin.financas']);
                                 </span>
                             </div>
                             <div class="data names">
-                                <span class="data-title">Nome</span>
+                                <span class="data-title"><strong>Nome</strong></span>
                                 <span class="data-list">
                                     <?= $data['nome']; ?>
                                 </span>
                             </div>
 
                             <div class="data names">
-                                <span class="data-title">Email</span>
+                                <span class="data-title"><strong>Email</strong></span>
                                 <span class="data-list">
                                     <?= $data['email']; ?>
                                 </span>

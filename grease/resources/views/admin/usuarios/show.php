@@ -13,7 +13,8 @@ import_utils([
   'extend_styles', 
   'use_js_scripts', 
   'render_component',
-  'Money'
+  'Money',
+  'Mascara'
 ]);
 
 global $_ENV;   
@@ -42,22 +43,24 @@ extend_styles(['css.admin.financas']);
     <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
     <div class="dash-content">
       <div style="text-align: right;">
-         <a href="#" class="button-link btn-delete"
-                               onclick="if (confirm('Deseja excluir mesmo?')) {
-                                   this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/DeletarController.php?id=<?= $usuario['usuario_id']; ?>';
-                               }"
-                            >
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-        <span class="button-separator">|</span>
+        <?php if ($usuario['usuario_id'] != Auth::getUserData()['usuario_id']): ?>
+          <a href="#" class="button-link btn-delete"
+               onclick="if (confirm('Deseja excluir mesmo?')) {
+                   this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/DeletarController.php?id=<?= $usuario['usuario_id']; ?>';
+               }"
+            >
+              <i class="fa-solid fa-trash"></i>
+          </a>
+          <span class="button-separator">|</span>
+         <?php endif; ?>
         <a href="#"
           class="button-link btn-edit"
-                   onclick="if (confirm('Deseja editar mesmo?')) {
-                       this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/EditController.php?id=<?= $usuario['usuario_id']; ?>';
-                   }"
-                >
-                    <i class="fa-solid fa-pen"></i>
-                </a>
+           onclick="if (confirm('Deseja editar mesmo?')) {
+               this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/EditController.php?id=<?= $usuario['usuario_id']; ?>';
+           }"
+        >
+            <i class="fa-solid fa-pen"></i>
+        </a>
       </div>
 
       <div class="overview">
@@ -115,7 +118,7 @@ extend_styles(['css.admin.financas']);
               <div class="data names">
                 <span class="data-title">CPF</span>
                 <span class="data-list">
-                  <?= $usuario['cpf']; ?> 
+                  <?= Mascara::mascararCPF($usuario['cpf']); ?> 
                 </span>
               </div>
             <?php endif; ?>
@@ -155,7 +158,7 @@ extend_styles(['css.admin.financas']);
               <div class="data names">
                 <span class="data-title">Celular</span>
                 <span class="data-list">
-                  <?= $usuario['celular']; ?> 
+                  <?= Mascara::mascararTelefone($usuario['celular']); ?> 
                 </span>
               </div>
             <?php endif; ?>

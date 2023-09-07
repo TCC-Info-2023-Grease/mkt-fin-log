@@ -3,7 +3,7 @@
 require dirname(dirname(__DIR__)) . '\config.php';
 
 global $mysqli;
-import_utils([ 'valida_campo', 'navegate' ]);
+import_utils([ 'valida_campo', 'navegate', 'Auth' ]);
 
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
@@ -48,5 +48,7 @@ $dados = [
   'obs'               => $_POST['obs']
 ];
 
-$caixa->cadastrarSaida($dados);
+if (!$caixa->cadastrarSaida($dados)) {
+  MercuryLog::error('erro na saida adicionada', Auth::getUserData()['nome'], $folder = 'usuario');
+}
 navegate($_ENV['ROUTE'] . 'admin.caixa.index');

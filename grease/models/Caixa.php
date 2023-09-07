@@ -62,6 +62,9 @@ class Caixa
           " . $this->tabela . " as c
         JOIN 
           usuarios AS u ON u.usuario_id = c.usuario_id
+        WHERE
+          LOWER(c.tipo_movimentacao) = 'despesa' OR
+          LOWER(c.tipo_movimentacao) = 'receita'
         ORDER BY data_movimentacao DESC LIMIT ?
       ";
       $stmt = $this->mysqli->prepare($query);
