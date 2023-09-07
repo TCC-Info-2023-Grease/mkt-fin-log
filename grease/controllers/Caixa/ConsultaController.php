@@ -9,9 +9,9 @@ import_utils([ 'valida_campo', 'navegate' ]);
 $caixa = new Caixa($mysqli);
 $meta = new Meta($mysqli);
 
+//echo $_ENV['TURMA'];
 
 $dadosDespesasReceitasPorMes = $caixa->obterDadosDespesasReceitasPorMes();
-
 
 $totalReceitas = array_sum($dadosDespesasReceitasPorMes['receitas']);
 $totalDespesas = array_sum($dadosDespesasReceitasPorMes['despesas']);
@@ -27,7 +27,7 @@ if ($totalDespesas != 0 || $totalReceitas != 0) {
 
 
 return $data = [
-  'caixa'             => $caixa->buscarTodos(),
+  'caixa'             => $caixa->buscarTodos(), // $caixa->buscarTodos($_ENV['TURMA])
   'saldo_atual'       => $caixa->obterSaldoAtual(),
   'saldo_anterior'    => $caixa->obterSaldoAnterior(),
   'total_gasto'       => $caixa->obterTotalGasto(),
