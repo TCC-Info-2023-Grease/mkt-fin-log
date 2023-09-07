@@ -337,9 +337,9 @@ extend_styles(['css.admin.financas']);
                     <div class="title"><span class="text">Movimentações</span></div>
 
                     <div class="dropdown">
-                        <button onclick="window.location = '<?= $_ENV['ROUTE'] ?>admin.sala.relatorio'" class="dropbtn">
+                        <a target="_blank" href="<?= $_ENV['ROUTE'] ?>admin.sala.relatorio" class="dropbtn" style="text-decoration: none;">
                             Exportar
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div>
