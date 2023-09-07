@@ -11,10 +11,8 @@ import_utils([
   'extend_styles', 
   'use_js_scripts', 
   'render_component',
-  'Money',
-  'MercuryLog'
+  'Money'
 ]);
-
 
 
 include $_ENV['PASTA_CONTROLLER'] . '/Caixa/ConsultaController.php';
@@ -33,7 +31,7 @@ $porcentagemDespesas = $data['porcentagemDespesas'];
 $porcentagemReceitas = $data['porcentagemReceitas'];
 
 
-//print_r($data);
+//ChamaSamu::debug($data);
 ?>
 
 <!------- HEAD --------->
@@ -198,11 +196,9 @@ extend_styles([ 'css.admin.financas' ]);
             <div class="title"><span class="text">Movimentações</span></div>
 
             <div class="dropdown">
-              <button onclick="toggleDropdown()" class="dropbtn">Exportar</button>
-              <div id="myDropdown" class="dropdown-content">
-                <button onclick="exportToPDF()">PDF</button>
-                <button onclick="exportToExcel()">Excel</button>
-              </div>
+              <a target="_blank" href="<?= $_ENV['ROUTE'] ?>admin.caixa.relatorio" class="dropbtn" style="text-decoration: none;">
+                Exportar
+              </a>
             </div>
           </div>
 
@@ -237,7 +233,7 @@ extend_styles([ 'css.admin.financas' ]);
                   <?= Money::format($item['valor']); ?>            
                 </td>
                 <td>
-                  <?= date('d/m/Y', strtotime($item['data_movimentacao'])); ?>
+                  <?= date('d-m-Y H:m:s', strtotime($item['data_movimentacao'])); ?>
                 </td>
                 <td>
                   <?= $item['categoria']; ?>
