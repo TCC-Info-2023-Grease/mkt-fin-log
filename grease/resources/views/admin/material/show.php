@@ -18,7 +18,7 @@ import_utils([
 
 global $_ENV;
 
-//print_r($_POST);
+//ChamaSamu::debug($_POST);
 $material = $_POST;
 ?>
 
@@ -49,11 +49,13 @@ extend_styles([ 'css.admin.financas' ]);
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
       <div class="dash-content">
         <div style="text-align: right;">
-          <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.entrada.create" class="button-link btn-edit">
+          <a href="<?= $_ENV['VIEWS']; ?>/admin/material/entrada.create.php?id=<?php echo $material['material_id']; ?>"
+            class="button-link btn-edit"
+          >
             Nova Entrada
           </a>
           <span class="button-separator">|</span>
-          <a href="<?= $_ENV['ROUTE'] ?>admin.caixa.saida.create" class="button-link btn-delete">
+          <a href="<?= $_ENV['VIEWS']; ?>/admin/material/saida.create.php?id=<?php echo $material['material_id']; ?>" class="button-link btn-delete">
             Nova Saída
           </a>
         </div>
@@ -136,6 +138,7 @@ extend_styles([ 'css.admin.financas' ]);
                 <span class="data-list">
                     <details>
                         <summary>Mostrar</summary>
+                        <br>
                         <?= !empty($material['descricao'])? $material['descricao'] : 'N/A'; ?>
                     </details>
                 </span>
@@ -150,6 +153,7 @@ extend_styles([ 'css.admin.financas' ]);
                 <span class="data-list">
                     <details>
                         <summary>Mostrar</summary>
+                        <br>
                         <?= !empty($material['obs'])? $material['obs'] : 'N/A'; ?>
                     </details>
                 </span>
