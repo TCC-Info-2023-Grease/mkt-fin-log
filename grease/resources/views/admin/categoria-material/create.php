@@ -62,7 +62,7 @@ extend_styles([ 'css.admin.financas' ]);
     <div class="dash-content">
         <div class="overview">
           <div class="title">
-            <span class="text">Cadastro Materiais</span>
+            <span class="text">Cadastro Categoria Material</span>
           </div>
 
           <form 
