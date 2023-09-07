@@ -16,7 +16,7 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
 
-//var_dump($quantidadeMateriais);
+//ChamaSamu::debug($quantidadeMateriais);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
@@ -149,7 +149,7 @@ extend_styles([ 'css.admin.financas' ]);
       
         <div style="display: flex;justify-content: space-between;align-items: center;">
           <div class="title"> <span class="text">Materiais</span> </div>
-            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link btn-edit" style="height: 40px;">
+            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link btn-edit" style="height: 35px;">
               Novo Material
             </a>
         </div>
