@@ -30,6 +30,16 @@ $routes['auth.cadastrar'] = [
   'file' => 'auth/cadastrar',
   'params' => []
 ];
+$routes['auth.esqueci_senha'] = [
+  'method' => 'GET',
+  'file' => 'auth/esqueci_senha',
+  'params' => []
+];
+$routes['auth.redefinir_senha'] = [
+  'method' => 'GET',
+  'file' => 'auth/redefinir_senha',
+  'params' => []
+];
 $routes['auth.sair'] = [
   'method' => 'GET',
   'file' => 'auth/sair',
