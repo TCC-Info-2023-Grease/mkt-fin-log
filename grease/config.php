@@ -19,7 +19,6 @@ function autocarregamento($class_name) {
  * @return void
  */
 function import_utils($utils) {
-
   foreach ($utils as $key => $util) {
     require $_ENV['PASTA_UTILS'] . '/' . $util . '.php';
   }
@@ -30,6 +29,9 @@ session_start();
 require __DIR__ . '/.env.php'; 
 require __DIR__ . '/database/db.php'; 
 require __DIR__ . '/routes/web.php';
+
+// Carregue o Composer autoloader
+require 'vendor/autoload.php';
 
 import_utils([ 'assets', 'ChamaSamu', 'MercuryLog' ]);
 spl_autoload_register('autocarregamento');
