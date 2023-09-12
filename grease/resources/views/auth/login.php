@@ -29,6 +29,16 @@ use_js_scripts([ 'js.scriptindex' ]);
 <!------- BODY --------->
 <body>
  
+ <?php if (isset($_SESSION['senha_redefinida']) == 'ok'): ?>
+      <script>
+          Swal.fire({
+              title: 'Sucesso!',
+              text: 'Senha redefinida!',
+              icon: 'success',
+              confirmButtonText: 'OK'
+          })
+      </script>
+  <?php endif; ?>
   <?php if (isset($_GET['erro']) == 'campos_invalidos'): ?>
       <script>
           Swal.fire({
@@ -101,7 +111,10 @@ use_js_scripts([ 'js.scriptindex' ]);
                    </div>
                    <div class="signup-link">
                       Crie uma conta <a href="">Cadastre-se</a>
-                   </div>                    
+                   </div>     
+                   <div class="signup-link">
+                      Esqueci a <a href="<?= $_ENV['VIEWS'] ?>/auth/esqueci_senha.php">senha</a>
+                   </div>                                   
                  </form>      
       
                         <form 

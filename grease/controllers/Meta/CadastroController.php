@@ -39,6 +39,6 @@ try {
   navegate($_ENV['ROUTE'] . 'admin.meta.create');
 }
 
-print_r($_POST);
+//print_r($_POST);
 
 navegate($_ENV['ROUTE'] . 'admin.meta.index');

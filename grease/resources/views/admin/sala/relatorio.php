@@ -108,34 +108,34 @@ render_component('head');
             <?php foreach ($data['sala'] as $sala): ?>
             <tr>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $sala['nome_usuario']; ?>
+                    <?= ucfirst($sala['nome_usuario']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
                     <?= Mascara::mascararCPF($sala['cpf']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $sala['nome_aluno']; ?>
+                    <?= !empty($sala['nome_aluno'])? $sala['nome_aluno'] : 'N/A'; ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
                     <?= Money::format($sala['valor']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $sala['categoria']; ?>
+                    <?= ucfirst($sala['categoria']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
                     <?= date('d/m/Y H:m:s', strtotime($sala['data_movimentacao'])); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $sala['tipo_movimentacao']; ?>
+                    <?= ucfirst($sala['tipo_movimentacao']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $sala['forma_pagamento']; ?>
+                    <?= ucfirst($sala['forma_pagamento']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $sala['descricao']; ?>
+                    <?= !empty($sala['descricao']) || isset($sala['descricao'])? $sala['descricao'] : 'N/A'; ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $sala['obs']; ?>
+                    <?= !empty($sala['obs']) || isset($sala['obs'])? $sala['obs'] : 'N/A'; ?>
                 </td>
             </tr>
             <?php endforeach; ?>

@@ -1,41 +1,62 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 // Função para enviar um e-mail de redefinição de senha
 class EnviarEmail {
 
     public static function redefinicaoSenha($email, $token) {
-        ini_set( 'display_errors', 1 );
-        error_reporting( E_ALL );
 
-        // Destinatário
-        $para = $email;
+        $mail = new PHPMailer(true);
 
-        // Assunto do e-mail
-        $assunto = 'Redefinição de Senha';
+        try {
+            $mail = new PHPMailer();
 
-        // Mensagem do e-mail
-        $mensagem = '
-            Olá,
+            // Server Settings
+            //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->isSMTP();
+            $mail->SMTPAuth = true;
+            $mail->SMTPSegure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->CharSet = 'UTF-8';
 
-            Você solicitou a redefinição de senha. Clique no link abaixo para criar uma nova senha:
+            $mail->Host = 'sandbox.smtp.mailtrap.io';
+            $mail->Port = 2525;
+            $mail->Username = '5b8fc83059e548';
+            $mail->Password = 'c8c91e82e2d89e';
 
-            Link de Redefinição de Senha: http://localhost:8080/grease/usuario/redefinir_senha.php?token=' . $token;
 
-        $enviador = 'gustavojs417@gmail.com';
+            // Recipients
+            $mail->setFrom('call.grease@gmail.com', 'Atendimento');
+            $mail->addAddress($email, 'Lá Ele');    
 
-        $cabecalhos =  
-            "From: ". $enviador ."\r\n".
-            "Reply-To: ".$para."\r\n".
-            "X-Mailer: PHP/".phpversion();
 
-        // Envie o e-mail
-        $enviado = mail($para, $assunto, $mensagem, $cabecalhos);
-        var_dump($enviado);
+            //Content
+            $mail->isHTML(true);                                  
+            $mail->Subject = 'Redefinição de Senha';
+            $mail->Body    = '
+                Olá,
+                <br><br>
 
-        // Verifique se o e-mail foi enviado com sucesso
-        if ($enviado) {
-            echo 'E-mail de redefinição de senha enviado com sucesso.';
-        } else {
-            echo 'Ocorreu um erro ao enviar o e-mail de redefinição de senha.';
+                Você solicitou a redefinição de senha. Clique no link abaixo ou cole no navegador para criar uma nova senha:
+                <br><br>
+
+                Link de Redefinição de Senha: 
+                    <a href="'. $_ENV['VIEWS'] .'/auth/redefinir_senha.php?token=' . $token.'">'
+                        . $_ENV['VIEWS'] .'/auth/redefinir_senha.php?token=' . $token.'
+                    </a>
+                <br><br>
+
+                Senão solicitou não responda, a senha continuara a mesma
+                <br><br>
+
+                Gestão Grease
+            ';
+            $mail->AltBody = 'Prezado(a) solitação de redefinição de senha';
+
+            $mail->send();
+        } catch (Exception $error) {
+            echo "Mailer Error: $mail->ErrorInfo";  
         }
     }
 }
