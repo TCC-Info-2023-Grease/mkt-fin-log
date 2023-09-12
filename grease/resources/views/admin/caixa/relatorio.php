@@ -107,7 +107,7 @@ render_component('head');
             <?php foreach ($data['caixa'] as $caixa): ?>
             <tr>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $caixa['nome_usuario']; ?>
+                    <?= ucfirst($caixa['nome_usuario']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
                     <?= Mascara::mascararCPF($caixa['cpf']); ?>
@@ -116,7 +116,7 @@ render_component('head');
                     <?= Money::format($caixa['valor']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $caixa['categoria']; ?>
+                    <?= ucfirst($caixa['categoria']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
                     <?= date('d/m/Y H:m:s', strtotime($caixa['data_movimentacao'])); ?>
@@ -125,16 +125,17 @@ render_component('head');
                     <?= ucfirst($caixa['tipo_movimentacao']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $caixa['forma_pagamento']; ?>
+                    <?= ucfirst($caixa['forma_pagamento']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $caixa['descricao']; ?>
+                    <?= (isset($caixa['descricao']) || !empty($caixa['descricao'])? $caixa['descricao'] : 'N/A'); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= $caixa['obs']; ?>
+                    <?= (isset($caixa['obs']) || !empty($caixa['obs'])? $caixa['obs'] : 'N/A'); ?>
                 </td>
             </tr>
             <?php endforeach; ?>
+            
             <tr>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;"></td>
 
