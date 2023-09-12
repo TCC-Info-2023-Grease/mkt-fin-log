@@ -20,7 +20,7 @@ if(isset($_SESSION['ultimo_acesso'])) {
   }
 } 
 
-//print_r($_SESSION['usuario']);
+print_r($_SESSION);
 ?>
 
 
@@ -84,7 +84,7 @@ extend_styles([ 'css.styleconta' ]);
 
                   <li>
                     <i class="infos"></i> Email:
-                    <input type="text" class="input" name="email" />
+                    <input type="email" class="input" name="email" />
                     <br/>
                   </li>
 

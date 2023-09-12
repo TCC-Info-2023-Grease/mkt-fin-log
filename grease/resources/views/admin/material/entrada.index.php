@@ -78,7 +78,7 @@ extend_styles([ 'css.admin.financas' ]);
               <?php foreach ($entradas as $entrada): ?>
               <tr>
                 <td>
-                  <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/ShowController.php?id=<?= $entrada['usuario_id']; ?>">
+                  <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/ShowController.php?id=<?= $entrada['aluno_id']; ?>">
                     <?= $entrada['nome_usuario']; ?>
                   </a>
                 </td>
