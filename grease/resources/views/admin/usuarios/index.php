@@ -93,7 +93,6 @@ render_component('sidebar');
                 </style>
 
                 <?php foreach ($data['usuarios'] as $usuario): ?>
-                    <?php if ($usuario['usuario_id'] != $_SESSION['usuario']['usuario_id']): ?>
                         <tr>
                             <td>
                                 <?= $usuario['nome']; ?>
@@ -112,10 +111,7 @@ render_component('sidebar');
                                 <i class="fa-regular fa-eye"></i>
                               </a>
                               <br>
-                              <br>
-                              <hr>
-                              <br>
-
+                              <?php if ($usuario['usuario_id'] != $_SESSION['usuario']['usuario_id']): ?>
                                 <a href="#"
                                    onclick="if (confirm('Deseja excluir mesmo?')) {
                                        this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Usuario/DeletarController.php?id=<?= $usuario['usuario_id']; ?>';
@@ -135,9 +131,9 @@ render_component('sidebar');
                                 >
                                     <i class="fa-solid fa-pen"></i>
                                 </a>
+                                <?php endif ?>
                             </th>
-                        </tr>
-                    <?php endif ?>
+                        </tr>    
                 <?php endforeach; ?>
                 </tbody>
             </table>

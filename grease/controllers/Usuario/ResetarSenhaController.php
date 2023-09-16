@@ -17,8 +17,11 @@ if(isset($_SESSION['ultimo_acesso'])) {
 $_SESSION['ultimo_acesso'] = time();
 
 
+//var_dump($_SESSION);
+
+
 # Definir regras para cada requisição
-if (valida_campo($_POST['email'] ?? null)) {
+if (isset($_POST['email']) || !empty($_POST['email'])) {
   $email = $_POST["email"];
 
   if ($usuario->existeEmail($email)) {
@@ -43,10 +46,9 @@ if (valida_campo($_POST['email'] ?? null)) {
     ];
     navegate($_ENV['ROUTE'] . 'auth.esqueci_senha');
   }
-}  
+} 
 
-
-if (valida_campo($_GET["token"] ?? NULL) && valida_campo($_POST["novaSenha"] ?? NULL)) {
+if (valida_campo($_POST["token"]? $_POST["token"] : NULL) && valida_campo($_POST["novaSenha"]? $_POST["novaSenha"] : NULL)) {
   $token = $_GET["token"];
 
   // Verifique se o token é válido e não expirou
@@ -55,7 +57,7 @@ if (valida_campo($_GET["token"] ?? NULL) && valida_campo($_POST["novaSenha"] ?? 
 
   if ($userData) {
     // Token válido, permita ao usuário definir uma nova senha
-    $novaSenha = $_POST["novaSenha"];
+    $novaSenha = md5($_POST["novaSenha"]);
 
     // Atualize a senha no banco de dados
     $usuario->atualizarSenha($userData["email"], $novaSenha);

@@ -104,9 +104,9 @@ extend_styles(['css.admin.financas']);
               
               <div class="box
                 <?php if ($data['totalAlunosPagantes'] <= $data['alunosDevedores']): ?>
-                    box2
-                <?php elseif ($data['totalAlunosPagantes'] > $data['alunosDevedores']): ?>
                     box1
+                <?php elseif ($data['totalAlunosPagantes'] > $data['alunosDevedores']): ?>
+                    box2
                 <?php endif; ?>
                 "> 
                     <span class="text">Total Alunos Pagantes</span> 

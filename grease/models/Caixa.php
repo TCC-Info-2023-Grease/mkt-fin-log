@@ -120,8 +120,8 @@ class Caixa
       VALUES 
         (
           NULL,
-          '" . $dados['aluno_id'] . "',
           '" . $dados['usuario_id'] . "',
+          NULL,
           '" . $dados['categoria'] . "',
           '" . $dados['descricao'] . "',
           '" . $dados['data_movimentacao'] . "',
@@ -149,6 +149,7 @@ class Caixa
       " . $this->tabela . "
         (
           caixa_id,
+          aluno_id,
           usuario_id, 
           categoria,
           descricao, 
@@ -162,6 +163,7 @@ class Caixa
         (
           NULL,
           '" . $dados['usuario_id'] . "',
+          NULL,
           '" . $dados['categoria'] . "',
           '" . $dados['descricao'] . "',
           '" . $dados['data_movimentacao'] . "',

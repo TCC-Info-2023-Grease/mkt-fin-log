@@ -22,7 +22,7 @@ if(isset($_SESSION['ultimo_acesso']) && !empty($_SESSION['ultimo_acesso'])) {
 
 //print_r($_SESSION);
 
-if (!isset($_SESSION['token']) && empty($_SESSION['token'])) navegate($_ENV['ROUTE'] . 'auth.esqueci_senha');;
+if (!isset($_GET['token']) && empty($_GET['token'])) navegate($_ENV['ROUTE'] . 'auth.esqueci_senha');;
 ?>
 
 
@@ -83,12 +83,7 @@ extend_styles([ 'css.styleconta' ]);
                 
                 <ul class="lista-datos">
                   <input type="hidden" name="usuario_id" value="<?= $usuario['usuario_id']; ?>" />
-
-                  <li>
-                    <i class="infos"></i> Token:
-                    <input type="hidden" class="input" name="token" value="<?= $_GET['token'] ?>" />
-                    <br/>
-                  </li>
+                  <input type="hidden" class="input" name="token" value="<?= $_GET['token'] ?>" />
 
                   <li>
                     <i class="infos"></i> Nova Senha:

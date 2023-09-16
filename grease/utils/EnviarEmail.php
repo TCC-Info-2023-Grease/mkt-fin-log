@@ -58,5 +58,6 @@ class EnviarEmail {
         } catch (Exception $error) {
             echo "Mailer Error: $mail->ErrorInfo";  
         }
+        return;
     }
 }
