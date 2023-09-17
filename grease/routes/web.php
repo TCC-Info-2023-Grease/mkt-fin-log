@@ -150,6 +150,50 @@ $routes['admin.sala.relatorio'] = [
 ];
 
 # --
+$routes['admin.fornecedor.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/fornecedor/index',
+  'params' => []
+];
+$routes['admin.fornecedor.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/fornecedor/create',
+  'params' => []
+];
+$routes['admin.fornecedor.edit'] = [
+  'method' => 'GET',
+  'file' => 'admin/fornecedor/edit',
+  'params' => []
+];
+$routes['admin.fornecedor.relatorio'] = [
+  'method' => 'GET',
+  'file' => 'admin/fornecedor/relatorio',
+  'params' => []
+];
+
+# --
+$routes['admin.conta.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/conta/index',
+  'params' => []
+];
+$routes['admin.conta.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/conta/create',
+  'params' => []
+];
+$routes['admin.conta.edit'] = [
+  'method' => 'GET',
+  'file' => 'admin/conta/edit',
+  'params' => []
+];
+$routes['admin.conta.relatorio'] = [
+  'method' => 'GET',
+  'file' => 'admin/conta/relatorio',
+  'params' => []
+];
+
+# --
 $routes['admin.alunos.index'] = [
   'method' => 'GET',
   'file' => 'admin/alunos/index',
