@@ -125,13 +125,27 @@ CREATE TABLE Fornecedores (
     -- Atibutos
     ender TEXT NOT NULL,
     nome CHAR(100) NOT NULL,
-    email VARCHAR(15) NOT NULL,
-    telefone VARCHAR(15),
-    celular VARCHAR(16),
-    descricao VARCHAR(100) NOT NULL,
+    email VARCHAR(15)  NULL,
+    cnpj VARCHAR(20) NULL,
+    celular VARCHAR(16) NULL,
+    descricao VARCHAR(100) NULL,
     status_fornecedor VARCHAR(45) NOT NULL
 );
 
+CREATE TABLE CONTAS (
+    conta_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    fornecedor_id INT NOT NULL,
+    FOREIGN KEY (fornecedor_id) REFERENCES fornecedores(fornecedor_id),
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
+    
+    titulo VARCHAR(255),
+    descricao TEXT,
+    valor DECIMAL(10, 2),
+    data_validade DATE,
+    data_insercao DATETIME 
+        DEFAULT NOW()
+);
 
 CREATE TABLE Materiais (
 	-- PK & FK
