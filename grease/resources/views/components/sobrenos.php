@@ -14,7 +14,7 @@
           </div>
 
           <div id="greFont">
-              <h2>⇀ O Músical ↼</h2>
+              <h2>⇀ O Musical ↼</h2>
               <h3>3° info tarde</h3>
           </div>
         </div>
@@ -41,7 +41,7 @@
 
       <div class = "about-para">
 
-        <p>Somos o 3º MTEC Informática. Para a tarde, temos o prazer de recebê-lo em nosso site. Nesta seção, você encontrará informações sobre Marketing, Projetos, Bastidores e como administramos nosso dinheiro corretamente.</p>
+        <p>Somos o 3º MTEC Informática Tarde. Para a tarde, temos o prazer de recebê-lo em nosso site. Nesta seção, você encontrará informações sobre Marketing, Projetos, Bastidores e como administramos nosso dinheiro corretamente.</p>
         <p>Ao presenciar nosso musical, você nos motiva cada vez mais a realizar nosso projeto da melhor forma possível. Caso deseje ajudar de alguma forma, pode contribuir financeiramente para Finanças.</p>
       
       </div>
