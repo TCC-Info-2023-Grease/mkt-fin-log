@@ -1,7 +1,9 @@
 <?php
 # ------ Configurações Básicas
 require dirname(dirname(__DIR__)) . '\config.php';
-import_utils(['extend_styles', 'render_component']);
+
+import_utils(['Auth']);
+Auth::check('adm');
 
 # ----- Consulta Caixa
 $caixa = new Caixa($mysqli);

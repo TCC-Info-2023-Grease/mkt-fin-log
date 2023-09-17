@@ -3,7 +3,11 @@
 require dirname(dirname(__DIR__)) . '\config.php';
 
 global $mysqli;
-import_utils([ 'valida_campo', 'navegate', 'Auth' ]);
+
+import_utils(['Auth']);
+Auth::check('adm');
+
+import_utils([ 'valida_campo', 'navegate' ]);
 
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
