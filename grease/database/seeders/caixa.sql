@@ -72,14 +72,3 @@ INSERT INTO `caixa` (`caixa_id`, `usuario_id`, `aluno_id`, `categoria`, `descric
 (67, 1, 39, 'Pagamento aluno', '                    Forma que ajudou', '2023-04-15 00:00:00', '50.00', 'Receita', 'Pix', NULL, '40$ rifa 10$ bolso                    '),
 (68, 1, 39, 'Pagamento aluno', 'Forma que ajudou                    ', '2023-05-15 00:00:00', '10.00', 'Receita', 'Pix', NULL, 'rifa                    ');
 
---
--- Índices para tabelas despejadas
---
-
---
--- Índices para tabela `caixa`
---
-ALTER TABLE `caixa`
-  ADD PRIMARY KEY (`caixa_id`),
-  ADD KEY `usuario_id` (`usuario_id`),
-  ADD KEY `aluno_id` (`aluno_id`);

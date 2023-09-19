@@ -3,6 +3,7 @@
 
 global $mysqli;
 
+import_utils([ 'Auth' ]);
 Auth::check('adm');
 
 import_utils([ 'valida_campo', 'navegate' ]);

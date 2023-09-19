@@ -145,6 +145,9 @@ CREATE TABLE CONTAS (
     data_validade DATE,
     data_insercao DATETIME 
         DEFAULT NOW()
+    -- 0 -> NÃO PAGA | 1 -> PAGA
+    status_conta INT NOT NULL
+        DEFAULT 0
 );
 
 CREATE TABLE Materiais (
