@@ -159,7 +159,7 @@ extend_styles(['css.admin.financas']);
                 </tbody>
               </table>
               <?php } else { ?>
-              <h3>Sem inserções no caixa</h3>
+              <h3>Sem inserções</h3>
               <?php } ?>
             </div>
         </div>

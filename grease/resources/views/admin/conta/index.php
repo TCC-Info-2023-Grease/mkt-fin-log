@@ -14,9 +14,9 @@ import_utils([
   'Money'
 ]);
 
-include $_ENV['PASTA_CONTROLLER'] . '/Aluno/ConsultaController.php';
+include $_ENV['PASTA_CONTROLLER'] . '/Conta/ConsultaController.php';
 
-//print_r(isset($_SESSION['fed_aluno']) && !empty($_SESSION['fed_aluno']));
+ChamaSamu::debug($contas);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
@@ -24,7 +24,7 @@ if(isset($_SESSION['ultimo_acesso'])) {
 
   // Verifica se já passaram 5 minutos desde o último acesso
   if(time() - $ultimo_acesso > 4) {
-    unset($_SESSION['fed_aluno']);
+    unset($_SESSION['fed_conta']);
   }
 }
 ?>
@@ -41,7 +41,7 @@ extend_styles([ 'css.admin.financas' ]);
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
 <title>
-  Finanças Admin 🕺 Grease
+  Contas Admin 🕺 Grease
 </title>
 <!-------/ HEAD --------->
 
@@ -52,12 +52,12 @@ extend_styles([ 'css.admin.financas' ]);
   render_component('sidebar');
   ?>
 
-  <?php if (isset($_SESSION['fed_aluno']) && !empty($_SESSION['fed_aluno'])): ?>
+  <?php if (isset($_SESSION['fed_conta']) && !empty($_SESSION['fed_conta'])): ?>
   <script>
     Swal.fire({
-      title: '<?php echo $_SESSION['fed_aluno']['title']; ?>',
-      text: '<?php echo $_SESSION['fed_aluno']['msg']; ?>',
-      icon: '<?php echo $_SESSION['fed_aluno']['icon']; ?>',
+      title: '<?php echo $_SESSION['fed_conta']['title']; ?>',
+      text: '<?php echo $_SESSION['fed_conta']['msg']; ?>',
+      icon: '<?php echo $_SESSION['fed_conta']['icon']; ?>',
       confirmButtonText: 'OK'
     })
   </script>
@@ -65,47 +65,75 @@ extend_styles([ 'css.admin.financas' ]);
 
   <section class="dashboard">
       <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
+
       <div class="dash-content">
-        <div style="text-align: right;">
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.alunos.create.all" class="button-link">
-            Adicionar varios Alunos
-          </a>
-          
-          <span class="button-separator">|</span>
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+          <div class="title"> <span class="text"><h1>Contas</h1></span> </div> 
 
-          <a href="<?php echo $_ENV['ROUTE'] ?>admin.alunos.create" class="button-link btn-edit">
-            Adicionar um Aluno
-          </a>
+          <div>
+             <a href="<?= $_ENV['ROUTE'] ?>admin.conta.create" class="button-link" style="background-color: #28a745;">
+              Nova Conta
+            </a>
+          </div>
         </div>
 
-        <div class="title">
-            <span class="text">Alunos</span>
+
+      <div class="dash-content">
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+          <div class="title"><span class="text">Itens</span></div>
+
+          <div class="dropdown">
+            <a target="_blank" href="<?= $_ENV['ROUTE'] ?>admin.conta.relatorio" class="dropbtn" style="text-decoration: none;">
+              Exportar
+            </a>
+          </div>
         </div>
 
-        <?php if (isset($alunos) || !empty($alunos)) { ?>
+        <?php if (isset($contas) || !empty($contas)) { ?>
         <table id="myTable" class="display">
             <thead>
                 <tr>
-                    <th># ID</th>
-                    <th>Nome</th>
+                    <th>Usuario</th>
+                    <th>Titulo</th>
+                    <th>Descrição</th>
+                    <th>Data Vencimneto</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($alunos as $aluno): ?>
+                <?php foreach ($contas as $conta): ?>
                 <tr>
-                    <td style="width: 96px;">
-                        <?= $aluno['aluno_id']; ?>
+                    <td>  
+                        <?= $conta['usuario']? $conta['usuario'] : 'N/A'; ?>
                     </td>
                     <td>
-                        <?= $aluno['nome']; ?>
+                        <?= $conta['titulo']? $conta['titulo'] : 'N/A'; ?>
                     </td>
+                    <td>
+                        <?= $conta['descricao']? $conta['descricao'] : 'N/A'; ?>
+                    </td>
+                    <td>
+                        <?= $conta['data_validade']? date('d-m-Y', strtotime($conta['data_validade'])) : 'N/A'; ?>
+                    </td>
+                    <td style="color: <?= ($conta['status_conta'] == 1)? 'green' : 'red'; ?>;">
+                        <strong>
+                            <?php if($conta['status_conta'] == 1) {
+                              echo 'Pago';
+                            } elseif ($conta['status_conta'] == 0) {
+                              echo 'Não Pago'; 
+                            } else {
+                              echo 'N/A'; 
+                            }?>
+                          </strong>
+                    </td>
+
                     <th style="padding: 32px;width: 90px;">
                       <a
-                        href="<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/ShowController.php?id=<?= $aluno['aluno_id']; ?>"
+                        href="<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/ShowController.php?id=<?= $conta['conta_id']; ?>"
                         class="icon-link"
                       >
-                        <i class="fa-regular fa-eye"></i>
+                        <i class="fa-regular fa-eye"></i> 
                       </a>
 
                       <br>
@@ -114,7 +142,7 @@ extend_styles([ 'css.admin.financas' ]);
                       <br>
 
                       <a
-                        href="<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/EditController.php?id=<?= $aluno['aluno_id']; ?>"
+                        href="<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/EditController.php?id=<?= $conta['conta_id']; ?>"
                         class="icon-link edit"
                       >
                         <i class="fa-regular fa-pen-to-square"></i>
@@ -124,7 +152,7 @@ extend_styles([ 'css.admin.financas' ]);
                       <a
                         href="#"
                         onclick="if (confirm('Deseja excluir mesmo?')) {
-                          this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Aluno/DeletarController.php?id=<?= $aluno['aluno_id']; ?>';
+                          this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/DeletarController.php?id=<?= $conta['conta_id']; ?>';
                         }"
                         class="icon-link delete"
                       >

@@ -1,8 +1,11 @@
 <?php     
 # ------ Dados Iniciais
 require dirname(dirname(__DIR__)) . '\config.php';
-
 global $mysqli;
+
+import_utils([ 'Auth' ]);
+Auth::check('adm');
+
 import_utils([ 'valida_campo', 'navegate' ]);
 
 if(isset($_SESSION['ultimo_acesso'])) {
