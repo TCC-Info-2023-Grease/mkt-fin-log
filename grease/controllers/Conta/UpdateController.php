@@ -23,16 +23,16 @@ $campos_validos = (
     $_POST['fornecedor_id'] ? true : false
 );
 if (!$campos_validos) {
-    $_SESSION['fed_fornecedor'] = [
+    $_SESSION['fed_conta'] = [
         'title' => 'Erro!',
         'msg' => 'Campos Inválidos',
         'icon' => 'error'
     ];
-    navegate($_ENV['ROUTE'] . 'admin.fornecedor.index');
+    navegate($_ENV['ROUTE'] . 'admin.conta.index');
 }
 
 # ------ Atualizar 
-$fornecedor = new Fornecedor($mysqli);
+$conta = new Conta($mysqli);
 
 $dados = [
     'conta_id' => $_POST['conta_id'],
@@ -41,24 +41,23 @@ $dados = [
     'titulo' => $_POST['titulo'],
     'descricao' => $_POST['descricao'],
     'valor' => $_POST['valor'],
-    'data_validade' => $_POST['data_validade'],
-    'data_insercao' => $_POST['data_insercao']
+    'data_validade' => $_POST['data_validade']
 ];
 
 try {
-    $fornecedor->atualizar($dados);
-    $_SESSION['fed_fornecedor'] = [
+    $conta->atualizar($dados);
+    $_SESSION['fed_conta'] = [
         'title' => 'Sucesso!',
         'msg' => 'Atualizado com sucesso',
         'icon' => 'success'
     ];
 } catch (Exception $e) {
-    $_SESSION['fed_fornecedor'] = [
+    $_SESSION['fed_conta'] = [
         'title' => 'Erro!',
         'msg' => 'Erro ao atualizar',
         'icon' => 'error'
     ];
 }
 
-navegate($_ENV['ROUTE'] . 'admin.fornecedor.index');
+navegate($_ENV['ROUTE'] . 'admin.conta.index');
 ?>

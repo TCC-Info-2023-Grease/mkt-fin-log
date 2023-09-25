@@ -81,8 +81,7 @@ class Conta
                 titulo = ?,
                 descricao = ?,
                 valor = ?,
-                data_validade = ?,
-                data_insercao = ?
+                data_validade = ?
             WHERE 
                 {$this->tabela}_id = ?
         ";
@@ -93,14 +92,13 @@ class Conta
         }
 
         $stmt->bind_param(
-            "iissdssi",
+            "iissdsi",
             $dados['fornecedor_id'],
             $dados['usuario_id'],
             $dados['titulo'],
             $dados['descricao'],
             $dados['valor'],
             $dados['data_validade'],
-            $dados['data_insercao'],
             $dados['conta_id']
         );
 
