@@ -144,7 +144,7 @@ CREATE TABLE CONTAS (
     valor DECIMAL(10, 2),
     data_validade DATE,
     data_insercao DATETIME 
-        DEFAULT NOW()
+        DEFAULT NOW(),
     -- 0 -> NÃO PAGA | 1 -> PAGA
     status_conta INT NOT NULL
         DEFAULT 0
