@@ -1,5 +1,5 @@
 <?php
-if (file_exists('.env.php')) {
+if (file_exists(__DIR__ . '\.env.php')) {
     require __DIR__ . '/config.php';
     require __DIR__ . '/routes/router_run.php';
     
