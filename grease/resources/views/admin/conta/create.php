@@ -87,11 +87,15 @@ extend_styles([ 'css.admin.financas' ]);
                     - Selecione -
                 </option>
                 
-                <?php foreach ($fornecedores as $fornecedor): ?>
-                <option value="<?php echo $categoria['categoria_id']; ?>">
-                    <?php echo $fornecedor['nome']; ?>
-                </option>
-                <?php endforeach; ?>
+                <?php if (!empty($fornecedores)): ?>
+                  <?php foreach ($fornecedores as $fornecedor): ?>
+                    <option 
+                      value="<?= $fornecedor['categoria_id']; ?>" 
+                    >
+                        <?php echo $fornecedor['nome']; ?>
+                    </option>
+                  <?php endforeach; ?>
+                <?php endif; ?>
             </select>
             <br><br>
 
