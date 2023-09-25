@@ -75,7 +75,6 @@ extend_styles([ 'css.admin.financas' ]);
       			method="POST" 
       			action="<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/UpdateController.php"
     		  >
-            <input type="hidden" name="status_conta" value="<?= $data['status_conta']; ?>" />
             <input type="hidden" name="usuario_id" value="<?= $_SESSION['usuario']['usuario_id']; ?>" />
             <input type="hidden" name="conta_id" value="<?= $data['conta_id']; ?>" />
             
@@ -88,8 +87,8 @@ extend_styles([ 'css.admin.financas' ]);
                 <?php if (!empty($fornecedores)): ?>
                   <?php foreach ($fornecedores as $fornecedor): ?>
                     <option 
-                      value="<?= $fornecedor['categoria_id']; ?>" 
-                      <?= ($data['fornecedor_id'] == $fornecedor['fornecedor_id']) ?? 'selected'; ?>
+                      value="<?= $fornecedor['fornecedor_id']; ?>" 
+                      <?= ($data['fornecedor_id'] == $fornecedor['fornecedor_id']) ? 'selected' : ''; ?>
                     >
                         <?php echo $fornecedor['nome']; ?>
                     </option>
@@ -119,6 +118,18 @@ extend_styles([ 'css.admin.financas' ]);
             <input type="date" value="<?= $data['data_validade'] ?>" name="data_validade" placeholder="01/12/2023" />
             <br>
             <br>
+
+            <select name="status_conta" id="status_conta">
+              <?php foreach([0 => 'Não Pago', 1 => 'Pago'] as $status => $valor): ?>
+                <option 
+                  value="<?= $status; ?>" 
+                  <?= ($data['status_conta'] == $status) ? 'selected' : ''; ?>
+                >
+                  <?= $valor; ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+            <br><br>
     				
     			 <input type="submit" value="salvar">
     		</form>
