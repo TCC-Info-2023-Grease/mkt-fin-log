@@ -41,8 +41,11 @@ $dados = [
     'titulo' => $_POST['titulo'],
     'descricao' => $_POST['descricao'],
     'valor' => $_POST['valor'],
-    'data_validade' => $_POST['data_validade']
+    'data_validade' => $_POST['data_validade'],
+    'status_conta' => $_POST['status_conta']
 ];
+
+ChamaSamu::debug($dados);
 
 try {
     $conta->atualizar($dados);
