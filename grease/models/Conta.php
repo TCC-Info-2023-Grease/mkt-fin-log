@@ -81,9 +81,10 @@ class Conta
                 titulo = ?,
                 descricao = ?,
                 valor = ?,
-                data_validade = ?
+                data_validade = ?,
+                status_conta = ?
             WHERE 
-                {$this->tabela}_id = ?
+                conta_id = ?
         ";
         $stmt = $this->mysqli->prepare($query);
 
@@ -92,13 +93,14 @@ class Conta
         }
 
         $stmt->bind_param(
-            "iissdsi",
+            "iissdsii",
             $dados['fornecedor_id'],
             $dados['usuario_id'],
             $dados['titulo'],
             $dados['descricao'],
             $dados['valor'],
             $dados['data_validade'],
+            $dados['status_conta'],
             $dados['conta_id']
         );
 
@@ -159,6 +161,8 @@ class Conta
                 c.data_insercao,
                 f.nome as fornecedor,
                 u.nome as usuario,
+                u.email as usuario_email,
+                f.email as fornecedor_email,
                 u.*, f.*, c.*
             FROM 
                 {$this->tabela} as c
@@ -167,13 +171,18 @@ class Conta
             LEFT JOIN 
                 usuarios u ON c.usuario_id = u.usuario_id
             WHERE 
-                {$this->tabela}_id = '".$id."'
+                conta_id = '".$id."'
         ");
 
 
+        if (!$sql) {
+            die("Erro SQL: " . $this->mysqli->error);
+        }
+        
         if ($sql->num_rows === 0) {
             return null;
         }
+        
 
         $conta = $sql->fetch_assoc();
 
@@ -181,3 +190,4 @@ class Conta
     }
 }
  
+
