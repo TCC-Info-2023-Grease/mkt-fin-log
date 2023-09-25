@@ -16,7 +16,7 @@ import_utils([
 # Receber os dados enviados via POST
 $data = $_POST;
 
-include $_ENV['PASTA_CONTROLLER'] . '/Fornecedor/ConsultaController.php';
+require $_ENV['PASTA_CONTROLLER'] . '/Fornecedor/ConsultaController.php';
 
 //ChamaSamu::debug($data);
 
@@ -48,12 +48,12 @@ extend_styles([ 'css.admin.financas' ]);
   render_component('sidebar');
   ?>
 
-  <?php if (isset($_SESSION['fed_aluno']) && !empty($_SESSION['fed_aluno'])): ?>
+  <?php if (isset($_SESSION['fed_conta']) && !empty($_SESSION['fed_conta'])): ?>
   <script>
     Swal.fire({
-      title: '<?php echo $_SESSION['fed_aluno']['title']; ?>',
-      text: '<?php echo $_SESSION['fed_aluno']['msg']; ?>',
-      icon: '<?php echo $_SESSION['fed_aluno']['icon']; ?>',
+      title: '<?php echo $_SESSION['fed_conta']['title']; ?>',
+      text: '<?php echo $_SESSION['fed_conta']['msg']; ?>',
+      icon: '<?php echo $_SESSION['fed_conta']['icon']; ?>',
       confirmButtonText: 'OK'
     })
   </script>
@@ -68,10 +68,8 @@ extend_styles([ 'css.admin.financas' ]);
     <div class="dash-content">
         <div class="overview">
           <div class="title">
-            <span class="text">Editar Fornecedor</span>
+            <span class="text">Editar Conta</span>
           </div>
-          * Campo Obrigatório
-          <br><br>
 
           <form 
       			method="POST" 
@@ -87,15 +85,16 @@ extend_styles([ 'css.admin.financas' ]);
                 <option value="">
                     - Selecione -
                 </option>
-                
-                <?php foreach ($fornecedores as $fornecedor): ?>
-                  <option 
-                    value="<?= $fornecedor['categoria_id']; ?>" 
-                    <?= ($data['fornecedor_id'] == $fornecedor['fornecedor_id']) ?? 'selected'; ?>
-                  >
-                      <?php echo $fornecedor['nome']; ?>
-                  </option>
-                <?php endforeach; ?>
+                <?php if (!empty($fornecedores)): ?>
+                  <?php foreach ($fornecedores as $fornecedor): ?>
+                    <option 
+                      value="<?= $fornecedor['categoria_id']; ?>" 
+                      <?= ($data['fornecedor_id'] == $fornecedor['fornecedor_id']) ?? 'selected'; ?>
+                    >
+                        <?php echo $fornecedor['nome']; ?>
+                    </option>
+                  <?php endforeach; ?>
+                <?php endif; ?>
             </select>
             <br><br>
 

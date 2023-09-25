@@ -51,7 +51,7 @@ try {
   $conta->cadastrar($dados);
   
 } catch (Exception $e) {
-  ChamaSamu::debug($e);
+  //ChamaSamu::debug($e);
 
   $_SESSION['fed_conta'] = [ 
     'title' => 'Erro!', 'msg' => 'Campos Invalidos',
