@@ -73,6 +73,7 @@ extend_styles([ 'css.admin.financas' ]);
           </div>
 
           <form 
+            id="frm-conta"
       			method="POST" 
       			action="<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/CadastroController.php"
     		  >
@@ -82,7 +83,7 @@ extend_styles([ 'css.admin.financas' ]);
             
 
       			<label for="fornecedor_id">Fornecedor:</label>
-      			<select name="fornecedor_id">
+      			<select name="fornecedor_id" require>
                 <option value="">
                     - Selecione -
                 </option>
@@ -90,7 +91,7 @@ extend_styles([ 'css.admin.financas' ]);
                 <?php if (!empty($fornecedores)): ?>
                   <?php foreach ($fornecedores as $fornecedor): ?>
                     <option 
-                      value="<?= $fornecedor['categoria_id']; ?>" 
+                      value="<?= $fornecedor['fornecedor_id']; ?>" 
                     >
                         <?php echo $fornecedor['nome']; ?>
                     </option>
@@ -99,7 +100,7 @@ extend_styles([ 'css.admin.financas' ]);
             </select>
             <br><br>
 
-            <label for="email">Titulo:</label>
+            <label for="titulo">Titulo:</label>
             <input type="text" name="titulo" class="" placeholder="Compra dos Paletes" />
             <br>
             <br>
@@ -129,19 +130,18 @@ extend_styles([ 'css.admin.financas' ]);
   <?php
     use_js_scripts([ 'js.lib.maskMoney', 'js.admin.financas', 'js.masksForInputs' ]);
   ?> 
-  <script>
-    $(document).ready(() => {
-      $('.money').maskMoney({
-        prefix: 'R$ ',
-        allowNegative: false,
-        thousands: '.', decimal: ',',
-        affixesStay: true
-      });
+  <script type="text/javascript">
+    $('.money').maskMoney({
+      prefix: 'R$ ',
+      allowNegative: false,
+      thousands: '.',
+      decimal: ',',
+      affixesStay: true
+    });
 
-       $('#frm-entrada').submit(function(event) {
-        $('.money').each(function() {
-          $(this).val($(this).maskMoney('unmasked')[0]);
-        });
+    $('#frm-conta').submit(function(event) {
+      $('.money').each(function() {
+        $(this).val($(this).maskMoney('unmasked')[0]);
       });
     });
   </script>
