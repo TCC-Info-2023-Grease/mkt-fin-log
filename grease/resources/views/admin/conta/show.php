@@ -13,14 +13,15 @@ import_utils([
   'extend_styles',
   'use_js_scripts',
   'render_component',
-  'Money'
+  'Money',
+  'Mascara'
 ]);
 
 global $_ENV;
 
 $conta = $_POST;
 
-//ChamaSamu::debug($conta);
+ChamaSamu::debug($conta);
 ?>
 
 <!------- HEAD --------->
@@ -43,6 +44,8 @@ extend_styles(['css.admin.financas']);
     <div class="top"> <i class="uil uil-bars sidebar-toggle"></i> </div>
     <div class="dash-content">
         <div style="text-align: right;">
+            <div class="title"> <span class="text"><h1>Conta</h1></span> </div> 
+
             <a href="#" class="button-link btn-delete" onclick="if (confirm('Deseja excluir mesmo?')) {
                this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/DeletarController.php?id=<?= $conta['conta_id']; ?>';
            }">
@@ -68,24 +71,44 @@ extend_styles(['css.admin.financas']);
                         </span>
                     </div>
 
-                    <div class="data names">
-                        <span class="data-title">Descrição</span>
-                        <span class="data-list">
-                            <details>
-                                <summary>Mostrar</summary>
-                                <br>
-                                <?= !empty($conta['descricao']) ? $conta['descricao'] : 'N/A'; ?>
-                            </details>
-                        </span>
-                    </div>
-
+                
                     <div class="data names">
                         <span class="data-title">Valor</span>
                         <span class="data-list">
                             <?= Money::format($conta['valor']); ?>
                         </span>
                     </div>
+
+                    <div class="data names">
+                        <span class="data-title">Status</span>
+                        <span class="data-list" style="color: <?= ($conta['status_conta'] == 1)? 'green' : 'red'; ?>;">
+                            <strong class="icon-link <?= ($conta['status_conta'] == 1)? 'edit' : 'delete'; ?>">
+                                <?php if($conta['status_conta'] == 1) {
+                                    echo 'Pago';
+                                } elseif ($conta['status_conta'] == 0) {
+                                    echo 'Não Pago'; 
+                                } else {
+                                    echo 'N/A'; 
+                                }?>
+                            </strong>
+                        </span>
+                        <br>
+                    </div>
                 </div>
+                <br><br>
+
+                <div class="activity-data">
+                    <div class="data names">
+                            <span class="data-title">Descrição</span>
+                            <span class="data-list">
+                                <details>
+                                    <summary>Mostrar</summary>
+                                    <br>
+                                    <?= !empty($conta['descricao']) ? $conta['descricao'] : 'N/A'; ?>
+                                </details>
+                            </span>
+                        </div>
+                    </div>
             </div>
             <br><br>
 
@@ -109,6 +132,9 @@ extend_styles(['css.admin.financas']);
             </div>
         </div>
 
+        <br><br><br>
+        <hr>
+
         <div class="overview">
             <div class="title"> <span class="text">Informações do  Admin</span> </div>
 
@@ -117,38 +143,57 @@ extend_styles(['css.admin.financas']);
                     <div class="data names">
                         <span class="data-title">Nome</span>
                         <span class="data-list">
-                            <?= $conta['nome_usuario']; ?>
+                            <?= $conta['usuario']; ?>
                         </span>
                     </div>
 
                     <div class="data names">
                         <span class="data-title">Email</span>
                         <span class="data-list">
-                            <?= $conta['email']; ?>
+                            <?= $conta['usuario_email']; ?>
+                        </span>
+                    </div>
+
+                    <div class="data names">
+                        <span class="data-title">CPF</span>
+                        <span class="data-list">
+                            <?= Mascara::mascararCPF($conta['cpf']); ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <br><br><br>
+        <hr>
+
+        <div class="overview">
+            <div class="title"> <span class="text">Informações do  Fornecedor</span> </div>
+
+            <div class="activity">
+                <div class="activity-data">
+                    <div class="data names">
+                        <span class="data-title">Nome</span>
+                        <span class="data-list">
+                            <?= $conta['fornecedor']? $conta['fornecedor'] : 'N/A'; ?>
+                        </span>
+                    </div>
+
+                    <div class="data names">
+                        <span class="data-title">Email</span>
+                        <span class="data-list">
+                            <?= $conta['fornecedor_email']? $conta['fornecedor_email'] : 'N/A'; ?>
+                        </span>
+                    </div>
+
+                    <div class="data names">
+                        <span class="data-title">CPF</span>
+                        <span class="data-list">
+                            <?= $conta['cnpj']? $conta['cnpj'] : 'N/A'; ?>
                         </span>
                     </div>
                 </div>
             </div>
             <br><br>
-
-            <div class="activity">
-                <div class="activity-data">
-                    <div class="data names">
-                        <span class="data-title">CPF</span>
-                        <span class="data-list">
-                            <?= Mascara::mascararCPF($conta['cpf_admin']); ?>
-                        </span>
-                    </div>
-                    <br><br>
-
-                    <div class="data names">
-                        <span class="data-title">Data de Inserção</span>
-                        <span class="data-list">
-                            <?= date('d-m-Y', strtotime($conta['data_insercao'])); ?>
-                        </span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
