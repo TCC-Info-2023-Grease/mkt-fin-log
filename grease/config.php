@@ -31,7 +31,7 @@ require __DIR__ . '/database/db.php';
 require __DIR__ . '/routes/web.php';
 
 // Carregue o Composer autoloader
-require 'vendor/autoload.php';
+//require 'vendor/autoload.php';
 
 import_utils([ 'assets', 'ChamaSamu', 'MercuryLog' ]);
 spl_autoload_register('autocarregamento');
