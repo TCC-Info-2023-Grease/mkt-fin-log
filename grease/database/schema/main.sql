@@ -1,7 +1,7 @@
 CREATE DATABASE db_tcc;
 USE db_tcc;
 
-CREATE TABLE CategoriasMaterial (
+CREATE TABLE categoriasmaterial (
 	-- PK
 	categoria_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     
@@ -22,7 +22,7 @@ CREATE TABLE meta (
 
 
 
-CREATE TABLE MakeOf (
+CREATE TABLE makeof (
     -- PK & FK
     makeof_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     user_id INT,
@@ -32,7 +32,7 @@ CREATE TABLE MakeOf (
 );
 
 
-CREATE TABLE Usuarios (
+CREATE TABLE usuarios (
 	-- PK & FK
     usuario_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     tipo_usuario CHAR(3),
@@ -50,14 +50,14 @@ CREATE TABLE Usuarios (
         DEFAULT 'profile_default.png'
 );
 
-CREATE TABLE Alunos (
+CREATE TABLE alunos (
 	-- PK & FK
     aluno_id INT PRIMARY KEY NULL AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
     status BOOLEAN DEFAULT TRUE
 );
 
-CREATE TABLE Caixa (
+CREATE TABLE caixa (
 		-- PK & FK
     caixa_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     usuario_id INT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE Caixa (
 );
 
 
-CREATE TABLE Personagens (
+CREATE TABLE personagens (
 	-- PK & FK
 	personagem_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     
@@ -95,7 +95,7 @@ CREATE TABLE Personagens (
 );
 
 
-CREATE TABLE Cenarios (
+CREATE TABLE cenarios (
 	-- PK & FK
 	cenario_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     personagem_id INT NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE Cenarios (
 	foto_cenario VARCHAR(100)
 );
 
-CREATE TABLE Fornecedores (
+CREATE TABLE fornecedores (
 	-- PK & FK
     fornecedor_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     
@@ -132,25 +132,53 @@ CREATE TABLE Fornecedores (
     status_fornecedor VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE CONTAS (
-    conta_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    fornecedor_id INT NOT NULL,
-    FOREIGN KEY (fornecedor_id) REFERENCES fornecedores(fornecedor_id),
-    usuario_id INT NOT NULL,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
-    
-    titulo VARCHAR(255),
-    descricao TEXT,
-    valor DECIMAL(10, 2),
-    data_validade DATE,
-    data_insercao DATETIME 
-        DEFAULT NOW()
-    -- 0 -> NÃO PAGA | 1 -> PAGA
-    status_conta INT NOT NULL
-        DEFAULT 0
-);
+CREATE TABLE `contas` (
+  `conta_id` int(11) NOT NULL,
+  `fornecedor_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `titulo` varchar(255) DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
+  `valor` decimal(10,2) DEFAULT NULL,
+  `data_validade` date DEFAULT NULL,
+  `data_insercao` datetime,
+  `status_conta` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB;
 
-CREATE TABLE Materiais (
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `contas`
+--
+ALTER TABLE `contas`
+  ADD PRIMARY KEY (`conta_id`),
+  ADD KEY `fornecedor_id` (`fornecedor_id`),
+  ADD KEY `usuario_id` (`usuario_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `contas`
+--
+ALTER TABLE `contas`
+  MODIFY `conta_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `contas`
+--
+ALTER TABLE `contas`
+  ADD CONSTRAINT `contas_ibfk_1` FOREIGN KEY (`fornecedor_id`) REFERENCES `Fornecedores` (`fornecedor_id`),
+  ADD CONSTRAINT `contas_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `Usuarios` (`usuario_id`);
+COMMIT;
+
+CREATE TABLE materiais (
 	-- PK & FK
 	material_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	categoria_id INT NOT NULL,
@@ -178,7 +206,7 @@ CREATE TABLE Materiais (
 );
 
 
-CREATE TABLE SaidasMaterial (
+CREATE TABLE saidasmaterial (
 	-- PK & FK
     saida_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     material_id INT,
@@ -198,7 +226,7 @@ CREATE TABLE SaidasMaterial (
 );
 
 
-CREATE TABLE EntradasMaterial (
+CREATE TABLE entradasmaterial (
 	-- PK & FK
     entrada_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     material_id INT,
@@ -217,7 +245,7 @@ CREATE TABLE EntradasMaterial (
     obs TEXT NOT NULL
 );
 
-CREATE TABLE ResetPasswordRequests (
+CREATE TABLE resetpasswordrequests (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     token VARCHAR(255) NOT NULL,
@@ -226,7 +254,7 @@ CREATE TABLE ResetPasswordRequests (
 );
 
 
-CREATE TABLE Figurinos (
+CREATE TABLE figurinos (
 	-- PK & FK
 	figurino_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	personagem_id INT NOT NULL,

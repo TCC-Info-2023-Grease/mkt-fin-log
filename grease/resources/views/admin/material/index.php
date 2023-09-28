@@ -1,37 +1,32 @@
 <?php
 # ------ Configurações Básicas
-require dirname(dirname(dirname(dirname(__DIR__)))) . '/config.php';
+require dirname(dirname(dirname(dirname(__DIR__)))) . "/config.php";
 global $_ENV;
 
-import_utils(['Auth']);
+import_utils(["Auth"]);
 
-Auth::check('adm');
- 
-import_utils([
-  'extend_styles', 
-  'use_js_scripts', 
-  'render_component',
-  'Money'
-]);
+Auth::check("adm");
 
-include $_ENV['PASTA_CONTROLLER'] . '/Material/ConsultaController.php';
+import_utils(["extend_styles", "use_js_scripts", "render_component", "Money"]);
+
+include $_ENV["PASTA_CONTROLLER"] . "/Material/ConsultaController.php";
 
 //ChamaSamu::debug($quantidadeMateriais);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
-if(isset($_SESSION['ultimo_acesso'])) {
-  $ultimo_acesso = $_SESSION['ultimo_acesso'];
-  
-  if (time() - $ultimo_acesso > 2) {
-    unset($_SESSION['fed_pedido_material']); 
-  }
-} 
+if (isset($_SESSION["ultimo_acesso"])) {
+	$ultimo_acesso = $_SESSION["ultimo_acesso"];
+
+	if (time() - $ultimo_acesso > 2) {
+		unset($_SESSION["fed_pedido_material"]);
+	}
+}
 ?>
 
 <!------- HEAD --------->
 <?php
-render_component('head');
-extend_styles([ 'css.admin.financas' ]);
+render_component("head");
+extend_styles(["css.admin.financas"]);
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
   integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -45,16 +40,17 @@ extend_styles([ 'css.admin.financas' ]);
 
 <!------- BODY --------->
 <body>
-  <?php
-  render_component('sidebar');
-  ?>
+  <?php render_component("sidebar"); ?>
 
-  <?php if (isset($_SESSION['fed_material']) && !empty($_SESSION['fed_material'])): ?>
+  <?php if (
+  	isset($_SESSION["fed_material"]) &&
+  	!empty($_SESSION["fed_material"])
+  ): ?>
       <script>
           Swal.fire({
-              title: '<?php echo $_SESSION['fed_material']['title']; ?>',
-              text: '<?php echo $_SESSION['fed_material']['msg']; ?>',
-              icon: '<?php echo $_SESSION['fed_material']['icon']; ?>',
+              title: '<?php echo $_SESSION["fed_material"]["title"]; ?>',
+              text: '<?php echo $_SESSION["fed_material"]["msg"]; ?>',
+              icon: '<?php echo $_SESSION["fed_material"]["icon"]; ?>',
               confirmButtonText: 'OK'
           })
       </script>   
@@ -67,15 +63,21 @@ extend_styles([ 'css.admin.financas' ]);
           <div class="title"> <span class="text"><h1>Materiais</h1></span> </div> 
           
           <div style="text-align: right;">
-            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link">
+            <a href="<?php echo $_ENV[
+            	"ROUTE"
+            ]; ?>admin.material.create" class="button-link">
               Novo Material
             </a>
             <span class="button-separator">|</span>
-            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.entrada.index" class="button-link btn-edit">
+            <a href="<?php echo $_ENV[
+            	"ROUTE"
+            ]; ?>admin.material.entrada.index" class="button-link btn-edit">
               Entradas
             </a>
             <span class="button-separator">|</span>
-            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.saida.index" class="button-link btn-delete">
+            <a href="<?php echo $_ENV[
+            	"ROUTE"
+            ]; ?>admin.material.saida.index" class="button-link btn-delete">
               Saidas
             </a>
           </div>
@@ -149,7 +151,9 @@ extend_styles([ 'css.admin.financas' ]);
       
         <div style="display: flex;justify-content: space-between;align-items: center;">
           <div class="title"> <span class="text">Materiais</span> </div>
-            <a href="<?php echo $_ENV['ROUTE'] ?>admin.material.create" class="button-link btn-edit" style="height: 35px;">
+            <a href="<?php echo $_ENV[
+            	"ROUTE"
+            ]; ?>admin.material.create" class="button-link btn-edit" style="height: 35px;">
               Novo Material
             </a>
         </div>
@@ -172,34 +176,44 @@ extend_styles([ 'css.admin.financas' ]);
                 <?php foreach ($materiais as $material): ?>
                   <tr>
                     <td>
-                      <?= $material['material_id']; ?>
+                      <?= $material["material_id"] ?>
                     </td>
                     <td>
-                      <?= $material['nome_material']; ?>
+                      <?= $material["nome_material"] ?>
                     </td>
                     <td>
                       <img  
                         width="200px"
-                        src="<?= $_ENV['STORAGE'].  '/image/material/' .$material['foto_material']; ?>" 
-                        alt="<?= $material['nome_material']; ?>" 
+                        src="<?= $_ENV["STORAGE"] .
+                        	"/image/material/" .
+                        	$material["foto_material"] ?>" 
+                        alt="<?= $material["nome_material"] ?>" 
                       />
                     </td>  
                     <td>
-                      <?php echo $material['nome_categoria']; ?>
+                      <?php echo $material["nome_categoria"]; ?>
                     </td>
                     <td>
-                      <?php echo $material['status_material']; ?>
+                      <?php echo $material["status_material"]; ?>
                     </td>
                     <th style="padding: 26px;">
-                      <a href="<?= $_ENV['VIEWS']; ?>/admin/material/entrada.create.php?id=<?php echo $material['material_id']; ?>"
+                      <a href="<?= $_ENV[
+                      	"VIEWS"
+                      ] ?>/admin/material/entrada.create.php?id=<?php echo $material[
+	"material_id"
+]; ?>"
                         class="icon-link edit"
                       >
                         <i class="fa-solid fa-plus"></i>
                       </a>
                       <br><br>    
 
-                      <?php if($material['estoque_atual'] >= 0): ?>
-                      <a href="<?= $_ENV['VIEWS']; ?>/admin/material/saida.create.php?id=<?php echo $material['material_id']; ?>"
+                      <?php if ($material["estoque_atual"] >= 0): ?>
+                      <a href="<?= $_ENV[
+                      	"VIEWS"
+                      ] ?>/admin/material/saida.create.php?id=<?php echo $material[
+	"material_id"
+]; ?>"
                         class="icon-link delete"
                       >
                         <i class="fa-solid fa-minus"></i>
@@ -207,14 +221,22 @@ extend_styles([ 'css.admin.financas' ]);
                       <br><hr><br>    
                       <?php endif; ?>
 
-                      <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Material/ShowController.php?id=<?php echo $material['material_id']; ?>"
+                      <a href="<?= $_ENV[
+                      	"URL_CONTROLLERS"
+                      ] ?>/Material/ShowController.php?id=<?php echo $material[
+	"material_id"
+]; ?>"
                         class="icon-link"
                       >
                         <i class="fa-regular fa-eye"></i>
                       </a>
 
                       <br><br>    
-                      <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Material/EditController.php?id=<?= $material['material_id']; ?>"
+                      <a href="<?= $_ENV[
+                      	"URL_CONTROLLERS"
+                      ] ?>/Material/EditController.php?id=<?= $material[
+	"material_id"
+] ?>"
                         class="icon-link edit"
                       >
 
@@ -224,7 +246,11 @@ extend_styles([ 'css.admin.financas' ]);
                       
                       <a href="#"
                         onclick="if (confirm('Deseja excluir mesmo?')) {
-                          this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Material/DeletarController.php?id=<?= $material['material_id']; ?>';
+                          this.href = '<?= $_ENV[
+                          	"URL_CONTROLLERS"
+                          ] ?>/Material/DeletarController.php?id=<?= $material[
+	"material_id"
+] ?>';
                         }"
                         class="icon-link delete"
                       >
@@ -243,115 +269,28 @@ extend_styles([ 'css.admin.financas' ]);
     </div>
   </section>
 
-  <?php
-  use_js_scripts([ 'js.admin.financas' ]);
-  ?>
+  <?php use_js_scripts([
+    "js.admin.financas", 
+    "js.services.ChartCaixa"
+  ]); ?>
 
   <script>
-    // Dados de exemplo (substitua isso com seus próprios dados)
-    const data = {
-        labels: <?= json_encode($categoriasMateriais);  ?>,
-        datasets: [{
-            label: 'Materiais por Categoria',
-            data: <?= json_encode(array_values($quantidadeMateriais));  ?>, // Quantidade de materiais em cada categoria
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)', // Cor da categoria 1
-                'rgba(54, 162, 235, 0.2)', // Cor da categoria 2
-                'rgba(255, 206, 86, 0.2)'  // Cor da categoria 3
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)'
-            ],
-            borderWidth: 1
-        }]
-    };
-
-    // Opções de configuração do gráfico
-    const options = {
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Quantidade de Materiais'
-                }
-            },
-            x: {
-                title: {
-                    display: true,
-                    text: 'Categorias'
-                }
-            }
-        }
-    };
-
-    // Obtendo o contexto do canvas
-    const ctx = document.getElementById('materialCategoriaChart').getContext('2d');
-
-    // Criando o gráfico de barras
-    const myChart = new Chart(ctx, {
-        type: 'bar', // Tipo de gráfico
-        data: data,   // Dados
-        options: options // Opções de configuração
-});
+    document.addEventListener("DOMContentLoaded", () => {
+      ChartCaixa.quantidadeMateriais (
+        <?= json_encode(array_values($quantidadeMateriais)) ?>,
+        <?= json_encode($categoriasMateriais) ?>
+      );
+  
+      ChartCaixa.materialPorStatus(
+        <?= json_encode(array_keys($dadosStatus)) ?>,
+        <?= json_encode(array_values($dadosStatus)) ?>
+      );
+  
+      ChartCaixa.gastosUltimoMes(
+        <?= json_encode($gastosUltimoMes) ?>
+      );
+    });
   </script>
-
-  <script>
-        <?php
-        $statusLabels = json_encode(array_keys($dadosStatus));
-        $statusContagens = json_encode(array_values($dadosStatus));
-        ?>
-
-        // Configure os dados para o gráfico de pizza
-        var ctx2 = document.getElementById('statusChart').getContext('2d');
-        var statusChart = new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: <?php echo $statusLabels; ?>, // Rótulos de status 
-                datasets: [{
-                    data: <?php echo $statusContagens; ?>, // Dados de contagem
-                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'], // Cores das fatias
-                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'], // Cores da borda das fatias
-                    borderWidth: 1
-                }]
-            }
-        });
-    </script>
-
-    <script>
-        // Obtém os dados do PHP e converte para JavaScript
-        const dadosGastos = <?php echo json_encode($gastosUltimoMes); ?>;
-
-        // Prepara os dados para o gráfico
-        const labels = ['Total de Gastos', 'Maior Gasto'];
-        const valores = [dadosGastos.totalGastos, dadosGastos.maiorGasto];
-
-        // Cria o gráfico
-        const ctx3 = document.getElementById('graficoGastos').getContext('2d');
-        const grafico = new Chart(ctx3, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Gastos no Último Mês',
-                    data: valores,
-                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
-                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-
 
 
   <script type="text/javascript">

@@ -6,6 +6,8 @@ global $_ENV;
 import_utils(['Auth']);
 
 Auth::check('adm');
+
+require $_ENV['PASTA_CONTROLLER'] . '/Fornecedor/ConsultaController.php';
  
 import_utils([
   'extend_styles', 
@@ -15,7 +17,7 @@ import_utils([
 ]);
 
 
-//var_dump($_SESSION['fed_fornecedor']);
+//var_dump($_SESSION['fed_conta']);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
@@ -35,7 +37,7 @@ render_component('head');
 extend_styles([ 'css.admin.financas' ]);
 ?>
 <title>
-  Fornecedor Admin 🕺 Grease
+  Contas Admin 🕺 Grease
 </title>
 <!------- /HEAD --------->
 
@@ -45,12 +47,12 @@ extend_styles([ 'css.admin.financas' ]);
   render_component('sidebar');
   ?>
 
-  <?php if (isset($_SESSION['fed_fornecedor']) && !empty($_SESSION['fed_fornecedor'])): ?>
+  <?php if (isset($_SESSION['fed_conta']) && !empty($_SESSION['fed_conta'])): ?>
   <script>
     Swal.fire({
-      title: '<?php echo $_SESSION['fed_fornecedor']['title']; ?>',
-      text: '<?php echo $_SESSION['fed_fornecedor']['msg']; ?>',
-      icon: '<?php echo $_SESSION['fed_fornecedor']['icon']; ?>',
+      title: '<?php echo $_SESSION['fed_conta']['title']; ?>',
+      text: '<?php echo $_SESSION['fed_conta']['msg']; ?>',
+      icon: '<?php echo $_SESSION['fed_conta']['icon']; ?>',
       confirmButtonText: 'OK'
     })
   </script>
@@ -67,10 +69,11 @@ extend_styles([ 'css.admin.financas' ]);
     <div class="dash-content">
         <div class="overview">
           <div class="title">
-            <span class="text">Cadastro Fornecedor</span>
+            <span class="text">Cadastro Conta</span>
           </div>
 
           <form 
+            id="frm-conta"
       			method="POST" 
       			action="<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/CadastroController.php"
     		  >
@@ -80,20 +83,24 @@ extend_styles([ 'css.admin.financas' ]);
             
 
       			<label for="fornecedor_id">Fornecedor:</label>
-      			<select name="fornecedor_id">
+      			<select name="fornecedor_id" require>
                 <option value="">
                     - Selecione -
                 </option>
                 
-                <?php foreach ($fornecedores as $fornecedor): ?>
-                <option value="<?php echo $categoria['categoria_id']; ?>">
-                    <?php echo $fornecedor['nome']; ?>
-                </option>
-                <?php endforeach; ?>
+                <?php if (!empty($fornecedores)): ?>
+                  <?php foreach ($fornecedores as $fornecedor): ?>
+                    <option 
+                      value="<?= $fornecedor['fornecedor_id']; ?>" 
+                    >
+                        <?php echo $fornecedor['nome']; ?>
+                    </option>
+                  <?php endforeach; ?>
+                <?php endif; ?>
             </select>
             <br><br>
 
-            <label for="email">Titulo:</label>
+            <label for="titulo">Titulo:</label>
             <input type="text" name="titulo" class="" placeholder="Compra dos Paletes" />
             <br>
             <br>
@@ -123,19 +130,18 @@ extend_styles([ 'css.admin.financas' ]);
   <?php
     use_js_scripts([ 'js.lib.maskMoney', 'js.admin.financas', 'js.masksForInputs' ]);
   ?> 
-  <script>
-    $(document).ready(() => {
-      $('.money').maskMoney({
-        prefix: 'R$ ',
-        allowNegative: false,
-        thousands: '.', decimal: ',',
-        affixesStay: true
-      });
+  <script type="text/javascript">
+    $('.money').maskMoney({
+      prefix: 'R$ ',
+      allowNegative: false,
+      thousands: '.',
+      decimal: ',',
+      affixesStay: true
+    });
 
-       $('#frm-entrada').submit(function(event) {
-        $('.money').each(function() {
-          $(this).val($(this).maskMoney('unmasked')[0]);
-        });
+    $('#frm-conta').submit(function(event) {
+      $('.money').each(function() {
+        $(this).val($(this).maskMoney('unmasked')[0]);
       });
     });
   </script>

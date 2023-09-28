@@ -15,9 +15,9 @@ import_utils([
     'Mascara'
 ]);
 
-include $_ENV['PASTA_CONTROLLER'] . '/Fornecedor/ConsultaController.php';
+include $_ENV['PASTA_CONTROLLER'] . '/Conta/ConsultaController.php';
 
-//ChamaSamu::debugPanel($fornecedores);
+ChamaSamu::debugPanel($contas);
 
 if (isset($_SESSION['ultimo_acesso'])) {
     $ultimo_acesso = $_SESSION['ultimo_acesso'];
@@ -83,53 +83,57 @@ render_component('head');
   <br><br>
 
 
-	<?php if (isset($fornecedores) && !empty($fornecedores)) { ?>
+	<?php if (isset($contas) && !empty($contas)) { ?>
     <table id="myTable" class="display" style="width: 100%!important; border-collapse: collapse; border: 1px solid whitesmoke; border-radius: 3rem;" cellpadding="12" cellspacing="15" border="2">
         <thead>
             <tr>
                 <th colspan="20" style="background: #333; color: whitesmoke; border: 1px solid whitesmoke;">
-                    <h1 style="margin-bottom: 1.2rem;">RELATÓRIO DOS FORNECEDORES</h1>
+                    <h1 style="margin-bottom: 1.2rem;">RELATÓRIO DAS CONTAS</h1>
+                    <h3><?= date('d-m-Y'); ?></h3>
                 </th>
             </tr>
             <tr>
-                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Nome</th>
-                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">CNPJ</th>
-                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Email</th>
-                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Celular</th>
-                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Ender</th>
+                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Titulo</th>
                 <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Descrição</th>
-                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Status</th>
+                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Valor</th>
+                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Data Vencimento</th>
+                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Data Inserção</th>
+                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Fornecedor</th>
+                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">CNPJ</th>
+                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Admin</th>
+                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">CPF</th>
             </tr>
         </thead>
 
         <tbody>
-            <?php foreach ($fornecedores as $fornecedor): ?>
+            <?php foreach ($contas as $conta): ?>
             <tr>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= ucfirst($fornecedor['nome_fornecedor']); ?>
+                    <?= ucfirst($conta['titulo']); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= ($fornecedor['cnpj'])? Mascara::mascararCPF($fornecedor['cnpj']) : 'N/A'; ?>
+                    <?= ($conta['descricao'])? $conta['descricao'] : 'N/A'; ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= ($fornecedor['email'])? $fornecedor['email'] : 'N/A'; ?>
+                    <?= ($conta['valor'])? Money::format($conta['valor']) : 'N/A'; ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= ($fornecedor['celular_fornecedor'])? Mascara::mascararCPF($fornecedor['celular_fornecedor']) : 'N/A'; ?>
+                    <?= ($conta['data_validade'])? date('d-m-Y', strtotime($conta['data_validade'])) : 'N/A'; ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= ucfirst($fornecedor['ender_fornecedor'])? $fornecedor['ender_fornecedor'] : 'N/A'; ?>
+                    <?= ($conta['data_insercao'])? date('d-m-Y', strtotime($conta['data_insercao'])) : 'N/A'; ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= (isset($fornecedor['descricao']) || !empty($fornecedor['descricao'])? $fornecedor['descricao'] : 'N/A'); ?>
+                    <?= (isset($conta['fornecedor']) || !empty($conta['fornecedor'])? $conta['fornecedor'] : 'N/A'); ?>
                 </td>
-                <th style="
-                    background: #f9f9f9; 
-                    border: 1px solid #fff; 
-                    text-align: center;
-                    color: <?= ($fornecedor['status_fornecedor'] == 'ativo')? 'green' : 'red' ?>;
-                ">
-                    <?= ucfirst($fornecedor['status_fornecedor']); ?>
+                <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
+                    <?= (isset($conta['cnpj']) || !empty($conta['CNPJ'])? $conta['cnpj'] : 'N/A'); ?>
+                </td>
+                <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
+                    <?= (isset($conta['usuario']) || !empty($conta['usuario'])? $conta['usuario'] : 'N/A'); ?>
+                </td>
+                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
+                    <?= ucfirst($conta['cpf']); ?>
                 </th>
             </tr>
             <?php endforeach; ?>

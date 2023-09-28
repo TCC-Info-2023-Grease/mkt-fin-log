@@ -16,14 +16,14 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/Conta/ConsultaController.php';
 
-ChamaSamu::debug($contas);
+//ChamaSamu::debug($contas);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
 
   // Verifica se já passaram 5 minutos desde o último acesso
-  if(time() - $ultimo_acesso > 4) {
+  if(time() - $ultimo_acesso > 5) {
     unset($_SESSION['fed_conta']);
   }
 }
@@ -93,9 +93,9 @@ extend_styles([ 'css.admin.financas' ]);
         <table id="myTable" class="display">
             <thead>
                 <tr>
-                    <th>Usuario</th>
+                    <th>Admin</th>
                     <th>Titulo</th>
-                    <th>Descrição</th>
+                    <th>Valor</th>
                     <th>Data Vencimneto</th>
                     <th>Status</th>
                     <th></th>
@@ -111,13 +111,13 @@ extend_styles([ 'css.admin.financas' ]);
                         <?= $conta['titulo']? $conta['titulo'] : 'N/A'; ?>
                     </td>
                     <td>
-                        <?= $conta['descricao']? $conta['descricao'] : 'N/A'; ?>
+                        <?= $conta['valor']? Money::format($conta['valor']) : 'N/A'; ?>
                     </td>
                     <td>
                         <?= $conta['data_validade']? date('d-m-Y', strtotime($conta['data_validade'])) : 'N/A'; ?>
                     </td>
                     <td style="color: <?= ($conta['status_conta'] == 1)? 'green' : 'red'; ?>;">
-                        <strong>
+                        <strong class="icon-link <?= ($conta['status_conta'] == 1)? 'edit' : 'delete'; ?>">
                             <?php if($conta['status_conta'] == 1) {
                               echo 'Pago';
                             } elseif ($conta['status_conta'] == 0) {
