@@ -188,6 +188,103 @@ class Conta
 
         return $conta;
     }
+
+    /**
+     * Calcula o total de contas a pagar.
+     *
+     * @return float|null Total de contas a pagar ou null se não houver contas.
+     */
+    public function totalContasAPagar()
+    {
+        $query = "
+            SELECT 
+                COUNT(valor) as total_contas
+            FROM 
+                {$this->tabela}
+            WHERE 
+                status_conta = 0
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if (!$result) {
+            die("Erro SQL: " . $this->mysqli->error);
+        }
+
+        $row = $result->fetch_assoc();
+        return $row['total_contas'] ?? null;
+    }
+
+    public function totalContasPagas()
+    {
+        $query = "
+            SELECT 
+                COUNT(valor) as total_contas_pagas
+            FROM 
+                {$this->tabela}
+            WHERE 
+                status_conta = 1
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if (!$result) {
+            die("Erro SQL: " . $this->mysqli->error);
+        }
+
+        $row = $result->fetch_assoc();
+        return $row['total_contas_pagas'] ?? null;
+    }
+
+    /**
+     * Calcula o total gasto.
+     *
+     * @return float|null Total gasto ou null se não houver contas.
+     */
+    public function totalGasto()
+    {
+        $query = "
+            SELECT 
+                SUM(valor) as total_gasto
+            FROM 
+                {$this->tabela}
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if (!$result) {
+            die("Erro SQL: " . $this->mysqli->error);
+        }
+
+        $row = $result->fetch_assoc();
+        return $row['total_gasto'] ?? null;
+    }
+
+    /**
+     * Calcula o total necessário para pagar contas não pagas.
+     *
+     * @return float|null Total necessário ou null se não houver contas a pagar.
+     */
+    public function totalNecessario()
+    {
+        $query = "
+            SELECT 
+                SUM(valor) as total_necessario
+            FROM 
+                {$this->tabela}
+            WHERE 
+                status_conta = 0
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if (!$result) {
+            die("Erro SQL: " . $this->mysqli->error);
+        }
+
+        $row = $result->fetch_assoc();
+        return $row['total_necessario'] ?? 0;
+    }
 }
  
 

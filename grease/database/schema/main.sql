@@ -142,7 +142,7 @@ CREATE TABLE `contas` (
   `data_validade` date DEFAULT NULL,
   `data_insercao` datetime,
   `status_conta` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB;
+);
 
 --
 -- Indexes for dumped tables

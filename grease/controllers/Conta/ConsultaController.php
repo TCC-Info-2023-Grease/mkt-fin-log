@@ -18,18 +18,20 @@ $_SESSION['ultimo_acesso'] = time();
 # ----- Cadastro Sala
 $contas;
 $totalGasto;
-$totalContasAPagar;
 $totalNecessario;
+$totalContasPagas;
+$totalContasAPagar;
 
 try {
   $conta = new Conta($mysqli);
   $caixa = new Caixa($mysqli);
 
   $contas            = $conta->buscarTodos();
-  $saldoAtual        = $conta->obterSaldoAtual();
+  $saldoAtual        = $caixa->obterSaldoAtual();
   $totalGasto        = $conta->totalGasto();
+  $totalNecessario   = $conta->totalNecessario();
   $totalContasAPagar = $conta->totalContasAPagar();
-  $totalNecessario   = $caixa->totalNecessario();
+  $totalContasPagas  = $conta->totalContasPagas();
 } catch (Exception $e) {
     //ChamaSamu::debug($e);
 
@@ -45,9 +47,10 @@ $data = [
   'contas'           => $contas,
   'totalGasto'       => $totalGasto,
   'totalNecessario'  => $totalNecessario,
-  'totalContasPagar' => $totalContasAPagar,
+  'totalContasAPagar' => $totalContasAPagar,
+  'totalContasPagas' => $totalContasPagas,
 
-  'saldo_atual'      => $saldoAtual
+  'saldoAtual'      => $saldoAtual
 ];
 
 return $data;
