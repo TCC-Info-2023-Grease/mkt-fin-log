@@ -16,7 +16,7 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/Conta/ConsultaController.php';
 
-//ChamaSamu::debug($contas);
+//ChamaSamu::debug($data['contas']);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
@@ -77,6 +77,50 @@ extend_styles([ 'css.admin.financas' ]);
           </div>
         </div>
 
+        <div class="dash-content">
+          <div class="boxes">
+             <div 
+                class="box 
+                  <?php if ($data['contas']['totalContasAPagar'] <= 0): ?>
+                    box2
+                  <?php elseif ($data['contas']['totalContasAPagar'] > 0): ?>
+                    box1
+                  <?php else: ?>
+                    box3
+                  <?php endif; ?>
+              ">
+                <span class="text">Contas a Pagar</span> 
+                <span class="number">
+                   <?= ($data['contas']['totalContasPagar'])? $data['contas']['totalContasAPagar'] : 'N/A'; ?>
+                </span> 
+              </div>
+
+              <div 
+                class="box 
+                  <?php if $data['totalGasto'] < $data['saldoAtual']): ?>
+                    box1
+                  <?php elseif ($data['totalGasto'] > $data['saldoAtual']): ?>
+                    box2
+                  <?php else: ?>
+                    box3
+                  <?php endif; ?>
+              ">              
+                <span class="text">Total Gasto</span> 
+                <span class="number">
+                  <?= Money::format($data['totalGasto']); ?>
+                </span> 
+              </div>
+
+              <div class="box box4"> 
+                <span class="text">Montante a Pagar</span> 
+                <span class="number">
+                  <?= Money::format($data['totalNecessario']); ?>
+                </span> 
+              </div>          
+            </div>
+        </div>
+        <br><br><br>
+        <hr>
 
       <div class="dash-content">
         <div style="display: flex;justify-content: space-between;align-items: center;">
@@ -89,7 +133,7 @@ extend_styles([ 'css.admin.financas' ]);
           </div>
         </div>
 
-        <?php if (isset($contas) || !empty($contas)) { ?>
+        <?php if (isset($data['contas']) || !empty($data['contas'])) { ?>
         <table id="myTable" class="display">
             <thead>
                 <tr>
@@ -102,7 +146,7 @@ extend_styles([ 'css.admin.financas' ]);
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($contas as $conta): ?>
+                <?php foreach ($data['contas'] as $conta): ?>
                 <tr>
                     <td>  
                         <?= $conta['usuario']? $conta['usuario'] : 'N/A'; ?>
