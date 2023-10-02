@@ -89,6 +89,7 @@ render_component('head');
             <tr>
                 <th colspan="20" style="background: #333; color: whitesmoke; border: 1px solid whitesmoke;">
                     <h1 style="margin-bottom: 1.2rem;">RELATÓRIO DAS CONTAS</h1>
+                    <h3><?= date('d-m-Y'); ?></h3>
                 </th>
             </tr>
             <tr>
@@ -126,18 +127,13 @@ render_component('head');
                     <?= (isset($conta['fornecedor']) || !empty($conta['fornecedor'])? $conta['fornecedor'] : 'N/A'); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
-                    <?= (isset($conta['CNPJ']) || !empty($conta['CNPJ'])? $conta['CNPJ'] : 'N/A'); ?>
+                    <?= (isset($conta['cnpj']) || !empty($conta['CNPJ'])? $conta['cnpj'] : 'N/A'); ?>
                 </td>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
                     <?= (isset($conta['usuario']) || !empty($conta['usuario'])? $conta['usuario'] : 'N/A'); ?>
                 </td>
-                <th style="
-                    background: #f9f9f9; 
-                    border: 1px solid #fff; 
-                    text-align: center;
-                    color: <?= ($conta['status_fornecedor'] == 'ativo')? 'green' : 'red' ?>;
-                ">
-                    <?= ucfirst($conta['status_fornecedor']); ?>
+                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
+                    <?= ucfirst($conta['cpf']); ?>
                 </th>
             </tr>
             <?php endforeach; ?>

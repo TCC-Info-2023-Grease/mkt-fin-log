@@ -89,6 +89,7 @@ render_component('head');
             <tr>
                 <th colspan="20" style="background: #333; color: whitesmoke; border: 1px solid whitesmoke;">
                     <h1 style="margin-bottom: 1.2rem;">RELATÓRIO DO CAIXA DA SALA</h1>
+                     <h3><?= date('d-m-Y'); ?></h3>
                 </th>
             </tr>
             <tr>
