@@ -17,7 +17,7 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/Conta/ConsultaController.php';
 
-ChamaSamu::debugPanel($contas);
+ChamaSamu::debugPanel($data['contas']);
 
 if (isset($_SESSION['ultimo_acesso'])) {
     $ultimo_acesso = $_SESSION['ultimo_acesso'];
@@ -83,7 +83,7 @@ render_component('head');
   <br><br>
 
 
-	<?php if (isset($contas) && !empty($contas)) { ?>
+	<?php if (isset($data['contas']) && !empty($data['contas'])) { ?>
     <table id="myTable" class="display" style="width: 100%!important; border-collapse: collapse; border: 1px solid whitesmoke; border-radius: 3rem;" cellpadding="12" cellspacing="15" border="2">
         <thead>
             <tr>
@@ -106,7 +106,7 @@ render_component('head');
         </thead>
 
         <tbody>
-            <?php foreach ($contas as $conta): ?>
+            <?php foreach ($data['contas'] as $conta): ?>
             <tr>
                 <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
                     <?= ucfirst($conta['titulo']); ?>

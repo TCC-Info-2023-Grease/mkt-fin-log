@@ -71,7 +71,8 @@ extend_styles([ 'css.admin.financas' ]);
             <span class="text">Editar Conta</span>
           </div>
 
-          <form 
+          <form
+            id="frm-conta" 
       			method="POST" 
       			action="<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/UpdateController.php"
     		  >
@@ -142,4 +143,19 @@ extend_styles([ 'css.admin.financas' ]);
   use_js_scripts([ 'js.lib.maskMoney'  ]);
   use_js_scripts([ 'js.admin.financas' ]);
   ?> 
+  <script type="text/javascript">
+    $('.money').maskMoney({
+      prefix: 'R$ ',
+      allowNegative: false,
+      thousands: '.',
+      decimal: ',',
+      affixesStay: true
+    });
+
+    $('#frm-conta').submit(function(event) {
+      $('.money').each(function() {
+        $(this).val($(this).maskMoney('unmasked')[0]);
+      });
+    });
+  </script>
 </body>
