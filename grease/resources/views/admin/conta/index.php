@@ -288,12 +288,32 @@ extend_styles([ 'css.admin.financas' ]);
   </section>
 
   <?php
-  use_js_scripts([ 'js.admin.financas' ]);
+  use_js_scripts([ 
+    'js.admin.financas', 
+    'js.services.ChartCaixa' 
+  ]);
   ?>
   <script type="text/javascript">
     $(document).ready(function () {
       $('#myTable').DataTable();
     });
   </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    ChartCaixa.saldoMensal(
+      <?= json_encode($saldos); ?>,
+      <?= json_encode($meses); ?>
+    );
+
+    ChartCaixa.despesasReceitas(
+      <?= json_encode($porcentagemDespesas); ?>,
+      <?= json_encode($porcentagemReceitas); ?>
+    );
+
+    ChartCaixa.receitasDespesasPorCategoria(
+      <?= json_encode($dadosCategorias); ?>
+    );
+  });
+</script>
 </body>
 <!-------/ BODY --------->
