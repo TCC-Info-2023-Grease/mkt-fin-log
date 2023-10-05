@@ -84,7 +84,7 @@ extend_styles([ 'css.admin.financas' ]);
 
           <div class="dropdown">
             <a target="_blank" href="<?= $_ENV['ROUTE'] ?>admin.fornecedor.relatorio" class="dropbtn" style="text-decoration: none;">
-              Exportar
+              Relatório
             </a>
           </div>
         </div>

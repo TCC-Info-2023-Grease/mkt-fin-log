@@ -131,7 +131,7 @@ extend_styles(['css.admin.financas']);
       <hr>
 
       <div class="dash-content">
-        <center style="margin-bottom: 46px;"><h2>Estatisticas</h2></center>
+        <center style="margin-bottom: 46px;"><h2>Estatística</h2></center>
 
         <div class="dash-estatistics">
           <div class="title">
@@ -210,7 +210,7 @@ extend_styles(['css.admin.financas']);
 
             <div class="dropdown">
               <a target="_blank" href="<?= $_ENV['ROUTE'] ?>admin.caixa.relatorio" class="dropbtn" style="text-decoration: none;">
-                Exportar
+                Relatório
               </a>
             </div>
           </div>

@@ -84,7 +84,7 @@ extend_styles(["css.admin.financas"]);
         </div>
 
       <div class="dash-content">
-          <center style="margin-bottom: 46px;"><h2>Estatisticas</h2></center>
+          <center style="margin-bottom: 46px;"><h2>Estatística</h2></center>
 
           <div class="dash-estatistics">
              <div class="title"><span class="text">Materiais por Categoria</span></div>
