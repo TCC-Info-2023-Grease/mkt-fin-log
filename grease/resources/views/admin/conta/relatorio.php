@@ -17,13 +17,14 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/Conta/ConsultaController.php';
 
-ChamaSamu::debugPanel($data['contas']);
+#ChamaSamu::debugPanel($data['contas']);
 
-if (isset($_SESSION['ultimo_acesso'])) {
+// Verifica se a variável de sessão 'ultimo_acesso' já existe
+if(isset($_SESSION['ultimo_acesso'])) {
     $ultimo_acesso = $_SESSION['ultimo_acesso'];
-
-    if (time() - $ultimo_acesso > 5) {
-        unset($_SESSION['fed_sala']);
+    // Verifica se já passaram 5 minutos desde o último acesso
+    if(time() - $ultimo_acesso >= 2) {
+        unset($_SESSION['fed_conta']);
     }
 }
 ?>

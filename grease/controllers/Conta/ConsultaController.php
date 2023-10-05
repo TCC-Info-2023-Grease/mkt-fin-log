@@ -6,15 +6,6 @@ import_utils([ 'navegate' ]);
 
 Auth::check('adm');
 
-if(isset($_SESSION['ultimo_acesso'])) {
-  $ultimo_acesso = $_SESSION['ultimo_acesso'];
-} else {
-  $ultimo_acesso = null;
-}
-
-$_SESSION['ultimo_acesso'] = time();
-
-
 # ----- Cadastro Sala
 $contas;
 $totalGasto;

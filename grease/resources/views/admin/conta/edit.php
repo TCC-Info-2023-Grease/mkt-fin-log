@@ -23,12 +23,11 @@ require $_ENV['PASTA_CONTROLLER'] . '/Fornecedor/ConsultaController.php';
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
   $ultimo_acesso = $_SESSION['ultimo_acesso'];
-  
   // Verifica se já passaram 5 minutos desde o último acesso
-  if(time() - $ultimo_acesso > 4) {
+  if(time() - $ultimo_acesso >= 2) {
     unset($_SESSION['fed_conta']);
   }
-} 
+}
 ?>
 
 
