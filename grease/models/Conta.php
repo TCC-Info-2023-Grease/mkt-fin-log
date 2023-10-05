@@ -285,6 +285,50 @@ class Conta
         $row = $result->fetch_assoc();
         return $row['total_necessario'] ?? 0;
     }
+
+    public function obterDadosStatusConta()
+    {
+        $query = "SELECT status_conta, COUNT(*) as total FROM contas GROUP BY status_conta";
+        $result = $this->mysqli->query($query);
+
+        $dados = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $dados[$row['status_conta']] = $row['total'];
+        }
+
+        return $dados;
+    }
+
+    public function  obterValorContasPorFornecedor()
+    {
+        $query = "SELECT status_conta, COUNT(*) as total FROM contas GROUP BY status_conta";
+        $result = $this->mysqli->query($query);
+
+        $dados = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $dados[$row['status_conta']] = $row['total'];
+        }
+
+        return $dados;
+    }
+
+    public function obterEvolucaoValorTotal()
+    {
+        $query = "SELECT DATE(data_insercao) as data, SUM(valor) as total_valor 
+                  FROM contas 
+                  GROUP BY DATE(data_insercao)";
+        $result = $this->mysqli->query($query);
+
+        $dados = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $dados[$row['data']] = $row['total_valor'];
+        }
+
+        return $dados;
+    }
 }
  
 
