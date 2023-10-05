@@ -262,4 +262,54 @@ class ChartCaixa {
     });
   }
   
+  static statusConta(labels = ['Pago', 'Não Pago'], data) {
+    var dados = {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: ['green', 'red']
+      }]
+    };
+
+    var ctx = document.getElementById('statusContaChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: dados,
+    });
+  }
+
+  static contasPorFornecedor(fornecedores, data) {
+    var dados = {
+      labels: fornecedores,
+      datasets: [{
+        label: 'Valor das Contas',
+        data: data,
+        backgroundColor: ['blue', 'orange', 'green']
+      }]
+    };
+
+    var ctx = document.getElementById('valorFornecedorChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: dados,
+    });
+  }
+
+  static contasEvolucaoValorTota(meses, data) {
+    var dados = {
+      labels: meses,
+      datasets: [{
+        label: 'Evolução do Valor Total',
+        data: data,
+        borderColor: 'blue',
+        fill: false
+      }]
+    };
+
+    var ctx = document.getElementById('evolucaoValorChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: dados,
+    });
+  }
 }

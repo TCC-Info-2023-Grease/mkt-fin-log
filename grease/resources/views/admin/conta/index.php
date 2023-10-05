@@ -130,7 +130,7 @@ extend_styles([ 'css.admin.financas' ]);
 
         <div class="dash-estatistics">
           <div class="title">
-            <span class="text">Saldo Mensal</span>
+            <span class="text">Status de Conta</span>
           </div>
 
           <details>
@@ -138,7 +138,7 @@ extend_styles([ 'css.admin.financas' ]);
 
             <div class="chart-container" style="width: 100%;">
               <center>
-                <canvas id="financasChart" style="max-width: 800px;"></canvas>
+                <canvas id="statusContaChart" style="max-width: 800px;"></canvas>
               </center>
             </div>
           </details>
@@ -148,7 +148,7 @@ extend_styles([ 'css.admin.financas' ]);
       <div class="dash-content">
         <div class="dash-estatistics">
           <div class="title">
-            <span class="text">Porcentagem de Despesas e Receitas</span>
+            <span class="text">Valor das Contas por Fornecedor</span>
           </div>
 
           <details>
@@ -161,7 +161,7 @@ extend_styles([ 'css.admin.financas' ]);
                 }
               </style>
               <center>
-                <canvas id="despesasReceitasChart" style="max-width: 800px;"></canvas>
+                <canvas id="valorFornecedorChart" style="max-width: 800px;"></canvas>
               </center>
             </div>
           </details>
@@ -171,7 +171,7 @@ extend_styles([ 'css.admin.financas' ]);
       <div class="dash-content">
         <div class="dash-estatistics">
           <div class="title">
-            <span class="text">Categorias de despesas e receitas</span>
+            <span class="text">Evolução do Valor Total</span>
           </div>
 
           <details>
@@ -184,7 +184,7 @@ extend_styles([ 'css.admin.financas' ]);
                 }
               </style>
               <center>
-                <canvas id="categoriasChart" style="max-width: 800px;"></canvas>
+                <canvas id="evolucaoValorChart" style="max-width: 800px;"></canvas>
               </center>
             </div>
           </details>
@@ -300,18 +300,19 @@ extend_styles([ 'css.admin.financas' ]);
   </script>
   <script>
   document.addEventListener("DOMContentLoaded", () => {
-    ChartCaixa.saldoMensal(
-      <?= json_encode($saldos); ?>,
-      <?= json_encode($meses); ?>
+    ChartCaixa.statusConta(
+      <?php echo json_encode($data['dadosStatusConta']); ?>
     );
 
-    ChartCaixa.despesasReceitas(
-      <?= json_encode($porcentagemDespesas); ?>,
-      <?= json_encode($porcentagemReceitas); ?>
+    // TODO:  ARRUMAR ESSE GRAFICO
+    ChartCaixa.contasPorFornecedor(
+      <?= json_encode($data['dadosValorContasPorFornecedor']); ?>,
+      <?= json_encode(array_values($data['dadosValorContasPorFornecedor'])); ?>
     );
 
-    ChartCaixa.receitasDespesasPorCategoria(
-      <?= json_encode($dadosCategorias); ?>
+    ChartCaixa.contasEvolucaoValorTota(
+      <?= json_encode(array_keys($data['dadosEvolucaoValorTotal'])); ?>,
+      <?= json_encode(array_values($data['dadosEvolucaoValorTotal'])); ?>,
     );
   });
 </script>

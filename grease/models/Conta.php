@@ -302,7 +302,17 @@ class Conta
 
     public function  obterValorContasPorFornecedor()
     {
-        $query = "SELECT status_conta, COUNT(*) as total FROM contas GROUP BY status_conta";
+        $query = "
+            SELECT 
+                f.nome AS nome_fornecedor, c.status_conta, COUNT(*) as total 
+            FROM 
+                contas c
+            LEFT JOIN 
+                fornecedores f ON c.fornecedor_id = f.fornecedor_id
+            GROUP BY
+                 c.status_conta, c.fornecedor_id
+    ";
+
         $result = $this->mysqli->query($query);
 
         $dados = [];
