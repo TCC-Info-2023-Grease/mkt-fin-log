@@ -16,17 +16,41 @@ $_SESSION['ultimo_acesso'] = time();
 
 
 # ----- Cadastro Sala
-$conta = new Conta($mysqli);
+$contas;
+$totalGasto;
+$totalNecessario;
+$totalContasPagas;
+$totalContasAPagar;
 
 try {
-    $contas = $conta->buscarTodos();
+  $conta = new Conta($mysqli);
+  $caixa = new Caixa($mysqli);
+
+  $contas            = $conta->buscarTodos();
+  $saldoAtual        = $caixa->obterSaldoAtual();
+  $totalGasto        = $conta->totalGasto();
+  $totalNecessario   = $conta->totalNecessario();
+  $totalContasAPagar = $conta->totalContasAPagar();
+  $totalContasPagas  = $conta->totalContasPagas();
 } catch (Exception $e) {
     //ChamaSamu::debug($e);
 
     $_SESSION['fed_conta'] = [ 
-        'title' => 'Erro!', 'msg' => 'Erro inesperado' 
+      'title' => 'Erro!', 
+      'msg' => 'Erro inesperado',
+      'icon' => 'error'
     ];
 
 }
 
-return $contas;
+$data = [ 
+  'contas'           => $contas,
+  'totalGasto'       => $totalGasto,
+  'totalNecessario'  => $totalNecessario,
+  'totalContasAPagar' => $totalContasAPagar,
+  'totalContasPagas' => $totalContasPagas,
+
+  'saldoAtual'      => $saldoAtual
+];
+
+return $data;
