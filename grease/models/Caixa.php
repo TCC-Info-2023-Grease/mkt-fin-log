@@ -1,6 +1,6 @@
 <?php
 
-class Caixa
+class caixa
 {
   private $mysqli;
   private $id;
@@ -136,7 +136,7 @@ class Caixa
     $this->id = $this->mysqli->insert_id;
 
     if ($result === false) {
-      die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
+      die('Erro ao atualizar o valor da caixa: ' . $this->mysqli->error);
     }
 
     return $this->mysqli->insert_id;
@@ -148,9 +148,8 @@ class Caixa
       INSERT INTO 
       " . $this->tabela . "
         (
-          caixa_id,
-          aluno_id,
           usuario_id, 
+          aluno_id,
           categoria,
           descricao, 
           data_movimentacao, 
@@ -161,7 +160,6 @@ class Caixa
         ) 
       VALUES 
         (
-          NULL,
           '" . $dados['usuario_id'] . "',
           NULL,
           '" . $dados['categoria'] . "',
@@ -178,7 +176,7 @@ class Caixa
     
     if ($result === false) 
     {
-      die('Erro ao atualizar o valor da Caixa: ' . $this->mysqli->error);
+      die('Erro ao atualizar o valor da caixa: ' . $this->mysqli->error);
     }
 
     return $this->mysqli->insert_id;
@@ -194,7 +192,7 @@ class Caixa
       SELECT 
         SUM(valor) as 'valor_entrada'  
       FROM 
-        CAIXA
+        caixa
       WHERE 
         tipo_movimentacao = 'receita'
     ";
@@ -202,11 +200,13 @@ class Caixa
       SELECT 
         SUM(valor) as 'valor_saida'
       FROM 
-        CAIXA
+        caixa
       WHERE 
         tipo_movimentacao = 'despesa'
     ";
 
+  try 
+  {
     $result_entrada = $this->mysqli->query($query_entrada);  
     $result_saida = $this->mysqli->query($query_saida);
 
@@ -214,13 +214,18 @@ class Caixa
     {
       return null;
     }
-
+    
     $result_entrada = mysqli_fetch_array($result_entrada, MYSQLI_ASSOC);
     $result_entrada = $result_entrada['valor_entrada'];
-    $result_saida = mysqli_fetch_array($result_saida, MYSQLI_ASSOC);
+    //ChamaSamu::debug($result_saida);
+    $result_saida = mysqli_fetch_array($result_saida);
     $result_saida = $result_saida['valor_saida'];
 
     $saldo_atual = $result_entrada - $result_saida;
+    } catch (Exception $error) 
+    {
+      $saldo_atual = 0;
+    }
     return $saldo_atual;
   }
 

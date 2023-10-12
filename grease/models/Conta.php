@@ -285,6 +285,69 @@ class Conta
         $row = $result->fetch_assoc();
         return $row['total_necessario'] ?? 0;
     }
+
+    public function obterDadosStatusConta()
+    {
+        $query = "SELECT status_conta, COUNT(*) as total FROM contas GROUP BY status_conta";
+        $result = $this->mysqli->query($query);
+
+        $dados = [];
+
+        while ($row = $result->fetch_assoc()) {
+          if ($row['status_conta'] == 0) {
+            $dados['naopago'] = $row['total'];
+          } else {
+            $dados['pago'] = $row['total'];
+          }
+        }
+        
+        if(empty($dados['naopago'])) $dados['naopago'] = 0;
+        
+        if(empty($dados['pago'])) $dados['pago'] = 0;
+
+        return $dados;
+    }
+
+    public function  obterValorContasPorFornecedor()
+    {
+        $query = "
+            SELECT 
+                f.nome AS nome_fornecedor, c.status_conta, SUM(c.valor) as total 
+            FROM 
+                contas c
+            LEFT JOIN 
+                fornecedores f ON c.fornecedor_id = f.fornecedor_id
+            GROUP BY
+                 c.fornecedor_id
+    ";
+
+        $result = $this->mysqli->query($query);
+
+        $dados = [];
+
+        while ($row = $result->fetch_assoc()) {
+          $dados['fornecedores'][] = $row['nome_fornecedor'];
+          $dados['valores'][] = $row['total'];
+        }
+
+        return $dados;
+    }
+
+    public function obterEvolucaoValorTotal()
+    {
+        $query = "SELECT DATE(data_validade) as data, SUM(valor) as total_valor 
+                  FROM contas 
+                  GROUP BY DATE(data_validade)";
+        $result = $this->mysqli->query($query);
+
+        $dados = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $dados[$row['data']] = $row['total_valor'];
+        }
+
+        return $dados;
+    }
 }
  
 

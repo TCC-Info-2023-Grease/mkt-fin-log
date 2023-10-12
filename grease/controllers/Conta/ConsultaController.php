@@ -41,7 +41,12 @@ $data = [
   'totalContasAPagar' => $totalContasAPagar,
   'totalContasPagas' => $totalContasPagas,
 
-  'saldoAtual'      => $saldoAtual
+  'saldoAtual'      => $saldoAtual,
+
+  'dadosStatusConta' => $conta->obterDadosStatusConta(),
+  'dadosValorContasPorFornecedor' => $conta->obterValorContasPorFornecedor(),
+  'dadosEvolucaoValorTotal' => $conta->obterEvolucaoValorTotal()
+
 ];
 
 return $data;

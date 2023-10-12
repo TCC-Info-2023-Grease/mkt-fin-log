@@ -17,7 +17,7 @@ import_utils([
 
 include $_ENV['PASTA_CONTROLLER'] . '/Conta/ConsultaController.php';
 
-#ChamaSamu::debugPanel($data['contas']);
+#ChamaSamu::debugPanel($data);
 
 // Verifica se a variável de sessão 'ultimo_acesso' já existe
 if(isset($_SESSION['ultimo_acesso'])) {
@@ -103,6 +103,7 @@ render_component('head');
                 <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">CNPJ</th>
                 <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Admin</th>
                 <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">CPF</th>
+                <th style="font-size: 1.12rem; font-weight: 700; background: #333; color: whitesmoke; border: 1px solid whitesmoke;">Status</th>
             </tr>
         </thead>
 
@@ -136,8 +137,32 @@ render_component('head');
                  <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center;">
                     <?= ucfirst($conta['cpf']); ?>
                 </th>
+                <td style="background: #f9f9f9; border: 1px solid #fff; text-align: center; color: <?= $conta['status_conta']? 'green' : 'red'; ?>">
+                    <?= $conta['status_conta']? 'Paga' : 'A pagar'; ?>
+                </th>
             </tr>
             <?php endforeach; ?>
+            <tr>
+                <th><br></th>
+            </tr>
+            <tr>
+                <th style="background: green; color: white;border: 1px solid #fff;">Contas Pagas:</th>
+                <th>
+                    <?= $data['totalContasPagas'] ?>
+                </th>
+            </tr>
+            <tr>
+                <th style="background: red; color: white;border: 1px solid #fff;">Contas a Pagar:</th>
+                <th>
+                    <?= $data['totalContasAPagar'] ?>
+                </th>
+            </tr>
+            <tr>
+                <th style="background: orange; color: white;border: 1px solid #fff;">Total Pago:</th>
+                <th>
+                    <?= Money::format($data['totalGasto']); ?>
+                </th>
+            </tr>
         </tbody>
 
         <tfoot>

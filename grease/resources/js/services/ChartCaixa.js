@@ -1,4 +1,14 @@
+/**
+ * A classe ChartCaixa fornece métodos estáticos para criar diversos tipos de gráficos usando a biblioteca Chart.js.
+ * @class
+ */
 class ChartCaixa {
+  /**
+   * Gera um gráfico de linha para exibir o saldo mensal ao longo do tempo.
+   * @static
+   * @param {number[]} $saldos - Array contendo os saldos mensais.
+   * @param {string[]} $meses - Array contendo os nomes dos meses correspondentes.
+   */
   static saldoMensal ($saldos, $meses) {
     const ctx = document.getElementById("financasChart").getContext("2d");
 
@@ -41,6 +51,12 @@ class ChartCaixa {
     new Chart(ctx, chartConfig);
   }
 
+    /**
+   * Gera um gráfico de pizza para exibir a distribuição percentual entre despesas e receitas.
+   * @static
+   * @param {number} $porcentagemDespesas - Percentual de despesas.
+   * @param {number} $porcentagemReceitas - Percentual de receitas.
+   */
   static despesasReceitas($porcentagemDespesas, $porcentagemReceitas) {
     const ctx2 = document.getElementById("despesasReceitasChart").getContext("2d");
 
@@ -76,6 +92,12 @@ class ChartCaixa {
     new Chart(ctx2, chartConfig2);
   }
 
+    /**
+   * Gera um gráfico de pizza para exibir a distribuição percentual entre despesas e receitas.
+   * @static
+   * @param {number} $porcentagemDespesas - Percentual de despesas.
+   * @param {number} $porcentagemReceitas - Percentual de receitas.
+   */ 
   static receitasDespesasPorCategoria($dados) {
     const dadosCategorias = $dados;
 
@@ -120,6 +142,12 @@ class ChartCaixa {
     });
   }
 
+    /**
+   * Gera um gráfico de pizza para exibir a distribuição percentual entre despesas e receitas.
+   * @static
+   * @param {number} $porcentagemDespesas - Percentual de despesas.
+   * @param {number} $porcentagemReceitas - Percentual de receitas.
+   */
   static gastosUltimoMes(gastosUltimoMes) {
     // Obtém os dados do PHP e converte para JavaScript
     const dadosGastos = gastosUltimoMes;
@@ -154,6 +182,12 @@ class ChartCaixa {
     });
   }
 
+   /**
+   * Gera um gráfico de pizza para exibir a distribuição percentual de materiais por status.
+   * @static
+   * @param {string[]} statusLabels - Array contendo rótulos de status.
+   * @param {number[]} statusContagens - Array contendo contagens de materiais por status.
+   */
   static materialPorStatus(statusLabels, statusContagens) {
         // Configure os dados para o gráfico de pizza
         const ctx2 = document.getElementById('statusChart').getContext('2d');
@@ -172,7 +206,12 @@ class ChartCaixa {
         });
     }
     
-    
+   /**
+   * Gera um gráfico de barras para exibir a quantidade de materiais por categoria.
+   * @static
+   * @param {number[]} quantidadeMateriais - Array contendo a quantidade de materiais por categoria.
+   * @param {string[]} categoriasMateriais - Array contendo as categorias de materiais.
+   */
   static quantidadeMateriais(quantidadeMateriais, categoriasMateriais) {
     const data = {
         labels: categoriasMateriais,
@@ -220,6 +259,56 @@ class ChartCaixa {
         type: 'bar', // Tipo de gráfico
         data: data,   // Dados
         options: options // Opções de configuração
+    });
+  }
+  
+  static statusConta(data) {
+    var dados = {
+      labels: ['Não Pago', 'Pago'],
+      datasets: [{
+        data: data,
+        backgroundColor: ['red', 'green']
+      }]
+    };
+
+    var ctx = document.getElementById('statusContaChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: dados,
+    });
+  }
+
+  static contasPorFornecedor(fornecedores, valores) {
+    var dados = {
+      labels: fornecedores,
+      datasets: [{
+        label: 'Valor em R$',
+        data: valores
+      }]
+    };
+
+    var ctx = document.getElementById('valorFornecedorChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: dados,
+    });
+  }
+
+  static contasEvolucaoValorTota(meses, data) {
+    var dados = {
+      labels: meses,
+      datasets: [{
+        label: 'Valor em R$',
+        data: data,
+        borderColor: 'blue',
+        fill: false
+      }]
+    };
+
+    var ctx = document.getElementById('evolucaoValorChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: dados,
     });
   }
 }
