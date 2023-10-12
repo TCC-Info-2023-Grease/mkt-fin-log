@@ -262,12 +262,12 @@ class ChartCaixa {
     });
   }
   
-  static statusConta(labels = ['Pago', 'Não Pago'], data) {
+  static statusConta(data) {
     var dados = {
-      labels: labels,
+      labels: ['Não Pago', 'Pago'],
       datasets: [{
         data: data,
-        backgroundColor: ['green', 'red']
+        backgroundColor: ['red', 'green']
       }]
     };
 
@@ -278,13 +278,12 @@ class ChartCaixa {
     });
   }
 
-  static contasPorFornecedor(fornecedores, data) {
+  static contasPorFornecedor(fornecedores, valores) {
     var dados = {
       labels: fornecedores,
       datasets: [{
-        label: 'Valor das Contas',
-        data: data,
-        backgroundColor: ['blue', 'orange', 'green']
+        label: 'Valor em R$',
+        data: valores
       }]
     };
 
@@ -299,7 +298,7 @@ class ChartCaixa {
     var dados = {
       labels: meses,
       datasets: [{
-        label: 'Evolução do Valor Total',
+        label: 'Valor em R$',
         data: data,
         borderColor: 'blue',
         fill: false

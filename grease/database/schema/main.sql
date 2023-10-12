@@ -63,7 +63,7 @@ CREATE TABLE caixa (
     usuario_id INT NULL,
     FOREIGN KEY (usuario_id)
         REFERENCES Usuarios (usuario_id),
-    aluno_id INT NOT NULL,
+    aluno_id INT NULL,
     FOREIGN KEY (aluno_id)
         REFERENCES Alunos (aluno_id),
         

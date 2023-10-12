@@ -36,7 +36,7 @@ if (!$campos_validos)
 } 
 
 
-# ----- Cadastro Entrada Caixa
+# ----- Cadastro
 $caixa = new Caixa($mysqli);
 
 print_r($_POST);

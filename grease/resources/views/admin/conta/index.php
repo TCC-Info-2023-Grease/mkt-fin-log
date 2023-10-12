@@ -25,8 +25,8 @@ if(isset($_SESSION['ultimo_acesso'])) {
   }
 }
 
-#ChamaSamu::debug(time() .'---'. $_SESSION['ultimo_acesso']);
 
+# ChamaSamu::debugPanel($data);
 ?>
 
 <!------- HEAD --------->
@@ -301,13 +301,12 @@ extend_styles([ 'css.admin.financas' ]);
   <script>
   document.addEventListener("DOMContentLoaded", () => {
     ChartCaixa.statusConta(
-      <?php echo json_encode($data['dadosStatusConta']); ?>
+      <?php echo json_encode(array_values($data['dadosStatusConta'])); ?>
     );
 
-    // TODO:  ARRUMAR ESSE GRAFICO
     ChartCaixa.contasPorFornecedor(
-      <?= json_encode($data['dadosValorContasPorFornecedor']); ?>,
-      <?= json_encode(array_values($data['dadosValorContasPorFornecedor'])); ?>
+      <?= json_encode(array_values($data['dadosValorContasPorFornecedor']['fornecedores'])); ?>,
+      <?= json_encode(array_values($data['dadosValorContasPorFornecedor']['valores'])); ?>
     );
 
     ChartCaixa.contasEvolucaoValorTota(

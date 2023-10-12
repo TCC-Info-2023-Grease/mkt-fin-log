@@ -2,6 +2,8 @@
 <meta 
   charset="UTF-8" />
 <meta 
+  lang="pt-br" />
+<meta 
   name="description" 
   content="Site do TCC 3° Info B - 2023. Musical Grease sistema sobre as finanças e sobre o musical em geral" />
 <meta 
