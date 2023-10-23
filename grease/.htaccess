@@ -1,2 +1,0 @@
-﻿RewriteEngine On
-RewriteRule ^grease/admin/material$ /grease/resources/views/admin/material/index.php [L]
