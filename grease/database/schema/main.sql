@@ -245,6 +245,24 @@ CREATE TABLE entradasmaterial (
     obs TEXT NOT NULL
 );
 
+CREATE TABLE sprints (
+  id INTEGER PRIMARY KEY,
+  titulo TEXT,
+  descricao TEXT,
+  data_de_inicio DATE,
+  data_de_fim DATE
+);
+
+CREATE TABLE tarefas (
+  id INTEGER PRIMARY KEY,
+  titulo TEXT,
+  descricao TEXT,
+  data_de_vencimento DATE,
+  aluno_id INTEGER,
+  sprint_id INTEGER
+);
+
+
 CREATE TABLE resetpasswordrequests (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
