@@ -90,6 +90,10 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+
 <!--  
     .-----.
    .' -   - '.
@@ -109,3 +113,5 @@
               ) /
               \/
 -->
+
+
