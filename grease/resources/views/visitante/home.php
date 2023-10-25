@@ -65,21 +65,13 @@ extend_styles(['css.styleindex']);
 
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
 
-  <!--COMEÇO VLIBRAS-->
-    <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
+    <?php
+      use_js_scripts([ 'js.visitante.scriptindex' ]);
+    ?>
 
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
   <!--FIM VLIBRAS-->
-
-    <?php
-      use_js_scripts([ 'js.visitante.scriptindex' ]);
-    ?>
 </body>
 <!------- /BODY --------->

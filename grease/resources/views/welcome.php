@@ -62,5 +62,8 @@ Welcome 🕺 Grease
     <?php
       use_js_scripts([ 'js.visitante.scriptindex' ]);
     ?>
+
+    <?php render_component('VLibras'); ?>
 </body>
 <!------- /BODY --------->
+

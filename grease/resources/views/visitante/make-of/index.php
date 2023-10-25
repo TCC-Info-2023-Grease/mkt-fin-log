@@ -199,10 +199,14 @@ extend_styles([ 'css.styleprojeto' ]);
     <?php
     render_component('footer');
     ?>
+    
   </div>
   
   <?php
     use_js_scripts([ 'js.scriptprojeto' ]);
   ?>
+   <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
 </body>
 <!-------/ BODY --------->

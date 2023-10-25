@@ -3,8 +3,6 @@
 
 global $mysqli;
 
-Auth::check('adm');
-
 
 # ----- Consulta Caixa
 $caixa = new Caixa($mysqli);

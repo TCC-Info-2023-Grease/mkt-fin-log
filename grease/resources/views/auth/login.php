@@ -65,7 +65,9 @@ use_js_scripts([ 'js.scriptindex' ]);
   <div class="container">
      <!--─────────────────Home────────────────-->
     <main>
- 
+          
+
+
       <div id="home">
         <div class="filter"></div>
         <section class="intro">
@@ -78,6 +80,7 @@ use_js_scripts([ 'js.scriptindex' ]);
               <div class="title signup">Cadastro</div>
             </div>
       
+
       
             <div class="form-container">
       
@@ -198,6 +201,7 @@ use_js_scripts([ 'js.scriptindex' ]);
         </section>
       </div>
 
+
       <?php use_js_scripts([ 'js.login', 'js.masksForInputs' ]); ?>
       <script type="module" src="<?php assets('js/forms/', 'FormCadastroUsuario.js'); ?>">
       </script>
@@ -210,24 +214,23 @@ use_js_scripts([ 'js.scriptindex' ]);
     <footer class="copyright">
       <a href="https://goo.gl/maps/6L43o6zw5VmfJ3b99" target="_blank">ETEC DE FRANCISCO MORATO - Planejamanto e Desenvolvimento do Trabalho de Conclusão de Curso(TCC) INFORMÁTICA PARA INTERNET. </a>
     </footer>
+    
       <!--─────────────────Fim Footer────────────────-->
   </div>
 
-  <!--COMEÇO VLIBRAS-->
-
+        
   <div vw class="enabled">
-    <div vw-access-button class="active"></div>
+    <div vw-access-button class="active" style="background: transparent;"></div>
     <div vw-plugin-wrapper>
       <div class="vw-plugin-top-wrapper"></div>
     </div>
   </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+
+  <script type="module" src="<?= assets('js/forms/', 'FormCadastroUsuario.js'); ?>"></script>
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
-
-  <!--FIM VLIBRAS-->
-
-  <script type="module" src="<?= assets('js/forms/', 'FormCadastroUsuario.js'); ?>"></script>
 </body>
 <!------- /BODY --------->
+  
