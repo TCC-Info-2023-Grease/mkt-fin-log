@@ -262,6 +262,13 @@ class ChartCaixa {
     });
   }
   
+  /**
+   * Gera um gráfico de pizza mostrando o status das contas, com base na data especificada.
+
+  * @param {Date} data A data a partir da qual o status das contas será gerado.
+
+  * @returns {void}
+  */
   static statusConta(data) {
     var dados = {
       labels: ['Não Pago', 'Pago'],
@@ -278,6 +285,15 @@ class ChartCaixa {
     });
   }
 
+  /**
+   * Gera um gráfico de barras mostrando o valor total das contas por fornecedor.
+
+  * @param {string[]} fornecedores Uma lista de fornecedores.
+
+  * @param {number[]} valores Uma lista de valores totais das contas, por fornecedor.
+
+  * @returns {void}
+  */
   static contasPorFornecedor(fornecedores, valores) {
     var dados = {
       labels: fornecedores,
@@ -294,6 +310,16 @@ class ChartCaixa {
     });
   }
 
+
+  /**
+   * Gera um gráfico de linha mostrando a evolução do valor total das contas ao longo dos meses especificados.
+
+  * @param {string[]} meses Uma lista de meses.
+
+  * @param {number[]} data Uma lista de valores totais das contas, por mês.
+
+  * @returns {void}
+  */
   static contasEvolucaoValorTota(meses, data) {
     var dados = {
       labels: meses,
@@ -311,4 +337,5 @@ class ChartCaixa {
       data: dados,
     });
   }
+
 }
