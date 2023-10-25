@@ -267,6 +267,8 @@ extend_styles([ 'css.visitante.financas' ]);
       </section>
 
 
+                  
+
   </div>
   <?php
   use_js_scripts([ 
@@ -274,6 +276,8 @@ extend_styles([ 'css.visitante.financas' ]);
     'js.services.ChartCaixa' 
   ]);
   ?>
+
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       ChartCaixa.saldoMensal(
@@ -290,6 +294,9 @@ extend_styles([ 'css.visitante.financas' ]);
         <?= json_encode($dadosCategorias); ?>
       );
     });
+  </script>
+   <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
 </body>
 <!------- /BODY --------->

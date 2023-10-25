@@ -44,7 +44,7 @@
 
 <!--COMEÇO VLIBRAS-->
 
-  <div vw class="enabled">
+<div vw class="enabled">
   <div vw-access-button class="active" style="background: transparent;"></div>
   <div vw-plugin-wrapper>
     <div class="vw-plugin-top-wrapper"></div>

@@ -217,11 +217,20 @@ use_js_scripts([ 'js.scriptindex' ]);
     
       <!--─────────────────Fim Footer────────────────-->
   </div>
-''
+
+        
+  <div vw class="enabled">
+    <div vw-access-button class="active" style="background: transparent;"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
 
 
   <script type="module" src="<?= assets('js/forms/', 'FormCadastroUsuario.js'); ?>"></script>
-  <?php render_component('VLibras'); ?>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
 </body>
 <!------- /BODY --------->
   
