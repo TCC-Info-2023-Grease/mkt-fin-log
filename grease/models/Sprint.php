@@ -1,15 +1,11 @@
 <?php
-/**
- * Aluno
-*/
-class Aluno
+
+class Sprint
 {
     private $mysqli;
-    private $tabela = 'alunos';
-    private $tabela_secundaria = 'caixa';
-    private $tabela_terciaria = 'usuarios';
+    private $tabela = 'sprints';
 
-    public function __construct($mysqli)
+    public function __construct(mysqli $mysqli)
     {
         $this->mysqli = $mysqli;
     }
@@ -19,97 +15,40 @@ class Aluno
         $query = "
             INSERT INTO 
                 {$this->tabela} 
-                    (nome)
+                    (titulo, descricao, data_de_inicio, data_de_fim, status_sprint)
             VALUES 
-                    (?)
+                    (?, ?, ?, ?, ?)
         ";
 
         $stmt = $this->mysqli->prepare($query);
         $stmt->bind_param(
-            "s",
-            $dados['nome']
+            "sssss",
+            $dados['titulo'],
+            $dados['descricao'],
+            $dados['data_de_inicio'],
+            $dados['data_de_fim'],
+            $dados['status_sprint']
         );
 
         if (!$stmt->execute()) {
-            die("Erro ao criar aluno: " . $stmt->error);
+            die("Erro ao criar sprint: " . $stmt->error);
         }
 
         $stmt->close();
     }
 
-
-    public function cadastrarEmMassa($dados)
-    {
-        $textComNomeDosAlunos = $dados['nomes_alunos'];
-        $listaDeNomesDosAlunos = explode(';', $textComNomeDosAlunos);
-
-        $query = "INSERT INTO alunos (nome) VALUES ";
-        $values = array();
-
-        foreach ($listaDeNomesDosAlunos as $key => $value) {
-            if (!empty($value) && isset($value)) {
-                $values[] = "('$value')";
-                //echo $value;
-            }
-        }
-
-        $query .= implode(',', $values) . ';';
-
-        // Execute a consulta SQL para inserir os alunos
-        $stmt = $this->mysqli->query($query);
-
-        print_r($query);
-
-        if ($stmt) {
-            return true; // Inserção bem-sucedida
-        } else {
-            return false; // Erro na inserção
-        }
-    }
-
-
-    public function deletar($id)
-    {
-        // Verifica se há pagamentos associados a esse aluno
-        $sqlPagamentos = "SELECT aluno_id FROM caixa WHERE aluno_id = ?";
-        $stmtPagamentos = $this->mysqli->prepare($sqlPagamentos);
-        $stmtPagamentos->bind_param('i', $id);
-        $stmtPagamentos->execute();
-        $resultPagamentos = $stmtPagamentos->get_result();
-
-        if ($resultPagamentos->num_rows > 0) {
-            // Aluno tem pagamentos, não pode ser deletado
-            return false;
-        }
-
-        // Não há pagamentos, pode deletar o aluno
-        $sql = "DELETE FROM " . $this->tabela . " WHERE aluno_id = ?";
-        $stmt = $this->mysqli->prepare($sql);
-
-        if (!$stmt) {
-            die('Erro na preparação da query: ' . $this->mysqli->error);
-        }
-
-        $stmt->bind_param('i', $id);
-
-        if ($stmt->execute()) {
-            if ($stmt->affected_rows > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            die('Erro na execução da query: ' . $this->mysqli->error);
-        }
-    }
-
-
     public function atualizar($dados)
     {
         $query = "
             UPDATE {$this->tabela}
-            SET nome = ?
-            WHERE aluno_id = ?
+            SET 
+                titulo = ?,
+                descricao = ?,
+                data_de_inicio = ?,
+                data_de_fim = ?,
+                status_sprint = ?
+            WHERE 
+                id = ?
         ";
         $stmt = $this->mysqli->prepare($query);
 
@@ -118,8 +57,12 @@ class Aluno
         }
 
         $stmt->bind_param(
-            'si',
-            $dados['nome'],
+            'sssssi',
+            $dados['titulo'],
+            $dados['descricao'],
+            $dados['data_de_inicio'],
+            $dados['data_de_fim'],
+            $dados['status_sprint'],
             $dados['id']
         );
 
@@ -130,84 +73,118 @@ class Aluno
         }
     }
 
-    public function buscarTodos()
+    public function buscar($id)
     {
-        $query = "SELECT * FROM {$this->tabela}";
+        $sql = $this->mysqli->query("
+            SELECT 
+                * 
+            FROM 
+                {$this->tabela} 
+            WHERE 
+                id = '" . $id . "' 
+                    AND 
+                status_sprint = 'ativa'
+        ");
 
+        if ($sql->num_rows === 0) {
+            return null;
+        }
+
+        $sprint = $sql->fetch_assoc();
+
+        return $sprint;
+    }
+
+    public function desativarSprint($sprintId)
+    {
+        $query = "
+            UPDATE {$this->tabela}
+            SET 
+                status_sprint = 'desativada'
+            WHERE 
+                id = ?
+        ";
+        $stmt = $this->mysqli->prepare($query);
+
+        if (!$stmt) {
+            die('Erro na preparação da query: ' . $this->mysqli->error);
+        }
+
+        $stmt->bind_param('i', $sprintId);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            die('Erro na execução da query: ' . $stmt->error);
+        }
+    }
+
+    public function listarSprints()
+    {
+        $query = "
+            SELECT 
+                * 
+            FROM 
+                {$this->tabela}     
+            WHERE
+                status_sprint = 'ativa'
+        ";
         $result = $this->mysqli->query($query);
 
         if ($result->num_rows === 0) {
             return null;
         }
 
-        $alunos = [];
+        $sprints = [];
         while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            $alunos[] = $linha;
+            $sprints[] = $linha;
         }
 
-        return $alunos;
+        return $sprints;
     }
 
-    public function buscar($id)
+    public function concluirSprint($sprintId)
     {
-        $aluno = [];
-
-        // -- pegar os dados do usuario
-        $sql = $this->mysqli->query("
-            SELECT 
-                a.nome AS nome_aluno, 
-                a.*,
-                SUM(c.valor) AS total_pago
-            FROM 
-                {$this->tabela} AS a
-            JOIN 
-                {$this->tabela_secundaria} AS c 
-            ON 
-                c.aluno_id = a.aluno_id
+        $query = "
+            UPDATE {$this->tabela}
+            SET 
+                status_sprint = 'ativa'
             WHERE 
-                c.aluno_id = '".$id."'
-        ");
+                id = ?
+        ";
+        $stmt = $this->mysqli->prepare($query);
 
+        if (!$stmt) {
+            die('Erro na preparação da query: ' . $this->mysqli->error);
+        }
 
-        if ($sql->num_rows === 0) {
+        $stmt->bind_param('i', $sprintId);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            die('Erro na execução da query: ' . $stmt->error);
+        }
+    }
+
+    public function listarSprintsAtivas()
+    {
+        $query = "
+            SELECT * 
+            FROM {$this->tabela} 
+            WHERE status_sprint = 'ativa'
+        ";
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
             return null;
         }
 
-        $aluno = $sql->fetch_assoc();
-
-        // -- pegar as movimentações
-        $result = $this->mysqli->query("
-            SELECT 
-                c.caixa_id,
-                c.`categoria`,
-                c.`descricao`,
-                c.`data_movimentacao`,
-                c.`valor`,
-                c.`tipo_movimentacao`,
-                c.`forma_pagamento`,
-                c.`obs`,
-                u.nome as nome_usuario
-            FROM 
-                alunos AS a
-            JOIN 
-                caixa AS c 
-            ON 
-                c.aluno_id = a.aluno_id
-            JOIN 
-                usuarios AS u
-            ON 
-                u.usuario_id = c.usuario_id
-            WHERE 
-                c.aluno_id = '".$id."'
-        ");
-
-        if ($sql->num_rows === 0) {
-            return null;
+        $sprintsAtivas = [];
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $sprintsAtivas[] = $linha;
         }
 
-        $aluno['movimentacoes'] = $result->fetch_all(MYSQLI_ASSOC);
-
-        return $aluno;
+        return $sprintsAtivas;
     }
 }
- 
