@@ -1,13 +1,9 @@
 <?php
-/**
- * Aluno
-*/
-class Aluno
+
+class Task
 {
     private $mysqli;
-    private $tabela = 'alunos';
-    private $tabela_secundaria = 'caixa';
-    private $tabela_terciaria = 'usuarios';
+    private $tabela = 'tarefas';
 
     public function __construct($mysqli)
     {
@@ -19,71 +15,39 @@ class Aluno
         $query = "
             INSERT INTO 
                 {$this->tabela} 
-                    (nome)
+                    (titulo, descricao, data_de_vencimento, aluno_id, sprint_id, status_tarefa)
             VALUES 
-                    (?)
+                    (?, ?, ?, ?, ?, ?)
         ";
 
         $stmt = $this->mysqli->prepare($query);
         $stmt->bind_param(
-            "s",
-            $dados['nome']
+            "ssssss",
+            $dados['titulo'],
+            $dados['descricao'],
+            $dados['data_de_vencimento'],
+            $dados['aluno_id'],
+            $dados['sprint_id'],
+            $dados['status_tarefa']
         );
 
         if (!$stmt->execute()) {
-            die("Erro ao criar aluno: " . $stmt->error);
+            die("Erro ao criar tarefa: " . $stmt->error);
         }
 
         $stmt->close();
     }
 
-
-    public function cadastrarEmMassa($dados)
-    {
-        $textComNomeDosAlunos = $dados['nomes_alunos'];
-        $listaDeNomesDosAlunos = explode(';', $textComNomeDosAlunos);
-
-        $query = "INSERT INTO alunos (nome) VALUES ";
-        $values = array();
-
-        foreach ($listaDeNomesDosAlunos as $key => $value) {
-            if (!empty($value) && isset($value)) {
-                $values[] = "('$value')";
-                //echo $value;
-            }
-        }
-
-        $query .= implode(',', $values) . ';';
-
-        // Execute a consulta SQL para inserir os alunos
-        $stmt = $this->mysqli->query($query);
-
-        print_r($query);
-
-        if ($stmt) {
-            return true; // Inserção bem-sucedida
-        } else {
-            return false; // Erro na inserção
-        }
-    }
-
-
     public function deletar($id)
     {
-        // Verifica se há pagamentos associados a esse aluno
-        $sqlPagamentos = "SELECT aluno_id FROM caixa WHERE aluno_id = ?";
-        $stmtPagamentos = $this->mysqli->prepare($sqlPagamentos);
-        $stmtPagamentos->bind_param('i', $id);
-        $stmtPagamentos->execute();
-        $resultPagamentos = $stmtPagamentos->get_result();
-
-        if ($resultPagamentos->num_rows > 0) {
-            // Aluno tem pagamentos, não pode ser deletado
-            return false;
-        }
-
-        // Não há pagamentos, pode deletar o aluno
-        $sql = "DELETE FROM " . $this->tabela . " WHERE aluno_id = ?";
+        $sql = "
+            UPDATE 
+                {$this->tabela}
+            SET 
+                status_tarefa = 'desativada'
+            WHERE 
+                id = ?
+        ";
         $stmt = $this->mysqli->prepare($sql);
 
         if (!$stmt) {
@@ -103,13 +67,19 @@ class Aluno
         }
     }
 
-
     public function atualizar($dados)
     {
         $query = "
             UPDATE {$this->tabela}
-            SET nome = ?
-            WHERE aluno_id = ?
+            SET 
+                titulo = ?,
+                descricao = ?,
+                data_de_vencimento = ?,
+                aluno_id = ?,
+                sprint_id = ?,
+                status_tarefa = ?
+            WHERE 
+                id = ?
         ";
         $stmt = $this->mysqli->prepare($query);
 
@@ -118,8 +88,13 @@ class Aluno
         }
 
         $stmt->bind_param(
-            'si',
-            $dados['nome'],
+            'ssssssi',
+            $dados['titulo'],
+            $dados['descricao'],
+            $dados['data_de_vencimento'],
+            $dados['aluno_id'],
+            $dados['sprint_id'],
+            $dados['status_tarefa'],
             $dados['id']
         );
 
@@ -132,7 +107,12 @@ class Aluno
 
     public function buscarTodos()
     {
-        $query = "SELECT * FROM {$this->tabela}";
+        $query = "
+            SELECT 
+                *
+            FROM 
+                {$this->tabela}
+        ";
 
         $result = $this->mysqli->query($query);
 
@@ -140,74 +120,134 @@ class Aluno
             return null;
         }
 
-        $alunos = [];
+        $tarefas = [];
         while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            $alunos[] = $linha;
+            $tarefas[] = $linha;
         }
 
-        return $alunos;
+        return $tarefas;
     }
 
     public function buscar($id)
     {
-        $aluno = [];
+        $tarefa = [];
 
-        // -- pegar os dados do usuario
         $sql = $this->mysqli->query("
             SELECT 
-                a.nome AS nome_aluno, 
-                a.*,
-                SUM(c.valor) AS total_pago
+                *
             FROM 
-                {$this->tabela} AS a
-            JOIN 
-                {$this->tabela_secundaria} AS c 
-            ON 
-                c.aluno_id = a.aluno_id
+                {$this->tabela}
             WHERE 
-                c.aluno_id = '".$id."'
-        ");
-
-
-        if ($sql->num_rows === 0) {
-            return null;
-        }
-
-        $aluno = $sql->fetch_assoc();
-
-        // -- pegar as movimentações
-        $result = $this->mysqli->query("
-            SELECT 
-                c.caixa_id,
-                c.`categoria`,
-                c.`descricao`,
-                c.`data_movimentacao`,
-                c.`valor`,
-                c.`tipo_movimentacao`,
-                c.`forma_pagamento`,
-                c.`obs`,
-                u.nome as nome_usuario
-            FROM 
-                alunos AS a
-            JOIN 
-                caixa AS c 
-            ON 
-                c.aluno_id = a.aluno_id
-            JOIN 
-                usuarios AS u
-            ON 
-                u.usuario_id = c.usuario_id
-            WHERE 
-                c.aluno_id = '".$id."'
+                id = '{$id}'
+                    AND
+                status_tarefa = 'ativa'
         ");
 
         if ($sql->num_rows === 0) {
             return null;
         }
 
-        $aluno['movimentacoes'] = $result->fetch_all(MYSQLI_ASSOC);
+        $tarefa = $sql->fetch_assoc();
 
-        return $aluno;
+        return $tarefa;
     }
+
+    public function listarTarefasPorAluno($alunoId)
+    {
+        $query = "
+            SELECT 
+                *
+            FROM 
+                {$this->tabela}
+            WHERE 
+                aluno_id = '{$alunoId}'
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        $tarefas = [];
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $tarefas[] = $linha;
+        }
+
+        return $tarefas;
+    }
+
+    public function contarTarefasPorSprint($sprintId)
+    {
+        $query = "
+            SELECT 
+                COUNT(*) as total
+            FROM 
+                {$this->tabela}
+            WHERE 
+                sprint_id = '{$sprintId}'
+                    AND
+                status_tarefa = 'ativa'
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return 0;
+        }
+
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+
+    public function obterTarefasAtrasadas()
+    {
+        $dataAtual = date('Y-m-d');
+        $query = "
+            SELECT 
+                *
+            FROM 
+                {$this->tabela}
+            WHERE 
+                data_de_vencimento < '{$dataAtual}'
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        $tarefasAtrasadas = [];
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $tarefasAtrasadas[] = $linha;
+        }
+
+        return $tarefasAtrasadas;
+    }
+
+    public function concluirTarefa($tarefaId)
+    {
+        $query = "
+            UPDATE {$this->tabela}
+            SET 
+                status_tarefa = 'concluida'
+            WHERE 
+                id = ?
+        ";
+        $stmt = $this->mysqli->prepare($query);
+
+        if (!$stmt) {
+            die('Erro na preparação da query: ' . $this->mysqli->error);
+        }
+
+        $stmt->bind_param('i', $tarefaId);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            die('Erro na execução da query: ' . $stmt->error);
+        }
+    }
+
 }
- 
