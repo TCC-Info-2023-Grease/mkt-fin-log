@@ -99,7 +99,7 @@ extend_styles([ 'css.styleconta' ]);
                   
                   <?php if ($_SESSION['usuario']['tipo_usuario'] == 'adm'): ?>
                   <li>
-                    <img width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>" alt="<?= $usuario['nome']; ?>" />
+                    <img style="border-radius: 12px;" width="300px" src="<?= $_ENV['STORAGE'] . '/image/usuarios/' . $usuario['foto_perfil']; ?>" alt="<?= $usuario['nome']; ?>" />
                     <br/>
                   </li>
                   <?php endif; ?>
@@ -141,6 +141,12 @@ extend_styles([ 'css.styleconta' ]);
                       <br><br>
                   </li>
                   <?php endif; ?>           
+                  
+                  <li>
+                    <i class="infos"></i> Nova Senha:
+                    <input type="password" class="input" name="senha" disabled />
+                    <br/>
+                  </li>
 
                   <br>
                   <button class="btn btnEdit">Editar</button>
@@ -179,9 +185,9 @@ extend_styles([ 'css.styleconta' ]);
         }
         
         inputs.forEach(( input ) => { 
-          console.log('====================================');
-          console.log(input);
-          console.log('===================================='); 
+          // console.log('====================================');
+          // console.log(input);
+          // console.log('===================================='); 
 
           input.disabled = !input.disabled;
           btnEdit.textContent = input.disabled? "Editar" : "Salvar";

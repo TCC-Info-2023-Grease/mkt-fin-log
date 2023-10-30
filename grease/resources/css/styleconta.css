@@ -19,9 +19,7 @@
 }
 
 body{
-  background-image: url("../images/wall/wall6.jpg");   
-    background-size: cover;
-  background-position:center;
+  background: #f27474;
 }
 
 main{
