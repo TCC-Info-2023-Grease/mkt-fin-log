@@ -1,8 +1,24 @@
 <?php
-
+/**
+ * Classe para depuração de código PHP
+ *
+ * @package ChamaSamu
+ * @author [MrNullus] <[gustavojs417@gmail.com]>
+ * @version 1.0
+ *
+*/
 class ChamaSamu {
 
-    // Método privado para adicionar estilos CSS à saída de depuração
+   /**
+   * @method static void addDebugStyles()
+   *
+   * Adiciona estilos CSS à saída de depuração.
+   *
+   * @return void
+   *
+   * @since 2023-07-20
+   * @author MrNullus <gustavojs417@gmail.com>
+   */
     private static function addDebugStyles() {
         echo "<style>";
         echo "pre { background-color: #f5f5f5; padding: 10px; border: 1px solid #ccc; }";
