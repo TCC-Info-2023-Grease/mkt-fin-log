@@ -250,7 +250,8 @@ CREATE TABLE sprints (
   titulo TEXT,
   descricao TEXT,
   data_de_inicio DATE,
-  data_de_fim DATE
+  data_de_fim DATE,
+  status_sprint VARChAR(12)
 );
 
 CREATE TABLE tarefas (
@@ -259,6 +260,7 @@ CREATE TABLE tarefas (
   descricao TEXT,
   data_de_vencimento DATE,
   aluno_id INTEGER,
+  status_tarefa VARCHAR(12),
   sprint_id INTEGER
 );
 
