@@ -59,6 +59,18 @@ $dados = [
   'foto_perfil' => $nomeDoArquivo
 ];
 
+// Verifica se uma nova senha foi fornecida
+if (!empty($_POST['senha'])) {
+  // Se uma nova senha foi fornecida, atualiza a senha no array de dados
+  $dados['senha'] = MD5($_POST['senha']);
+} else {
+  // Se a senha estiver vazia, busca a senha atual do usuário no banco de dados
+  $usuario_atual = $usuario->buscarPorID($_POST['usuario_id']);
+  $dados['senha'] = $usuario_atual['senha'];
+}
+
+
+
 try {
   print_r($_POST);
   $usuario->atualizar($dados);
