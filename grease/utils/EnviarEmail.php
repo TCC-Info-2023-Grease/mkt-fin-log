@@ -3,37 +3,49 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// Função para enviar um e-mail de redefinição de senha
-class EnviarEmail {
 
-    public static function redefinicaoSenha($email, $token) {
-
+/**
+ * Class EnviarEmail
+ *
+ * This class sends an email to reset the password.
+ *
+ * @since 2023-11-08
+ * @author MrNullus <gustavojs417@gmail.com>
+ */
+class EnviarEmail
+{
+    /**
+     * Sends an email to reset the password.
+     *
+     * @param string $email The email address to send the email to.
+     * @param string $token The token to use to reset the password.
+     *
+     * @return void
+     */
+    public static function redefinicaoSenha($email, $token): void
+    {
         $mail = new PHPMailer(true);
 
         try {
-            $mail = new PHPMailer();
-
             // Server Settings
-            //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
-            $mail->isSMTP();
-            $mail->SMTPAuth = true;
-            $mail->SMTPSegure = PHPMailer::ENCRYPTION_SMTPS;
-            $mail->CharSet = 'UTF-8';
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER; // Enable verbose debug output
+            $mail->isSMTP(); // Set mailer to use SMTP
+            $mail->SMTPAuth = true; // Enable SMTP authentication
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable implicit TLS encryption
+            $mail->CharSet = 'UTF-8'; // Set character encoding
 
-            $mail->Host = 'sandbox.smtp.mailtrap.io';
-            $mail->Port = 2525;
-            $mail->Username = '5b8fc83059e548';
-            $mail->Password = 'c8c91e82e2d89e';
-
+            $mail->Host = 'sandbox.smtp.mailtrap.io'; // Specify main and backup SMTP servers
+            $mail->Port = 2525; // Set the SMTP port
+            $mail->Username = '5b8fc83059e548'; // SMTP username
+            $mail->Password = 'c8c91e82e2d89e'; // SMTP password
 
             // Recipients
-            $mail->setFrom('call.grease@gmail.com', 'Atendimento');
-            $mail->addAddress($email, 'Lá Ele');    
+            $mail->setFrom('call.grease@gmail.com', 'Atendimento'); // Set who the email is from
+            $mail->addAddress($email, 'Lá Ele'); // Set who the email is to
 
-
-            //Content
-            $mail->isHTML(true);                                  
-            $mail->Subject = 'Redefinição de Senha';
+            // Content
+            $mail->isHTML(true); // Set email format to HTML
+            $mail->Subject = 'Redefinição de Senha'; // Set email subject
             $mail->Body    = '
                 Olá,
                 <br><br>
@@ -51,12 +63,12 @@ class EnviarEmail {
                 <br><br>
 
                 Gestão Grease
-            ';
-            $mail->AltBody = 'Prezado(a) solitação de redefinição de senha';
+            '; // Set email body
+            $mail->AltBody = 'Prezado(a) solitação de redefinição de senha'; // Set alternative email body for non-HTML mail clients
 
-            $mail->send();
+            $mail->send(); // Send the email
         } catch (Exception $error) {
-            echo "Mailer Error: $mail->ErrorInfo";  
+            echo "Mailer Error: $mail->ErrorInfo"; // Print the error message
         }
         return;
     }
