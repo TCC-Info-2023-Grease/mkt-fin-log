@@ -8,7 +8,7 @@ define('PASTA_RAIZ', $_ENV['PASTA_RAIZ']);
  * This class provides methods for logging messages to a file.
  *
  * @since 2023-11-08
- * @author Bard <bard@example.com>
+ * @author MrNullus <gustavojs417@gmail.com>
  */
 class MercuryLog
 {
