@@ -66,6 +66,12 @@ extend_styles(['css.admin.financas']);
            }">
                 <i class="fa-solid fa-pen"></i>
             </a>
+            <span class="button-separator">|</span>
+            <a href="#" class="button-link btn-edit" onclick="if (confirm('Deseja editar mesmo?')) {
+               this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/EfetuarPagamentoController.php?id=<?= $conta['conta_id']; ?>';
+            }">
+                <i class="fa-solid fa-pen"></i>
+            </a>
         </div>
 
         <div class="overview">
