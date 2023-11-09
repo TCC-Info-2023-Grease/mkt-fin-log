@@ -1,5 +1,5 @@
 <?php
-
+// TODO: Fazer o método de pagamento de Conta
 class caixa
 {
   private $mysqli;
