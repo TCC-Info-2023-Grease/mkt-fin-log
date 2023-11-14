@@ -348,6 +348,54 @@ class Conta
 
         return $dados;
     }
+
+    /**
+     * Efetua o pagamento de uma conta.
+     *
+     * @param array $dados Os dados da conta.
+     *
+     * @return int O ID da saída cadastrada.
+     */
+    public function efetuarPagamento($dados = [])
+    {
+        // Verifica se os dados da conta estão preenchidos
+        if (
+            !isset($dados['id']) ||
+            !isset($dados['valor']) ||
+            !isset($dados['forma_pagamento'])
+        ) {
+            return false;
+        }
+
+        // Cria a saída no caixa
+        $id_saida = $this->cadastrarSaidaPagamento([
+            'usuario_id' => $dados['usuario_id'],
+            'categoria' => 'Pagamento de conta',
+            'descricao' => 'Pagamento da conta ' . $dados['id'],
+            'data_movimentacao' => date('Y-m-d'),
+            'valor' => $dados['valor'],
+            'forma_pagamento' => $dados['forma_pagamento'],
+        ]);
+
+        // Atualiza o valor da conta
+        $query = "
+        UPDATE 
+            contas 
+        SET 
+            valor = valor - " . $dados['valor'] . "
+        WHERE 
+            id = " . $dados['id'] . ";
+        ";
+
+        $result = $this->mysqli->query($query);
+
+        if ($result === false) {
+            return false;
+        }
+
+        return $id_saida;
+    }
+
 }
  
 

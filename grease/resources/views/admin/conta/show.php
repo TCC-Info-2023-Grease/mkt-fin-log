@@ -61,9 +61,17 @@ extend_styles(['css.admin.financas']);
                 <i class="fa-solid fa-trash"></i>
             </a>
             <span class="button-separator">|</span>
-            <a href="#" class="button-link btn-edit" onclick="if (confirm('Deseja editar mesmo?')) {
-               this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/EditController.php?id=<?= $conta['conta_id']; ?>';
+            <a href="#" class="button-link btn-edit" onclick="if (confirm('Deseja pagar a conta?')) {
+               this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/PagamentoController.php?id=<?= $conta['conta_id']; ?>';
            }">
+                <i class="fa fa-money"></i>
+            </a>
+            <span class="button-separator">|</span>
+            <a href="#" class="button-link btn-edit" onclick="if (confirm('Deseja editar mesmo?')) {
+               this.href = '<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/EfetuarPagamentoController.php?id=<?= $conta['conta_id']; ?>';
+            }"
+                style="background: #e5b218!important;"
+            >
                 <i class="fa-solid fa-pen"></i>
             </a>
         </div>
