@@ -31,7 +31,6 @@ if (!$campos_validos) {
 
 # ------ Atualizar
 $conta = new Conta($mysqli);
-$caixa = new Caixa($mysqli);
 
 $dados = [
   "conta_id" => $_POST["conta_id"],
@@ -46,34 +45,11 @@ $dados = [
 
 try {
   $conta->atualizar($dados);
-
-  if ($dados["status_conta"] == 1 && $caixa->unico('descricao', $dados['descricao'])) {
-
-    $dados = [
-      "usuario_id" => Auth::getUserData()['usuario_id'],
-      "categoria" => "Conta",
-      "descricao" => $dados["descricao"],
-      "data_movimentacao" => date("Y-m-d H:i:s"),
-      "valor" => $dados["valor"],
-      "tipo_movimentacao" => "despesa",
-      "forma_pagamento" => "N/A",
-      "obs" => "N/A",
-    ];
-
-    if (!$caixa->cadastrarSaida($dados)) {
-      MercuryLog::error(
-        "erro na saida adicionada",
-        Auth::getUserData()["nome"],
-        $folder = "usuario"
-      );
-    }
-  }
-
-# ChamaSamu::debug($dados);
+  # ChamaSamu::debug($dados);
 
   $_SESSION["fed_conta"] = [
     "title" => "Sucesso!",
-    "msg" => $dados["status_conta"] == 1 && $caixa->unico('descricao', $dados['descricao'])? "Atualizado e inserido no Caixa com sucesso" : "Atualizado com sucesso",
+    "msg" => "Atualizado com sucesso",
     "icon" => "success",
   ];
 } catch (Exception $e) {

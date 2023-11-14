@@ -110,7 +110,14 @@ extend_styles([ 'css.admin.financas' ]);
             <br><br>
             
             <label for="status_fornecedor">Status:</label><br>
-            <input type="text" name="status_fornecedor" placeholder="ativo" value="<?= $data['status_fornecedor']; ?>" />
+            <select name="status_fornecedor" id="status_fornecedor">
+                <option value="ativo" <?= ($data['status_fornecedor'] == 'ativo')? 'selected' : ''; ?>>
+                  Ativo
+                </option>
+                <option value="inativo" <?= ($data['status_fornecedor'] == 'inativo')? 'selected' : ''; ?>>
+                  Inativo
+                </option>
+            </select>
             <br><br>
 
            <input type="submit" value="salvar">

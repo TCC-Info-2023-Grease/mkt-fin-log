@@ -6,7 +6,7 @@ $_ENV = [
   # CAMINHOS DE PASTAS 
   "PASTA_RAIZ"        => __DIR__,
   "PASTA_VIEWS"       => __DIR__ . '/resources/views',
-  "PASTA_CONTROLlLER"  => __DIR__ . '/controllers',
+  "PASTA_CONTROLLER"  => __DIR__ . '/controllers',
   "PASTA_UTILS"       => __DIR__ . '/utils',
   
   # URLs
@@ -18,7 +18,7 @@ $_ENV = [
   "RESOURCES"       => $url_base . '/resources',
 
   # BANCO DE DADOS
-  "DB_SERVIDOR" => "ocalhost",
+  "DB_SERVIDOR" => "localhost",
   "DB_USUARIO"  => "root",
   "DB_SENHA"    => "",
   "DB_NOME"     => "db_tcc"
