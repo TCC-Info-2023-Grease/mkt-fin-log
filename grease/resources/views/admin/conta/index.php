@@ -265,15 +265,17 @@ extend_styles([ 'css.admin.financas' ]);
                         <i class="fa-regular fa-pen-to-square"></i>
                       </a>
                       <br><br>
+                          
+                      <?php if (!$conta['status_conta']): ?>
+                        <a
+                          href="<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/PagamentoController.php?id=<?= $conta['conta_id']; ?>"
+                          class="icon-link edit" 
+                        >
+                          <i class="fa fa-money" aria-hidden="true"></i>
+                        </a>
 
-                      <a
-                        href="<?= $_ENV['URL_CONTROLLERS']; ?>/Conta/PagamentoController.php?id=<?= $conta['conta_id']; ?>"
-                        class="icon-link edit" 
-                      >
-                        <i class="fa fa-money" aria-hidden="true"></i>
-                      </a>
-
-                      <br><br>
+                        <br><br>
+                      <?php endif; ?>
                       <a
                         href="#"
                         onclick="if (confirm('Deseja excluir mesmo?')) {
