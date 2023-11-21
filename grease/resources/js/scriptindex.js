@@ -1,5 +1,5 @@
 // header scrolling effect
-  $(window).on('scroll', function(){
+$(window).on('scroll', function(){
 	if($(window).scrollTop()){
   $('header').addClass('nav-show');
 		  

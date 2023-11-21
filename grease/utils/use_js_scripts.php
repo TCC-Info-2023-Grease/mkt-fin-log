@@ -21,10 +21,10 @@ function use_js_scripts($scripts = [], $extension = 'js') {
     $src_with_extension = $filename . '.' . $extension;
 
     echo 
-    '
+    <<<HTML
       <!-- {$script} -->
-      <script type="$type" src="'.$src_with_extension.'"></script>
+      <script type="$type" src="$src_with_extension"></script>
       <!-- /{$script} -->
-    ';
+    HTML;
   }
 }
