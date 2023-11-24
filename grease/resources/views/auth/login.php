@@ -1,50 +1,71 @@
-<!DOCTYPE html>
-<html>
+<?php
+# ------ Configurações Básicas
+require dirname(dirname(dirname(__DIR__))) . '/config.php';
+global $_ENV;
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Grease - Login</title>
-  <link href="stylelogin.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="imagens/icon.ico" type="image/x-icon">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="scriptindex.js"></script>
-</head>
+import_utils(['extend_styles', 'render_component', 'use_js_scripts']);
+
+//print_r($_SESSION['usuario']);
+?>
+
+
+<!------- HEAD --------->
+<?php
+render_component('head');
+extend_styles([ 'css.stylelogin' ]);
+use_js_scripts([ 'js.scriptindex' ]);
+?>
+<!-- # Sweet Alert # -->
+<script 
+  src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+</script> 
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<!-- # /Sweet Alert # -->
+
+<title>
+    Login 🚪 Grease
+</title>
+<!-------/ HEAD --------->
+
+
 
 <body>
 
+  <?php if (isset($_SESSION['senha_redefinida']) == 'ok'): ?>
+      <script>
+          Swal.fire({
+              title: 'Sucesso!',
+              text: 'Senha redefinida!',
+              icon: 'success',
+              confirmButtonText: 'OK'
+          })
+      </script>
+  <?php endif; ?>
+  <?php if (isset($_GET['erro']) == 'campos_invalidos'): ?>
+      <script>
+          Swal.fire({
+              title: 'Erro!',
+              text: 'Campos invalidos!',
+              icon: 'error',
+              confirmButtonText: 'OK'
+          })
+      </script>
+  <?php endif; ?>
+  <?php if (isset($_GET['erro']) == 'usuario'): ?>
+      <script>
+          Swal.fire({
+              title: 'Erro!',
+              text: 'Email e/ou senha incorretos!',
+              icon: 'error',
+              confirmButtonText: 'OK'
+          })
+      </script>
+  <?php endif; ?>
+
+
   <div class="container">
 
-    <!--────────────────Header───────────────-->
-    <header>
-      <a class="logo" href="index.html">
-
-        <img src="imagens/logo.png" alt="logo" />
-      </a>
-      <nav>
-
-        <ul class="nav-bar">
-          <div class="bg"></div>
-          <li><a class="nav-link" href="index.html">Home</a></li>
-          <li><a class="nav-link" href="financas.html">Finanças</a></li>
-          <li><a class="nav-link" href="projeto.html">Projeto</a></li>
-          <li><a class="nav-link active" href="login.html">Login</a></li>
-        </ul>
-
-
-        <div class="hamburger">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="line3"></div>
-        </div>
-        
-      </nav>
-    </header>
-
-    
-    <!--────────────────Fim - Header───────────────-->
-
-
+  
 
      <!--─────────────────Home────────────────-->
     <main>
@@ -76,49 +97,101 @@
               <div class="form-inner">
       
                 
-                        <form action="#" class="login">
-                          <pre>
-                          </pre>
-                          <div class="field">
-                            <input type="email" placeholder="Email" required>
-                          </div>
-                          <div class="field">
-                            <input type="password" placeholder="Senha" required>
-                          </div>
-                          <div class="pass-link"><a href="#">Esqueceu a senha?</a></div>
-                          <div class="field btn">
-                            <div class="btn-layer"></div>
-                            <input type="submit" value="Login">
-                          </div>
-                          <div class="signup-link">Crie uma conta <a href="">Cadastre-se</a></div>
-                        </form>
+                       <form 
+                    method="POST" 
+                    action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Auth/LoginController.php"
+                    class="login"
+                >
+                    <div class="field">
+                        <input type="email" placeholder="Email" name="email" required>
+                    </div>
+                    <div class="field">                      
+                      <input type="password" placeholder="Senha" name="password" id="inputPassword" required>
+                    </div>
+
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <input type="submit" value="Login">
+                   </div>
+                   <div class="signup-link">
+                      Crie uma conta <a href="">Cadastre-se</a>
+                   </div>     
+                   <div class="signup-link">
+                      Esqueci a <a href="<?= $_ENV['VIEWS'] ?>/auth/esqueci_senha.php">senha</a>
+                   </div>                                   
+                 </form>      
       
-      
-                        <form action="#" class="signup">
+                        <form 
+                          class="signup"
+                           method="POST" 
+                          action="<?= $_ENV['URL_CONTROLLERS']; ?>/Auth/CadastroController.php"
+                          enctype="multipart/form-data"
+                        >
                           <div class="field">
-                            <input type="text" placeholder="Nome" required>
+                            <input 
+                              type="text" 
+                              required  
+                              name="username" 
+                              placeholder="Stefano Jobs" />
                           </div>
                           <div class="field">
-                            <input type="email" placeholder="Email" required>
+                            <input type="email" placeholder="stefano@android.com" required class="text" name="email" />
                           </div>
                           <div class="field">
-                            <input type="tel" placeholder="Telefone" required>
-                          </div>
-                          <div class="field">
-                            <input type="number" placeholder="Idade" required>
-                          </div>
-                          <div class="field">
-                            <input type="text" placeholder="Gênero" required>
+                             <input type="number" placeholder="Idade" required class="text" name="age">
                       
                           </div>
+                          <div class="field" style="display: none;">
+                            <label for="tipo-usuario" style="display: none;">Tipo Usuario</label>
+                            <select name="tipo_usuario" id="tipo-usuario-select" style="display: none;">
+                                <option value="vis" selected>
+                                    Visitante
+                                </option>
+                                <option value="fig">
+                                    Figurino   
+                                </option>
+                                <option value="cen">
+                                    Cénario
+                                </option>
+                                <option value="enc">
+                                    Encenação
+                                </option>
+                                <option value="adm">
+                                    Admin
+                                </option>
+                            </select>
+                          </div>
                           <div class="field">
-                            <input type="password" placeholder="Senha" required>
+                            <select name="genrer" id="genrer-select" class="form-select" aria-label="Default select example">
+                                <option value="m">
+                                    Masculino
+                                </option>
+                                <option value="f">
+                                    Feminino
+                                </option>
+                                <option value="o">
+                                    Outro
+                                </option>
+                                <option value="n">
+                                    Prefiro não informar
+                                </option>
+                            </select>
+                          </div>
+                          <div class="field">
+                            <input 
+                              type="text" 
+                              required 
+                              class="text phone" 
+                              name="phone"
+                              placeholder="(11) 90235-9078" />
+                          </div>
+                          <div class="field">
+                            <input type="password" name="password" id="inputPassword" placeholder="Senha" required>                           
                           </div>
                           <div class="field btn">
                             <div class="btn-layer"></div>
                             <input type="submit" value="Signup">
-                          </div>
-                          <div class="signup-link">Já tem uma conta <a href="usuario com conta/conta.html">Login</a></div>
+                          </div>                        
                         </form>
               </div>
       
@@ -151,17 +224,11 @@
 
   <!--COMEÇO VLIBRAS-->
 
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
+   <?php use_js_scripts([ 'js.login', 'js.masksForInputs' ]); ?>
+  <script type="module" src="<?= assets('js/forms/', 'FormCadastroUsuario.js'); ?>"></script>
+  <script type="text/javascript">
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
-
   <!--FIM VLIBRAS-->
 
 </body>
