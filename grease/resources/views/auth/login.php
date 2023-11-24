@@ -27,10 +27,11 @@ use_js_scripts([ 'js.scriptindex' ]);
 </title>
 <!-------/ HEAD --------->
 
-<!------- BODY --------->
+
+
 <body>
- 
- <?php if (isset($_SESSION['senha_redefinida']) == 'ok'): ?>
+
+  <?php if (isset($_SESSION['senha_redefinida']) == 'ok'): ?>
       <script>
           Swal.fire({
               title: 'Sucesso!',
@@ -62,13 +63,13 @@ use_js_scripts([ 'js.scriptindex' ]);
   <?php endif; ?>
 
 
- 
   <div class="container">
+
+  
+
      <!--─────────────────Home────────────────-->
     <main>
-          
-
-
+ 
       <div id="home">
         <div class="filter"></div>
         <section class="intro">
@@ -81,7 +82,6 @@ use_js_scripts([ 'js.scriptindex' ]);
               <div class="title signup">Cadastro</div>
             </div>
       
-
       
             <div class="form-container">
       
@@ -97,7 +97,7 @@ use_js_scripts([ 'js.scriptindex' ]);
               <div class="form-inner">
       
                 
-                <form 
+                       <form 
                     method="POST" 
                     action="<?php echo $_ENV['URL_CONTROLLERS']; ?>/Auth/LoginController.php"
                     class="login"
@@ -197,41 +197,40 @@ use_js_scripts([ 'js.scriptindex' ]);
       
             </div>
           </div>
+        <script  src="login.js"></script>
+     
+
           <p></p>
 
         </section>
       </div>
 
-                
- 
-
-
-     
-    
     </main>
       <!--─────────────────fim Home────────────────-->
-  
+      
+      
+      
+   
+
+
 <br><br><br><br><br><br>
 
       <!--─────────────────Footer─────────────────-->
     <footer class="copyright">
       <a href="https://goo.gl/maps/6L43o6zw5VmfJ3b99" target="_blank">ETEC DE FRANCISCO MORATO - Planejamanto e Desenvolvimento do Trabalho de Conclusão de Curso(TCC) INFORMÁTICA PARA INTERNET. </a>
     </footer>
-   
-
-  
       <!--─────────────────Fim Footer────────────────-->
   </div>
 
-  
-  <?php use_js_scripts([ 'js.login', 'js.masksForInputs' ]); ?>
+  <!--COMEÇO VLIBRAS-->
+
+   <?php use_js_scripts([ 'js.login', 'js.masksForInputs' ]); ?>
   <script type="module" src="<?= assets('js/forms/', 'FormCadastroUsuario.js'); ?>"></script>
   <script type="text/javascript">
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
-    
+  <!--FIM VLIBRAS-->
+
 </body>
 
-
-<!------- /BODY --------->
-  
+</html>

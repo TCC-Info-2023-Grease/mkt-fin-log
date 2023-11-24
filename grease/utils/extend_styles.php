@@ -12,9 +12,8 @@ function extend_styles($styles = []) {
     foreach ($styles as $style) {
         $file_css = $_ENV['URL_BASE'] . '/resources/' . str_replace('.', '/', $style);
         echo 
-        <<<HTML
-            <link rel="stylesheet" href="{$file_css}.css" />
-        HTML;
+        
+            '<link rel="stylesheet" href="'.$file_css.'.css" />';
     }
 }
 
