@@ -6,27 +6,24 @@ import_utils([ 'navegate' ]);
 
 Auth::check('adm');
 
-# ----- Cadastro Sala
-$contas;
-$totalGasto;
-$totalNecessario;
-$totalContasPagas;
-$totalContasAPagar;
+# ----- 
+$tasks;
+$tarefasPorAluno;
+$tarefasAtrasadas;
+$tarefasPorSprint;
 
 try {
-  $conta = new Conta($mysqli);
-  $caixa = new Caixa($mysqli);
+  $task   = new Task($mysqli);
+  $sprint = new Sprint($mysqli);
 
-  $contas            = $conta->buscarTodos();
-  $saldoAtual        = $caixa->obterSaldoAtual();
-  $totalGasto        = $conta->totalGasto();
-  $totalNecessario   = $conta->totalNecessario();
-  $totalContasAPagar = $conta->totalContasAPagar();
-  $totalContasPagas  = $conta->totalContasPagas();
+  $tasks            = $task->buscarTodos();
+  $tarefasPorAluno  = $task->listarTarefasPorAluno();
+  $tarefasPorSprint = $task->contarTarefasPorSprint();
+  $tarefasAtrasadas = $task->obterTarefasAtrasadas();
 } catch (Exception $e) {
     //ChamaSamu::debug($e);
 
-    $_SESSION['fed_conta'] = [ 
+    $_SESSION['fed_task'] = [ 
       'title' => 'Erro!', 
       'msg' => 'Erro inesperado',
       'icon' => 'error'
@@ -35,18 +32,10 @@ try {
 }
 
 $data = [ 
-  'contas'           => $contas,
-  'totalGasto'       => $totalGasto,
-  'totalNecessario'  => $totalNecessario,
-  'totalContasAPagar' => $totalContasAPagar,
-  'totalContasPagas' => $totalContasPagas,
-
-  'saldoAtual'      => $saldoAtual,
-
-  'dadosStatusConta' => $conta->obterDadosStatusConta(),
-  'dadosValorContasPorFornecedor' => $conta->obterValorContasPorFornecedor(),
-  'dadosEvolucaoValorTotal' => $conta->obterEvolucaoValorTotal()
-
+  'tasks'            => $tasks,
+  'tarefasPorAluno'  => $tarefasPorAluno,
+  'tarefasAtrasadas' => $tarefasAtrasadas,
+  'tarefasPorSprint' => $tarefasPorSprint,
 ];
 
 return $data;

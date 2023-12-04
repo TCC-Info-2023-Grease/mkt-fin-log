@@ -23,24 +23,24 @@ $campos_validos = (
     $_GET['id'] ? true : false
 );
 if (!$campos_validos) {
-    navegate($_ENV['ROUTE'] . 'admin.conta.index'); 
+    navegate($_ENV['ROUTE'] . 'admin.task.index'); 
 }
 
 
 # ----- Deletar 
 try {
-    $conta = new Conta($mysqli);
-    $deletado = $conta->deletar($_GET['id']); 
+    $task = new Task($mysqli);
+    $deletado = $task->deletar($_GET['id']); 
     //ChamaSamu::debug($deletado);
 
     if ($deletado) {
-        $_SESSION['fed_conta'] = [
+        $_SESSION['fed_task'] = [
             'title' => 'Sucesso!',
             'msg' => 'Excluído com sucesso.',
             'icon' => 'success'
         ];
     } else {
-        $_SESSION['fed_conta'] = [
+        $_SESSION['fed_task'] = [
             'title' => 'Erro!',
             'msg' => 'Não é possível excluir.',
             'icon' => 'error'
@@ -49,12 +49,12 @@ try {
 } catch (Exception $error) {
     //ChamaSamu::debug($e);
 
-    $_SESSION['fed_conta'] = [
+    $_SESSION['fed_task'] = [
         'title' => 'Erro!',
         'msg' => 'Ocorreu um erro ao excluir',
         'icon' => 'error'
     ];
 }
 
-navegate($_ENV['ROUTE'] . 'admin.conta.index'); 
+navegate($_ENV['ROUTE'] . 'admin.task.index'); 
 ?>

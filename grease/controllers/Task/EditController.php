@@ -13,29 +13,29 @@ import_utils(['valida_campo', 'navegate']);
 # ------ Validar Envio de Dados
 $campos_validos = ($_GET['id'] ? true : false);
 if (!$campos_validos) { 
-  navegate($_ENV['ROUTE'] . 'admin.conta.index'); 
+  navegate($_ENV['ROUTE'] . 'admin.task.index'); 
 } 
 
 # ----- Editar 
 try {
-  $conta = new Conta($mysqli);
-  $contaData = $conta->buscar($_GET['id']);
+  $task = new Task($mysqli);
+  $taskData = $task->buscar($_GET['id']);
 
-  if (!$contaData) {
-    $_SESSION['fed_conta'] = [
+  if (!$taskData) {
+    $_SESSION['fed_task'] = [
       'title' => 'Erro!',
-      'msg' => 'Conta não encontrada.',
+      'msg' => 'Task não encontrada.',
       'icon' => 'error'
     ];
 
-    navegate($_ENV['ROUTE'] . 'admin.conta.index');
+    navegate($_ENV['ROUTE'] . 'admin.task.index');
   }
 
-  $url = $_ENV['VIEWS'] . '/admin/conta/edit.php';
+  $url = $_ENV['VIEWS'] . '/admin/task/edit.php';
 
   # Criar um formulário oculto com os dados da fornecedor
-  $form = '<form id="contaForm" action="' . $url . '" method="POST">';
-  foreach ($contaData as $key => $value) {
+  $form = '<form id="taskForm" action="' . $url . '" method="POST">';
+  foreach ($taskData as $key => $value) {
     $form .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
   }
   $form .= '</form>'; 
@@ -44,19 +44,19 @@ try {
   $script = '
   <script>
     window.onload = function() {
-      document.getElementById("contaForm").submit();
+      document.getElementById("taskForm").submit();
     }
   </script>';
 
   # Exibir o formulário e o script
   echo $form . $script;
 } catch (Exception $e) {
-  $_SESSION['fed_conta'] = [
+  $_SESSION['fed_task'] = [
     'title' => 'Erro!',
     'msg' => 'Ocorreu um erro ao editar.',
     'icon' => 'error'
   ];
 
-  navegate($_ENV['ROUTE'] . 'admin.conta.index'); 
+  navegate($_ENV['ROUTE'] . 'admin.task.index'); 
 }
 ?>
