@@ -187,4 +187,26 @@ class Sprint
 
         return $sprintsAtivas;
     }
+
+  
+    public function listarSprintsInativas()
+    {
+        $query = "
+            SELECT * 
+            FROM {$this->tabela} 
+            WHERE status_sprint = 'inaativa'
+        ";
+        $result = $this->mysqli->query($query);
+
+        if ($result->num_rows === 0) {
+            return null;
+        }
+
+        $sprintsAtivas = [];
+        while ($linha = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $sprintsAtivas[] = $linha;
+        }
+
+        return $sprintsAtivas;
+    }
 }

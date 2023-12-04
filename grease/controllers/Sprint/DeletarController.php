@@ -23,38 +23,37 @@ $campos_validos = (
     $_GET['id'] ? true : false
 );
 if (!$campos_validos) {
-    navegate($_ENV['ROUTE'] . 'admin.conta.index'); 
+    navegate($_ENV['ROUTE'] . 'admin.sprint.index'); 
 }
 
 
 # ----- Deletar 
 try {
-    $conta = new Conta($mysqli);
-    $deletado = $conta->deletar($_GET['id']); 
+    $sprint = new Sprint($mysqli);
+    $deletado = $sprint->concluirSprint($_GET['id']); 
     //ChamaSamu::debug($deletado);
 
     if ($deletado) {
-        $_SESSION['fed_conta'] = [
+        $_SESSION['fed_sprint'] = [
             'title' => 'Sucesso!',
             'msg' => 'Excluído com sucesso.',
             'icon' => 'success'
         ];
     } else {
-        $_SESSION['fed_conta'] = [
+        $_SESSION['fed_sprint'] = [
             'title' => 'Erro!',
             'msg' => 'Não é possível excluir.',
             'icon' => 'error'
         ];
     }
-} catch (Exception $error) {
+} catch (Exception $e) {
     //ChamaSamu::debug($e);
 
-    $_SESSION['fed_conta'] = [
+    $_SESSION['fed_sprint'] = [
         'title' => 'Erro!',
         'msg' => 'Ocorreu um erro ao excluir',
         'icon' => 'error'
     ];
 }
 
-navegate($_ENV['ROUTE'] . 'admin.conta.index'); 
-?>
+navegate($_ENV['ROUTE'] . 'admin.sprint.index'); 

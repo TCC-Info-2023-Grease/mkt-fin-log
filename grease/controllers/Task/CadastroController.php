@@ -21,57 +21,56 @@ $_SESSION['ultimo_acesso'] = time();
 $campos_validos = (
   !empty($_POST['titulo']) && isset($_POST['titulo']) &&
   !empty($_POST['descricao']) && isset($_POST['descricao']) &&
-  !empty($_POST['valor']) && isset($_POST['valor'])  &&
-  !empty($_POST['data_validade']) && isset($_POST['data_validade']) &&
-  !empty($_POST['usuario_id']) && isset($_POST['usuario_id']) &&
-  !empty($_POST['fornecedor_id']) && isset($_POST['fornecedor_id']) 
+  !empty($_POST['sprint_id']) && isset($_POST['sprint_id'])  &&
+  !empty($_POST['data_de_vencimento']) && isset($_POST['data_de_vencimento']) &&
+  !empty($_POST['aluno_id']) && isset($_POST['aluno_id']) &&
+  !empty($_POST['status_tarefa']) && isset($_POST['status_tarefa']) 
 );
 if (!$campos_validos) 
 {
-  $_SESSION['fed_conta'] = [ 
+  $_SESSION['fed_task'] = [ 
       'title' => 'Erro!', 'msg' => 'Campos Invalidos', 
       'icon'  => 'error'
   ];
 
   //var_dump($campos_validos);
-  navegate($_ENV['ROUTE'] . 'admin.conta.create');
+  navegate($_ENV['ROUTE'] . 'admin.task.create');
 } 
 
 
 # ----- Cadastro
-$conta = new Conta($mysqli);
+$task = new Task($mysqli);
 
 //ChamaSamu::debug($_POST);
 
 try {
   $dados = [
-    'fornecedor_id' => $_POST['fornecedor_id'],
-    'usuario_id' => $_POST['usuario_id'],
     'titulo' => $_POST['titulo'],
     'descricao' => $_POST['descricao'],
-    'valor' => $_POST['valor'],
-    'data_validade' => $_POST['data_validade'],
-    'data_insercao' => $_POST['data_insercao']
+    'data_de_vencimento' => $_POST['data_de_vencimento'],
+    'aluno_id' => $_POST['aluno_id'],
+    'sprint_id' => $_POST['sprint_id'],
+    'status_tarefa' => $_POST['status_tarefa'],
   ];
-  $conta->cadastrar($dados);
+  $task->cadastrar($dados);
   
 } catch (Exception $e) {
   //ChamaSamu::debug($e);
 
-  $_SESSION['fed_conta'] = [ 
+  $_SESSION['fed_task'] = [ 
     'title' => 'Erro!', 'msg' => 'Campos Invalidos',
     'icon'  => 'error'
   ];
 
   //var_dump($dados);
-  navegate($_ENV['ROUTE'] . 'admin.conta.create');
+  navegate($_ENV['ROUTE'] . 'admin.task.create');
 }
 
 //ChamaSamu::debug($dados);
 
-$_SESSION['fed_conta'] = [ 
+$_SESSION['fed_task'] = [ 
   'title' => 'OK!', 'msg' => 'Cadastrado com sucesso',
   'icon'  => 'success'
 ];
 
-navegate($_ENV['ROUTE'] . 'admin.conta.index');
+navegate($_ENV['ROUTE'] . 'admin.task.index');
