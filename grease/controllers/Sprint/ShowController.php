@@ -12,20 +12,20 @@ import_utils(['valida_campo', 'navegate']);
 # ------ Validar Envio de Dados
 $campos_validos = ($_GET['id'] ? true : false);
 if (!$campos_validos) {
-    navegate($_ENV['ROUTE'] . 'admin.conta.index');
+    navegate($_ENV['ROUTE'] . 'admin.sprint.index');
 }
 
 # ----- Show
-$conta = new Conta($mysqli);
-$contaData = $conta->buscar($_GET['id']); 
+$sprint = new Sprint($mysqli);
+$sprintData = $sprint->buscar($_GET['id']); 
 
-//var_dump($contaData);
+//var_dump($sprintData);
 
-$url = $_ENV['VIEWS'] . '/admin/conta/show.php'; 
+$url = $_ENV['VIEWS'] . '/admin/sprint/show.php'; 
 
 # Criar um formulário oculto com os dados 
-$form = '<form id="contaForm" action="' . $url . '" method="POST">';
-foreach ($contaData as $key => $value) {
+$form = '<form id="sprintForm" action="' . $url . '" method="POST">';
+foreach ($sprintData as $key => $value) {
     $form .= '<input type="hidden" name="' . $key . '" value="' . $value . '">';
 }
 $form .= '</form>';
@@ -34,10 +34,9 @@ $form .= '</form>';
 $script = '
 <script>
   window.onload = function() {
-    document.getElementById("contaForm").submit();
+    document.getElementById("sprintForm").submit();
   }
 </script>';
 
 # Exibir o formulário e o script
 echo $form . $script;
-?>

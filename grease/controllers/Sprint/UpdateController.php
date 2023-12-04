@@ -19,71 +19,50 @@ if (isset($_SESSION["ultimo_acesso"])) {
 $_SESSION["ultimo_acesso"] = time();
 
 # ------ Validar Envio de Dados
-$campos_validos = $_POST["fornecedor_id"] ? true : false;
+$campos_validos = (
+  !empty($_POST['titulo']) && isset($_POST['titulo']) &&
+  !empty($_POST['descricao']) && isset($_POST['descricao']) &&
+  !empty($_POST['data_de_inicio']) && isset($_POST['data_de_inicio'])  &&
+  !empty($_POST['data_de_fim']) && isset($_POST['data_de_fim']) &&
+  !empty($_POST['status_sprint']) && isset($_POST['status_sprint']) 
+);
 if (!$campos_validos) {
-  $_SESSION["fed_conta"] = [
+  $_SESSION["fed_sprint"] = [
     "title" => "Erro!",
     "msg" => "Campos Inválidos",
     "icon" => "error",
   ];
-  navegate($_ENV["ROUTE"] . "admin.conta.index");
+  navegate($_ENV["ROUTE"] . "admin.sprint.index");
 }
 
 # ------ Atualizar
-$conta = new Conta($mysqli);
-$caixa = new Caixa($mysqli);
-
-$dados = [
-  "conta_id" => $_POST["conta_id"],
-  "fornecedor_id" => $_POST["fornecedor_id"],
-  "usuario_id" => $_POST["usuario_id"],
-  "titulo" => $_POST["titulo"],
-  "descricao" => $_POST["descricao"],
-  "valor" => $_POST["valor"],
-  "data_validade" => $_POST["data_validade"],
-  "status_conta" => $_POST["status_conta"],
-];
+$sprint = new Sprint($mysqli);
 
 try {
-  $conta->atualizar($dados);
+  $dados = [
+    'titulo'          => $_POST['titulo'],
+    'descricao'       => $_POST['descricao'],
+    'data_de_inicio'  => $_POST['data_e_inicio'],
+    'data_de_fim'     => $_POST['data_de_fim'],
+    'status_sprint'   => $_POST['status_sprint']
+  ];
+  # ChamaSamu::debug($dados);
+  
+  $sprint->atualizar($dados);
 
-  if ($dados["status_conta"] == 1 && $caixa->unico('descricao', $dados['descricao'])) {
-
-    $dados = [
-      "usuario_id" => Auth::getUserData()['usuario_id'],
-      "categoria" => "Conta",
-      "descricao" => $dados["descricao"],
-      "data_movimentacao" => date("Y-m-d H:i:s"),
-      "valor" => $dados["valor"],
-      "tipo_movimentacao" => "despesa",
-      "forma_pagamento" => "N/A",
-      "obs" => "N/A",
-    ];
-
-    if (!$caixa->cadastrarSaida($dados)) {
-      MercuryLog::error(
-        "erro na saida adicionada",
-        Auth::getUserData()["nome"],
-        $folder = "usuario"
-      );
-    }
-  }
-
-# ChamaSamu::debug($dados);
-
-  $_SESSION["fed_conta"] = [
+  $_SESSION["fed_sprint"] = [
     "title" => "Sucesso!",
-    "msg" => $dados["status_conta"] == 1 && $caixa->unico('descricao', $dados['descricao'])? "Atualizado e inserido no Caixa com sucesso" : "Atualizado com sucesso",
+    "msg" => "Atualizado com sucesso",
     "icon" => "success",
   ];
 } catch (Exception $e) {
-  $_SESSION["fed_conta"] = [
+  $_SESSION["fed_sprint"] = [
     "title" => "Erro!",
     "msg" => "Erro ao atualizar",
     "icon" => "error",
   ];
 }
 
-navegate($_ENV["ROUTE"] . "admin.conta.index");
+navegate($_ENV["ROUTE"] . "admin.sprint.index");
 
 ?>

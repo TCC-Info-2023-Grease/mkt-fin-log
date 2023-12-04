@@ -21,57 +21,54 @@ $_SESSION['ultimo_acesso'] = time();
 $campos_validos = (
   !empty($_POST['titulo']) && isset($_POST['titulo']) &&
   !empty($_POST['descricao']) && isset($_POST['descricao']) &&
-  !empty($_POST['valor']) && isset($_POST['valor'])  &&
-  !empty($_POST['data_validade']) && isset($_POST['data_validade']) &&
-  !empty($_POST['usuario_id']) && isset($_POST['usuario_id']) &&
-  !empty($_POST['fornecedor_id']) && isset($_POST['fornecedor_id']) 
+  !empty($_POST['data_de_inicio']) && isset($_POST['data_de_inicio'])  &&
+  !empty($_POST['data_de_fim']) && isset($_POST['data_de_fim']) &&
+  !empty($_POST['status_sprint']) && isset($_POST['status_sprint']) 
 );
 if (!$campos_validos) 
 {
-  $_SESSION['fed_conta'] = [ 
+  $_SESSION['fed_sprint'] = [ 
       'title' => 'Erro!', 'msg' => 'Campos Invalidos', 
       'icon'  => 'error'
   ];
 
   //var_dump($campos_validos);
-  navegate($_ENV['ROUTE'] . 'admin.conta.create');
+  navegate($_ENV['ROUTE'] . 'admin.sprint.create');
 } 
 
 
 # ----- Cadastro
-$conta = new Conta($mysqli);
+$sprint = new Sprint($mysqli);
 
 //ChamaSamu::debug($_POST);
 
 try {
   $dados = [
-    'fornecedor_id' => $_POST['fornecedor_id'],
-    'usuario_id' => $_POST['usuario_id'],
     'titulo' => $_POST['titulo'],
     'descricao' => $_POST['descricao'],
-    'valor' => $_POST['valor'],
-    'data_validade' => $_POST['data_validade'],
-    'data_insercao' => $_POST['data_insercao']
+    'data_de_inicio' => $_POST['data_e_inicio'],
+    'data_de_fim' => $_POST['data_de_fim'],
+    'status_sprint' => $_POST['status_sprint']
   ];
-  $conta->cadastrar($dados);
+  $sprint->cadastrar($dados);
   
 } catch (Exception $e) {
   //ChamaSamu::debug($e);
 
-  $_SESSION['fed_conta'] = [ 
+  $_SESSION['fed_sprint'] = [ 
     'title' => 'Erro!', 'msg' => 'Campos Invalidos',
     'icon'  => 'error'
   ];
 
   //var_dump($dados);
-  navegate($_ENV['ROUTE'] . 'admin.conta.create');
+  navegate($_ENV['ROUTE'] . 'admin.sprint.create');
 }
 
 //ChamaSamu::debug($dados);
 
-$_SESSION['fed_conta'] = [ 
+$_SESSION['fed_sprint'] = [ 
   'title' => 'OK!', 'msg' => 'Cadastrado com sucesso',
   'icon'  => 'success'
 ];
 
-navegate($_ENV['ROUTE'] . 'admin.conta.index');
+navegate($_ENV['ROUTE'] . 'admin.sprint.index');
