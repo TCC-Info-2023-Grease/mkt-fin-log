@@ -86,7 +86,7 @@ $routes['admin.material.create'] = [
   'params' => []
 ];
 
-
+# --
 $routes['admin.material.entrada.create'] = [
   'method' => 'GET',
   'file' => 'admin/material/entrada.create',
@@ -98,6 +98,7 @@ $routes['admin.material.entrada.index'] = [
   'params' => []
 ];
 
+# --
 $routes['admin.material.saida.create'] = [
   'method' => 'GET',
   'file' => 'admin/material/saida.create',
@@ -148,6 +149,51 @@ $routes['admin.sala.relatorio'] = [
   'file' => 'admin/sala/relatorio',
   'params' => []
 ];
+
+# --
+$routes['admin.task.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/task/index',
+  'params' => []
+];
+$routes['admin.task.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/task/create',
+  'params' => []
+];
+$routes['admin.task.edit'] = [
+  'method' => 'GET',
+  'file' => 'admin/task/edit',
+  'params' => []
+];
+$routes['admin.task.relatorio'] = [
+  'method' => 'GET',
+  'file' => 'admin/task/relatorio',
+  'params' => []
+];
+
+# --
+$routes['admin.sprint.index'] = [
+  'method' => 'GET',
+  'file' => 'admin/sprint/index',
+  'params' => []
+];
+$routes['admin.sprint.create'] = [
+  'method' => 'GET',
+  'file' => 'admin/sprint/create',
+  'params' => []
+];
+$routes['admin.sprint.edit'] = [
+  'method' => 'GET',
+  'file' => 'admin/sprint/edit',
+  'params' => []
+];
+$routes['admin.sprint.relatorio'] = [
+  'method' => 'GET',
+  'file' => 'admin/sprint/relatorio',
+  'params' => []
+];
+
 
 # --
 $routes['admin.fornecedor.index'] = [
