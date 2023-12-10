@@ -46,7 +46,7 @@ try {
   $dados = [
     'titulo' => $_POST['titulo'],
     'descricao' => $_POST['descricao'],
-    'data_de_inicio' => $_POST['data_e_inicio'],
+    'data_de_inicio' => $_POST['data_de_inicio'],
     'data_de_fim' => $_POST['data_de_fim'],
     'status_sprint' => $_POST['status_sprint']
   ];

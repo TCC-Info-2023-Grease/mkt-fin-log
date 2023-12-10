@@ -246,7 +246,7 @@ CREATE TABLE entradasmaterial (
 );
 
 CREATE TABLE sprints (
-  id INTEGER PRIMARY KEY,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   titulo TEXT,
   descricao TEXT,
   data_de_inicio DATE,
@@ -255,7 +255,7 @@ CREATE TABLE sprints (
 );
 
 CREATE TABLE tarefas (
-  id INTEGER PRIMARY KEY,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   titulo TEXT,
   descricao TEXT,
   data_de_vencimento DATE,
