@@ -706,7 +706,7 @@ summary {
   display: flex;
   justify-content: space-between;
   flex-flow: column-reverse nowrap;
-  padding: 0.76rem;
+  padding: 0.56rem;
 }
 
 .column header i {
