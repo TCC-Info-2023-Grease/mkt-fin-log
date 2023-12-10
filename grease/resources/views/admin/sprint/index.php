@@ -114,7 +114,11 @@ extend_styles([ 'css.admin.financas' ]);
                 </ul>
               </div>
               <div class="column">
-                <h2>Em andamento</h2>
+                <header>
+                  <h2>Fazendo</h2>
+                  <i class="fa fa-solid fa-plus"></i>
+                </header>
+                
                 <ul class="cards">
                   <li class="card">
                     <h3>Tarefa 3</h3>
@@ -127,7 +131,11 @@ extend_styles([ 'css.admin.financas' ]);
                 </ul>
               </div>
               <div class="column">
-                <h2>Concluído</h2>
+                <header>
+                  <h2>Concluído</h2>
+                  <i class="fa fa-solid fa-plus"></i>
+                </header>
+                
                 <ul class="cards">
                   <li class="card">
                     <h3>Tarefa 5</h3>
