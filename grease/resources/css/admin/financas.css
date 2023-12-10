@@ -622,12 +622,12 @@ nav.close ~ .dashboard .top{
 }
 
 div .dash-content .activity .activity-data {
-    word-break: break-all;!important;
+    word-break: break-all!important;
 }
 
 .activity .activity-data{
     display: flex;
-    word-break: break-all;!important;
+    word-break: break-all!important;
 }
 .activity-data .data{
     display: flex;
@@ -681,6 +681,78 @@ div .dash-content .activity .activity-data {
 summary {
     cursor: pointer;
 }
+
+.kanban-board {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: transparent;
+  gap: 1rem;
+}
+
+.column {
+  background: #100d0df0;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12pt;
+  max-width: 45%;
+}
+
+.column h2 {
+  font-size: 20px;
+  margin-bottom: 0.95rem;
+}
+
+.column header {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column-reverse nowrap;
+  padding: 0.76rem;
+}
+
+.column header i {
+  text-align: right;
+  color: white;
+  border-radius: 5pt;
+  padding: 0.67rem;
+  background: #29b429ed;
+  align-self: flex-end;
+} 
+.column header i:hover {
+  opacity: 0.8;
+  transition: .45s linear;
+}
+
+.cards {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 12pt;
+  padding: 1rem;
+}
+
+.card:hover {
+  transition: .25s linear;
+  transform: scale(1.2);
+  background-color: whitesmoke;
+  color: black;
+}
+
+.card h3 {
+  font-size: 18px;
+}
+
+.card p {
+  font-size: 16px;
+}
+
 
 
 

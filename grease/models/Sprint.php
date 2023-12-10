@@ -82,8 +82,6 @@ class Sprint
                 {$this->tabela} 
             WHERE 
                 id = '" . $id . "' 
-                    AND 
-                status_sprint = 'ativa'
         ");
 
         if ($sql->num_rows === 0) {
@@ -126,8 +124,6 @@ class Sprint
                 * 
             FROM 
                 {$this->tabela}     
-            WHERE
-                status_sprint = 'ativa'
         ";
         $result = $this->mysqli->query($query);
 

@@ -15,8 +15,8 @@ try {
   $sprint = new Sprint($mysqli);
   $task = new Task($mysqli);
 
-  $sprints           = $sprints->listarSprints();
-  $sprintsAtivas     = $sprint->listarSprintAtivas();
+  $sprints           = $sprint->listarSprints();
+  $sprintsAtivas     = $sprint->listarSprintsAtivas();
   $sprintsNaoAtivas  = $sprint->listarSprintsInativas();
 } catch (Exception $e) {
     //ChamaSamu::debug($e);
