@@ -717,6 +717,10 @@ summary {
   background: #29b429ed;
   align-self: flex-end;
 } 
+.column header i:hover {
+  opacity: 0.8;
+  transition: .45s linear;
+}
 
 .cards {
   list-style: none;
