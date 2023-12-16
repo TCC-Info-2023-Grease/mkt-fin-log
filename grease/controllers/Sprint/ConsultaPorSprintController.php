@@ -1,8 +1,10 @@
 <?php
 # ------ Dados Iniciais
+require dirname(dirname(__DIR__)) . "/config.php";
 global $mysqli;
 
 import_utils([ 'navegate' ]);
+import_utils(["Auth"]);
 
 Auth::check('adm');
 
@@ -14,10 +16,6 @@ $sprintsNaoAtivas;
 try {
   $sprint = new Sprint($mysqli);
   $task = new Task($mysqli);
-
-  $sprints           = $sprint->listarSprints();
-  $sprintsAtivas     = $sprint->listarSprintsAtivas();
-  $sprintsNaoAtivas  = $sprint->listarSprintsInativas();
 } catch (Exception $e) {
     //ChamaSamu::debug($e);
 
@@ -26,14 +24,8 @@ try {
       'msg' => 'Erro inesperado',
       'icon' => 'error'
     ];
-
 }
 
-$data = [ 
-  'sprints'          => $sprints,
-  'sprintsAtivas'    => $sprintsAtivas,
-  'sprintsNaoAtivas' => $sprintsNaoAtivas
-];
 
 if ($_GET['sprint']) {
     if (!is_numeric($_GET['sprint'])) {

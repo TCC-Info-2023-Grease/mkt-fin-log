@@ -99,9 +99,9 @@ extend_styles(["css.admin.financas"]);
         <div style="display: flex;justify-content: ;align-items: streth;flex-direction: column; padding: 2rem;">
             <div class="title">
               <select name="sprint" id="sprint" class="text select-sprint">
-                <?php foreach($data['sprints'] as $sprint): ?>
-                  <option value="<?= $sprint['id'] ?>">
-                    <?= $sprint['titulo'] ?>
+                <?php foreach ($data["sprints"] as $sprint): ?>
+                  <option value="<?= $sprint["id"] ?>">
+                    <?= $sprint["titulo"] ?>
                   </option>
                 <?php endforeach; ?>
               </select>
@@ -251,7 +251,9 @@ extend_styles(["css.admin.financas"]);
                         onclick="if (confirm('Deseja excluir mesmo?')) {
                           this.href = '<?= $_ENV[
                             "URL_CONTROLLERS"
-                          ] ?>/Sprint/DeletarController.php?id=<?= $sprint["id"] ?>';
+                          ] ?>/Sprint/DeletarController.php?id=<?= $sprint[
+  "id"
+] ?>';
                         }"
                         class="icon-link delete"
                       >
@@ -264,7 +266,8 @@ extend_styles(["css.admin.financas"]);
             <?php } else { ?>
             <h3>Sem inserções</h3>
             <?php } ?>
-        </table>
+          </table>
+          <label for="" id="teste">as</label>
       </div>
     </div>
   </section>
@@ -274,7 +277,7 @@ extend_styles(["css.admin.financas"]);
     $(document).ready(function() {
       $('#myTable').DataTable();
       
-      //===========
+      /* ===========
       const myList = document.querySelector("#mylist");
     
      // Cria um novo objeto Sortable
@@ -286,12 +289,27 @@ extend_styles(["css.admin.financas"]);
         const tasks = sortable.toArray();
         alert(tasks);
       });
+      */
       
-    });
       //===========
-      const selectSprint = document.querySelector('.select-sprint'));
+      const selectSprint = document.querySelector('.select-sprint');
       
-      fetch(`<?= $_ENV['URL_CONTROLLERS'] ?>/Sprint/ConsultaController.php?sprint=${selectSprint.value}`);
+      $('#teste').text(`<?= $_ENV[
+        "URL_CONTROLLERS"
+      ] ?>/Sprint/ConsultaController.php?sprint=${selectSprint.value}`);
+      
+      const url = `<?= $_ENV[
+        "URL_CONTROLLERS"
+      ] ?>/Sprint/ConsultaPorSprintController.php?sprint=${selectSprint.value}`;
+      
+     $('#teste').text(url);
+
+    fetch(url, { method: 'GET' })
+      .then((response) => response.json()) // Use response.json() para converter a resposta em JSON
+      .then((data) => {
+        $('#teste').text(data);
+      });
+
   </script>
 </body>
 <!-------/ BODY --------->

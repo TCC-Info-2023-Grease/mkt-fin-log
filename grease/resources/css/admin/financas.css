@@ -341,7 +341,7 @@ body.dark .nav-links li a:hover .link-name{
 }
 .menu-items .logout-mode{
     padding-top: 10px;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid black;
 }
 .menu-items .mode{
     display: flex;
