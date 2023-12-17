@@ -84,96 +84,76 @@ extend_styles(["css.admin.financas"]);
             </a>
           </div>
         </div>
-        
         <br><br>
-        <hr color="black" />
-      </div>
-      
-      
-    <style>
-      .title #sprint {
-        width: 400px;
-      }
-    </style>
-      <div class="dash-content" style="padding: 0px;">
-        <div style="display: flex;justify-content: ;align-items: streth;flex-direction: column; padding: 2rem;">
-            <div class="title">
-              <select name="sprint" id="sprint" class="text select-sprint">
-                <?php foreach ($data["sprints"] as $sprint): ?>
-                  <option value="<?= $sprint["id"] ?>">
-                    <?= $sprint["titulo"] ?>
-                  </option>
-                <?php endforeach; ?>
-              </select>
+        
+        <?php if (
+          !empty($data['sprints']) ||
+          !empty($data['sprintsAtivas']) ||
+          !empty($data['sprintsNaoAtivas'])
+       ): ?>
+        <div class="dash-content">
+          <div class="boxes">
+              <?php if (
+                !empty($data['sprintsAtivas'])
+              ): ?>
+             <div 
+                class="box 
+                  <?php if (!empty($data['sprintsAtivas']) && ($data['sprintsAtivas']) <= 10): ?>
+                    box3
+                  <?php elseif (!empty($data['sprintsAtivas']) && ($data['sprintsAtivas']) > 0): ?>
+                    box2
+                  <?php else: ?>
+                    box1
+                  <?php endif; ?>
+              ">
+                <span class="text">Ativas</span> 
+                <span class="number">
+                   <?= (count($data['sprintsAtivas']) > 0)? count($data['sprintsAtivas']) : '0'; ?>
+                </span> 
+              </div>
+              <?php endif; ?>
+
+                <?php if (
+                !empty($data['sprintsNaoAtivas'])
+              ): ?>
+              <div 
+                class="box 
+                  <?php if (count($data['sprintsNaoAtivas']) < count($data['sprintsAtivas'])): ?>
+                    box1
+                  <?php elseif (count($data['sprintsNaoAtivas']) > count($data['sprintsAtivas'])): ?>
+                    box2
+                  <?php else: ?>
+                    box3
+                  <?php endif; ?>
+              ">              
+                <span class="text">Não Ativas</span> 
+                <span class="number">
+                  <?=  (count($data['sprintsNaoAtivas']) > 0)? count($data['sprintsNaoAtivas']) : '0'; ?>
+                </span> 
+              </div>
+              <?php endif; ?>
+
+              <div class="box box4"> 
+                <span class="text">Total</span> 
+                <span class="number">
+                <?= (count($data['sprints']) > 0)? count($data['sprints']) : '0'; ?>
+                </span> 
+              </div>          
             </div>
-      
-            <div class="kanban-board">
-              <div class="column">
-                <header>
-                  <h2>A fazer</h2>
-                  <i class="fa fa-solid fa-plus"></i>
-                </header>
-                
-                <ul class="cards areas" id="mylist" data-area="fazer">
-                  <li class="card item" draggable="true">
-                    <h3>Tarefa 1</h3>
-                    <p>Descrição da tarefa 1</p>
-                  </li>
-                  <li class="card item" draggable="true">
-                    <h3>Tarefa 2</h3>
-                    <p>Descrição da tarefa 2</p>
-                  </li>
-                </ul>
-              </div>
-              <div class="column">
-                <header>
-                  <h2>Fazendo</h2>
-                  <i class="fa fa-solid fa-plus"></i>
-                </header>
-                
-                <ul class="cards areas" id="mylist" data-area="fazendo">
-                  <li class="card item" draggable="true">
-                    <h3>Tarefa 3</h3>
-                    <p>Descrição da tarefa 3</p>
-                  </li>
-                  <li class="card item" draggable="true">
-                    <h3>Tarefa 4</h3>
-                    <p>Descrição da tarefa 4</p>
-                  </li>
-                </ul>
-              </div>
-              <div class="column">
-                <header>
-                  <h2>Concluído</h2>
-                  <i class="fa fa-solid fa-plus"></i>
-                </header>
-                
-                <ul class="cards areas" id="mylist" data-area="concluido">
-                  <li class="card item" draggable="true">
-                    <h3>Tarefa 5</h3>
-                    <p>Descrição da tarefa 5</p>
-                  </li>
-                  <li class="card item" draggable="true">
-                    <h3>Tarefa 6</h3>
-                    <p>Descrição da tarefa 6</p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
+        <br><br>
+        <?php endif ?>
+        <br>
+        <hr>
 
-
-      <div class="dash-content">
-        <hr color="black" />
       </div>
+      
 
 
       <div class="dash-content">
         <div style="display: flex;justify-content: space-between;align-items: center;">
-          <div class="title"><span class="text">Itens</span></div>
-
+          <div></div>
+        
           <div class="dropdown">
             <a target="_blank" href="<?= $_ENV[
               "ROUTE"
@@ -182,6 +162,7 @@ extend_styles(["css.admin.financas"]);
             </a>
           </div>
         </div>
+        <br><br>
 
         <?php if (isset($data["sprints"]) || !empty($data["sprints"])) { ?>
         <table id="myTable" class="display">
@@ -251,9 +232,7 @@ extend_styles(["css.admin.financas"]);
                         onclick="if (confirm('Deseja excluir mesmo?')) {
                           this.href = '<?= $_ENV[
                             "URL_CONTROLLERS"
-                          ] ?>/Sprint/DeletarController.php?id=<?= $sprint[
-  "id"
-] ?>';
+                          ] ?>/Sprint/DeletarController.php?id=<?= $sprint["id"] ?>';
                         }"
                         class="icon-link delete"
                       >
@@ -267,7 +246,6 @@ extend_styles(["css.admin.financas"]);
             <h3>Sem inserções</h3>
             <?php } ?>
           </table>
-          <label for="" id="teste">as</label>
       </div>
     </div>
   </section>
@@ -290,26 +268,7 @@ extend_styles(["css.admin.financas"]);
         alert(tasks);
       });
       */
-      
-      //===========
-      const selectSprint = document.querySelector('.select-sprint');
-      
-      $('#teste').text(`<?= $_ENV[
-        "URL_CONTROLLERS"
-      ] ?>/Sprint/ConsultaController.php?sprint=${selectSprint.value}`);
-      
-      const url = `<?= $_ENV[
-        "URL_CONTROLLERS"
-      ] ?>/Sprint/ConsultaPorSprintController.php?sprint=${selectSprint.value}`;
-      
-     $('#teste').text(url);
-
-    fetch(url, { method: 'GET' })
-      .then((response) => response.json()) // Use response.json() para converter a resposta em JSON
-      .then((data) => {
-        $('#teste').text(data);
-      });
-
+    });
   </script>
 </body>
 <!-------/ BODY --------->

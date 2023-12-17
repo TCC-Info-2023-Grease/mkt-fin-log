@@ -35,19 +35,5 @@ $data = [
   'sprintsNaoAtivas' => $sprintsNaoAtivas
 ];
 
-if ($_GET['sprint']) {
-    if (!is_numeric($_GET['sprint'])) {
-        throw new Exception('O parâmetro "sprint" deve ser um número.');
-    }
-
-    $sprint = $sprint->buscar($_GET['sprint']);
-
-    if (!$sprint) {
-        throw new Exception('A Sprint com o ID "' . $_GET['sprint'] . '" não foi encontrada.');
-    }
-
-    $data['sprint'] = $sprint;
-}
-
 //ChamaSamu::debugPanel($data);
 return $data;
