@@ -35,4 +35,5 @@ $data = [
   'sprintsNaoAtivas' => $sprintsNaoAtivas
 ];
 
+//ChamaSamu::debugPanel($data);
 return $data;
